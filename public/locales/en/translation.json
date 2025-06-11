@@ -1,0 +1,134 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "products": "Products",
+    "technicalHub": "Technical Hub",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "World-Leading Water Filter Membrane Solutions Since 1995",
+    "subtitle": "Acclaimed for excellence in membrane technology, delivering quality, credibility, and well-engineered water filter membranes",
+    "cta": {
+      "primary": "Get Started Today",
+      "secondary": "View Our Products"
+    }
+  },
+  "awards": {
+    "title": "Award-Winning Excellence",
+    "subtitle": "Recognized globally for our innovative membrane technology",
+    "waterDigest": {
+      "title": "Water Digest Water Awards",
+      "description": "Best Membrane (2014-2016)",
+      "support": "UNESCO-supported"
+    },
+    "dubai": {
+      "title": "Best Membrane Technology Award",
+      "description": "Dubai 2015",
+      "support": "Industry Excellence"
+    }
+  },
+  "industries": {
+    "title": "Industries We Serve",
+    "subtitle": "Precision Solutions for Every Need",
+    "types": {
+      "household": {
+        "title": "Household",
+        "description": "Low-pressure POU RO systems (50/75/100 GPD)"
+      },
+      "municipal": {
+        "title": "Municipal",
+        "description": "Approved for global tender processes"
+      },
+      "healthcare": {
+        "title": "Healthcare",
+        "description": "Ultra-pure water for dialysis (XLE Series)"
+      },
+      "textile": {
+        "title": "Textile",
+        "description": "High-temp CP Series (4040/8040)"
+      },
+      "foodBeverage": {
+        "title": "Food & Beverage",
+        "description": "Specialty elements for bottling & processing"
+      },
+      "commercial": {
+        "title": "Commercial",
+        "description": "ES Series: Low-energy, high-flux (150-400 GPD)"
+      }
+    }
+  },
+  "products": {
+    "title": "Our Products",
+    "subtitle": "Engineered for Performance & Sustainability",
+    "categories": {
+      "residential": {
+        "title": "Residential RO Elements",
+        "description": "Eliminate salts and impurities with precision"
+      },
+      "commercial": {
+        "title": "Commercial RO Elements",
+        "description": "Safe water for schools, offices, and hospitals"
+      },
+      "industrial": {
+        "title": "Industrial RO Elements",
+        "description": "Pharma-grade solutions for labs and industries"
+      }
+    }
+  },
+  "features": {
+    "title": "Why Hi-Tech's Services Stand Out?",
+    "subtitle": "We transform 'better' into 'best' through accuracy, expertise, and relentless improvement",
+    "customerCentric": {
+      "title": "Customer-Centric",
+      "description": "Your feedback shapes our upgrades"
+    },
+    "support": {
+      "title": "End-to-End Support",
+      "description": "From design to post-sales"
+    },
+    "expertise": {
+      "title": "Certified Expertise",
+      "description": "ISO/WQA-backed quality protocols"
+    }
+  },
+  "contact": {
+    "title": "Let's Optimize Your Water Solutions Together!",
+    "subtitle": "Contact our team to discuss your specific needs",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "message": "Message",
+      "submit": "Submit"
+    }
+  },
+  "footer": {
+    "about": {
+      "description": "Precision separation membranes for the most demanding industrial environments."
+    },
+    "quickLinks": "Quick Links",
+    "productLines": "Product Lines",
+    "newsletter": {
+      "title": "Stay Updated",
+      "description": "Subscribe to our newsletter for technical updates and industry insights",
+      "placeholder": "Your email address",
+      "button": "Subscribe"
+    }
+  },
+  "cta": {
+    "requestQuote": "Request Quote",
+    "getStarted": "Get Started",
+    "contactUs": "Contact Us",
+    "learnMore": "Learn More",
+    "viewAll": "View All"
+  },
+  "languages": {
+    "en": "English",
+    "th": "ไทย",
+    "ar": "العربية",
+    "zh": "中文",
+    "my": "မြန်မာ"
+  }
+}
