@@ -34,7 +34,7 @@ const Header: React.FC = () => {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
           ? "bg-white dark:bg-gray-800 shadow-md py-3"
-          : "bg-transparent py-5"
+          : "bg-white py-5"
       }`}
     >
       <div className="container mx-auto px-4">
@@ -117,7 +117,7 @@ const Header: React.FC = () => {
                 isActive("/")
                   ? isScrolled
                     ? "text-blue-600 dark:text-blue-400"
-                    : "text-white"
+                    : "text-blue-600"
                   : isScrolled
                   ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                   : " hover:text-blue-600"
@@ -142,21 +142,6 @@ const Header: React.FC = () => {
             </Link>
 
             <Link
-              to="/services"
-              className={`font-medium transition-colors ${
-                isActive("/services")
-                  ? isScrolled
-                    ? "text-blue-600 dark:text-blue-400"
-                    : "text-blue-600"
-                  : isScrolled
-                  ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                  : " hover:text-blue-600"
-              }`}
-            >
-              {t("nav.services")}
-            </Link>
-
-            <Link
               to="/products"
               className={`font-medium transition-colors ${
                 isActive("/products")
@@ -172,6 +157,37 @@ const Header: React.FC = () => {
             </Link>
 
             <Link
+              to="/services"
+              className={`font-medium transition-colors ${
+                isActive("/services")
+                  ? isScrolled
+                    ? "text-blue-600 dark:text-blue-400"
+                    : "text-blue-600"
+                  : isScrolled
+                  ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                  : " hover:text-blue-600"
+              }`}
+            >
+              {t("nav.services")}
+            </Link>
+
+            <Link
+              to="/media-room"
+              className={`font-medium transition-colors ${
+                isActive("/media-room")
+                  ? isScrolled
+                    ? "text-blue-600 dark:text-blue-400"
+                    : "text-blue-600"
+                  : isScrolled
+                  ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                  : " hover:text-blue-600"
+              }`}
+            >
+              {t("nav.mediaRoom")}
+            </Link>
+
+
+            {/* <Link
               to="/technical-hub"
               className={`font-medium transition-colors ${
                 isActive("/technical-hub")
@@ -184,7 +200,7 @@ const Header: React.FC = () => {
               }`}
             >
               {t("nav.technicalHub")}
-            </Link>
+            </Link> */}
 
             <Link
               to="/contact"
@@ -203,7 +219,7 @@ const Header: React.FC = () => {
           </nav>
 
           <div className="flex items-center gap-4">
-            <a
+            {/* <a
               href="tel:+18001234567"
               className={`hidden md:flex items-center mr-6 ${
                 isScrolled ? "text-gray-700 dark:text-gray-300" : "text-black"
@@ -211,7 +227,7 @@ const Header: React.FC = () => {
             >
               <Phone className="w-5 h-5 mr-2" />
               <span className="font-medium">1-800-123-4567</span>
-            </a>
+            </a> */}
 
             <LanguageSelector />
 
@@ -247,7 +263,7 @@ const Header: React.FC = () => {
               className={`hidden md:block px-5 py-2 rounded-md font-medium transition-colors ${
                 isScrolled
                   ? "bg-blue-600 text-white hover:bg-blue-700"
-                  : "bg-white text-blue-600 hover:bg-blue-50"
+                  : "bg-[#A8CF45] text-[#3D3E96] hover:bg-blue-50"
               }`}
             >
               {t("cta.requestQuote")}
