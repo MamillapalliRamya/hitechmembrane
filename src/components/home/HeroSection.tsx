@@ -1,9 +1,5 @@
-import React, { useState, useEffect, Suspense } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Play } from 'lucide-react';
-import { MembraneModel } from '../3d/MembraneModel';
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 const HeroSection: React.FC = () => {
   const [videoPlaying, setVideoPlaying] = useState(false);
   
@@ -21,7 +17,7 @@ const HeroSection: React.FC = () => {
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         {videoPlaying ? (
-          <div className="w-full h-full bg-gradient-to-r from-blue-900/70 to-blue-700/50">
+          <div className="w-full h-full">
             <div className="absolute inset-0 bg-black/30 mix-blend-multiply"></div>
             <video 
               className="w-full h-full object-cover" 
