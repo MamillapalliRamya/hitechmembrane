@@ -16,9 +16,7 @@ export const IndustriesData = [
       content: [
         {
           list1:
-            "Hitech’s RO elements for drinking water application have the capability to perform consistently at low pressure tap water for POU ( Point of Use ) RO systems .Our bestsellers in these category are 50 GPD, 75 GPD and 100 GPD.",
-          list2:
-            ".Our bestsellers in these category are 50 GPD, 75 GPD and 100 GPD.",
+          "Hitech’s RO elements for drinking water perform consistently at low pressure for POU systems. Our bestsellers are 50 GPD, 75 GPD, and 100 GPD.",
         },
       ],
     },
@@ -26,14 +24,12 @@ export const IndustriesData = [
   [
     {
       img: Health,
-      title: "Health",
+      title: "Health-Care",
       headLine: "Health",
       content: [
         {
           list1:
-            "Health-Care Industry requires the purest form of water for Dialysis Machines and research processes .",
-          list2:
-            " our XLE series serves the requirements and also beneficial with low energy costs.",
+            "Health-Care Industry requires the purest form of water for Dialysis Machines and research processes.our XLE series serves the requirements and also beneficial with low energy costs.",
         },
       ],
     },
@@ -46,9 +42,7 @@ export const IndustriesData = [
       content: [
         {
           list1:
-            "Replacement MarketsOur strong distribution network and wide market reach has made possible the replacement of old RO elements.",
-          list2:
-            " Hitech Membrane Elements quite effectively with benefits like technical support and economical pricing.",
+            "Our network allows replacing old RO elements with Hitech Membrane Elements, providing support and competitive pricing.",
         },
       ],
     },
@@ -62,9 +56,7 @@ export const IndustriesData = [
       content: [
         {
           list1:
-            "Small and large municipalities have accepted our elements and are in the list of approved brands in many countries for tender process.",
-          list2:
-            "Pre-qualified vendor, ensuring faster approval in government tenders.",
+            "Municipalities of all sizes accept our elements, appearing on approved brands lists for tenders.",
           // list3: "mnfctr-desc-3",
         },
       ],
@@ -79,10 +71,7 @@ export const IndustriesData = [
       content: [
         {
           list1:
-            "Textile and Dying houses require high RO elements to perform consistently at High Temperatures",
-          list2:
-            " Our CP range of 4040 and 8040 RO elements perfectly suits the requirements.",
-          list3: "Retail-desc-3",
+            "Textile and Dying houses need high RO elements for consistent performance at high temperatures. Our CP range of 4040 and 8040 RO elements meets these needs.",
         },
       ],
     },
@@ -97,8 +86,6 @@ export const IndustriesData = [
         {
           list1:
             "Be it Bottled water manufacturers or food and beverage processors we have specific solutions with our specialty elements.",
-          list2:
-            "Trusted by small vendors to multinational chains for quality and reliability.",
           // list3: "tele-commun-desc-3",
         },
       ],
@@ -112,9 +99,7 @@ export const IndustriesData = [
       content: [
         {
           list1:
-            "Whether be it large scale industries or power generation or process establishment with boilers , our BW and ES range comprises all the benefits like low fouling , high rejection , higher flux , high recovery which is the market demand at this stage ",
-          list2:
-            ".Our 4040 and 8040 RO elements have been awarded consecutively for commitment in providing sustainable solutions thorough continuous research .",
+            "Our BW and ES range offers benefits like low fouling and high recovery. Our 4040 and 8040 RO elements are recognized for sustainable solutions.",
           // list3: "auto-mob-desc-3",
         },
       ],
@@ -128,10 +113,7 @@ export const IndustriesData = [
       content: [
         {
           list1:
-            "Our commercial and institutional RO elements are engineered using Hi-Techs Latest low energy sheets with name of ES series. ",
-          list2:
-            " Products like Water Vending Machines , Small offices , restaurants , schools , hospitals ,etc use our products 150 GPD , 300 GPD , 400 GPD , 25*40 , 4021 to gain advantage of higher flux with low energy consumption.",
-
+            "Our RO elements use Hi-Tech's low energy ES series. Vending machines, offices, and hospitals utilize our 150, 300, and 400 GPD models for higher flux and low energy.",
           // list3: "edu-desc-3",
         },
       ],
