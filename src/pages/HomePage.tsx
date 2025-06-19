@@ -1,20 +1,17 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 import {
-  Award,
   Factory,
   Globe,
   Shield,
   Droplet,
   // Gauge,
-  ArrowRight,
   Building,
   Home,
   FlaskRound as Flask,
 } from "lucide-react";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
-import IndustriesComp from "../components/industries/IndustriesComp";
+import IndustriesOverview from "../components/industries/industriesOverview";
 import BrandSection from "../components/home/BrandSection";
 import HeadingSection from "../components/home/HeadingSection";
 import GroupCompanies from "../components/home/GroupCompanies";
@@ -81,7 +78,7 @@ const strengths = [
   return (
     <GoogleReCaptchaProvider reCaptchaKey="YOUR_RECAPTCHA_KEY">
       <div className="w-full">
-        <section className="relative h-screen max-h-[800px] bg-gradient-to-r from-blue-900 to-blue-700 text-white overflow-hidden">
+        <section className="relative h-screen max-h-[800px] bg-gradient-to-r from-gray-800 to-gray-600 text-white overflow-hidden">
           {/* Particle Background */}
           <HeroSection />
 
@@ -101,7 +98,7 @@ const strengths = [
         {/* Awards Section */}
 
        <section className="py-10 bg-white">
-          <div className="container mx-auto px-4">
+          <div className="ml-[100px] mr-[100px]">
             <div className="text-center mb-12">
               <h2 className="text-[40px] leading-[100%] tracking-[1px] font-semibold text-center text-black mb-2">
                 Award-Winning Excellence
@@ -146,7 +143,7 @@ const strengths = [
 
         {/* Industries Section */}
       
-        <IndustriesComp />
+        <IndustriesOverview />
         {/* Products Section */}
         <ProductsPage1 />
 
