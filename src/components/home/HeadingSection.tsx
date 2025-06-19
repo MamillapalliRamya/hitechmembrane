@@ -50,17 +50,20 @@ const AboutExcellence: React.FC = () => {
       }}
       ref={containerRef}
     >
-      <div className="max-w-7xl mx-auto">
-        <div className="max-w-7xl mx-auto px-4 py-12">
+      <div className="">
+        <div className=" px-4 py-12">
           {/* Centered Heading */}
-          <h1
-            className="text-3xl font-bold md:text-4xl  text-[#58585B]
+          <div className="display flex">
+            <h1
+              className="text-3xl font-bold md:text-4xl  text-[#58585B]
  mb-12 md:mb-20 text-center opacity-0 translate-y-10 transition-all duration-700 ease-out"
-            ref={contentRef}
-            style={{ animation: "fadeInUp 0.7s ease-out forwards", marginLeft: "170px", marginRight: "200px", fontSize: "2.6rem", lineHeight: "2.7rem" }}
-          >
-            We are acclaimed worldwide for our excellence in water filter membrane solution
-          </h1>
+              ref={contentRef}
+              style={{ animation: "fadeInUp 0.7s ease-out forwards",  fontSize: "2.6rem", lineHeight: "2.7rem",marginLeft:"278px" }}
+            >
+              We are acclaimed worldwide for our excellence in water filter membrane solution
+            </h1>
+            <img src="pipes.png" alt="Pipes" style={{ height: "282px", width: "330px", marginTop: "-137px" }} />
+          </div>
           {/* <hr className="p-2 w-full" /> */}
           {/* Animated Cards Container */}
           <div className="flex flex-col md:flex-row justify-center items-stretch gap-8">
@@ -68,22 +71,23 @@ const AboutExcellence: React.FC = () => {
 
             <section className="p-4">
               <div className="flex flex-col md:flex-row items-center  gap-8"
-              style={{height:"400px",justifyContent:"space-evenly"}}>
+                style={{ height: "400px", justifyContent: "space-evenly", gap: "10rem" }}>
 
                 {/* Image on the left */}
                 <div className="w-full md:w-1/2"
-                style={{background: "#F2F2F2",width:"387px",height:"340px"}}>
+                  style={{ background: "#F2F2F2", width: "387px", height: "340px" }}>
                   <img
                     src={image1}
                     alt="Description"
-                    style={{width:"469px",height:"202px",marginTop:"51px"}}
-                    // className="w-full h-auto object-cover rounded-lg shadow-md"
+                    style={{ width: "469px", height: "202px", marginTop: "51px" }}
+                  // className="w-full h-auto object-cover rounded-lg shadow-md"
                   />
-                  <img src="/logo-1 2.png" alt="Logo" className="w-full h-auto object-cover rounded-lg shadow-md" style={{width: "77.60204315185547px", height: "65px",marginLeft:"280px"}} />
+                  <img src="/logo-1 2.png" alt="Logo" className="w-full h-auto object-cover rounded-lg shadow-md" style={{ width: "77.60204315185547px", height: "65px", marginLeft: "280px" }} />
                 </div>
 
                 {/* Text on the right */}
-                <div className="w-full md:w-1/2 text-left">
+                <div className="w-full md:w-1/2 text-left"
+                  style={{ width: "36%" }}>
 
                   <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
                     Since 1995, Hi-Tech has been dedicated to providing high-quality water filter membranes. Our commitment to wellness and innovation has allowed us to expand globally over the years. With ANSI-58 certification, our Commercial and Industrial membranes are trusted by many. We’ve received multiple awards, including Best RO Membrane from The Water Digest for 2014-2016 and the Best Water Filter Membrane Technology Award in Dubai 2015. Hi-Tech continues to grow by enhancing our network and delivering cutting-edge membrane technology, making us a leading water filter dealer in Thailand.
