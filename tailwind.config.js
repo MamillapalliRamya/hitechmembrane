@@ -4,12 +4,12 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
-      backgroundColor: {
-        dark: '#121212',
-      },
-      textColor: {
-        dark: '#ffffff',
-      },
+      // backgroundColor: {
+      //   dark: '#121212',
+      // },
+      // textColor: {
+      //   dark: '#ffffff',A
+      // },
     },
   },
   plugins: [],
