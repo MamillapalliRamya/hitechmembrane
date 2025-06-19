@@ -15,50 +15,62 @@ const BrandSection = () => {
       width: 180,
       height: 80,
     },
+    
+    {
+      id: 3,
+      name: "KVGA",
+      image: image3,
+      effect: "hover:scale-110 transform origin-center",
+      width: 150,
+      height: 80,
+    },
     {
       id: 2,
       name: "NRSK",
       image: image2,
       effect: "hover:scale-110 transform origin-center",
-      width: 120,
-      height: 80,
-    },
-    {
-      id: 3,
-      name: "KVGA",
-      image: image3,
-      effect: "opacity-80 hover:opacity-100",
-      width: 150,
+      width: 155,
       height: 80,
     },
     {
       id: 4,
       name: "MMBER INDIAN WATER QUALITY ASSOCIATION",
       image: image4,
-      effect: "hover:brightness-125",
+      effect: "hover:scale-110 transform origin-center",
       width: 220,
       height: 80,
     },
   ];
 
-  // Duplicate brands for seamless animation
-  const duplicatedBrands = [...brands, ...brands];
+  // no Duplicate brands 
+ const visibleBrands = brands.slice(1, 4);
 
   return (
-    <section className="py-12 bg-gray-50 overflow-hidden">
+    <section className="py-12 overflow-hidden">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-12">
-          Our Trusted Partners
+        <h2
+          className="text-[48px] leading-[1] font-semibold text-left mb-12 text-[#3E4095] font-clash"
+        >
+          Partners
         </h2>
 
-        <div className="relative h-40 overflow-hidden">
+        <div className="relative  overflow-hidden"
+        >
           {/* First row (left to right) */}
-          <div className="absolute flex animate-marquee whitespace-nowrap items-center">
-            {duplicatedBrands.map((brand, index) => (
+          <div className="flex  items-center  flex-nowrap">
+          {visibleBrands.map((brand) => (
               <div
-                key={`first-${brand.id}-${index}`}
+                 key={brand.id}
                 className={`inline-flex items-center justify-center h-full transition-all duration-300 mx-8 ${brand.effect}`}
-                style={{ width: "200px", height: "150px", padding: "10px" }}
+                style={{ 
+                  width: "450px", 
+                  height: "288px", 
+                  background: "#F6F6F6",
+                  // position: "relative",
+                  // top: "949px",
+                  // left: "520px",
+                  padding: "10px" 
+                }}
               >
                 <img
                   src={brand.image}
@@ -93,7 +105,7 @@ const BrandSection = () => {
         </div>
       </div>
 
-      <style jsx>{`
+      {/* <style jsx>{`
         @keyframes marquee {
           0% {
             transform: translateX(0);
@@ -116,7 +128,7 @@ const BrandSection = () => {
         .animate-marquee2 {
           animation: marquee2 30s linear infinite;
         }
-      `}</style>
+      `}</style> */}
     </section>
   );
 };

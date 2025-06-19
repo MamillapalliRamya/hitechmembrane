@@ -41,3 +41,6 @@
 .animate-rotate-slow {
   animation: rotate 10s linear infinite;
 }
+.font-medium{
+  font-weight:700 !important;
+}

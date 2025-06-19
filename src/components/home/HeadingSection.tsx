@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import image1 from "../../../src/assets/images/wetransfer_hitech/waterfilter_img.png";
 
 const AboutExcellence: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -53,24 +54,52 @@ const AboutExcellence: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 py-12">
           {/* Centered Heading */}
           <h1
-            className="text-3xl font-bold md:text-4xl  text-gray-900 mb-12 md:mb-20 text-center opacity-0 translate-y-10 transition-all duration-700 ease-out"
+            className="text-3xl font-bold md:text-4xl  text-[#58585B]
+ mb-12 md:mb-20 text-center opacity-0 translate-y-10 transition-all duration-700 ease-out"
             ref={contentRef}
-            style={{ animation: "fadeInUp 0.7s ease-out forwards" }}
+            style={{ animation: "fadeInUp 0.7s ease-out forwards", marginLeft: "170px", marginRight: "200px", fontSize: "2.6rem", lineHeight: "2.7rem" }}
           >
-            ACCLAIMED WORLDWIDE FOR ITS EXCELLENCE IN WATER FILTER MEMBRANE
-            SOLUTION
+            We are acclaimed worldwide for our excellence in water filter membrane solution
           </h1>
-          <hr className="p-2 w-full" />
+          {/* <hr className="p-2 w-full" /> */}
           {/* Animated Cards Container */}
           <div className="flex flex-col md:flex-row justify-center items-stretch gap-8">
             {/* Left Card - Animate from left */}
 
-            <section className=" p-4">
-              <div
+            <section className="p-4">
+              <div className="flex flex-col md:flex-row items-center  gap-8"
+              style={{height:"400px",justifyContent:"space-evenly"}}>
+
+                {/* Image on the left */}
+                <div className="w-full md:w-1/2"
+                style={{background: "#F2F2F2",width:"387px",height:"340px"}}>
+                  <img
+                    src={image1}
+                    alt="Description"
+                    style={{width:"469px",height:"202px",marginTop:"51px"}}
+                    // className="w-full h-auto object-cover rounded-lg shadow-md"
+                  />
+                  <img src="/logo-1 2.png" alt="Logo" className="w-full h-auto object-cover rounded-lg shadow-md" style={{width: "77.60204315185547px", height: "65px",marginLeft:"280px"}} />
+                </div>
+
+                {/* Text on the right */}
+                <div className="w-full md:w-1/2 text-left">
+
+                  <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
+                    Since 1995, Hi-Tech has been dedicated to providing high-quality water filter membranes. Our commitment to wellness and innovation has allowed us to expand globally over the years. With ANSI-58 certification, our Commercial and Industrial membranes are trusted by many. We’ve received multiple awards, including Best RO Membrane from The Water Digest for 2014-2016 and the Best Water Filter Membrane Technology Award in Dubai 2015. Hi-Tech continues to grow by enhancing our network and delivering cutting-edge membrane technology, making us a leading water filter dealer in Thailand.
+                  </p>
+                </div>
+
+              </div>
+
+
+
+
+              {/* <div
                 className="w-full   rounded-xl  overflow-hidden transition-all duration-500 ease-out opacity-0 -translate-x-20  hover:-translate-y-2"
                 style={{ animation: "slideInLeft 0.7s ease-out forwards 0.2s" }}
-              >
-                <div className="p-8 h-full transition-all duration-300 ">
+              > */}
+              {/* <div className="p-8 h-full transition-all duration-300 ">
                   <h2 className="text-2xl font-bold text-gray-900 mb-6">
                     OUR EXCELLENCE IN MEMBRANE TECHNOLOGY
                   </h2>
@@ -88,22 +117,22 @@ const AboutExcellence: React.FC = () => {
                       mix.
                     </p>
                   </div>
-                </div>
-              </div>
+                </div> */}
+              {/* </div> */}
 
               {/* Right Card - Animate from right */}
-              <div
+              {/* <div
                 className="w-full md:w-1/2 bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-500 ease-out opacity-0 translate-x-20 hover:shadow-xl hover:-translate-y-2"
                 style={{
                   animation: "slideInRight 0.7s ease-out forwards 0.2s",
                 }}
-              ></div>
-              <div
+              ></div> */}
+              {/* <div
                 className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8"
                 ref={cardsRef}
-              >
-                {/* ANSI-58 Certified Card */}
-                <div
+              > */}
+              {/* ANSI-58 Certified Card */}
+              {/* <div
                   className="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500 opacity-0 translate-y-20 transition-all duration-700 ease-out delay-200
               hover:shadow-md hover:-translate-y-1 hover:bg-blue-100 hover:border-blue-600 transform-gpu"
                   style={{ animation: "fadeInUp 0.7s ease-out forwards 0.2s" }}
@@ -114,10 +143,10 @@ const AboutExcellence: React.FC = () => {
                   <p className="mt-2 text-gray-600">
                     Our membranes meet rigorous industry standards
                   </p>
-                </div>
+                </div> */}
 
-                {/* Best RO Membrane Card */}
-                <div
+              {/* Best RO Membrane Card */}
+              {/* <div
                   className="bg-green-50 p-6 rounded-lg border-l-4 border-green-500 opacity-0 translate-y-20 transition-all duration-700 ease-out delay-300
               hover:shadow-md hover:-translate-y-1 hover:bg-green-100 hover:border-green-600 transform-gpu"
                   style={{ animation: "fadeInUp 0.7s ease-out forwards 0.3s" }}
@@ -128,10 +157,10 @@ const AboutExcellence: React.FC = () => {
                   <p className="mt-2 text-gray-600">
                     Awarded 2014-2015, 2015-2016 by Water Digest
                   </p>
-                </div>
+                </div> */}
 
-                {/* Technology Award Card */}
-                <div
+              {/* Technology Award Card */}
+              {/* <div
                   className="bg-amber-50 p-6 rounded-lg border-l-4 border-amber-500 opacity-0 translate-y-20 transition-all duration-700 ease-out delay-400
               hover:shadow-md hover:-translate-y-1 hover:bg-amber-100 hover:border-amber-600 transform-gpu"
                   style={{ animation: "fadeInUp 0.7s ease-out forwards 0.4s" }}
@@ -142,8 +171,8 @@ const AboutExcellence: React.FC = () => {
                   <p className="mt-2 text-gray-600">
                     Best Membrane Technology, Dubai 2015
                   </p>
-                </div>
-              </div>
+                </div> */}
+              {/* </div> */}
             </section>
           </div>
         </div>
