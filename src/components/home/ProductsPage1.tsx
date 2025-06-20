@@ -35,7 +35,7 @@ const OurProductsSection = () => {
 
   return (
     <div className=" py-16">
-      <div className=" mx-auto px-4 sm:px-6 lg:px-8" style={{maxWidth:"95rem"}}>
+      <div className=" mx-auto px-4 sm:px-6 lg:px-8" style={{ maxWidth: "95rem" }}>
         {/* Header */}
         <div className="text-left mb-16">
           <h2 className="text-4xl font-bold text-[#3E4095] mb-4">Our Products</h2>
@@ -44,7 +44,7 @@ const OurProductsSection = () => {
         {/* Products Grid */}
         <div className="space-y-20">
           {products.map((product, index) => (
-            <div key={product.id} className={`flex flex-col lg:flex-row items-center gap-12 ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`} style={{gap:"12rem"}}>
+            <div key={product.id} className={`flex flex-col lg:flex-row items-center gap-12 ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`} style={{ gap: "12rem" }}>
               {/* Image Section */}
               <div className="flex-1 lg:max-w-md">
                 <div className="relative overflow-hidden rounded-lg shadow-lg">
@@ -57,8 +57,8 @@ const OurProductsSection = () => {
               </div>
 
               {/* Content Section */}
-              <div className=" space-y-6" style={{width:"45%"}}>
-                <h3 className="text-2xl sm:text-3xl font-bold text-[#000000]" style={{opacity:"0.7"}}>
+              <div className=" space-y-6" style={{ width: "45%" }}>
+                <h3 className="text-2xl sm:text-3xl font-bold text-[#000000]" style={{ opacity: "0.7" }}>
                   {product.title}
                 </h3>
 
@@ -66,9 +66,15 @@ const OurProductsSection = () => {
                   {product.description}
                 </p>
 
-                <button className="inline-flex items-center px-6 py-3 bg-[#A8CF45] hover:bg-[#A8CF45] text-[#3d3e96] font-medium rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
-                  {product.buttonText}
+                <button
+                  className="inline-flex items-center px-6 py-3 font-medium rounded-[16px] justify-center relative overflow-hidden
+             bg-[#A8CF45] text-[#3D3E96] transition-all duration-500
+             before:content-[''] before:absolute before:inset-0 before:bg-[#3D3E96] before:-translate-y-full 
+             before:transition-transform before:duration-500 hover:before:translate-y-0 hover:text-[#A8CF45]"
+                >
+                  <span className="relative z-10">{product.buttonText}</span>
                 </button>
+
               </div>
             </div>
           ))}
