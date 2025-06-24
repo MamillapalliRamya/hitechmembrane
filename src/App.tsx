@@ -4,10 +4,10 @@ import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import HomePage from './pages/HomePage.tsx';
 import ProductsPage from './pages/ProductsPage.tsx';
-import ResidentialProductsPage from './pages/ResidentialProductsPage.tsx';
-import CommercialProductsPage from './pages/CommercialProductsPage.tsx';
-import IndustrialProductsPage from './pages/IndustrialProductsPage.tsx';
-import ProductDetailPage from './pages/ProductDetailPage.tsx';
+// import ResidentialProductsPage from './pages/ResidentialProductsPage.tsx';
+// import CommercialProductsPage from './pages/CommercialProductsPage.tsx';
+// import IndustrialProductsPage from './pages/IndustrialProductsPage.tsx';
+// import ProductDetailPage from './pages/ProductDetailPage.tsx';
 import TechnicalHubPage from './pages/TechnicalHubPage.tsx';
 import ContactPage from './pages/ContactPage.tsx';
 import AboutPage from './pages/AboutPage.tsx';
@@ -27,10 +27,10 @@ function App() {
               <Route path="/about" element={<AboutPage />} />
               <Route path="/services" element={<ServicesPage />} />
               <Route path="/products" element={<ProductsPage />} />
-              <Route path="/products/residential-ro-membranes" element={<ResidentialProductsPage />} />
-              <Route path="/products/commercial-ro-membranes" element={<CommercialProductsPage />} />
-              <Route path="/products/industrial-ro-membranes" element={<IndustrialProductsPage />} />
-              <Route path="/products/:id" element={<ProductDetailPage />} />
+              {/* <Route path="/products/residential-ro-membranes" element={<ResidentialProductsPage />} /> */}
+              {/* <Route path="/products/commercial-ro-membranes" element={<CommercialProductsPage />} /> */}
+              {/* <Route path="/products/industrial-ro-membranes" element={<IndustrialProductsPage />} /> */}
+              {/* <Route path="/products/:id" element={<ProductDetailPage />} /> */}
               <Route path="/technical-hub" element={<TechnicalHubPage />} />
               <Route path="/contact" element={<ContactPage />} />
             </Routes>

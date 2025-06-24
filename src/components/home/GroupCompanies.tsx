@@ -22,9 +22,9 @@ const GroupCompanies = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="flex items-center justify-center gap-[600px] text-white"
+            className="flex items-center justify-center gap-[400px] text-white"
           >
-            <h1 className="w-[851px] h-[132px] text-[48px] text-[#FFFFFF] md:text-5xl lg:text-6xl font-bold leading-tight">
+            <h1 className="w-[851px] h-[132px] text-[48px] text-[#FFFFFF] ml-[100px] md:text-5xl lg:text-6xl font-bold leading-tight">
               Know More About Hi-Tech RO Water Filter Membranes
             </h1>
             
