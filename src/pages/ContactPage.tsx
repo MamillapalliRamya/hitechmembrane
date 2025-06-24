@@ -1,303 +1,193 @@
-import React from "react";
-import { motion } from "framer-motion";
-import {
-  MapPin,
-  Phone,
-  Mail,
-  Clock,
-  Globe,
-  Facebook,
-  Linkedin,
-  Twitter,
-} from "lucide-react";
-import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import React, { useState } from "react";
 
-const ContactPage: React.FC = () => {
-  const { executeRecaptcha } = useGoogleReCaptcha();
-  const [formData, setFormData] = React.useState({
+const ContactPage = () => {
+  const [formData, setFormData] = useState({
     firstName: "",
+    lastName: "",
     email: "",
+    company: "",
     country: "",
+    zipCode: "",
     phone: "",
-    message: "",
   });
 
   const countries = [
-    { code: "TH", name: "Thailand", dialCode: "+66" },
-    { code: "US", name: "USA", dialCode: "+1" },
-    { code: "AE", name: "UAE", dialCode: "+971" },
-    { code: "CN", name: "China", dialCode: "+86" },
-    { code: "MM", name: "Myanmar", dialCode: "+95" },
-    { code: "In", name: "Others", dialCode: "+91" },
-    { code: "OT", name: "Others", dialCode: "" },
+    "Select Country",
+    "Thailand",
+    "USA",
+    "UAE",
+    "China",
+    "Myanmar",
+    "India",
+    "Others"
   ];
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!executeRecaptcha) return;
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
-    try {
-      const token = await executeRecaptcha("contact");
-      // Handle form submission with reCAPTCHA token
-      console.log("Form submitted with token:", token);
-    } catch (error) {
-      console.error("Form submission error:", error);
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form submitted:", formData);
+    // Handle form submission logic here
   };
 
   return (
-    <div className="pt-20">
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        className="bg-gradient-to-b from-blue-900 to-blue-800 text-white py-20"
-      >
-        <div className="container mx-auto px-4">
-          <motion.h1
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="text-4xl md:text-5xl font-bold mb-4"
-          >
-            Contact Hi-Tech Membranes
-          </motion.h1>
-          <motion.p
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="text-xl text-blue-100 max-w-2xl"
-          >
-            Have questions or need support? Our team is here to help.
-          </motion.p>
+    <div className="bg-gray-100">
+      {/* Main Content */}
+      <main className="max-w-4xl mx-auto px-4 py-16" style={{ marginTop: "100px" }}>
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-blue-800 mb-4">Contact Us</h1>
         </div>
-      </motion.div>
 
-      <div className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Contact Form */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.4 }}
-              className="bg-white rounded-lg shadow-lg p-8"
-            >
-              <h2 className="text-2xl font-bold mb-6">Send Us a Message</h2>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    First Name *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    value={formData.firstName}
-                    onChange={(e) =>
-                      setFormData({ ...formData, firstName: e.target.value })
-                    }
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Email *
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    value={formData.email}
-                    onChange={(e) =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Country *
-                  </label>
-                  <select
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    value={formData.country}
-                    onChange={(e) =>
-                      setFormData({ ...formData, country: e.target.value })
-                    }
-                  >
-                    <option value="">Select Country</option>
-                    {countries.map((country) => (
-                      <option key={country.code} value={country.code}>
-                        {country.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Phone *
-                  </label>
-                  <div className="flex">
-                    <select className="w-24 px-2 py-2 border border-r-0 border-gray-300 rounded-l-md focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                      {countries.map((country) => (
-                        <option key={country.code} value={country.dialCode}>
-                          {country.dialCode}
-                        </option>
-                      ))}
-                    </select>
-                    <input
-                      type="tel"
-                      required
-                      className="flex-1 px-4 py-2 border border-gray-300 rounded-r-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      value={formData.phone}
-                      onChange={(e) =>
-                        setFormData({ ...formData, phone: e.target.value })
-                      }
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Your Message *
-                  </label>
-                  <textarea
-                    required
-                    rows={4}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    value={formData.message}
-                    onChange={(e) =>
-                      setFormData({ ...formData, message: e.target.value })
-                    }
-                  ></textarea>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <button
-                    type="submit"
-                    className="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-                  >
-                    Send Message
-                  </button>
-                  <div className="flex items-center text-sm text-gray-500">
-                    <Clock className="w-4 h-4 mr-2" />
-                    Reply within 24 hours
-                  </div>
-                </div>
-              </form>
-            </motion.div>
-
-            {/* Contact Information */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.4 }}
-              className="space-y-8"
-            >
-              <div className="bg-white rounded-lg shadow-lg p-8">
-                <h2 className="text-2xl font-bold mb-6">Contact Information</h2>
-                <div className="space-y-6">
-                  <div className="flex items-start">
-                    <MapPin className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
-                    <div className="ml-4">
-                      <h3 className="font-medium text-gray-900">
-                        Headquarters
-                      </h3>
-                      <p className="mt-2 text-gray-600">
-                        700/273 AMATA CITY CHONBURI INDUSTRIAL ESTATE,
-                        <br />
-                        MOO 1, TAMBON BANKAO, AMPHUR PHANTHONG,
-                        <br />
-                        CHONBURI, THAILAND 20160
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center">
-                    <Phone className="w-6 h-6 text-blue-600" />
-                    <div className="ml-4">
-                      <h3 className="font-medium text-gray-900">Phone</h3>
-                      <a
-                        href="tel:+66038109396"
-                        className="mt-1 text-gray-600 hover:text-blue-600"
-                      >
-                        +66 (0) 3810 9396
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center">
-                    <Mail className="w-6 h-6 text-blue-600" />
-                    <div className="ml-4">
-                      <h3 className="font-medium text-gray-900">Email</h3>
-                      <a
-                        href="mailto:sales@hitechmembranes.com"
-                        className="mt-1 text-gray-600 hover:text-blue-600"
-                      >
-                        sales@hitechmembranes.com
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center">
-                    <Globe className="w-6 h-6 text-blue-600" />
-                    <div className="ml-4">
-                      <h3 className="font-medium text-gray-900">
-                        Global Support
-                      </h3>
-                      <p className="mt-1 text-gray-600">
-                        Available in multiple languages
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-8 pt-8 border-t border-gray-200">
-                  <h3 className="font-medium text-gray-900 mb-4">Follow Us</h3>
-                  <div className="flex space-x-4">
-                    <a
-                      href="#"
-                      className="text-gray-400 hover:text-blue-600 transition-colors"
-                    >
-                      <Facebook className="w-6 h-6" />
-                    </a>
-                    <a
-                      href="#"
-                      className="text-gray-400 hover:text-blue-600 transition-colors"
-                    >
-                      <Linkedin className="w-6 h-6" />
-                    </a>
-                    <a
-                      href="#"
-                      className="text-gray-400 hover:text-blue-600 transition-colors"
-                    >
-                      <Twitter className="w-6 h-6" />
-                    </a>
-                  </div>
-                </div>
+        {/* Contact Form */}
+        <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-5xl mx-auto">
+          <div className="space-y-6">
+            {/* Name Fields */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="flex items-center space-x-4">
+                <label className="text-sm font-medium text-gray-700 w-20 flex-shrink-0">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  name="firstName"
+                  placeholder="First Name"
+                  value={formData.firstName}
+                  onChange={handleInputChange}
+                  className="flex-1 px-4 py-3 bg-#f2f2f2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+                  style={{ backgroundColor: "#f2f2f2" }}
+                />
               </div>
-
-              {/* Google Maps */}
-              <div className="bg-white rounded-lg shadow-lg p-8">
-                <h2 className="text-2xl font-bold mb-6">Location</h2>
-                <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3889.7503493314584!2d101.07234611482008!3d13.170899990731698!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3102dd8d5d7e1c69%3A0x2c46bf5c5c07b945!2sAmata%20City%20Chonburi!5e0!3m2!1sen!2sth!4v1645508123456!5m2!1sen!2sth"
-                    width="100%"
-                    height="300"
-                    style={{ border: 0 }}
-                    allowFullScreen
-                    loading="lazy"
-                  ></iframe>
-                </div>
+              <div className="flex items-center space-x-4 " style={{ marginLeft: "20px" }}>
+                {/* <label className="text-sm font-medium text-gray-700 w-20 flex-shrink-0 opacity-0">
+                  Name
+                </label> */}
+                <input
+                  type="text"
+                  name="lastName"
+                  placeholder="Last Name"
+                  value={formData.lastName}
+                  onChange={handleInputChange}
+                  className="flex-1 px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+                  style={{ backgroundColor: "#f2f2f2" }}
+                />
               </div>
-            </motion.div>
+            </div>
+
+            {/* Email */}
+            <div className="flex items-center space-x-4">
+              <label className="text-sm font-medium text-gray-700 w-20 flex-shrink-0">
+                Email
+              </label>
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter Email"
+                value={formData.email}
+                onChange={handleInputChange}
+                className="flex-1 px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+                style={{ backgroundColor: "#f2f2f2" }}
+              />
+            </div>
+
+            {/* Company */}
+            <div className="flex items-center space-x-4">
+              <label className="text-sm font-medium text-gray-700 w-20 flex-shrink-0">
+                Company
+              </label>
+              <input
+                type="text"
+                name="company"
+                placeholder="Enter Company"
+                value={formData.company}
+                onChange={handleInputChange}
+                className="flex-1 px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+                style={{ backgroundColor: "#f2f2f2" }}
+              />
+            </div>
+
+            {/* Country and Zip Code */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="flex items-center space-x-4">
+                <label className="text-sm font-medium text-gray-700 w-20 flex-shrink-0">
+                  Country
+                </label>
+                <select
+                  name="country"
+                  value={formData.country}
+                  onChange={handleInputChange}
+                  className="flex-1 px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors bg-white"
+                  style={{ backgroundColor: "#f2f2f2" }}
+                >
+                  {countries.map((country, index) => (
+                    <option key={index} value={index === 0 ? "" : country} disabled={index === 0}>
+                      {country}
+                    </option>
+                  ))}
+                </select>
+
+              </div>
+              <div className="flex items-center ">
+                <label className="text-sm font-medium text-gray-700 w-20 flex-shrink-0">
+                  Zip code
+                </label>
+                <input
+                  type="text"
+                  name="zipCode"
+                  placeholder="Enter Zip code"
+                  value={formData.zipCode}
+                  onChange={handleInputChange}
+                  className="flex-1 px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+
+                  style={{ backgroundColor: "#f2f2f2" }} />
+              </div>
+            </div>
+
+            {/* Phone */}
+            <div className="flex items-center space-x-4">
+              <label className="text-sm font-medium text-gray-700 w-20 flex-shrink-0">
+                Phone
+              </label>
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Enter Phone number"
+                value={formData.phone}
+                onChange={handleInputChange}
+                className="flex-1 px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+
+                style={{ backgroundColor: "#f2f2f2" }} />
+            </div>
+
+            {/* Submit Button */}
+            <div className="pt-3 flex justify-center">
+              <button type="submit"
+                className="inline-flex items-center px-6 py-3 font-medium rounded-[16px] justify-center relative overflow-hidden
+        bg-[#A8CF45] text-[#3D3E96] transition-all duration-500
+        before:content-[''] before:absolute before:inset-0 before:bg-[#3D3E96] before:-translate-y-full 
+        before:transition-transform before:duration-500 hover:before:translate-y-0 hover:text-[#A8CF45]"
+              >
+                <span className="relative z-10">Get Quote Now</span>
+              </button>
+
+            </div>
           </div>
         </div>
-      </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-white border-t mt-16">
+        <div className="max-w-7xl mx-auto px-4 py-3 text-center">
+          <p className="text-sm text-gray-600">
+            Copyright © 2025 HI-TECH MEMBRANES, INC.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 };
