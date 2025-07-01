@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import image1 from '.././assets/images/wetransfer_hitech/products.png';
-import TitleSection from '../components/TitleSection';
+import TitleSection from '../components/Titlesection';
 import GroupCompanies from '../components/home/GroupCompanies';
 
 
