@@ -17,6 +17,8 @@ import GroupCompanies from "../components/home/GroupCompanies";
 import WaterFilterSection from "../components/home/WaterFilterSection";
 import ProductsPage1 from "../components/home/ProductsPage1";
 import HeroSection from "../components/home/HeroSection";
+import AwardsSection from "../components/home/AwardsSection";
+import GlobalPresenceSection from "../components/home/GlobalPresence";
 import WaterDropSection from "../components/home/WaterDropsSection";
 import WaterSolutionsSection from "../components/home/WaterSection";
 import EventsSection from "../components/home/EventsSection";
@@ -63,85 +65,15 @@ const HomePage: React.FC = () => {
         <EventsSection/>
 
 
-        {/* Awards Section */}
-        <motion.section
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={{
-            hidden: {},
-            visible: {
-              transition: { staggerChildren: 0.3, delayChildren: 0.2 },
-            },
-          }}
-          className="py-16 bg-white"
-        >
-          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            {/* Heading zoom from small to large */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.7 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="text-center mb-12"
-            >
-              <h2 className="text-[40px] leading-tight tracking-[1px] font-semibold text-black mb-2">
-                Award-Winning Excellence
-              </h2>
-              <p className="text-[20.9px] text-gray-600">
-                Recognized globally for our innovative membrane technology
-              </p>
-            </motion.div>
+       
+        <AwardsSection />
+        <GlobalPresenceSection />
 
-            {/* Award cards - slide from bottom at same time */}
-            <div className="grid md:grid-cols-2 gap-10">
-              {[1, 2].map((_, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 80 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.9 }}
-                  viewport={{ once: true }}
-                  className="bg-blue-50 pt-4 pr-8 pb-8 pl-8 rounded-[4px] w-full h-[307px] flex flex-col items-center"
-                >
-                  <img
-                    src={i === 0 ? "/assets/images/award1.png" : "/assets/images/award2.png"}
-                    alt={i === 0 ? "The Water Digest" : "Best Membrane Tech Award"}
-                    className={i === 0 ? "w-[198px] h-[196px]" : "w-[154px] h-[188px] scale-90"}
-                  />
-                  <h3 className="text-xl font-bold mb-2 mt-2">
-                    {i === 0 ? "The Water Digest" : "Best Membrane Technology Award"}
-                  </h3>
-                  <p className="text-gray-600">
-                    {i === 0 ? "Best Membrane (2014–2016)" : "Dubai 2015"}
-                  </p>
-                  <p className="text-sm text-blue-600 mt-3">
-                    {i === 0 ? "UNESCO-supported" : "Industry Excellence"}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </motion.section>
+        {/* <WaterFilterSection />
 
-
-        {/* Industries Section */}
-        <motion.div {...fadeInFrom('left')}><IndustriesOverview /></motion.div>
-
-        {/* Products Section */}
-        {/* <motion.div {...fadeInFrom('right', 0.3)}> */}
         <ProductsPage1 />
-        {/* </motion.div> */}
 
-        {/* Water Filter Section */}
-        {/* <motion.div {...fadeInFrom('left', 0.2)}> */}
-          <WaterFilterSection />
-          {/* </motion.div> */}
-
-        {/* Group Companies Section */}
-        {/* <motion.div {...fadeInFrom('right', 0.4)}> */}
-        <GroupCompanies />
-        {/* </motion.div> */}
+        <GroupCompanies /> */}
 
       </div>
     </GoogleReCaptchaProvider>
