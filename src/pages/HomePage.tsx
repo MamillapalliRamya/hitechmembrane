@@ -11,14 +11,17 @@ import {
 } from "lucide-react";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 import IndustriesOverview from "../components/industries/industriesOverview";
-import BrandSection from "../components/home/BrandSection";
-import HeadingSection from "../components/home/HeadingSection";
+import AboutUsSection from "../components/home/BrandSection";
+// import HeadingSection from "../components/home/HeadingSection";
 import GroupCompanies from "../components/home/GroupCompanies";
 import WaterFilterSection from "../components/home/WaterFilterSection";
 import ProductsPage1 from "../components/home/ProductsPage1";
 import HeroSection from "../components/home/HeroSection";
 import AwardsSection from "../components/home/AwardsSection";
 import GlobalPresenceSection from "../components/home/GlobalPresence";
+import WaterDropSection from "../components/home/WaterDropsSection";
+import WaterSolutionsSection from "../components/home/WaterSection";
+import EventsSection from "../components/home/EventsSection";
 
 const fadeInFrom = (direction: 'left' | 'right', delay = 0) => {
   const x = direction === 'left' ? -100 : 100;
@@ -49,17 +52,17 @@ const HomePage: React.FC = () => {
   return (
     <GoogleReCaptchaProvider reCaptchaKey="YOUR_RECAPTCHA_KEY">
       <div className="w-full">
+          <WaterDropSection />
         <section className="relative h-screen max-h-[800px] bg-gradient-to-r from-gray-800 to-gray-600 text-white overflow-hidden">
           <HeroSection />
         </section>
 
         {/* Brand Section */}
-        <motion.div {...fadeInFrom('left')}><BrandSection /></motion.div>
+        <motion.div {...fadeInFrom('left')}><AboutUsSection /></motion.div>
 
-        {/* Heading Section */}
-        {/* <motion.div {...fadeInFrom('right', 0.2)}> */}
-        <HeadingSection />
-        {/* </motion.div> */}
+        <WaterSolutionsSection/>
+
+        <EventsSection/>
 
 
        
