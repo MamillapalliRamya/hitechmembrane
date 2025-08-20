@@ -6,7 +6,7 @@ import image1 from '../assets/images/wetransfer_hitech/Reverse-Osmosis-Membrane.
 
 import iconDesign from '../assets/icons/design.png';
 import iconSupport from '../assets/icons/support.png';
-import iconManuals from '../assets/icons/design.png';
+import iconManuals from '../assets/icons/design.png';``
 import iconEngineering from '../assets/icons/support.png';
 import iconLab from '../assets/icons/design.png';
 import iconSales from '../assets/icons/support.png';
