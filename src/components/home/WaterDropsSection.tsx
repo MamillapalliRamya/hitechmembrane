@@ -50,7 +50,7 @@ const WaterDropSection: React.FC = () => {
       const idx = Math.floor(v);
       if (idx !== currentFrame) {
         currentFrame = idx;
-        console.log("Rendering frame:", idx); // ✅ Debug log
+        console.log("Rendering frame:", idx); 
         render(currentFrame);
       }
     });
