@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { X, Star } from 'lucide-react';
 import image1 from "../../../src/assets/images/wetransfer_hitech/logo-1.png";
 
 interface Location {
@@ -8,44 +9,119 @@ interface Location {
   y: number;
   countryCode: string;
   type: 'main' | 'warehouse' | 'site';
+  reviews?: Review[];
+}
+
+interface Review {
+  name: string;
+  avatar?: string;
+  rating: number;
+  text: string;
 }
 
 const GlobalPresenceSection = () => {
   const [hoveredLocation, setHoveredLocation] = useState<Location | null>(null);
+  const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
   const [imageLoadFailed, setImageLoadFailed] = useState<{ [key: number]: boolean }>({});
+  const [mapTransform, setMapTransform] = useState('translate(0, 0) scale(1)');
 
   const locations: Location[] = [
-    { id: 1, country: 'India', x: 50, y: 25, countryCode: 'in', type: 'main' },
-    { id: 2, country: 'Thailand', x: 73, y: 21, countryCode: 'th', type: 'main' },
-    { id: 3, country: 'UAE', x: 57, y: 18, countryCode: 'ae', type: 'main' },
-    { id: 7, country: 'China', x: 75, y: 15, countryCode: 'cn', type: 'main' },
+    { 
+      id: 1, 
+      country: 'India', 
+      x: 50, 
+      y: 25, 
+      countryCode: 'in', 
+      type: 'main',
+      reviews: [
+        {
+          name: 'Raj Patel',
+          rating: 5,
+          text: "Hi-Tech's RO membranes offer great filtration efficiency and durability for reliable water purification."
+        },
+        {
+          name: 'Priya Sharma',
+          rating: 4,
+          text: "Excellent membrane technology for water purification systems. Very satisfied with the quality."
+        }
+      ]
+    },
+    { 
+      id: 2, 
+      country: 'Thailand', 
+      x: 73, 
+      y: 21, 
+      countryCode: 'th', 
+      type: 'main',
+      reviews: [
+        {
+          name: 'Alex Johnson',
+          rating: 4,
+          text: "Hi-Tech's RO membranes offer great filtration efficiency and durability for reliable water purification."
+        },
+        {
+          name: 'Jordan Smith',
+          rating: 5,
+          text: "Hi-Tech's RO membranes offer great filtration efficiency and durability for reliable water purification."
+        },
+        {
+          name: 'Scarlett James',
+          rating: 4,
+          text: "Hi-Tech's RO membranes offer great filtration efficiency and durability for reliable water purification."
+        },
+        {
+          name: 'Tyler Perry',
+          rating: 4,
+          text: "Hi-Tech's RO membranes offer great filtration efficiency and durability for reliable water purification."
+        }
+      ]
+    },
+    { 
+      id: 3, 
+      country: 'UAE', 
+      x: 57, 
+      y: 18, 
+      countryCode: 'ae', 
+      type: 'main',
+      reviews: [
+        {
+          name: 'Ahmed Al-Rashid',
+          rating: 5,
+          text: "Outstanding membrane technology with excellent customer support and fast delivery."
+        },
+        {
+          name: 'Sarah Davis',
+          rating: 4,
+          text: "Very satisfied with the quality and performance of Hi-Tech membranes."
+        }
+      ]
+    },
+    { 
+      id: 7, 
+      country: 'China', 
+      x: 75, 
+      y: 15, 
+      countryCode: 'cn', 
+      type: 'main',
+      reviews: [
+        {
+          name: 'Li Wei',
+          rating: 5,
+          text: "Great membrane solutions for water treatment facilities. Exceptional quality membranes."
+        },
+        {
+          name: 'Zhang Ming',
+          rating: 4,
+          text: "Perfect for industrial applications. Very reliable membrane technology."
+        }
+      ]
+    },
     // Add warehouse and site locations with white dots
     { id: 8, country: 'Mumbai Warehouse', x: 49, y: 27, countryCode: 'in', type: 'warehouse' },
     { id: 9, country: 'Bangkok Warehouse', x: 71, y: 19, countryCode: 'th', type: 'warehouse' },
     { id: 10, country: 'Dubai Warehouse', x: 57, y: 18, countryCode: 'ae', type: 'warehouse' },
     { id: 11, country: 'Delhi Site', x: 48, y: 23, countryCode: 'in', type: 'site' },
-    { id: 12, country: 'Shanghai Site', x: 77, y: 13, countryCode: 'cn', type: 'site' },
-
-     // { id: 1, country: 'United States', x: 20, y: 35, countryCode: 'us' },
-    // { id: 2, country: 'Canada', x: 18, y: 25, countryCode: 'ca' },
-    // { id: 3, country: 'United Kingdom', x: 48, y: 28, countryCode: 'gb' },
-    // { id: 4, country: 'Germany', x: 51, y: 28, countryCode: 'de' },
-    // { id: 5, country: 'France', x: 47, y: 32, countryCode: 'fr' },
-    // { id: 6, country: 'India', x: 74, y: 38, countryCode: 'in' },
-    // { id: 7, country: 'China', x: 78, y: 32, countryCode: 'cn' },
-    // { id: 8, country: 'Japan', x: 85, y: 34, countryCode: 'jp' },
-    // { id: 9, country: 'Australia', x: 82, y: 72, countryCode: 'au' },
-    // { id: 10, country: 'Brazil', x: 32, y: 55, countryCode: 'br' },
-    // { id: 11, country: 'South Africa', x: 53, y: 68, countryCode: 'za' },
-    // { id: 12, country: 'Mexico', x: 15, y: 42, countryCode: 'mx' },
-    // { id: 13, country: 'Russia', x: 68, y: 22, countryCode: 'ru' },
-    // { id: 14, country: 'UAE', x: 60, y: 42, countryCode: 'ae' },
-    // { id: 15, country: 'Singapore', x: 78, y: 52, countryCode: 'sg' },
-    // { id: 16, country: 'South Korea', x: 84, y: 34, countryCode: 'kr' },
-    // { id: 17, country: 'Thailand', x: 76, y: 45, countryCode: 'th' },
-    // { id: 18, country: 'Italy', x: 51, y: 35, countryCode: 'it' },
-    // { id: 19, country: 'Spain', x: 44, y: 35, countryCode: 'es' },
-    // { id: 20, country: 'Netherlands', x: 49, y: 26, countryCode: 'nl' }
+    { id: 12, country: 'Shanghai Site', x: 77, y: 13, countryCode: 'cn', type: 'site' }
   ];
 
   const handleImageError = (locationId: number) => {
@@ -55,8 +131,32 @@ const GlobalPresenceSection = () => {
     }));
   };
 
+  const handleLocationClick = (location: Location) => {
+    if (location.type === 'main' && location.reviews) {
+      setSelectedLocation(location);
+      
+      // Scale down the entire map to show complete view while making room for panel
+      // Move map slightly left to center it better with the panel open
+      setMapTransform(`translate(-120px, 0px) scale(0.8)`);
+    }
+  };
+
+  const closePanel = () => {
+    setSelectedLocation(null);
+    setMapTransform('translate(0, 0) scale(1)');
+  };
+
+  const renderStars = (rating: number) => {
+    return [...Array(5)].map((_, index) => (
+      <Star
+        key={index}
+        className={`w-4 h-4 ${index < rating ? 'text-yellow-400 fill-current' : 'text-gray-300'}`}
+      />
+    ));
+  };
+
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 bg-gray-50 relative overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-5xl font-bold text-gray-800 mb-8">
@@ -64,10 +164,16 @@ const GlobalPresenceSection = () => {
           </h2>
         </div>
 
-        <div className="relative mb-12">
+        <div className="relative mb-12 overflow-hidden rounded-lg" style={{ minHeight: '400px' }}>
           <div className="relative w-full max-w-6xl mx-auto">
-            {/* World Map Container */}
-            <div className="relative">
+            {/* World Map Container with smooth transitions */}
+            <div 
+              className="relative transition-transform duration-1000 ease-in-out origin-center"
+              style={{ 
+                transform: mapTransform,
+                willChange: 'transform'
+              }}
+            >
               {/* World Map Image */}
               <img
                 src="assets/images/worldMapviolet.png"
@@ -110,12 +216,13 @@ const GlobalPresenceSection = () => {
                           height="28"
                           onMouseEnter={() => setHoveredLocation(location)}
                           onMouseLeave={() => setHoveredLocation(null)}
+                          onClick={() => handleLocationClick(location)}
                           style={{ cursor: 'pointer' }}
                         >
                           <img
                             src="assets/images/green-pin-marker.png"
                             alt="Location marker"
-                            className="w-full h-full"
+                            className="w-full h-full hover:scale-110 transition-transform duration-200"
                             style={{
                               filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
                               pointerEvents: 'none'
@@ -144,6 +251,7 @@ const GlobalPresenceSection = () => {
                               stroke="#ffffff"
                               strokeWidth="1"
                               filter="drop-shadow(0 2px 4px rgba(0,0,0,0.3))"
+                              className="hover:r-8 transition-all duration-200"
                             />
                           ) : (
                             // Blue circle for site
@@ -155,6 +263,7 @@ const GlobalPresenceSection = () => {
                               stroke="#3b82f6"
                               strokeWidth="1"
                               filter="drop-shadow(0 2px 4px rgba(0,0,0,0.3))"
+                              className="hover:r-8 transition-all duration-200"
                             />
                           )}
                         </g>
@@ -166,7 +275,9 @@ const GlobalPresenceSection = () => {
                           transform={`translate(${location.x * 10}, ${location.y * 10})`}
                           onMouseEnter={() => setHoveredLocation(location)}
                           onMouseLeave={() => setHoveredLocation(null)}
+                          onClick={() => handleLocationClick(location)}
                           style={{ cursor: 'pointer' }}
+                          className="marker-hover"
                         >
                           <path
                             d="M0,-20 C-8,-20 -15,-13 -15,-5 C-15,3 0,20 0,20 C0,20 15,3 15,-5 C15,-13 8,-20 0,-20 Z"
@@ -182,38 +293,19 @@ const GlobalPresenceSection = () => {
                 </svg>
               </div>
 
-              {/* Tooltip */}
-              {hoveredLocation && (
+              {/* Enhanced Tooltip for Main Offices */}
+              {hoveredLocation && hoveredLocation.type === 'main' && !selectedLocation && (
                 <div
-                  className="absolute z-10 bg-white px-3 py-2 rounded-lg shadow-lg border border-gray-200 pointer-events-none"
+                  className="absolute z-20 bg-white px-3 py-2 rounded-lg shadow-lg border border-gray-200 pointer-events-none"
                   style={{
                     left: `${(hoveredLocation.x * 10) * (100/1000)}%`, 
                     top: `${(hoveredLocation.y * 10) * (100/500)}%`,   
                     transform: 'translate(15px, -12px)', 
                   }}
                 >
-                  <div className="flex items-center space-x-2">
-                    {(hoveredLocation.type === 'warehouse' || hoveredLocation.type === 'site') && (
-                      <div className="w-8 h-8 flex items-center justify-center">
-                        <img
-                          src={image1}
-                          alt="HiTech Logo"
-                          className="w-8 h-8 object-contain"
-                          onError={(e) => {
-                            e.currentTarget.style.display = 'none';
-                            if (e.currentTarget.nextElementSibling) {
-                              (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'block';
-                            }
-                          }}
-                        />
-                        <span className="text-gray-800 text-xs font-bold" style={{ display: 'none' }}>
-                          HT
-                        </span>
-                      </div>
-                    )}
-
-                    {/* Country Flag for main offices */}
-                    {hoveredLocation.type === 'main' && (
+                  <div className="flex flex-col items-center space-y-2">
+                    {/* Original Country Info Row */}
+                    <div className="flex items-center space-x-2">
                       <div className="w-6 h-6 rounded-full overflow-hidden border border-gray-300">
                         <img
                           src={`https://flagcdn.com/w40/${hoveredLocation.countryCode.toLowerCase()}.png`}
@@ -230,15 +322,52 @@ const GlobalPresenceSection = () => {
                           🏳️
                         </div>
                       </div>
-                    )}
+                      <span className="text-sm font-semibold text-gray-800">
+                        {hoveredLocation.country}
+                      </span>
+                    </div>
+                    
+                    {/* Click to show details */}
+                    <div className="text-yellow-500 px-2 py-1  text-xs">
+                      Click to show details
+                    </div>
+                  </div>
+
+                  {/* Tooltip Arrow pointing left */}
+                  {/* <div className="absolute left-0 top-1/2 transform -translate-x-full -translate-y-1/2 w-0 h-0 border-t-2 border-b-2 border-r-2 border-transparent border-r-white"></div> */}
+                </div>
+              )}
+
+              {/* Original Tooltip for Warehouse and Site Locations */}
+              {hoveredLocation && (hoveredLocation.type === 'warehouse' || hoveredLocation.type === 'site') && !selectedLocation && (
+                <div
+                  className="absolute z-10 bg-white px-3 py-2 rounded-lg shadow-lg border border-gray-200 pointer-events-none"
+                  style={{
+                    left: `${(hoveredLocation.x * 10) * (100/1000)}%`, 
+                    top: `${(hoveredLocation.y * 10) * (100/500)}%`,   
+                    transform: 'translate(15px, -12px)', 
+                  }}
+                >
+                  <div className="flex items-center space-x-2">
+                    <div className="w-8 h-8 flex items-center justify-center">
+                      <img
+                        src={image1}
+                        alt="HiTech Logo"
+                        className="w-8 h-8 object-contain"
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                          if (e.currentTarget.nextElementSibling) {
+                            (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'block';
+                          }
+                        }}
+                      />
+                      <span className="text-gray-800 text-xs font-bold" style={{ display: 'none' }}>
+                        HT
+                      </span>
+                    </div>
 
                     <span className="text-sm font-semibold text-gray-800">
-                      {hoveredLocation.type === 'main'
-                        ? hoveredLocation.country
-                        : hoveredLocation.type === 'warehouse'
-                          ? 'Warehouse'
-                          : 'Site'
-                      }
+                      {hoveredLocation.type === 'warehouse' ? 'Warehouse' : 'Site'}
                     </span>
                   </div>
 
@@ -248,6 +377,54 @@ const GlobalPresenceSection = () => {
               )}
             </div>
           </div>
+
+          {/* Reviews Side Panel */}
+          {selectedLocation && (
+            <div className="absolute top-4 right-4 w-[350px] bg-white rounded-2xl shadow-2xl border border-gray-100 z-30 max-h-[500px] overflow-hidden">
+              {/* Panel Header */}
+              <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-purple-50">
+                <h3 className="text-xl font-bold text-blue-900">{selectedLocation.country}</h3>
+                <button
+                  onClick={closePanel}
+                  className="p-2 hover:bg-white hover:bg-opacity-50 rounded-full transition-all duration-200"
+                >
+                  <X className="w-5 h-5 text-gray-600" />
+                </button>
+              </div>
+
+              {/* Reviews Section */}
+              <div className="px-6 py-4">
+                <h4 className="text-sm font-semibold text-gray-800 mb-4 uppercase tracking-wide">Reviews</h4>
+                <div className="space-y-4 max-h-80 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300">
+                  {selectedLocation.reviews?.map((review, index) => (
+                    <div key={index} className="bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-colors duration-200">
+                      <div className="flex gap-3">
+                        {/* Avatar with realistic profile image styling */}
+                        <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-white shadow-md">
+                          <div className="w-full h-full bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 flex items-center justify-center">
+                            <span className="text-white text-sm font-bold">
+                              {review.name.split(' ').map(n => n[0]).join('')}
+                            </span>
+                          </div>
+                        </div>
+                        
+                        {/* Review Content */}
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between mb-2">
+                            <h5 className="font-semibold text-gray-900 text-sm">{review.name}</h5>
+                            <div className="flex space-x-0.5">
+                              {renderStars(review.rating)}
+                            </div>
+                          </div>
+                          <p className="text-gray-700 text-sm leading-relaxed">{review.text}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="max-w-4xl mx-auto text-center">
