@@ -85,6 +85,16 @@ const ContactPage = () => {
   //   console.log("Form submitted:", formData);
   // };
 
+  // Function to download QR code images
+  const downloadQRImage = (imageUrl: string, filename: string) => {
+    const link = document.createElement('a');
+    link.href = imageUrl;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const handleAddressClick = () => {
     const address = "Hi-Tech Membranes Co., Ltd. 700/273 Amata City Chonburi Industrial Estate Moo 1, Tambon Ban Kao, Amphur Phan Thong, Chonburi 20160 (THAILAND)";
     const encodedAddress = encodeURIComponent(address);
@@ -298,7 +308,10 @@ const ContactPage = () => {
                       className="w-full h-full object-contain rounded"
                     />
                   </div>
-                  <button className="bg-blue-500 text-white text-xs px-3 py-1 rounded flex  items-center gap-1 mt-3">
+                  <button 
+                    onClick={() => downloadQRImage(image2, 'whatsapp-qr-code.png')}
+                    className="bg-blue-500 text-white text-xs px-3 py-1 rounded flex items-center gap-1 mt-3 hover:bg-blue-600 transition-colors"
+                  >
                     Save
                     <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 16l-6-6h4V4h4v6h4l-6 6zM4 20v-2h16v2H4z" />
@@ -321,12 +334,16 @@ const ContactPage = () => {
                       className="w-full h-full object-contain rounded"
                     />
                   </div>
-                  <button className="bg-blue-500 text-white text-xs px-3 py-1 rounded flex items-center gap-1 mt-3">
+                  <button 
+                    onClick={() => downloadQRImage(image3, 'wechat-qr-code.png')}
+                    className="bg-blue-500 text-white text-xs px-3 py-1 rounded flex items-center gap-1 mt-3 hover:bg-blue-600 transition-colors"
+                  >
                     Save
                     <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 16l-6-6h4V4h4v6h4l-6 6zM4 20v-2h16v2H4z" />
                     </svg>
-                  </button>                </div>
+                  </button>
+                </div>
 
                 {/* LINE QR */}
                 <div className="text-center flex flex-col items-center">
@@ -342,8 +359,10 @@ const ContactPage = () => {
                       className="w-full h-full object-contain rounded"
                     />
                   </div>
-                  <button className="bg-blue-500 text-white text-xs px-3 py-1 rounded flex items-center gap-1 mt-3">
-
+                  <button 
+                    onClick={() => downloadQRImage(image4, 'line-qr-code.png')}
+                    className="bg-blue-500 text-white text-xs px-3 py-1 rounded flex items-center gap-1 mt-3 hover:bg-blue-600 transition-colors"
+                  >
                     Save
                     <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 16l-6-6h4V4h4v6h4l-6 6zM4 20v-2h16v2H4z" />
@@ -372,7 +391,7 @@ const ContactPage = () => {
               </div>
 
               {/* World Map Section */}
-              <div className="w-full h-full py-4 flex items-center justify-center relative overflow-hidden">
+              <div className="w-full h-full py-16 flex items-center justify-center relative overflow-hidden">
                
                 <img
                   src={image1}
@@ -393,7 +412,7 @@ const ContactPage = () => {
             </div>
 
             {/* Links and Office Address Row */}
-            <div className="grid grid-cols-1 md:grid-cols-1 gap-6" style={{ marginTop: '0px' }}>
+            <div className="grid grid-cols-1 md:grid-cols-1 gap-6" style={{ marginTop: '10px' }}>
               {/* Links Section */}
               <div className="bg-white rounded-lg shadow-sm border p-6">
                 <h3 className="text-lg font-semibold text-gray-800 mb-4">Links</h3>
