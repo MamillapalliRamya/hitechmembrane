@@ -294,49 +294,56 @@ const GlobalPresenceSection = () => {
               </div>
 
               {/* Enhanced Tooltip for Main Offices */}
-              {hoveredLocation && hoveredLocation.type === 'main' && !selectedLocation && (
-                <div
-                  className="absolute z-20 bg-white px-3 py-2 rounded-lg shadow-lg border border-gray-200 pointer-events-none"
-                  style={{
-                    left: `${(hoveredLocation.x * 10) * (100/1000)}%`, 
-                    top: `${(hoveredLocation.y * 10) * (100/500)}%`,   
-                    transform: 'translate(15px, -12px)', 
-                  }}
-                >
-                  <div className="flex flex-col items-center space-y-2">
-                    {/* Original Country Info Row */}
-                    <div className="flex items-center space-x-2">
-                      <div className="w-6 h-6 rounded-full overflow-hidden border border-gray-300">
-                        <img
-                          src={`https://flagcdn.com/w40/${hoveredLocation.countryCode.toLowerCase()}.png`}
-                          alt={`${hoveredLocation.country} flag`}
-                          className="w-full h-full object-cover"
-                          onError={(e) => {
-                            e.currentTarget.style.display = 'none';
-                            if (e.currentTarget.nextElementSibling) {
-                              (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'block';
-                            }
-                          }}
-                        />
-                        <div className="w-full h-full flex items-center justify-center text-sm" style={{ display: 'none' }}>
-                          🏳️
-                        </div>
-                      </div>
-                      <span className="text-sm font-semibold text-gray-800">
-                        {hoveredLocation.country}
-                      </span>
-                    </div>
-                    
-                    {/* Click to show details */}
-                    <div className="text-yellow-500 px-2 py-1  text-xs">
-                      Click to show details
-                    </div>
-                  </div>
+              {/* Tooltip for Main Offices (Flag + Country above, Click hint below) */}
+{hoveredLocation && hoveredLocation.type === 'main' && !selectedLocation && (
+  <>
+    {/* Flag + Country (above marker) */}
+    <div
+      className="absolute z-20 bg-white px-3 py-2 rounded-lg shadow-lg border border-gray-200 pointer-events-none flex items-center space-x-2"
+      style={{
+        left: `${(hoveredLocation.x * 10) * (100/1000)}%`, 
+        top: `${(hoveredLocation.y * 10) * (100/500)}%`,   
+         transform: 'translate(-50%, -180%)', // above marker
+      }}
+    >
+      <div className="w-6 h-6 rounded-full overflow-hidden border border-gray-300">
+        <img
+          src={`https://flagcdn.com/w40/${hoveredLocation.countryCode.toLowerCase()}.png`}
+          alt={`${hoveredLocation.country} flag`}
+          className="w-full h-full object-cover"
+          onError={(e) => {
+            e.currentTarget.style.display = 'none';
+            if (e.currentTarget.nextElementSibling) {
+              (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'block';
+            }
+          }}
+        />
+        <div
+          className="w-full h-full flex items-center justify-center text-sm"
+          style={{ display: 'none' }}
+        >
+          🏳️
+        </div>
+      </div>
+      <span className="text-sm font-semibold text-gray-800">
+        {hoveredLocation.country}
+      </span>
+    </div>
 
-                  {/* Tooltip Arrow pointing left */}
-                  {/* <div className="absolute left-0 top-1/2 transform -translate-x-full -translate-y-1/2 w-0 h-0 border-t-2 border-b-2 border-r-2 border-transparent border-r-white"></div> */}
-                </div>
-              )}
+    {/* Click to know more (below marker) */}
+    <div
+      className="absolute z-20 bg-yellow-200 text-gray-800 px-3 py-1 rounded-md shadow border border-green-300 pointer-events-none text-xs font-medium"
+      style={{
+        left: `${(hoveredLocation.x * 10) * (100/1000)}%`, 
+        top: `${(hoveredLocation.y * 10) * (100/500)}%`,   
+        transform: 'translate(-50%, 10px)', // below marker
+      }}
+    >
+      Click to know more
+    </div>
+  </>
+)}
+
 
               {/* Original Tooltip for Warehouse and Site Locations */}
               {hoveredLocation && (hoveredLocation.type === 'warehouse' || hoveredLocation.type === 'site') && !selectedLocation && (
