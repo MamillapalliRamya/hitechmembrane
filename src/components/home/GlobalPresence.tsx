@@ -387,9 +387,9 @@ const GlobalPresenceSection = () => {
 
           {/* Reviews Side Panel */}
           {selectedLocation && (
-            <div className="absolute top-4 right-4 w-[350px] bg-white rounded-2xl shadow-2xl border border-gray-100 z-30 max-h-[500px] overflow-hidden">
+            <div className="absolute top-4 right-4 w-[350px] bg-white rounded-2xl shadow-2xl border border-blue-900 z-30 max-h-[500px] overflow-hidden">
               {/* Panel Header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-purple-50">
+              <div className="flex items-center justify-between px-6 py-4 border-b border-blue-900 bg-gradient-to-r from-blue-50 to-purple-50">
                 <h3 className="text-xl font-bold text-blue-900">{selectedLocation.country}</h3>
                 <button
                   onClick={closePanel}
