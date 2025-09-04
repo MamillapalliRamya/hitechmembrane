@@ -36,7 +36,7 @@ const AwardsSection = () => {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-4 relative">
         
         {/* Pipe Animation - Coming from bottom-left moving upward diagonally */}
-        <img
+        {/* <img
           src={image1}
           alt="Pipes"
           className={`absolute w-[400px] h-auto z-10 object-contain transition-all duration-1500 ease-in-out ${
@@ -54,7 +54,7 @@ const AwardsSection = () => {
             transitionTimingFunction: 'ease-in-out',
             opacity: '0.3',
           }}
-        />
+        /> */}
 
         {/* Heading - comes from top */}
         <div 
