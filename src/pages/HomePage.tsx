@@ -58,7 +58,7 @@ const HomePage: React.FC = () => {
         </section>
 
         {/* Brand Section */}
-        <motion.div {...fadeInFrom('left')}><AboutUsSection /></motion.div>
+        <AboutUsSection />
 
         <WaterSolutionsSection/>
 

@@ -5,13 +5,13 @@ const HeroSection: React.FC = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [imageLoadError, setImageLoadError] = useState<{ [key: string]: boolean }>({});
   const [isSwapped, setIsSwapped] = useState(false);
+  const [animateText, setAnimateText] = useState(false);
 
   // Data for the image blocks
   const imageBlocks = [
     {
       id: 1,
       images: [
-        // "/assets/images/HeroSecimg1.jpg",
         "/assets/images/HeroSecimg3.png",
         "/assets/images/HeroSecimg4.jpg",
         "/assets/images/HeroSecimg5.png",
@@ -32,11 +32,12 @@ const HeroSection: React.FC = () => {
     return () => clearInterval(interval);
   }, [imageBlocks]);
 
-  // Video autoplay effect
+  // Video autoplay effect + trigger text animation
   useEffect(() => {
     const timer = setTimeout(() => {
       setVideoPlaying(true);
-    }, 800);
+      setAnimateText(true);
+    }, 300); // fast
     return () => clearTimeout(timer);
   }, []);
 
@@ -45,15 +46,13 @@ const HeroSection: React.FC = () => {
     setImageLoadError(prev => ({ ...prev, [imagePath]: true }));
   }, []);
 
-
-
   return (
     <section className="relative h-screen max-h-[800px] overflow-hidden">
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         {videoPlaying && (
           <div className="w-full h-full">
-            <div className="absolute inset-0  mix-blend-multiply"></div>
+            <div className="absolute inset-0 mix-blend-multiply"></div>
             <video
               className="w-full h-full object-cover"
               autoPlay
@@ -72,25 +71,30 @@ const HeroSection: React.FC = () => {
         )}
       </div>
 
-      {/* Fallback background if video fails */}
+      {/* Fallback background */}
       {!videoPlaying && (
         <div className="absolute inset-0 z-0 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700"></div>
       )}
 
-      {/* Content Overlay */}
-      <div className="ml-[100px] text-white relative z-20 container px-4 h-full flex flex-col justify-center w-[760px]">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
+      {/* Text Content Overlay with animation */}
+      <div
+        className={`relative z-20 container px-4 h-full flex flex-col justify-center transition-all duration-500 ease-out
+          ${animateText ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'}
+        `}
+        style={{ marginLeft: "80px", maxWidth: "760px" }}
+      >
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
           Clean Water Today<br />Better Future Tomorrow
         </h1>
 
-        <p className="text-xl md:text-2xl mb-8 text-gray-100">
+        <p className="text-lg sm:text-xl md:text-2xl mb-8 text-gray-100">
           Hi-tech membranes purify over 10 million gallons of water per minute globally, 
           enabling reuse and safe access to ground and surface water. Our RO Technology addresses various water and sustainability challenges.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 mt-8">
           <button 
-            className="w-[283px] h-[74px] text-[28px] font-medium rounded-[16px] flex items-center justify-center relative overflow-hidden bg-[#A8CF45] text-[#3D3E96] transition-all duration-500 before:content-[''] before:absolute before:inset-0 before:bg-[#3D3E96] before:-translate-y-full before:transition-transform before:duration-500 hover:before:translate-y-0 hover:text-[#A8CF45]"
+            className="w-[240px] sm:w-[283px] h-[60px] sm:h-[74px] text-[22px] sm:text-[28px] font-medium rounded-[16px] flex items-center justify-center relative overflow-hidden bg-[#A8CF45] text-[#3D3E96] transition-all duration-500 before:content-[''] before:absolute before:inset-0 before:bg-[#3D3E96] before:-translate-y-full before:transition-transform before:duration-500 hover:before:translate-y-0 hover:text-[#A8CF45]"
             aria-label="Get Quote Now"
           >
             <span className="relative z-10">Get Quote Now</span>
@@ -98,10 +102,10 @@ const HeroSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Image Blocks */}
+      {/* Image Blocks (UNCHANGED) */}
       {imageBlocks[0].images.length > 0 && (
         <div className="absolute right-16 top-1/2 transform -translate-y-1/2 z-30 bg-white">
-          {/* First Image Block - Full Block */}
+          {/* First Image Block */}
           <div 
             className="absolute cursor-pointer overflow-hidden"
             style={{
@@ -112,7 +116,7 @@ const HeroSection: React.FC = () => {
               transform: 'translateY(-50%)',
               borderTopLeftRadius: isSwapped ? '6px' : '8px',
               borderTopRightRadius: isSwapped ? '80px' : '100px',
-              borderBottomRightRadius: isSwapped ? '6px' : '6px',
+              borderBottomRightRadius: '6px',
               borderBottomLeftRadius: isSwapped ? '80px' : '100px',
               borderWidth: isSwapped ? '6px' : '8px',
               borderColor: 'white',
@@ -130,27 +134,15 @@ const HeroSection: React.FC = () => {
                     ? 'opacity-100 transform scale-100' 
                     : 'opacity-0 transform scale-95'
                 }`}
-                style={{
-                  top: '-10px',
-                  left: '-10px',
-                  right: '-10px',
-                  bottom: '-10px'
-                }}
+                style={{ inset: 0 }}
               >
                 {imageLoadError[image] ? (
-                  <div 
-                    className="w-full h-full flex items-center justify-center text-white font-bold text-lg bg-gradient-to-br from-blue-500 to-blue-700"
-                  >
-                    {/* <div className="text-center bg-black bg-opacity-50 p-4 rounded-lg">
-                      <div className="text-4xl mb-2">💧</div>
-                      <div className="text-sm mt-1">Image {index + 1}</div>
-                    </div> */}
-                  </div>
+                  <div className="w-full h-full flex items-center justify-center bg-gray-400"></div>
                 ) : (
                   <img 
                     src={image}
                     alt={`Water purification system ${index + 1}`}
-                    className="w-full h-full object-cover object-center"
+                    className="w-full h-full object-cover"
                     onError={() => handleImageError(image)}
                     loading="lazy"
                   />
@@ -159,7 +151,7 @@ const HeroSection: React.FC = () => {
             ))}
           </div>
 
-          {/* Second Image Block - Half visible */}
+          {/* Second Image Block */}
           <div 
             className="absolute cursor-pointer overflow-hidden"
             style={{
@@ -170,12 +162,11 @@ const HeroSection: React.FC = () => {
               transform: 'translateY(-50%)',
               borderTopLeftRadius: isSwapped ? '8px' : '6px',
               borderTopRightRadius: isSwapped ? '100px' : '80px',
-              borderBottomRightRadius: isSwapped ? '6px' : '6px',
+              borderBottomRightRadius: '6px',
               borderBottomLeftRadius: isSwapped ? '100px' : '80px',
               borderWidth: isSwapped ? '8px' : '6px',
               borderColor: 'white',
               borderStyle: 'solid',
-              overflow: 'hidden',
               boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
               transition: 'all 1s ease-in-out',
               zIndex: isSwapped ? 20 : 10
@@ -193,21 +184,13 @@ const HeroSection: React.FC = () => {
                         : 'opacity-0 transform scale-95'
                     }`}
                   >
-                    {imageLoadError[image] ? (
-                      <div className="w-full h-full flex items-center justify-center text-white font-bold text-lg bg-gradient-to-br from-green-500 to-green-700">
-                        <div className="text-center bg-black bg-opacity-50 p-4 rounded-lg">
-                          <div className="text-3xl mb-2">🔧</div>
-                        </div>
-                      </div>
-                    ) : (
-                      <img 
-                        src={image}
-                        alt={`Water system ${index + 1}`}
-                        className="w-full h-full object-cover"
-                        onError={() => handleImageError(image)}
-                        loading="lazy"
-                      />
-                    )}
+                    <img 
+                      src={image}
+                      alt={`Water system ${index + 1}`}
+                      className="w-full h-full object-cover"
+                      onError={() => handleImageError(image)}
+                      loading="lazy"
+                    />
                   </div>
                 );
               })}
@@ -215,20 +198,6 @@ const HeroSection: React.FC = () => {
           </div>
         </div>
       )}
-
-
-
-      {/* Navigation Dots */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3 z-20">
-        {[...Array(5)].map((_, index) => (
-          <div 
-            key={`nav-dot-${index}`}
-            className={`w-3 h-3 rounded-full ${
-              index === 0 ? 'bg-[#A8CF45]' : 'bg-white/50'
-            }`}
-          />
-        ))}
-      </div>
     </section>
   );
 };
