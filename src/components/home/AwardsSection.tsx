@@ -3,12 +3,17 @@ import image1 from "../../../src/assets/images/wetransfer_hitech/pipes.png";
 
 const AwardsSection = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [showBounce, setShowBounce] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
+          // Start bounce effect after pipe formation is complete
+          setTimeout(() => {
+            setShowBounce(true);
+          }, 1500); // After the slide animation completes
         }
       },
       { threshold: 0.3 }
@@ -30,22 +35,24 @@ const AwardsSection = () => {
     <section id="awards-section" className="py-16 bg-white overflow-hidden relative">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-4 relative">
         
-        {/* Pipe Animation - Growing from middle left to right with rotation */}
+        {/* Pipe Animation - Coming from bottom-left moving upward diagonally */}
         <img
           src={image1}
           alt="Pipes"
-          className={`absolute top-1/2 left-0 w-[400px] h-auto z-10 object-contain transition-all duration-1500 ease-in-out ${
+          className={`absolute w-[400px] h-auto z-10 object-contain transition-all duration-1500 ease-in-out ${
             isVisible ? 'opacity-100' : 'opacity-0'
-          }`}
+          } ${showBounce ? 'animate-custom-bounce' : ''}`}
          style={{
-            transform: 'translateY(-120%) scaleX(-1.2) rotate(84deg)', // Added rotation
-            transformOrigin: 'left center', // Rotation from left center point
-            clipPath: isVisible ? 'inset(0 0% 0 0)' : 'inset(0 100% 0 0)', // Animation left to right
-            transitionProperty: 'clip-path, opacity',
+            left: isVisible ? '0' : '-400px', // Move from left to final position
+            top: isVisible ? '50%' : '80%', // Move from bottom area to middle
+            transform: isVisible 
+              ? 'translateY(-120%) scaleX(-1.2) rotate(84deg)' // Final position
+              : 'translateY(-50%) scaleX(-1.2) rotate(84deg)', // Start position (less Y offset)
+            transformOrigin: 'left center',
+            transitionProperty: 'left, top, transform, opacity',
             transitionDuration: '1.5s',
             transitionTimingFunction: 'ease-in-out',
-            opacity: '0.3', // Make pipe more subtle
-            // Reduce clarity and prominence
+            opacity: '0.3',
           }}
         />
 
@@ -137,6 +144,31 @@ const AwardsSection = () => {
           
         </div>
       </div>
+
+      {/* Custom Bounce Animation - Opposite to growth direction */}
+      <style>{`
+        @keyframes bounceOpposite {
+          0% {
+            left: 0;
+            top: 50%;
+            transform: translateY(-120%) scaleX(-1.2) rotate(84deg);
+          }
+          50% {
+            left: -30px;
+            top: 55%;
+            transform: translateY(-115%) scaleX(-1.2) rotate(84deg);
+          }
+          100% {
+            left: 0;
+            top: 50%;
+            transform: translateY(-120%) scaleX(-1.2) rotate(84deg);
+          }
+        }
+        
+        .animate-custom-bounce {
+          animation: bounceOpposite 1.5s ease-in-out 1 forwards;
+        }
+      `}</style>
     </section>
   );
 };
