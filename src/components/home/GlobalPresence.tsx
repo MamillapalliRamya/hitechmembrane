@@ -157,7 +157,7 @@ const GlobalPresenceSection = () => {
 
   return (
     <section className="py-16 bg-gray-50 relative overflow-hidden">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-5xl font-bold text-gray-700 mb-8">
             Our Global Presence
@@ -387,9 +387,9 @@ const GlobalPresenceSection = () => {
 
           {/* Reviews Side Panel */}
           {selectedLocation && (
-            <div className="absolute top-4 right-4 w-[350px] bg-white rounded-2xl shadow-2xl border border-blue-900 z-30 max-h-[500px] overflow-hidden">
+            <div className="absolute top-4 right-0 w-[460px] bg-white rounded-2xl shadow-2xl border border-blue-900 z-30 max-h-[500px] overflow-hidden">
               {/* Panel Header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-blue-900 bg-gradient-to-r from-blue-50 to-purple-50">
+              <div className="flex items-center justify-between px-3 py-4 border-b border-blue-900 bg-gradient-to-r from-blue-50 to-purple-50">
                 <h3 className="text-xl font-bold text-blue-900">{selectedLocation.country}</h3>
                 <button
                   onClick={closePanel}
@@ -400,9 +400,9 @@ const GlobalPresenceSection = () => {
               </div>
 
               {/* Reviews Section */}
-              <div className="px-6 py-4">
+              <div className="px-3 py-2">
                 <h4 className="text-sm font-semibold text-gray-800 mb-4 uppercase tracking-wide">Reviews</h4>
-                <div className="space-y-4 max-h-80 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300">
+                <div className="space-y-2 max-h-80 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300">
                   {selectedLocation.reviews?.map((review, index) => (
                     <div key={index} className="bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-colors duration-200">
                       <div className="flex gap-3">
