@@ -37,8 +37,49 @@ const HeroSection: React.FC = () => {
     const timer = setTimeout(() => {
       setVideoPlaying(true);
       setAnimateText(true);
-    }, 300); // fast
+    }, 300);
     return () => clearTimeout(timer);
+  }, []);
+
+  // ADD THIS: Handle scroll wheel event for HeroSection
+  useEffect(() => {
+    const handleWheel = (e: WheelEvent) => {
+      const currentSection = document.querySelector('#hero-section');
+      if (currentSection) {
+        const rect = currentSection.getBoundingClientRect();
+        // Check if we're currently viewing this section
+        if (rect.top <= 100 && rect.bottom >= 100) {
+          e.preventDefault();
+          
+          if (e.deltaY < 0) {
+            // Scrolling up - go to WaterDropSection
+            const waterDropSection = document.querySelector('#waterdrop-section');
+            if (waterDropSection) {
+              waterDropSection.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+              });
+            }
+          } else if (e.deltaY > 0) {
+            // Scrolling down - go to next section (AboutUsSection)
+            const aboutSection = document.querySelector('#about-section');
+            if (aboutSection) {
+              aboutSection.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+              });
+            }
+          }
+        }
+      }
+    };
+
+    // Add event listener
+    window.addEventListener('wheel', handleWheel, { passive: false });
+
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+    };
   }, []);
 
   // Handle image load errors
@@ -46,6 +87,7 @@ const HeroSection: React.FC = () => {
     setImageLoadError(prev => ({ ...prev, [imagePath]: true }));
   }, []);
 
+  
   return (
     <section className="relative h-screen max-h-[800px] overflow-hidden">
       {/* Video Background */}
@@ -81,9 +123,9 @@ const HeroSection: React.FC = () => {
         className={`relative z-20 container px-4 h-full flex flex-col justify-center transition-all duration-500 ease-out
           ${animateText ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'}
         `}
-        style={{ marginLeft: "80px", maxWidth: "760px" }}
+        style={{ marginLeft: "80px", maxWidth: "760px"}}
       >
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight mb-4">
           Clean Water Today<br />Better Future Tomorrow
         </h1>
 
