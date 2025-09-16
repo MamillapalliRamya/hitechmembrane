@@ -33,7 +33,7 @@ function AppContent() {
         </Routes>
       </main>
       {!hideFooter && <Footer />}
-      <ChatBot />
+      {/* <ChatBot /> */}
     </div>
   );
 }

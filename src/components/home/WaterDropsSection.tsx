@@ -12,12 +12,49 @@ const WaterDropSection: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  // ADD THIS: Function to scroll to next section
+  const scrollToNextSection = () => {
+    const nextSection = document.querySelector('#hero-section');
+    if (nextSection) {
+      nextSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
+  // ADD THIS: Handle scroll wheel event
+  useEffect(() => {
+    const handleWheel = (e: WheelEvent) => {
+      // Only trigger if scrolling down and we're in the waterdrop section
+      if (e.deltaY > 0) {
+        const currentSection = document.querySelector('#waterdrop-section');
+        if (currentSection) {
+          const rect = currentSection.getBoundingClientRect();
+          // Check if we're currently viewing this section
+          if (rect.top <= 100 && rect.bottom >= 100) {
+            e.preventDefault();
+            scrollToNextSection();
+          }
+        }
+      }
+    };
+
+    // Add event listener
+    window.addEventListener('wheel', handleWheel, { passive: false });
+
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+    };
+  }, []);
+
   return (
     <section 
+      id="waterdrop-section" 
       className="relative h-screen flex items-center justify-center overflow-hidden" 
       style={{ backgroundColor: '#121372' }}   
     > 
-      {/* Background video */}
+      
       <video 
         className="absolute top-0 left-0 w-full h-full object-cover" 
         style={{ mixBlendMode: "screen", height: '128%', paddingTop: '88px' }}
@@ -30,7 +67,6 @@ const WaterDropSection: React.FC = () => {
         Your browser does not support the video tag.
       </video>
 
-      {/* Text content with slide-up animation */}
       <div 
         className={`text-center px-4 relative z-10 transition-all duration-1000 ease-out ${
           showText 
@@ -52,7 +88,7 @@ const WaterDropSection: React.FC = () => {
         > 
           Purifying millions of gallons, 
         </h1> 
-        <h2 
+        <h1 
           className={`text-3xl text-[48px] md:text-4xl lg:text-5xl font-bold leading-tight mt-2 transition-all duration-1000 ease-out ${
             showText ? 'delay-500' : ''
           }`}
@@ -64,7 +100,7 @@ const WaterDropSection: React.FC = () => {
           }}
         > 
           Powering a sustainable future. 
-        </h2> 
+        </h1> 
       </div> 
     </section> 
   ); 

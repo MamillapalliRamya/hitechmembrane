@@ -70,13 +70,13 @@ const Footer = () => {
   ];
 
   const ContactIcon = () => (
-    <svg className="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <svg className="w-4 h-4 text-[#A8CF45]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
     </svg>
   );
 
   const LocationIcon = () => (
-    <svg className="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <svg className="w-4 h-4 text-[#A8CF45]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
     </svg>
@@ -84,11 +84,11 @@ const Footer = () => {
 
   return (
     <footer 
-      className="text-white py-6 px-4 sm:px-6 lg:px-8" 
+      className="text-white pt-6 px-4 sm:px-6 lg:px-8" 
       style={{ background: 'linear-gradient(5.56deg, #25275A 4.66%, #4145A1 95.85%)' }}
     >
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
           
           {/* Logo Section */}
           <div className="lg:col-span-3 flex justify-start">
@@ -102,8 +102,8 @@ const Footer = () => {
           </div>
 
           {/* Navigation Links Section */}
-          <div className="lg:col-span-6">
-            <div className="grid grid-cols-2 gap-16">
+          <div className="lg:col-span-4">
+            <div className="grid grid-cols-2 gap-4">
               {navigationLinks.map((link, index) => (
                 <div key={link.title} className={index < 2 ? "space-y-6" : "space-y-6"}>
                   <div>
@@ -115,7 +115,7 @@ const Footer = () => {
 
             {/* Chat With Us Section */}
             <div className="mt-8">
-              <h3 className="text-sm font-semibold mb-4 text-green-400 uppercase tracking-wider">
+              <h3 className="text-sm font-semibold mb-4  uppercase tracking-wider text-[#A8CF45]">
                 CHAT WITH US
               </h3>
               <div className="flex space-x-4">
@@ -123,7 +123,7 @@ const Footer = () => {
                   <a
                     key={platform.name}
                     href={platform.href}
-                    className={`w-12 h-12 rounded-full flex items-center justify-center transition-colors ${platform.bgColor}`}
+                    className={`w-11 h-11 rounded-full flex items-center justify-center transition-colors ${platform.bgColor}`}
                   >
                     {platform.isCustom ? (
                       <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center">
@@ -141,14 +141,14 @@ const Footer = () => {
           </div>
 
           {/* Contact and Location Section */}
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-5">
             {/* Contact Section */}
-            <div className="mb-6">
-              <h3 className="text-sm font-semibold mb-4 text-green-400 uppercase tracking-wider">
+            <div className="mb-3">
+              <h3 className="text-sm font-semibold mb-4 text-[#A8CF45] uppercase tracking-wider">
                 CONTACT
               </h3>
-              <div className="flex items-center mb-3">
-                <div className="w-8 h-8 rounded-full border-2 border-green-400 flex items-center justify-center mr-3 flex-shrink-0">
+              <div className="flex items-center ">
+                <div className="w-8 h-8 rounded-full border-2 border-[#A8CF45] flex items-center justify-center mr-3 flex-shrink-0">
                   <ContactIcon />
                 </div>
                 <span className="text-sm text-white">+1 891 989-11-91</span>
@@ -160,11 +160,11 @@ const Footer = () => {
 
             {/* Location Section */}
             <div>
-              <h3 className="text-sm font-semibold mb-4 text-green-400 uppercase tracking-wider">
+              <h3 className="text-sm font-semibold mb-4 text-[#A8CF45] uppercase tracking-wider">
                 LOCATION
               </h3>
               <div className="flex items-start">
-                <div className="w-8 h-8 rounded-full border-2 border-green-400 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                <div className="w-8 h-8 rounded-full border-2 border-[#A8CF45] flex items-center justify-center mr-3 mt-1 flex-shrink-0">
                   <LocationIcon />
                 </div>
                 <p className="text-sm text-white leading-relaxed">
@@ -177,19 +177,19 @@ const Footer = () => {
         </div>
 
         {/* Bottom Section with Social Media */}
-        <div className="pt-6">
+        <div className="pt-2">
           <div className="flex flex-col lg:flex-row justify-center items-center">
             {/* Social Media Icons */}
             <div className="flex justify-center mb-4 lg:mb-0">
               <div 
-                className="flex space-x-6 rounded-xl px-8 py-3" 
+                className="flex space-x-8 rounded-xl px-8 py-2" 
                 style={{ background: "#1A1C51" }}
               >
                 {socialPlatforms.map((platform) => (
                   <a
                     key={platform.name}
                     href={platform.href}
-                    className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors ${platform.bgColor}`}
+                    className={`w-7 h-7 rounded-full flex items-center justify-center transition-colors ${platform.bgColor}`}
                   >
                     <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
                       {platform.icon}
@@ -203,7 +203,7 @@ const Footer = () => {
           {/* Copyright */}
           <div 
             className="flex justify-end text-gray-400" 
-            style={{ marginTop: '16px', fontSize: '10px' }}
+            style={{ fontSize: '10px' }}
           >
             All Rights Reserved. Copyright ©2022 Hitechmembrane.Co.Ltd.
           </div>

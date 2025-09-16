@@ -37,15 +37,17 @@ const HeroSection: React.FC = () => {
     const timer = setTimeout(() => {
       setVideoPlaying(true);
       setAnimateText(true);
-    }, 300); // fast
+    }, 300);
     return () => clearTimeout(timer);
   }, []);
+  
 
   // Handle image load errors
   const handleImageError = useCallback((imagePath: string) => {
     setImageLoadError(prev => ({ ...prev, [imagePath]: true }));
   }, []);
 
+  
   return (
     <section className="relative h-screen max-h-[800px] overflow-hidden">
       {/* Video Background */}
@@ -81,9 +83,9 @@ const HeroSection: React.FC = () => {
         className={`relative z-20 container px-4 h-full flex flex-col justify-center transition-all duration-500 ease-out
           ${animateText ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'}
         `}
-        style={{ marginLeft: "80px", maxWidth: "760px" }}
+        style={{ marginLeft: "80px", maxWidth: "760px"}}
       >
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight mb-4">
           Clean Water Today<br />Better Future Tomorrow
         </h1>
 
