@@ -7,16 +7,15 @@ const GroupCompanies = () => {
       {/* Background Image */}
       <div className="absolute inset-0 w-full h-full">
         <img 
-          src="/assets/images/waterflow_home.png" 
+          src="/assets/images/waterflow_image.png" 
           alt="waterflow" 
           className="w-full h-full object-cover"
         />
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/30"></div>
+        
       </div>
 
       {/* Centered Content */}
-      <div className="relative z-20 h-full flex items-center justify-between ml-[100px]">
+      <div className="relative z-20 h-full flex items-center justify-between">
         
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -24,8 +23,8 @@ const GroupCompanies = () => {
             transition={{ duration: 0.8 }}
             className="flex items-center justify-center gap-[400px] text-white"
           >
-            <h1 className="w-[851px] h-[132px] text-[48px] text-[#FFFFFF] ml-[100px] md:text-5xl lg:text-6xl font-bold leading-tight">
-              Know More About Hi-Tech RO Water Filter Membranes
+            <h1 className="w-[682px] h-[96px] text-[40px] text-[#FFFFFF] ml-[80px] leading-tight">
+              Learn more about Hi-tech’s advanced RO water filter membranes.
             </h1>
             
             <motion.button 
@@ -37,7 +36,7 @@ const GroupCompanies = () => {
                         before:content-[''] before:absolute before:inset-0 before:bg-[#393185] before:-translate-y-full before:transition-transform before:duration-500
                         hover:before:translate-y-0 hover:text-[#A8CF45]"
             >
-              <span className="relative z-10">Contact Us</span>
+              <span className="relative z-10">Let's Talk</span>
             </motion.button>
           </motion.div>
         </div>
