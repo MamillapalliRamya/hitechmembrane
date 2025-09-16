@@ -110,7 +110,7 @@ const Header: React.FC = () => {
             </Link>
           </nav> */}
 
-          <nav className="hidden lg:flex items-center space-x-8 " style={{ gap: "40px" }}>
+          <nav className="hidden lg:flex items-center space-x-8 " style={{ gap: "40px" , fontWeight: '500', fontSize: '20px' ,lineHeight:'100%'}}>
             <Link
               to="/"
               className={`font-medium transition-colors ${
