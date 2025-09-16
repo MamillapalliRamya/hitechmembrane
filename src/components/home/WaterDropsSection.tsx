@@ -50,7 +50,7 @@ const WaterDropSection: React.FC = () => {
 
   return (
     <section 
-      id="waterdrop-section"  // ADD THIS ID
+      id="waterdrop-section" 
       className="relative h-screen flex items-center justify-center overflow-hidden" 
       style={{ backgroundColor: '#121372' }}   
     > 

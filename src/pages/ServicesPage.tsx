@@ -60,7 +60,7 @@ const servicesData = [
 const ServicesPage: React.FC = () => {
   return (
     <div className="w-full">
-      {/* Top Title Banner */}
+     
       <TitleSection
         title="Services"
         backgroundImage={image1}
@@ -69,10 +69,10 @@ const ServicesPage: React.FC = () => {
         textColor="text-white"
       />
 
-      {/* Services Section */}
+      
       <section className="py-16 bg-white">
         <div className="container mx-auto px-6 lg:px-8" style={{ maxWidth: '95rem' }}>
-          {/* Intro Paragraph */}
+          
           <div className="mb-16 text-center flex justify-center align-items-center">
             <p className="text-gray-700 text-base leading-relaxed max-w-3xl">
               At Hi-Tech, our greatest learning comes from customer feedback, which drives our commitment to excellence.
@@ -83,7 +83,7 @@ const ServicesPage: React.FC = () => {
             </p>
           </div>
 
-          {/* Grid Layout */}
+         
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-16">
             {servicesData.map((service, index) => (
               <motion.div
@@ -94,7 +94,7 @@ const ServicesPage: React.FC = () => {
                 transition={{ staggerChildren: 0.2, delayChildren: index * 0.15 }}
                 className="flex flex-col items-start"
               >
-                {/* Animated Icon */}
+                
                 <motion.div
                   variants={{
                     hidden: { scale: 0.5, opacity: 0 },
@@ -119,7 +119,6 @@ const ServicesPage: React.FC = () => {
                   </div>
                 </motion.div>
 
-                {/* Text Animation */}
                 <motion.div
                   variants={{
                     hidden: { opacity: 0, y: 30 },
@@ -137,7 +136,7 @@ const ServicesPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Group Companies Footer Section */}
+     
       <GroupCompanies />
     </div>
   );

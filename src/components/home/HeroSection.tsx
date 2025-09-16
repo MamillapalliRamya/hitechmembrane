@@ -40,47 +40,7 @@ const HeroSection: React.FC = () => {
     }, 300);
     return () => clearTimeout(timer);
   }, []);
-
-  // ADD THIS: Handle scroll wheel event for HeroSection
-  useEffect(() => {
-    const handleWheel = (e: WheelEvent) => {
-      const currentSection = document.querySelector('#hero-section');
-      if (currentSection) {
-        const rect = currentSection.getBoundingClientRect();
-        // Check if we're currently viewing this section
-        if (rect.top <= 100 && rect.bottom >= 100) {
-          e.preventDefault();
-          
-          if (e.deltaY < 0) {
-            // Scrolling up - go to WaterDropSection
-            const waterDropSection = document.querySelector('#waterdrop-section');
-            if (waterDropSection) {
-              waterDropSection.scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'start'
-              });
-            }
-          } else if (e.deltaY > 0) {
-            // Scrolling down - go to next section (AboutUsSection)
-            const aboutSection = document.querySelector('#about-section');
-            if (aboutSection) {
-              aboutSection.scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'start'
-              });
-            }
-          }
-        }
-      }
-    };
-
-    // Add event listener
-    window.addEventListener('wheel', handleWheel, { passive: false });
-
-    return () => {
-      window.removeEventListener('wheel', handleWheel);
-    };
-  }, []);
+  
 
   // Handle image load errors
   const handleImageError = useCallback((imagePath: string) => {
