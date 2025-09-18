@@ -97,7 +97,7 @@ const AboutUsSection = () => {
             transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}  // Faster
             className="flex-1 space-y-6 text-center lg:text-left flex flex-col justify-center"
           >
-            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-[#10111A] leading-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl  text-[#10111A] leading-tight">
               About Us
             </h2>
 

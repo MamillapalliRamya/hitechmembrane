@@ -85,7 +85,7 @@ const HeroSection: React.FC = () => {
         `}
         style={{ marginLeft: "80px", maxWidth: "760px"}}
       >
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight mb-4">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl  leading-tight mb-4">
           Clean Water Today<br />Better Future Tomorrow
         </h1>
 

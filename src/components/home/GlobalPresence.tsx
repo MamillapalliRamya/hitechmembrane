@@ -415,7 +415,7 @@ const GlobalPresenceSection = () => {
     <section className="py-16 bg-gray-50 relative overflow-hidden">
       <div className="mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-5xl font-bold text-gray-700 mb-8">
+          <h2 className="text-5xl  text-gray-700 mb-8">
             Our Global Presence
           </h2>
         </div>

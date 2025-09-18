@@ -35,7 +35,7 @@ const EventsSection = () => {
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.3, ease: "easeOut" }}
         viewport={{ once: true, amount: 0.5 }}
-        className="text-3xl sm:text-4xl lg:text-[48px] font-semibold text-[#3E4095] text-center mb-12"
+        className="text-3xl sm:text-4xl lg:text-[48px]  text-[#3E4095] text-center mb-12"
         style={{ fontFamily: "Diodrum Cyrillic, sans-serif" }}
       >
         Events

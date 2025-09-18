@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import AboutUsSection from "../components/home/BrandSection";
 import HeroSection from "../components/home/HeroSection";
 import AwardsSection from "../components/home/AwardsSection";
@@ -27,6 +27,99 @@ const HomePage: React.FC = () => {
     <AwardsSection />,
     <GlobalPresenceSection />,
   ];
+
+  // Enhanced animation variants for first three sections only
+  const sectionVariants = {
+    initial: { 
+      opacity: 0,
+      scale: 0.95,
+      y: 30,
+      filter: "blur(8px)"
+    },
+    active: { 
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      filter: "blur(0px)",
+      transition: {
+        duration: 0.8,
+        ease: [0.25, 0.46, 0.45, 0.94], // Custom easing
+        staggerChildren: 0.1
+      }
+    },
+    inactive: { 
+      opacity: 0.7,
+      scale: 0.98,
+      y: 10,
+      filter: "blur(2px)",
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    },
+    exit: {
+      opacity: 0,
+      scale: 0.9,
+      y: -20,
+      filter: "blur(4px)",
+      transition: {
+        duration: 0.4,
+        ease: "easeInOut"
+      }
+    }
+  };
+
+  // Content wrapper animation
+  const contentVariants = {
+    initial: { 
+      opacity: 0,
+      y: 40,
+      scale: 0.95
+    },
+    active: { 
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.7,
+        delay: 0.2,
+        ease: [0.215, 0.61, 0.355, 1]
+      }
+    },
+    inactive: {
+      opacity: 0.8,
+      y: 15,
+      scale: 0.98,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  // Background animation for sections
+  const backgroundVariants = {
+    initial: { 
+      opacity: 0,
+      scale: 1.1
+    },
+    active: { 
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 1,
+        ease: "easeOut"
+      }
+    },
+    inactive: {
+      opacity: 0.9,
+      scale: 1.02,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  };
 
   const scrollToSection = (index: number) => {
     const target = sectionRefs.current[index];
@@ -138,46 +231,125 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="w-full overflow-x-hidden overflow-y-hidden">
-      {/* Auto-scroll sections */}
-      {autoScrollSections.map((section, index) => (
-        <motion.section
-          key={section.id}
-          ref={(el) => (sectionRefs.current[index] = el)}
-          className={`w-full min-h-screen flex items-center justify-center ${
-            section.id === "hero"
-              ? "bg-gradient-to-r from-gray-800 to-gray-600 text-white"
-              : "bg-white"
-          }`}
-          initial={{ opacity: 0 }}
-          animate={{
-            opacity: currentSection === index ? 1 : 0.8,
-            scale: currentSection === index ? 1 : 0.98,
-          }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-        >
-          <motion.div
-            className="w-full h-full"
-            animate={{
-              y: currentSection === index ? 0 : 10,
-            }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
+      {/* Auto-scroll sections with enhanced animations */}
+      <AnimatePresence mode="wait">
+        {autoScrollSections.map((section, index) => (
+          <motion.section
+            key={section.id}
+            ref={(el) => (sectionRefs.current[index] = el)}
+            className={`w-full min-h-screen flex items-center justify-center relative ${
+              section.id === "hero"
+                ? "bg-gradient-to-r from-gray-800 to-gray-600 text-white"
+                : "bg-white"
+            }`}
+            variants={sectionVariants}
+            initial="initial"
+            animate={currentSection === index ? "active" : "inactive"}
+            exit="exit"
           >
-            {section.component}
-          </motion.div>
-        </motion.section>
-      ))}
+            {/* Background animation layer */}
+            <motion.div
+              className="absolute inset-0 -z-10"
+              variants={backgroundVariants}
+              initial="initial"
+              animate={currentSection === index ? "active" : "inactive"}
+            >
+              {/* Subtle gradient overlay for depth */}
+              <div className={`absolute inset-0 ${
+                section.id === "water-drop" 
+                  ? "bg-gradient-to-br from-blue-50/30 to-cyan-50/30"
+                  : section.id === "hero"
+                  ? "bg-gradient-to-br from-black/10 to-transparent"
+                  : "bg-gradient-to-br from-gray-50/30 to-white/30"
+              }`} />
+            </motion.div>
 
-      {/* Regular scroll sections */}
+            {/* Content wrapper with stagger animation */}
+            <motion.div
+              className="w-full h-full relative z-10"
+              variants={contentVariants}
+              initial="initial"
+              animate={currentSection === index ? "active" : "inactive"}
+            >
+              {/* Floating animation for active section */}
+              <motion.div
+                className="w-full h-full"
+                animate={currentSection === index ? {
+                  y: [0, -3, 0],
+                  transition: {
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }
+                } : {}}
+              >
+                {section.component}
+              </motion.div>
+            </motion.div>
+
+            {/* Section indicator dots */}
+            <motion.div
+              className="absolute right-8 top-1/2 transform -translate-y-1/2 z-20"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 1 }}
+            >
+              <div className="flex flex-col space-y-3">
+                {autoScrollSections.map((_, dotIndex) => (
+                  <motion.div
+                    key={dotIndex}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      currentSection === dotIndex 
+                        ? "bg-blue-600 w-3 h-3" 
+                        : "bg-gray-400"
+                    }`}
+                    whileHover={{ scale: 1.2 }}
+                    onClick={() => {
+                      setCurrentSection(dotIndex);
+                      scrollToSection(dotIndex);
+                    }}
+                    style={{ cursor: "pointer" }}
+                  />
+                ))}
+              </div>
+            </motion.div>
+          </motion.section>
+        ))}
+      </AnimatePresence>
+
+      {/* Regular scroll sections with simple entrance animations (no blur) */}
       {regularSections.map((section, index) => (
         <motion.div
           key={`regular-${index}`}
-          className="min-h-screen w-full bg-white"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-10%" }}
-          transition={{ duration: 0.5, delay: index * 0.1 }}
+          className="min-h-screen w-full bg-white relative overflow-hidden"
+          initial={{ opacity: 0, y: 60 }}
+          whileInView={{ 
+            opacity: 1, 
+            y: 0,
+            transition: {
+              duration: 0.8,
+              delay: index * 0.15,
+              ease: [0.25, 0.46, 0.45, 0.94]
+            }
+          }}
+          viewport={{ once: true, margin: "-15%" }}
         >
-          {section}
+          {/* Simple entrance animation for content - no blur effect */}
+          <motion.div
+            className="w-full h-full"
+            initial={{ scale: 0.95 }}
+            whileInView={{ 
+              scale: 1,
+              transition: {
+                duration: 1,
+                delay: index * 0.1 + 0.3,
+                ease: "easeOut"
+              }
+            }}
+            viewport={{ once: true, margin: "-10%" }}
+          >
+            {section}
+          </motion.div>
         </motion.div>
       ))}
     </div>

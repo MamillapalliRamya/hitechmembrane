@@ -76,12 +76,12 @@ const WaterDropSection: React.FC = () => {
         style={{marginTop: '180px'}}
       > 
         <h1 
-          className={`text-3xl text-[48px] md:text-4xl lg:text-5xl font-bold leading-tight transition-all duration-1000 ease-out ${
+          className={`text-3xl text-[48px] md:text-4xl lg:text-5xl  leading-tight transition-all duration-1000 ease-out ${
             showText ? 'delay-200' : ''
           }`}
           style={{ 
             color: 'black', 
-            fontFamily: 'Diodrum Cyrillic, sans-serif',
+            fontFamily: 'Diodrum Cyrillic',
             transform: showText ? 'translateY(0)' : 'translateY(50px)',
             opacity: showText ? 1 : 0
           }}
@@ -89,7 +89,7 @@ const WaterDropSection: React.FC = () => {
           Purifying millions of gallons, 
         </h1> 
         <h1 
-          className={`text-3xl text-[48px] md:text-4xl lg:text-5xl font-bold leading-tight mt-2 transition-all duration-1000 ease-out ${
+          className={`text-3xl text-[48px] md:text-4xl lg:text-5xl  leading-tight mt-2 transition-all duration-1000 ease-out ${
             showText ? 'delay-500' : ''
           }`}
           style={{ 
