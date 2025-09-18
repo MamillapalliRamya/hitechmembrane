@@ -26,12 +26,13 @@ const GlobalPresenceSection = () => {
   const [mapTransform, setMapTransform] = useState('translate(0, 0) scale(1)');
 
   const locations: Location[] = [
-    { 
-      id: 1, 
-      country: 'India', 
-      x: 50, 
-      y: 25, 
-      countryCode: 'in', 
+    // Original locations
+    {
+      id: 1,
+      country: 'India',
+      x: 66,
+      y: 22,
+      countryCode: 'in',
       type: 'main',
       reviews: [
         {
@@ -46,12 +47,12 @@ const GlobalPresenceSection = () => {
         }
       ]
     },
-    { 
-      id: 2, 
-      country: 'Thailand', 
-      x: 73, 
-      y: 21, 
-      countryCode: 'th', 
+    {
+      id: 2,
+      country: 'Thailand',
+      x: 72,
+      y: 21,
+      countryCode: 'th',
       type: 'main',
       reviews: [
         {
@@ -76,12 +77,12 @@ const GlobalPresenceSection = () => {
         }
       ]
     },
-    { 
-      id: 3, 
-      country: 'UAE', 
-      x: 57, 
-      y: 18, 
-      countryCode: 'ae', 
+    {
+      id: 3,
+      country: 'UAE',
+      x: 57,
+      y: 18,
+      countryCode: 'ae',
       type: 'main',
       reviews: [
         {
@@ -96,12 +97,12 @@ const GlobalPresenceSection = () => {
         }
       ]
     },
-    { 
-      id: 7, 
-      country: 'China', 
-      x: 75, 
-      y: 15, 
-      countryCode: 'cn', 
+    {
+      id: 7,
+      country: 'China',
+      x: 75,
+      y: 14,
+      countryCode: 'cn',
       type: 'main',
       reviews: [
         {
@@ -116,12 +117,267 @@ const GlobalPresenceSection = () => {
         }
       ]
     },
-    // Add warehouse and site locations with white dots
-    { id: 8, country: 'Mumbai Warehouse', x: 49, y: 27, countryCode: 'in', type: 'warehouse' },
-    { id: 9, country: 'Bangkok Warehouse', x: 71, y: 19, countryCode: 'th', type: 'warehouse' },
-    { id: 10, country: 'Dubai Warehouse', x: 57, y: 18, countryCode: 'ae', type: 'warehouse' },
-    { id: 11, country: 'Delhi Site', x: 48, y: 23, countryCode: 'in', type: 'site' },
-    { id: 12, country: 'Shanghai Site', x: 77, y: 13, countryCode: 'cn', type: 'site' }
+    // New locations
+    {
+      id: 8,
+      country: 'Egypt',
+      x: 52,
+      y: 20,
+      countryCode: 'eg',
+      type: 'main',
+      reviews: [
+        {
+          name: 'Omar Hassan',
+          rating: 5,
+          text: "Excellent water treatment solutions for our industrial needs. Outstanding performance and reliability."
+        },
+        {
+          name: 'Fatima El-Sayed',
+          rating: 4,
+          text: "Hi-Tech membranes have significantly improved our water quality. Highly recommended for commercial use."
+        }
+      ]
+    },
+    {
+      id: 9,
+      country: 'Vietnam',
+      x: 74,
+      y: 23,
+      countryCode: 'vn',
+      type: 'main',
+      reviews: [
+        {
+          name: 'Nguyen Van',
+          rating: 5,
+          text: "Superior membrane technology with excellent durability. Perfect for our manufacturing facility."
+        },
+        {
+          name: 'Tran Thi',
+          rating: 4,
+          text: "Great filtration efficiency and cost-effective solution for water purification systems."
+        }
+      ]
+    },
+    {
+      id: 10,
+      country: 'Pakistan',
+      x: 63,
+      y: 18,
+      countryCode: 'pk',
+      type: 'main',
+      reviews: [
+        {
+          name: 'Muhammad Ali',
+          rating: 5,
+          text: "Outstanding RO membrane quality with excellent technical support. Very satisfied with the performance."
+        },
+        {
+          name: 'Ayesha Khan',
+          rating: 4,
+          text: "Reliable water treatment solutions for our commercial operations. Highly effective membranes."
+        }
+      ]
+    },
+    {
+      id: 11,
+      country: 'Saudi Arabia',
+      x: 57,
+      y: 21,
+      countryCode: 'sa',
+      type: 'main',
+      reviews: [
+        {
+          name: 'Abdullah Al-Fahad',
+          rating: 5,
+          text: "Exceptional membrane technology for seawater desalination. Perfect quality and performance."
+        },
+        {
+          name: 'Nora Al-Rashid',
+          rating: 4,
+          text: "High-quality membranes with excellent salt rejection rates. Great for industrial applications."
+        }
+      ]
+    },
+    {
+      id: 12,
+      country: 'Indonesia',
+      x: 78,
+      y: 26,
+      countryCode: 'id',
+      type: 'main',
+      reviews: [
+        {
+          name: 'Budi Santoso',
+          rating: 5,
+          text: "Excellent membrane solutions for tropical climate conditions. Very durable and efficient."
+        },
+        {
+          name: 'Sari Dewi',
+          rating: 4,
+          text: "Great water purification technology with reliable performance. Perfect for our facility needs."
+        }
+      ]
+    },
+    {
+      id: 13,
+      country: 'Iran',
+      x: 60,
+      y: 16,
+      countryCode: 'ir',
+      type: 'main',
+      reviews: [
+        {
+          name: 'Reza Hosseini',
+          rating: 5,
+          text: "Superior quality membranes with excellent chemical resistance. Perfect for industrial water treatment."
+        },
+        {
+          name: 'Maryam Ahmadi',
+          rating: 4,
+          text: "High-performance RO membranes with great efficiency. Very satisfied with the results."
+        }
+      ]
+    },
+    {
+      id: 14,
+      country: 'Jordan',
+      x: 54,
+      y: 17,
+      countryCode: 'jo',
+      type: 'main',
+      reviews: [
+        {
+          name: 'Khaled Al-Zahra',
+          rating: 5,
+          text: "Outstanding membrane technology for water scarcity solutions. Excellent quality and durability."
+        },
+        {
+          name: 'Layla Mansour',
+          rating: 4,
+          text: "Great filtration performance with reliable long-term operation. Highly recommended membranes."
+        }
+      ]
+    },
+    {
+      id: 15,
+      country: 'Australia',
+      x: 85,
+      y: 33,
+      countryCode: 'au',
+      type: 'main',
+      reviews: [
+        {
+          name: 'James Mitchell',
+          rating: 5,
+          text: "Excellent membrane technology meeting Australian standards. Outstanding performance and reliability."
+        },
+        {
+          name: 'Emma Thompson',
+          rating: 4,
+          text: "High-quality RO membranes with great efficiency. Perfect for commercial water treatment applications."
+        }
+      ]
+    },
+    {
+      id: 16,
+      country: 'Philippines',
+      x: 79,
+      y: 23,
+      countryCode: 'ph',
+      type: 'main',
+      reviews: [
+        {
+          name: 'Maria Santos',
+          rating: 5,
+          text: "Exceptional water treatment solutions for island applications. Great membrane quality and performance."
+        },
+        {
+          name: 'Jose Reyes',
+          rating: 4,
+          text: "Reliable membrane technology with excellent salt rejection. Perfect for our coastal facility."
+        }
+      ]
+    },
+    {
+      id: 17,
+      country: 'South Africa',
+      x: 51,
+      y: 34,
+      countryCode: 'za',
+      type: 'main',
+      reviews: [
+        {
+          name: 'Thabo Mthembu',
+          rating: 5,
+          text: "Outstanding membrane solutions for African water challenges. Excellent durability and efficiency."
+        },
+        {
+          name: 'Sarah van der Merwe',
+          rating: 4,
+          text: "High-quality RO membranes with great performance. Very satisfied with the water treatment results."
+        }
+      ]
+    },
+    {
+      id: 18,
+      country: 'Nepal',
+      x: 69,
+      y: 17,
+      countryCode: 'np',
+      type: 'main',
+      reviews: [
+        {
+          name: 'Ram Sharma',
+          rating: 5,
+          text: "Excellent membrane technology for mountain region applications. Great quality and reliability."
+        },
+        {
+          name: 'Sita Gurung',
+          rating: 4,
+          text: "High-performance water treatment solutions. Perfect for our community water purification needs."
+        }
+      ]
+    },
+    {
+      id: 19,
+      country: 'United States',
+      x: 16,
+      y: 18,
+      countryCode: 'us',
+      type: 'main',
+      reviews: [
+        {
+          name: 'Robert Johnson',
+          rating: 5,
+          text: "Superior membrane technology meeting strict US standards. Exceptional quality and performance."
+        },
+        {
+          name: 'Jennifer Davis',
+          rating: 4,
+          text: "Excellent RO membranes with great efficiency. Perfect for industrial water treatment applications."
+        }
+      ]
+    },
+    {
+      id: 20,
+      country: 'United Kingdom',
+      x: 43,
+      y: 12,
+      countryCode: 'gb',
+      type: 'main',
+      reviews: [
+        {
+          name: 'David Wilson',
+          rating: 5,
+          text: "Outstanding membrane quality meeting European standards. Excellent durability and filtration efficiency."
+        },
+        {
+          name: 'Sophie Brown',
+          rating: 4,
+          text: "High-quality water treatment solutions with reliable performance. Very satisfied with the results."
+        }
+      ]
+    }
   ];
 
   const handleImageError = (locationId: number) => {
@@ -134,7 +390,7 @@ const GlobalPresenceSection = () => {
   const handleLocationClick = (location: Location) => {
     if (location.type === 'main' && location.reviews) {
       setSelectedLocation(location);
-      
+
       // Scale down the entire map to show complete view while making room for panel
       // Move map slightly left to center it better with the panel open
       setMapTransform(`translate(-120px, 0px) scale(0.8)`);
@@ -159,7 +415,7 @@ const GlobalPresenceSection = () => {
     <section className="py-16 bg-gray-50 relative overflow-hidden">
       <div className="mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-5xl font-bold text-gray-700 mb-8">
+          <h2 className="text-5xl  text-gray-700 mb-8">
             Our Global Presence
           </h2>
         </div>
@@ -167,9 +423,9 @@ const GlobalPresenceSection = () => {
         <div className="relative mb-12 overflow-hidden rounded-lg" style={{ minHeight: '400px' }}>
           <div className="relative w-full max-w-6xl mx-auto">
             {/* World Map Container with smooth transitions */}
-            <div 
+            <div
               className="relative transition-transform duration-1000 ease-in-out origin-center"
-              style={{ 
+              style={{
                 transform: mapTransform,
                 willChange: 'transform'
               }}
@@ -212,8 +468,8 @@ const GlobalPresenceSection = () => {
                         <foreignObject
                           x={location.x * 10 - 15}
                           y={location.y * 10 - 30}
-                          width="22"
-                          height="28"
+                          width="20"
+                          height="24"
                           onMouseEnter={() => setHoveredLocation(location)}
                           onMouseLeave={() => setHoveredLocation(null)}
                           onClick={() => handleLocationClick(location)}
@@ -230,43 +486,6 @@ const GlobalPresenceSection = () => {
                             onError={() => handleImageError(location.id)}
                           />
                         </foreignObject>
-                      )}
-
-                      {/* White dots for warehouse and site locations */}
-                      {(location.type === 'warehouse' || location.type === 'site') && (
-                        <g
-                          transform={`translate(${location.x * 10}, ${location.y * 10})`}
-                          onMouseEnter={() => setHoveredLocation(location)}
-                          onMouseLeave={() => setHoveredLocation(null)}
-                          style={{ cursor: 'pointer' }}
-                        >
-                          {/* Different styles for warehouse vs site */}
-                          {location.type === 'warehouse' ? (
-                            // White circle for warehouse
-                            <circle
-                              cx="0"
-                              cy="0"
-                              r="6"
-                              fill="#ffffff"
-                              stroke="#ffffff"
-                              strokeWidth="1"
-                              filter="drop-shadow(0 2px 4px rgba(0,0,0,0.3))"
-                              className="hover:r-8 transition-all duration-200"
-                            />
-                          ) : (
-                            // Blue circle for site
-                            <circle
-                              cx="0"
-                              cy="0"
-                              r="6"
-                              fill="#3b82f6"
-                              stroke="#3b82f6"
-                              strokeWidth="1"
-                              filter="drop-shadow(0 2px 4px rgba(0,0,0,0.3))"
-                              className="hover:r-8 transition-all duration-200"
-                            />
-                          )}
-                        </g>
                       )}
 
                       {/* Fallback SVG marker for main offices if image fails to load */}
@@ -294,65 +513,63 @@ const GlobalPresenceSection = () => {
               </div>
 
               {/* Enhanced Tooltip for Main Offices */}
-              {/* Tooltip for Main Offices (Flag + Country above, Click hint below) */}
-{hoveredLocation && hoveredLocation.type === 'main' && !selectedLocation && (
-  <>
-    {/* Flag + Country (above marker) */}
-    <div
-      className="absolute z-20 bg-white px-3 py-2 rounded-lg shadow-lg border border-gray-200 pointer-events-none flex items-center space-x-2"
-      style={{
-        left: `${(hoveredLocation.x * 10) * (100/1000)}%`, 
-        top: `${(hoveredLocation.y * 10) * (100/500)}%`,   
-         transform: 'translate(-50%, -180%)', // above marker
-      }}
-    >
-      <div className="w-6 h-6 rounded-full overflow-hidden border border-gray-300">
-        <img
-          src={`https://flagcdn.com/w40/${hoveredLocation.countryCode.toLowerCase()}.png`}
-          alt={`${hoveredLocation.country} flag`}
-          className="w-full h-full object-cover"
-          onError={(e) => {
-            e.currentTarget.style.display = 'none';
-            if (e.currentTarget.nextElementSibling) {
-              (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'block';
-            }
-          }}
-        />
-        <div
-          className="w-full h-full flex items-center justify-center text-sm"
-          style={{ display: 'none' }}
-        >
-          🏳️
-        </div>
-      </div>
-      <span className="text-sm font-semibold text-gray-800">
-        {hoveredLocation.country}
-      </span>
-    </div>
+              {hoveredLocation && hoveredLocation.type === 'main' && !selectedLocation && (
+                <>
+                  {/* Flag + Country (above marker) */}
+                  <div
+                    className="absolute z-20 bg-white px-3 py-2 rounded-lg shadow-lg border border-gray-200 pointer-events-none flex items-center space-x-2"
+                    style={{
+                      left: `${(hoveredLocation.x * 10) * (100 / 1000)}%`,
+                      top: `${(hoveredLocation.y * 10) * (100 / 500)}%`,
+                      transform: 'translate(-50%, -180%)', // above marker
+                    }}
+                  >
+                    <div className="w-6 h-6 rounded-full overflow-hidden border border-gray-300">
+                      <img
+                        src={`https://flagcdn.com/w40/${hoveredLocation.countryCode.toLowerCase()}.png`}
+                        alt={`${hoveredLocation.country} flag`}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                          if (e.currentTarget.nextElementSibling) {
+                            (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'block';
+                          }
+                        }}
+                      />
+                      <div
+                        className="w-full h-full flex items-center justify-center text-sm"
+                        style={{ display: 'none' }}
+                      >
+                        🏳️
+                      </div>
+                    </div>
+                    <span className="text-sm font-semibold text-gray-800">
+                      {hoveredLocation.country}
+                    </span>
+                  </div>
 
-    {/* Click to know more (below marker) */}
-    <div
-      className="absolute z-20 bg-yellow-200 text-gray-800 px-3 py-1 rounded-md shadow border border-green-300 pointer-events-none text-xs font-medium"
-      style={{
-        left: `${(hoveredLocation.x * 10) * (100/1000)}%`, 
-        top: `${(hoveredLocation.y * 10) * (100/500)}%`,   
-        transform: 'translate(-50%, 10px)', // below marker
-      }}
-    >
-      Click to know more
-    </div>
-  </>
-)}
-
+                  {/* Click to know more (below marker) */}
+                  <div
+                    className="absolute z-20 bg-yellow-200 text-gray-800 px-3 py-1 rounded-md shadow border border-green-300 pointer-events-none text-xs font-medium"
+                    style={{
+                      left: `${(hoveredLocation.x * 10) * (100 / 1000)}%`,
+                      top: `${(hoveredLocation.y * 10) * (100 / 500)}%`,
+                      transform: 'translate(-50%, 10px)', // below marker
+                    }}
+                  >
+                    Click to know more
+                  </div>
+                </>
+              )}
 
               {/* Original Tooltip for Warehouse and Site Locations */}
               {hoveredLocation && (hoveredLocation.type === 'warehouse' || hoveredLocation.type === 'site') && !selectedLocation && (
                 <div
                   className="absolute z-10 bg-white px-3 py-2 rounded-lg shadow-lg border border-gray-200 pointer-events-none"
                   style={{
-                    left: `${(hoveredLocation.x * 10) * (100/1000)}%`, 
-                    top: `${(hoveredLocation.y * 10) * (100/500)}%`,   
-                    transform: 'translate(15px, -12px)', 
+                    left: `${(hoveredLocation.x * 10) * (100 / 1000)}%`,
+                    top: `${(hoveredLocation.y * 10) * (100 / 500)}%`,
+                    transform: 'translate(15px, -12px)',
                   }}
                 >
                   <div className="flex items-center space-x-2">
@@ -414,7 +631,7 @@ const GlobalPresenceSection = () => {
                             </span>
                           </div>
                         </div>
-                        
+
                         {/* Review Content */}
                         <div className="flex-1">
                           <div className="flex items-center justify-between mb-2">

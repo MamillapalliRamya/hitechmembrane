@@ -85,7 +85,7 @@ const HeroSection: React.FC = () => {
         `}
         style={{ marginLeft: "80px", maxWidth: "760px"}}
       >
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight mb-4">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl  leading-tight mb-4">
           Clean Water Today<br />Better Future Tomorrow
         </h1>
 
@@ -94,14 +94,14 @@ const HeroSection: React.FC = () => {
           enabling reuse and safe access to ground and surface water. Our RO Technology addresses various water and sustainability challenges.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 mt-8">
+        {/* <div className="flex flex-col sm:flex-row gap-4 mt-8">
           <button 
             className="w-[240px] sm:w-[283px] h-[60px] sm:h-[74px] text-[22px] sm:text-[28px] font-medium rounded-[16px] flex items-center justify-center relative overflow-hidden bg-[#A8CF45] text-[#3D3E96] transition-all duration-500 before:content-[''] before:absolute before:inset-0 before:bg-[#3D3E96] before:-translate-y-full before:transition-transform before:duration-500 hover:before:translate-y-0 hover:text-[#A8CF45]"
             aria-label="Get Quote Now"
           >
             <span className="relative z-10">Get Quote Now</span>
           </button>
-        </div>
+        </div> */}
       </div>
 
       {/* Image Blocks (UNCHANGED) */}
