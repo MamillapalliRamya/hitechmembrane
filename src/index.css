@@ -87,6 +87,42 @@
     font-style: normal;
     font-display: swap;
 }
+@font-face {
+    font-family: 'Noto Sans';
+    src: url('/fonts/NotoSans-Regular.eot');
+    src: local('Noto Sans Regular'), local('NotoSans-Regular'),
+        url('/fonts/NotoSans-Regular.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/NotoSans-Regular.woff2') format('woff2'),
+        url('/fonts/NotoSans-Regular.woff') format('woff'),
+        url('/fonts/NotoSans-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Noto Sans';
+    src: url('/fonts/NotoSans-Medium.eot');
+    src: local('Noto Sans Medium'), local('NotoSans-Medium'),
+        url('/fonts/NotoSans-Medium.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/NotoSans-Medium.woff2') format('woff2'),
+        url('/fonts/NotoSans-Medium.woff') format('woff'),
+        url('/fonts/NotoSans-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Noto Sans';
+    src: url('/fonts/NotoSans-Bold.eot');
+    src: local('Noto Sans Bold'), local('NotoSans-Bold'),
+        url('/fonts/NotoSans-Bold.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/NotoSans-Bold.woff2') format('woff2'),
+        url('/fonts/NotoSans-Bold.woff') format('woff'),
+        url('/fonts/NotoSans-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
 
 .dark {
   @apply bg-gray-900 text-white;
@@ -141,6 +177,10 @@ h2,h1{
 } */
 
 p{
-  font-family: 'Noto Sans , sans-serif';
-  /* font-weight: 400 !important; */
+  font-family: 'Noto Sans';
+  font-weight: 500 ;
+}
+footer,footer p {
+  font-family: 'Diodrum Cyrillic';
+  
 }

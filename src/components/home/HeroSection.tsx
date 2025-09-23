@@ -89,7 +89,7 @@ const HeroSection: React.FC = () => {
           Clean Water Today<br />Better Future Tomorrow
         </h1>
 
-        <p className="text-lg sm:text-xl md:text-2xl mb-8 text-gray-100">
+        <p className="text-lg sm:text-xl md:text-2xl mb-8 text-gray-100" style={{fontFamily: "Diodrum Cyrillic" }}>
           Hi-tech membranes purify over 10 million gallons of water per minute globally, 
           enabling reuse and safe access to ground and surface water. Our RO Technology addresses various water and sustainability challenges.
         </p>

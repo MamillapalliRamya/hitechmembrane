@@ -652,7 +652,7 @@ const GlobalPresenceSection = () => {
         </div>
 
         <div className="max-w-4xl mx-auto text-center">
-          <p className="text-lg text-gray-600 leading-relaxed">
+          <p className="text-lg text-gray-600 leading-relaxed font-regular">
             Hi-Tech has successfully maintained its global presence thanks to a robust network of skilled
             associates. By prioritizing customer interests, the company continually adapts its work
             methodology to achieve outstanding results. With competitive pricing, efficient resource
