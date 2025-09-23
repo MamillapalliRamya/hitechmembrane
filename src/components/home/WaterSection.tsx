@@ -36,8 +36,8 @@ const WaterSolutionsSection = () => {
       <motion.h2
         initial={{ y: -40, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.4, ease: "easeOut" }} // Faster
-        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 0.4, ease: "easeOut" }} 
+        viewport={{ once: true, amount: 0.1 }}
         className="text-3xl sm:text-4xl lg:text-[48px] text-[#3E4095] text-center"
         style={{
           fontFamily: "Diodrum Cyrillic, sans-serif",
