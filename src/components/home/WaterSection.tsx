@@ -31,7 +31,7 @@ const WaterSolutionsSection = () => {
   };
 
   return (
-    <section className="py-16 bg-white relative overflow-hidden">
+    <section className="py-4 bg-white relative overflow-hidden">
       {/* Section Title */}
       <motion.h2
         initial={{ y: -40, opacity: 0 }}

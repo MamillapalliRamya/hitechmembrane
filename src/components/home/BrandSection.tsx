@@ -12,10 +12,10 @@ const AboutUsSection = () => {
       ref={sectionRef}
       className="pt-[88px] pb-[200px] relative overflow-hidden"
     >
-     
 
-    {/* Isometric RO Membrane Image */}
-<div 
+
+      {/* Isometric RO Membrane Image */}
+      {/* <div
         className="absolute hidden lg:block"
         style={{
           width: '1028.57px',
@@ -28,16 +28,16 @@ const AboutUsSection = () => {
           transformOrigin: 'center'
         }}
       >
-        <img 
-          src="/assets/images/Isometric1.png" 
+        <img
+          src="/assets/images/Isometric1.png"
           alt="RO Membrane Isometric View"
           className="w-full h-full object-cover"
         />
-      </div>
+      </div> */}
 
       <div className="relative z-10 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto">
         <div className="flex flex-col lg:flex-row items-center lg:items-center gap-12 lg:gap-16 xl:gap-20 2xl:gap-16">
-          
+
           {/* Left side - Images and Statistics */}
           <motion.div
             initial={{ x: -300, opacity: 0 }}
@@ -117,7 +117,7 @@ const AboutUsSection = () => {
               About Us
             </h2>
 
-            <p className="text-gray-600 text-sm sm:text-base lg:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0">
+            <p className="text-gray-600 text-sm sm:text-base lg:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0" >
               At Hi-tech Ro Membrane Company, we specialize in reverse osmosis technology for high-quality water purification. Our membranes meet diverse needs, ensuring clean drinking water. Committed to excellence and sustainability, we lead in water treatment solutions.
             </p>
 
