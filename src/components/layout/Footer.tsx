@@ -151,7 +151,7 @@ const Footer = () => {
                 <div className="w-8 h-8 rounded-full border-2 border-[#A8CF45] flex items-center justify-center mr-3 flex-shrink-0">
                   <ContactIcon />
                 </div>
-                <span className="text-sm text-white">+1 891 989-11-91</span>
+                <span className="text-sm text-white">+91-80-12345678</span>
               </div>
               <div className="text-sm text-white ml-11">
                 sales@hitechmembranes.com

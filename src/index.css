@@ -8,6 +8,122 @@
   }
 }
 
+
+@font-face {
+    font-family: 'Diodrum Cyrillic';
+    src: url('/fonts/DiodrumCyrillic-Medium.eot');
+    src: local('Diodrum Cyrillic Medium'), local('DiodrumCyrillic-Medium'),
+        url('/fonts/DiodrumCyrillic-Medium.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/DiodrumCyrillic-Medium.woff2') format('woff2'),
+        url('/fonts/DiodrumCyrillic-Medium.woff') format('woff'),
+        url('/fonts/DiodrumCyrillic-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Diodrum Cyrillic';
+    src: url('/fonts/DiodrumCyrillic-Bold.eot');
+    src: local('Diodrum Cyrillic Bold'), local('DiodrumCyrillic-Bold'),
+        url('/fonts/DiodrumCyrillic-Bold.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/DiodrumCyrillic-Bold.woff2') format('woff2'),
+        url('/fonts/DiodrumCyrillic-Bold.woff') format('woff'),
+        url('/fonts/DiodrumCyrillic-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Diodrum Cyrillic';
+    src: url('/fonts/DiodrumCyrillic-Extralight.eot');
+    src: local('Diodrum Cyrillic Extralight'), local('DiodrumCyrillic-Extralight'),
+        url('/fonts/DiodrumCyrillic-Extralight.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/DiodrumCyrillic-Extralight.woff2') format('woff2'),
+        url('/fonts/DiodrumCyrillic-Extralight.woff') format('woff'),
+        url('/fonts/DiodrumCyrillic-Extralight.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Diodrum Cyrillic';
+    src: url('/fonts/DiodrumCyrillic-Semibold.eot');
+    src: local('Diodrum Cyrillic Semibold'), local('DiodrumCyrillic-Semibold'),
+        url('/fonts/DiodrumCyrillic-Semibold.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/DiodrumCyrillic-Semibold.woff2') format('woff2'),
+        url('/fonts/DiodrumCyrillic-Semibold.woff') format('woff'),
+        url('/fonts/DiodrumCyrillic-Semibold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Diodrum Cyrillic';
+    src: url('/fonts/DiodrumCyrillic-Regular.eot');
+    src: local('Diodrum Cyrillic Regular'), local('DiodrumCyrillic-Regular'),
+        url('/fonts/DiodrumCyrillic-Regular.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/DiodrumCyrillic-Regular.woff2') format('woff2'),
+        url('/fonts/DiodrumCyrillic-Regular.woff') format('woff'),
+        url('/fonts/DiodrumCyrillic-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+@font-face {
+    font-family: 'Diodrum Cyrillic';
+    src: url('/fonts/DiodrumCyrillic-Light.eot');
+    src: local('Diodrum Cyrillic Light'), local('DiodrumCyrillic-Light'),
+        url('/fonts/DiodrumCyrillic-Light.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/DiodrumCyrillic-Light.woff2') format('woff2'),
+        url('/fonts/DiodrumCyrillic-Light.woff') format('woff'),
+        url('/fonts/DiodrumCyrillic-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Noto Sans';
+    src: url('/fonts/NotoSans-Regular.eot');
+    src: local('Noto Sans Regular'), local('NotoSans-Regular'),
+        url('/fonts/NotoSans-Regular.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/NotoSans-Regular.woff2') format('woff2'),
+        url('/fonts/NotoSans-Regular.woff') format('woff'),
+        url('/fonts/NotoSans-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Noto Sans';
+    src: url('/fonts/NotoSans-Medium.eot');
+    src: local('Noto Sans Medium'), local('NotoSans-Medium'),
+        url('/fonts/NotoSans-Medium.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/NotoSans-Medium.woff2') format('woff2'),
+        url('/fonts/NotoSans-Medium.woff') format('woff'),
+        url('/fonts/NotoSans-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Noto Sans';
+    src: url('/fonts/NotoSans-Bold.eot');
+    src: local('Noto Sans Bold'), local('NotoSans-Bold'),
+        url('/fonts/NotoSans-Bold.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/NotoSans-Bold.woff2') format('woff2'),
+        url('/fonts/NotoSans-Bold.woff') format('woff'),
+        url('/fonts/NotoSans-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
 .dark {
   @apply bg-gray-900 text-white;
 }
@@ -41,23 +157,30 @@
 .animate-rotate-slow {
   animation: rotate 10s linear infinite;
 }
+
 .font-medium{
-  font-weight:700 !important;
+  /* font-weight:700 !important; */
 }
 
 html {
   overflow-x: hidden;
 }
-h2{
-  font-family: 'Diodrum Cyrillic', sans-serif !important;
-  font-weight: 500 !important;
-}
-h1{
-  font-family: 'Diodrum Cyrillic', sans-serif !important;
-  font-weight: 600 !important;
-}
-p{
-  font-family: 'Noto Sans', sans-serif !important;
-  font-weight: 400 !important;
 
+h2,h1{
+  font-family: 'Diodrum Cyrillic';
+  font-weight: 500 ;
+}
+
+/* h1{
+  font-family: 'Diodrum Cyrillic';
+  font-weight: 600 !important;
+} */
+
+p{
+  font-family: 'Noto Sans';
+  font-weight: 500 ;
+}
+footer,footer p {
+  font-family: 'Diodrum Cyrillic';
+  
 }

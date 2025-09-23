@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Phone, Menu, X, Sun, Moon } from "lucide-react";
+import { Menu, X, Sun, Moon,Phone } from "lucide-react";
 import { useTheme } from "../../context/ThemeContext";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";

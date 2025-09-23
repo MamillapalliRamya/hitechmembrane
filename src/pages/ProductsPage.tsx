@@ -46,9 +46,9 @@ const productPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto pt-14 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto pt-6">
         {/* Download Button */}
-        <div className="text-center mb-8 sm:mb-12 pt-8 sm:pt-16 items-center">
+        <div className="text-center mb-12 ">
           <a
             href="/assets/pdf/sample.pdf"
             target="_blank"

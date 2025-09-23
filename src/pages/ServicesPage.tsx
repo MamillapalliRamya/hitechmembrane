@@ -59,86 +59,8 @@ const servicesData = [
 
 const ServicesPage: React.FC = () => {
   return (
-    <div className="w-full">
-     
-      <TitleSection
-        title="Services"
-        backgroundImage={image1}
-        overlay={true}
-        overlayOpacity={0.4}
-        textColor="text-white"
-      />
-
-      
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-6 lg:px-8" style={{ maxWidth: '95rem' }}>
-          
-          <div className="mb-16 text-center flex justify-center align-items-center">
-            <p className="text-gray-700 text-base leading-relaxed max-w-3xl">
-              At Hi-Tech, our greatest learning comes from customer feedback, which drives our commitment to excellence.
-              We believe that continuous improvement transforms the good into the great, and the great into the exceptional.
-              Our focus on precision in every service sets us apart from the competition.
-              We view our customers as partners in achieving our mission, and we know that success is only possible when we eliminate negligence.
-              With this dedication, Hi-Tech consistently enhances its capabilities, performance, and goals.
-            </p>
-          </div>
-
-         
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-16">
-            {servicesData.map((service, index) => (
-              <motion.div
-                key={index}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                transition={{ staggerChildren: 0.2, delayChildren: index * 0.15 }}
-                className="flex flex-col items-start"
-              >
-                
-                <motion.div
-                  variants={{
-                    hidden: { scale: 0.5, opacity: 0 },
-                    visible: { scale: 1, opacity: 1 },
-                  }}
-                  transition={{ duration: 0.6, ease: 'easeOut' }}
-                  className="mb-8"
-                >
-                  <div
-                    className="w-[165px] h-[83px] bg-[#3E4095] flex items-center justify-center"
-                    style={{
-                      borderRadius: "50% / 50%",
-                      transform: "rotate(-35deg)",
-                    }}
-                  >
-                    <img
-                      src={service.iconImage}
-                      alt={service.title}
-                      className="w-11 h-11 object-contain"
-                      style={{ transform: "rotate(35deg)" }}
-                    />
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  variants={{
-                    hidden: { opacity: 0, y: 30 },
-                    visible: { opacity: 1, y: 0 },
-                  }}
-                  transition={{ duration: 0.6, ease: 'easeOut' }}
-                  className="text-left"
-                >
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">{service.title}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">{service.description}</p>
-                </motion.div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-     
-      <GroupCompanies />
-    </div>
+    // 
+    <h1></h1>
   );
 };
 
