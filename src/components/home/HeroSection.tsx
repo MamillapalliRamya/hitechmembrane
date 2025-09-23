@@ -41,12 +41,86 @@ const HeroSection: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
   
-
   // Handle image load errors
   const handleImageError = useCallback((imagePath: string) => {
     setImageLoadError(prev => ({ ...prev, [imagePath]: true }));
   }, []);
 
+  // Responsive styles for image blocks
+  const getImageBlockStyles = (isFirst: boolean) => {
+    const baseStyles = {
+      position: 'absolute' as const,
+      cursor: 'pointer',
+      overflow: 'hidden',
+      borderStyle: 'solid',
+      borderColor: 'white',
+      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+      transition: 'all 1s ease-in-out',
+      top: '50%',
+      transform: 'translateY(-50%)',
+    };
+
+    // Desktop styles (xl and above)
+    if (window.innerWidth >= 1280) {
+      return {
+        ...baseStyles,
+        width: (isFirst ? !isSwapped : isSwapped) ? '409px' : '270px',
+        height: (isFirst ? !isSwapped : isSwapped) ? '510px' : '430px',
+        right: (isFirst ? !isSwapped : isSwapped) ? '140px' : '-173px',
+        borderTopLeftRadius: (isFirst ? !isSwapped : isSwapped) ? '8px' : '6px',
+        borderTopRightRadius: (isFirst ? !isSwapped : isSwapped) ? '100px' : '80px',
+        borderBottomLeftRadius: (isFirst ? !isSwapped : isSwapped) ? '100px' : '80px',
+        borderBottomRightRadius: '6px',
+        borderWidth: (isFirst ? !isSwapped : isSwapped) ? '8px' : '6px',
+        zIndex: (isFirst ? !isSwapped : isSwapped) ? 20 : 10,
+      };
+    }
+    // Large screens (lg)
+    else if (window.innerWidth >= 1024) {
+      return {
+        ...baseStyles,
+        width: (isFirst ? !isSwapped : isSwapped) ? '320px' : '210px',
+        height: (isFirst ? !isSwapped : isSwapped) ? '400px' : '340px',
+        right: (isFirst ? !isSwapped : isSwapped) ? '60px' : '-120px',
+        borderTopLeftRadius: (isFirst ? !isSwapped : isSwapped) ? '8px' : '6px',
+        borderTopRightRadius: (isFirst ? !isSwapped : isSwapped) ? '80px' : '60px',
+        borderBottomLeftRadius: (isFirst ? !isSwapped : isSwapped) ? '80px' : '60px',
+        borderBottomRightRadius: '6px',
+        borderWidth: (isFirst ? !isSwapped : isSwapped) ? '6px' : '4px',
+        zIndex: (isFirst ? !isSwapped : isSwapped) ? 20 : 10,
+      };
+    }
+    // Medium screens (md)
+    else if (window.innerWidth >= 768) {
+      return {
+        ...baseStyles,
+        width: (isFirst ? !isSwapped : isSwapped) ? '280px' : '180px',
+        height: (isFirst ? !isSwapped : isSwapped) ? '350px' : '290px',
+        right: (isFirst ? !isSwapped : isSwapped) ? '20px' : '-90px',
+        borderTopLeftRadius: (isFirst ? !isSwapped : isSwapped) ? '6px' : '4px',
+        borderTopRightRadius: (isFirst ? !isSwapped : isSwapped) ? '60px' : '40px',
+        borderBottomLeftRadius: (isFirst ? !isSwapped : isSwapped) ? '60px' : '40px',
+        borderBottomRightRadius: '4px',
+        borderWidth: (isFirst ? !isSwapped : isSwapped) ? '5px' : '3px',
+        zIndex: (isFirst ? !isSwapped : isSwapped) ? 20 : 10,
+      };
+    }
+    // Small screens (sm and below)
+    else {
+      return {
+        ...baseStyles,
+        width: '140px',
+        height: '200px',
+        right: isFirst ? '10px' : '-70px',
+        borderTopLeftRadius: '4px',
+        borderTopRightRadius: '30px',
+        borderBottomLeftRadius: '30px',
+        borderBottomRightRadius: '4px',
+        borderWidth: '3px',
+        zIndex: isFirst ? 20 : 10,
+      };
+    }
+  };
   
   return (
     <section className="relative h-screen max-h-[800px] overflow-hidden">
@@ -78,56 +152,36 @@ const HeroSection: React.FC = () => {
         <div className="absolute inset-0 z-0 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700"></div>
       )}
 
-      {/* Text Content Overlay with animation */}
+      {/* Text Content Overlay with responsive positioning */}
       <div
-        className={`relative z-20 container px-4 h-full flex flex-col justify-center transition-all duration-500 ease-out
+        className={`relative z-20 container px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 h-full flex flex-col justify-center transition-all duration-500 ease-out
           ${animateText ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'}
         `}
-        style={{ marginLeft: "80px", maxWidth: "760px"}}
+        style={{ 
+          marginLeft: window.innerWidth >= 1280 ? "80px" : 
+                     window.innerWidth >= 1024 ? "60px" : 
+                     window.innerWidth >= 768 ? "40px" : "20px",
+          maxWidth: window.innerWidth >= 1280 ? "760px" : 
+                   window.innerWidth >= 1024 ? "600px" : 
+                   window.innerWidth >= 768 ? "500px" : "350px"
+        }}
       >
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl  leading-tight mb-4">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight mb-4 text-white">
           Clean Water Today<br />Better Future Tomorrow
         </h1>
 
-        <p className="text-lg sm:text-xl md:text-2xl mb-8 text-gray-100" style={{fontFamily: "Diodrum Cyrillic" }}>
+        <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 text-gray-100 leading-relaxed" 
+           style={{fontFamily: "Diodrum Cyrillic" }}>
           Hi-tech membranes purify over 10 million gallons of water per minute globally, 
           enabling reuse and safe access to ground and surface water. Our RO Technology addresses various water and sustainability challenges.
         </p>
-
-        {/* <div className="flex flex-col sm:flex-row gap-4 mt-8">
-          <button 
-            className="w-[240px] sm:w-[283px] h-[60px] sm:h-[74px] text-[22px] sm:text-[28px] font-medium rounded-[16px] flex items-center justify-center relative overflow-hidden bg-[#A8CF45] text-[#3D3E96] transition-all duration-500 before:content-[''] before:absolute before:inset-0 before:bg-[#3D3E96] before:-translate-y-full before:transition-transform before:duration-500 hover:before:translate-y-0 hover:text-[#A8CF45]"
-            aria-label="Get Quote Now"
-          >
-            <span className="relative z-10">Get Quote Now</span>
-          </button>
-        </div> */}
       </div>
 
-      {/* Image Blocks (UNCHANGED) */}
+      {/* Responsive Image Blocks */}
       {imageBlocks[0].images.length > 0 && (
-        <div className="absolute right-16 top-1/2 transform -translate-y-1/2 z-30 bg-white">
+        <div className="absolute right-4 sm:right-8 md:right-12 lg:right-16 top-1/2 transform -translate-y-1/2 z-30">
           {/* First Image Block */}
-          <div 
-            className="absolute cursor-pointer overflow-hidden"
-            style={{
-              width: isSwapped ? '270px' : '409px',
-              height: isSwapped ? '430px' : '510px',
-              right: isSwapped ? '-173px' : '140px',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              borderTopLeftRadius: isSwapped ? '6px' : '8px',
-              borderTopRightRadius: isSwapped ? '80px' : '100px',
-              borderBottomRightRadius: '6px',
-              borderBottomLeftRadius: isSwapped ? '80px' : '100px',
-              borderWidth: isSwapped ? '6px' : '8px',
-              borderColor: 'white',
-              borderStyle: 'solid',
-              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-              transition: 'all 1s ease-in-out',
-              zIndex: isSwapped ? 10 : 20
-            }}
-          >
+          <div style={getImageBlockStyles(true)}>
             {imageBlocks[0].images.map((image, index) => (
               <div
                 key={`main-${index}`}
@@ -139,7 +193,9 @@ const HeroSection: React.FC = () => {
                 style={{ inset: 0 }}
               >
                 {imageLoadError[image] ? (
-                  <div className="w-full h-full flex items-center justify-center bg-gray-400"></div>
+                  <div className="w-full h-full flex items-center justify-center bg-gray-400">
+                    <span className="text-white text-xs">Image Error</span>
+                  </div>
                 ) : (
                   <img 
                     src={image}
@@ -154,26 +210,7 @@ const HeroSection: React.FC = () => {
           </div>
 
           {/* Second Image Block */}
-          <div 
-            className="absolute cursor-pointer overflow-hidden"
-            style={{
-              width: isSwapped ? '409px' : '270px',
-              height: isSwapped ? '510px' : '430px',
-              right: isSwapped ? '140px' : '-173px',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              borderTopLeftRadius: isSwapped ? '8px' : '6px',
-              borderTopRightRadius: isSwapped ? '100px' : '80px',
-              borderBottomRightRadius: '6px',
-              borderBottomLeftRadius: isSwapped ? '100px' : '80px',
-              borderWidth: isSwapped ? '8px' : '6px',
-              borderColor: 'white',
-              borderStyle: 'solid',
-              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-              transition: 'all 1s ease-in-out',
-              zIndex: isSwapped ? 20 : 10
-            }}
-          >
+          <div style={getImageBlockStyles(false)}>
             <div className="relative w-full h-full">
               {imageBlocks[0].images.map((image, index) => {
                 const displayIndex = (currentImageIndex + 1) % imageBlocks[0].images.length;
@@ -186,13 +223,19 @@ const HeroSection: React.FC = () => {
                         : 'opacity-0 transform scale-95'
                     }`}
                   >
-                    <img 
-                      src={image}
-                      alt={`Water system ${index + 1}`}
-                      className="w-full h-full object-cover"
-                      onError={() => handleImageError(image)}
-                      loading="lazy"
-                    />
+                    {imageLoadError[image] ? (
+                      <div className="w-full h-full flex items-center justify-center bg-gray-400">
+                        <span className="text-white text-xs">Image Error</span>
+                      </div>
+                    ) : (
+                      <img 
+                        src={image}
+                        alt={`Water system ${index + 1}`}
+                        className="w-full h-full object-cover"
+                        onError={() => handleImageError(image)}
+                        loading="lazy"
+                      />
+                    )}
                   </div>
                 );
               })}
@@ -200,6 +243,11 @@ const HeroSection: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* Mobile-specific overlay to prevent image overflow */}
+      <div className="absolute inset-0 pointer-events-none z-40 sm:hidden">
+        <div className="absolute right-0 top-0 w-20 h-full bg-gradient-to-l from-black/20 to-transparent"></div>
+      </div>
     </section>
   );
 };
