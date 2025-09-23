@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const chatPlatforms = [
@@ -63,10 +64,10 @@ const Footer = () => {
   ];
 
   const navigationLinks = [
-    { title: 'Products', href: '#' },
+    { title: 'Products', href: '/products' },
     { title: 'About', href: '#' },
     { title: 'Events', href: '#' },
-    { title: 'Contact Us', href: '#' }
+    { title: 'Contact Us', href: '/contact' }
   ];
 
   const ContactIcon = () => (
@@ -103,11 +104,13 @@ const Footer = () => {
 
           {/* Navigation Links Section */}
           <div className="lg:col-span-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4 cursor-pointer">
               {navigationLinks.map((link, index) => (
                 <div key={link.title} className={index < 2 ? "space-y-6" : "space-y-6"}>
                   <div>
+                    <Link to={link.href}>
                     <h3 className="text-xl font-normal text-white">{link.title}</h3>
+                    </Link>
                   </div>
                 </div>
               ))}
