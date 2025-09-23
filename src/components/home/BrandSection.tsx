@@ -10,7 +10,7 @@ const AboutUsSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="pt-[88px] pb-[200px] relative overflow-hidden"
+      className="pt-[88px] pb-[60px] relative overflow-hidden"
     >
 
 
@@ -60,8 +60,8 @@ const AboutUsSection = () => {
                 initial={{ scale: 0.3, opacity: 0 }}
                 animate={isInView ? { scale: 1, opacity: 1 } : {}}
                 transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
-                className="bg-white p-4 shadow-[1px_2px_16px_6px_#e0e0e0] text-start rounded-lg w-[160px] h-[177px] sm:w-[180px] lg:w-[216px]"
-                style={{ fontFamily: "Diodrum Cyrillic, sans-serif" }}
+                className="bg-white flex justify-center p-4 shadow-[1px_2px_16px_6px_#e0e0e0] text-start rounded-lg w-[160px] h-[177px] sm:w-[180px] lg:w-[216px]"
+                style={{ fontFamily: "Diodrum Cyrillic, sans-serif",flexDirection:'column' }}
               >
                 <div className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#3E4095]">
                   Clients
@@ -69,7 +69,7 @@ const AboutUsSection = () => {
                 <div className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#3E4095]">
                   Worldwide
                 </div>
-                <div className="text-[#A8CF45] text-[48px] sm:text-[60px] lg:text-[80px]">
+                <div className="text-[#A8CF45] text-[40px] sm:text-[50px] lg:text-[60px]">
                   200+
                 </div>
               </motion.div>
@@ -91,7 +91,7 @@ const AboutUsSection = () => {
                 <div className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#3E4095]">
                   Experience
                 </div>
-                <div className="text-[#A8CF45] text-[48px] sm:text-[60px] lg:text-[80px]">
+                <div className="text-[#A8CF45] text-[38px] sm:text-[50px] lg:text-[60px]">
                   50+
                 </div>
               </motion.div>
