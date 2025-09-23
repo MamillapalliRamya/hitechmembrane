@@ -21,6 +21,18 @@ const Header: React.FC = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close mobile menu on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
@@ -29,362 +41,325 @@ const Header: React.FC = () => {
     return location.pathname === path;
   };
 
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
+
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-white dark:bg-gray-800 shadow-md py-3"
-          : "bg-white py-5"
-      }`}
-    >
-      <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center">
-          <Link to="/" className="flex items-center">
-            <img
-              src="/logo-1 (1).png"
-              alt="Hi-Tech Membranes"
-              className="h-12 w-auto"
-            />
-          </Link>
-
-          {/* <nav className="hidden lg:flex items-center space-x-8">
-            <Link 
-              to="/" 
-              className={`font-medium transition-colors ${
-                isActive('/') 
-                  ? isScrolled ? 'text-blue-600 dark:text-blue-400' : 'text-black' 
-                  : isScrolled ? 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400' : 'text-blue/80 hover:text-black'
-              }`}
-            >
-              {t('nav.home')}
-            </Link>
-            <Link 
-              to="/about" 
-              className={`font-medium transition-colors ${
-                isActive('/about') 
-                  ? isScrolled ? 'text-blue-600 dark:text-blue-400' : 'text-black' 
-                  : isScrolled ? 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400' : 'text-blue/80 hover:text-black'
-              }`}
-            >
-              {t('nav.about')}
-            </Link>
-            <Link 
-              to="/services" 
-              className={`font-medium transition-colors ${
-                isActive('/services') 
-                  ? isScrolled ? 'text-blue-600 dark:text-blue-400' : 'text-black' 
-                  : isScrolled ? 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400' : 'text-blue/80 hover:text-black'
-              }`}
-            >
-              {t('nav.services')}
-            </Link>
-            <Link 
-              to="/products" 
-              className={`font-medium transition-colors ${
-                isActive('/products') 
-                  ? isScrolled ? 'text-blue-600 dark:text-blue-400' : 'text-black' 
-                  : isScrolled ? 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400' : 'text-blue/80 hover:text-black'
-              }`}
-            >
-              {t('nav.products')}
-            </Link>
-            <Link 
-              to="/technical-hub" 
-              className={`font-medium transition-colors ${
-                isActive('/technical-hub') 
-                  ? isScrolled ? 'text-blue-600 dark:text-blue-400' : 'text-black' 
-                  : isScrolled ? 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400' : 'text-blue/80 hover:text-black'
-              }`}
-            >
-              {t('nav.technicalHub')}
-            </Link>
-            <Link 
-              to="/contact" 
-              className={`font-medium transition-colors ${
-                isActive('/contact') 
-                  ? isScrolled ? 'text-blue-600 dark:text-blue-400' : 'text-black' 
-                  : isScrolled ? 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400' : 'text-blue/80 hover:text-black'
-              }`}
-            >
-              {t('nav.contact')}
-            </Link>
-          </nav> */}
-
-          <nav className="hidden lg:flex items-center space-x-8 " style={{ gap: "40px" , fontWeight: '500', fontSize: '20px' ,lineHeight:'100%'}}>
-            <Link
-              to="/"
-              className={`font-medium transition-colors ${
-                isActive("/")
-                  ? isScrolled
-                    ? "text-blue-600 dark:text-blue-400"
-                    : "text-blue-600"
-                  : isScrolled
-                  ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                  : " hover:text-blue-600"
-              }`}
-            >
-              {t("nav.home")}
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled
+            ? "bg-white dark:bg-gray-800 shadow-md py-2 sm:py-3"
+            : "bg-white dark:bg-gray-900 py-3 sm:py-5"
+        }`}
+      >
+        <div className="container mx-auto px-3 sm:px-4 lg:px-6">
+          <div className="flex justify-between items-center">
+            {/* Logo */}
+            <Link to="/" className="flex items-center flex-shrink-0">
+              <img
+                src="/logo-1 (1).png"
+                alt="Hi-Tech Membranes"
+                className="h-8 w-auto sm:h-10 lg:h-12 transition-all duration-300"
+              />
             </Link>
 
-            <Link
-              to="/about"
-              className={`font-medium transition-colors ${
-                isActive("/about")
-                  ? isScrolled
-                    ? "text-blue-600 dark:text-blue-400"
-                    : "text-blue-600"
-                  : isScrolled
-                  ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                  : " hover:text-blue-600"
-              }`}
+            {/* Desktop Navigation */}
+            <nav 
+              className="hidden lg:flex items-center space-x-6 xl:space-x-8" 
+              style={{ 
+                gap: "clamp(24px, 3vw, 40px)", 
+                fontWeight: '500', 
+                fontSize: 'clamp(16px, 1.2vw, 20px)',
+                lineHeight: '100%'
+              }}
             >
-              {t("nav.about")}
-            </Link>
-
-            <Link
-              to="/products"
-              className={`font-medium transition-colors ${
-                isActive("/products")
-                  ? isScrolled
-                    ? "text-blue-600 dark:text-blue-400"
-                    : "text-blue-600"
-                  : isScrolled
-                  ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                  : " hover:text-blue-600"
-              }`}
-            >
-              {t("nav.products")}
-            </Link>
-
-            <Link
-              to="/services"
-              className={`font-medium transition-colors ${
-                isActive("/services")
-                  ? isScrolled
-                    ? "text-blue-600 dark:text-blue-400"
-                    : "text-blue-600"
-                  : isScrolled
-                  ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                  : " hover:text-blue-600"
-              }`}
-            >
-              {t("nav.services")}
-            </Link>
-
-            <Link
-              to="/media-room"
-              className={`font-medium transition-colors ${
-                isActive("/media-room")
-                  ? isScrolled
-                    ? "text-blue-600 dark:text-blue-400"
-                    : "text-blue-600"
-                  : isScrolled
-                  ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                  : " hover:text-blue-600"
-              }`}
-            >
-              {t("nav.mediaRoom")}
-            </Link>
-
-
-            {/* <Link
-              to="/technical-hub"
-              className={`font-medium transition-colors ${
-                isActive("/technical-hub")
-                  ? isScrolled
-                    ? "text-blue-600 dark:text-blue-400"
-                    : "text-blue-600"
-                  : isScrolled
-                  ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                  : " hover:text-blue-600"
-              }`}
-            >
-              {t("nav.technicalHub")}
-            </Link> */}
-
-            <Link
-              to="/contact"
-              className={`font-medium transition-colors ${
-                isActive("/contact")
-                  ? isScrolled
-                    ? "text-blue-600 dark:text-blue-400"
-                    : "text-black"
-                  : isScrolled
-                  ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                  : " hover:text-blue-600"
-              }`}
-            >
-              {t("nav.contact")}
-            </Link>
-          </nav>
-
-          <div className="flex items-center gap-4">
-            {/* <a
-              href="tel:+18001234567"
-              className={`hidden md:flex items-center mr-6 ${
-                isScrolled ? "text-gray-700 dark:text-gray-300" : "text-black"
-              }`}
-            >
-              <Phone className="w-5 h-5 mr-2" />
-              <span className="font-medium">1-800-123-4567</span>
-            </a> */}
-
-            <LanguageSelector />
-
-            <button
-              onClick={toggleTheme}
-              className={`p-2 rounded-full transition-colors ${
-                isScrolled
-                  ? "hover:bg-gray-100 dark:hover:bg-gray-700"
-                  : "hover:bg-black/10"
-              }`}
-            >
-              {theme === "dark" ? (
-                <Sun
-                  className={`w-5 h-5 ${
-                    isScrolled
-                      ? "text-gray-700 dark:text-gray-300"
-                      : "text-black"
-                  }`}
-                />
-              ) : (
-                <Moon
-                  className={`w-5 h-5 ${
-                    isScrolled
-                      ? "text-gray-700 dark:text-gray-300"
-                      : "text-black"
-                  }`}
-                />
-              )}
-            </button>
-
-            <Link
-              to="/contact"
-              className={`hidden md:block px-5 py-2 rounded-md font-medium transition-colors ${
-                isScrolled
-                  ? "bg-blue-600 text-white hover:bg-blue-700"
-                  : "bg-[#A8CF45] text-[#3D3E96] hover:bg-blue-50"
-              }`}
-            >
-              {t("cta.requestQuote")}
-            </Link>
-
-            <button
-              className="lg:hidden ml-4 p-1 rounded-md"
-              onClick={toggleMobileMenu}
-            >
-              {mobileMenuOpen ? (
-                <X
-                  className={`w-6 h-6 ${
-                    isScrolled ? "text-gray-900 dark:text-black" : "text-white"
-                  }`}
-                />
-              ) : (
-                <Menu
-                  className={`w-6 h-6 ${
-                    isScrolled ? "text-gray-900 dark:text-black" : "text-white"
-                  }`}
-                />
-              )}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {mobileMenuOpen && (
-        <div className="lg:hidden bg-white dark:bg-gray-800 shadow-lg absolute top-full left-0 right-0 animate-fadeIn">
-          <div className="container mx-auto px-4 py-4">
-            <nav className="flex flex-col space-y-4">
-              <Link
+              {/* <Link
                 to="/"
-                className={`font-medium py-2 px-4 rounded-md ${
+                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${
                   isActive("/")
-                    ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400"
-                    : "text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    ? "text-blue-600 dark:text-blue-400"
+                    : isScrolled
+                    ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                    : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
                 }`}
-                onClick={() => setMobileMenuOpen(false)}
               >
                 {t("nav.home")}
-              </Link>
+              </Link> */}
+
               <Link
                 to="/about"
-                className={`font-medium py-2 px-4 rounded-md ${
+                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${
                   isActive("/about")
-                    ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400"
-                    : "text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    ? "text-blue-600 dark:text-blue-400"
+                    : isScrolled
+                    ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                    : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
                 }`}
-                onClick={() => setMobileMenuOpen(false)}
               >
                 {t("nav.about")}
               </Link>
-              <Link
-                to="/services"
-                className={`font-medium py-2 px-4 rounded-md ${
-                  isActive("/services")
-                    ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400"
-                    : "text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700"
-                }`}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {t("nav.services")}
-              </Link>
+
               <Link
                 to="/products"
-                className={`font-medium py-2 px-4 rounded-md ${
+                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${
                   isActive("/products")
-                    ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400"
-                    : "text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    ? "text-blue-600 dark:text-blue-400"
+                    : isScrolled
+                    ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                    : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
                 }`}
-                onClick={() => setMobileMenuOpen(false)}
               >
                 {t("nav.products")}
               </Link>
+
               <Link
-                to="/technical-hub"
-                className={`font-medium py-2 px-4 rounded-md ${
-                  isActive("/technical-hub")
-                    ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400"
-                    : "text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700"
+                to="/services"
+                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${
+                  isActive("/services")
+                    ? "text-blue-600 dark:text-blue-400"
+                    : isScrolled
+                    ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                    : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
                 }`}
-                onClick={() => setMobileMenuOpen(false)}
               >
-                {t("nav.technicalHub")}
+                {t("nav.services")}
               </Link>
+
+              <Link
+                to="/media-room"
+                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${
+                  isActive("/media-room")
+                    ? "text-blue-600 dark:text-blue-400"
+                    : isScrolled
+                    ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                    : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
+                }`}
+              >
+                {t("nav.mediaRoom")}
+              </Link>
+
               <Link
                 to="/contact"
-                className={`font-medium py-2 px-4 rounded-md ${
+                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${
                   isActive("/contact")
-                    ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400"
-                    : "text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    ? "text-blue-600 dark:text-blue-400"
+                    : isScrolled
+                    ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                    : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
                 }`}
-                onClick={() => setMobileMenuOpen(false)}
               >
                 {t("nav.contact")}
               </Link>
             </nav>
 
-            <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+            {/* Right side controls */}
+            <div className="flex items-center gap-2 sm:gap-3 lg:gap-4">
+              {/* Language Selector - Hidden on small screens */}
+              <div className="hidden sm:block">
+                <LanguageSelector />
+              </div>
+
+              {/* Theme Toggle */}
+              <button
+                onClick={toggleTheme}
+                className={`p-1.5 sm:p-2 rounded-full transition-all duration-200 hover:scale-110 ${
+                  isScrolled
+                    ? "hover:bg-gray-100 dark:hover:bg-gray-700"
+                    : "hover:bg-black/10 dark:hover:bg-white/10"
+                }`}
+                aria-label="Toggle theme"
+              >
+                {theme === "dark" ? (
+                  <Sun
+                    className={`w-4 h-4 sm:w-5 sm:h-5 ${
+                      isScrolled
+                        ? "text-gray-700 dark:text-gray-300"
+                        : "text-gray-800 dark:text-gray-200"
+                    }`}
+                  />
+                ) : (
+                  <Moon
+                    className={`w-4 h-4 sm:w-5 sm:h-5 ${
+                      isScrolled
+                        ? "text-gray-700 dark:text-gray-300"
+                        : "text-gray-800 dark:text-gray-200"
+                    }`}
+                  />
+                )}
+              </button>
+
+              {/* CTA Button - Responsive sizing */}
+              <Link
+                to="/contact"
+                className={`hidden sm:block px-3 py-1.5 sm:px-4 sm:py-2 lg:px-5 lg:py-2 rounded-md font-medium transition-all duration-200 hover:scale-105 text-sm lg:text-base ${
+                  isScrolled
+                    ? "bg-blue-600 text-white hover:bg-blue-700 shadow-md"
+                    : "bg-[#A8CF45] text-[#3D3E96] hover:bg-green-400 shadow-lg"
+                }`}
+              >
+                <span className="hidden lg:inline">{t("cta.requestQuote")}</span>
+                <span className="lg:hidden">Quote</span>
+              </Link>
+
+              {/* Mobile Menu Button */}
+              <button
+                className="lg:hidden p-1.5 rounded-md transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                onClick={toggleMobileMenu}
+                aria-label="Toggle mobile menu"
+              >
+                {mobileMenuOpen ? (
+                  <X
+                    className={`w-5 h-5 sm:w-6 sm:h-6 ${
+                      isScrolled ? "text-gray-900 dark:text-gray-100" : "text-gray-800 dark:text-gray-200"
+                    }`}
+                  />
+                ) : (
+                  <Menu
+                    className={`w-5 h-5 sm:w-6 sm:h-6 ${
+                      isScrolled ? "text-gray-900 dark:text-gray-100" : "text-gray-800 dark:text-gray-200"
+                    }`}
+                  />
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Menu Overlay */}
+      {mobileMenuOpen && (
+        <>
+          {/* Backdrop */}
+          <div 
+            className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300"
+            onClick={closeMobileMenu}
+          />
+          
+          {/* Mobile Menu */}
+          <div className="lg:hidden bg-white dark:bg-gray-800 shadow-2xl fixed top-0 right-0 h-full w-80 max-w-[85vw] z-50 transform transition-transform duration-300 ease-in-out overflow-y-auto">
+            {/* Mobile Menu Header */}
+            <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+              <img
+                src="/logo-1 (1).png"
+                alt="Hi-Tech Membranes"
+                className="h-8 w-auto"
+              />
+              <button
+                onClick={closeMobileMenu}
+                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                aria-label="Close mobile menu"
+              >
+                <X className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+              </button>
+            </div>
+
+            {/* Mobile Navigation */}
+            <nav className="flex flex-col p-4 space-y-2">
+              {/* <Link
+                to="/"
+                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${
+                  isActive("/")
+                    ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
+                    : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
+                }`}
+                onClick={closeMobileMenu}
+              >
+                {t("nav.home")}
+              </Link> */}
+              
+              <Link
+                to="/about"
+                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${
+                  isActive("/about")
+                    ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
+                    : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
+                }`}
+                onClick={closeMobileMenu}
+              >
+                {t("nav.about")}
+              </Link>
+              
+              <Link
+                to="/products"
+                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${
+                  isActive("/products")
+                    ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
+                    : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
+                }`}
+                onClick={closeMobileMenu}
+              >
+                {t("nav.products")}
+              </Link>
+              
+              <Link
+                to="/services"
+                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${
+                  isActive("/services")
+                    ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
+                    : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
+                }`}
+                onClick={closeMobileMenu}
+              >
+                {t("nav.services")}
+              </Link>
+              
+              <Link
+                to="/media-room"
+                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${
+                  isActive("/media-room")
+                    ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
+                    : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
+                }`}
+                onClick={closeMobileMenu}
+              >
+                {t("nav.mediaRoom")}
+              </Link>
+              
+              <Link
+                to="/contact"
+                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${
+                  isActive("/contact")
+                    ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
+                    : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
+                }`}
+                onClick={closeMobileMenu}
+              >
+                {t("nav.contact")}
+              </Link>
+            </nav>
+
+            {/* Mobile Menu Footer */}
+            <div className="p-4 border-t border-gray-200 dark:border-gray-700 mt-auto">
+              {/* Language Selector for Mobile */}
+              <div className="mb-4">
+                <LanguageSelector />
+              </div>
+
+              {/* Phone Number */}
               <a
                 href="tel:+18001234567"
-                className="flex items-center mb-4 text-gray-700 dark:text-gray-300"
-                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center mb-4 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors py-2"
+                onClick={closeMobileMenu}
               >
-                <Phone className="w-5 h-5 mr-2 text-blue-600 dark:text-blue-400" />
+                <Phone className="w-5 h-5 mr-3 text-blue-600 dark:text-blue-400" />
                 <span className="font-medium">1-800-123-4567</span>
               </a>
 
+              {/* CTA Button */}
               <Link
                 to="/contact"
-                className="block w-full px-5 py-3 bg-blue-600 text-white text-center font-medium rounded-md hover:bg-blue-700 transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
+                className="block w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-center font-medium rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
+                onClick={closeMobileMenu}
               >
                 {t("cta.requestQuote")}
               </Link>
             </div>
           </div>
-        </div>
+        </>
       )}
-    </header>
+    </>
   );
 };
 

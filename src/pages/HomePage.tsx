@@ -33,15 +33,16 @@ const HomePage: React.FC = () => {
     <GoogleReCaptchaProvider reCaptchaKey="YOUR_RECAPTCHA_KEY">
       <div className="w-full">
         <WaterDropSection />
-        <section
+        {/* <section
           id="hero-section"  // ADD THIS ID
           className="relative h-screen max-h-[800px] bg-gradient-to-r from-gray-800 to-gray-600 text-white overflow-hidden"
         >
           <HeroSection />
-        </section>
+        </section> */}
+        <HeroSection />
 
         {/* Brand Section */}
-        <section id="about-section">
+        <section id="about-section" className="bg-white">
         <AboutUsSection />
       </section>
 
