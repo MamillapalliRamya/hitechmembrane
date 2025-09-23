@@ -633,7 +633,7 @@ const GlobalPresenceSection = () => {
                         </div>
 
                         {/* Review Content */}
-                        <div className="flex-1">
+                        <div className="flex-1" style={{fontFamily: 'Diodrum Cyrillic'}}>
                           <div className="flex items-center justify-between mb-2">
                             <h5 className="font-semibold text-gray-900 text-sm">{review.name}</h5>
                             <div className="flex space-x-0.5">

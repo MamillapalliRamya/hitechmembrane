@@ -10,7 +10,7 @@ const AboutUsSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="py-16 relative overflow-hidden"
+      className="py-8 relative overflow-hidden"
     >
       {/* Decorative background lines */}
       <div className="absolute inset-0 opacity-10 hidden md:block">

@@ -26,7 +26,7 @@ const WaterDropSection: React.FC = () => {
         muted 
         playsInline
       >
-        <source src="/assets/videos/waterdrops_vedio.mp4" type="video/mp4" />
+        <source src="/assets/videos/waterdrops_loop.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
