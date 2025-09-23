@@ -12,52 +12,15 @@ const WaterDropSection: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // ADD THIS: Function to scroll to next section
-  const scrollToNextSection = () => {
-    const nextSection = document.querySelector('#hero-section');
-    if (nextSection) {
-      nextSection.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
-  };
-
-  // ADD THIS: Handle scroll wheel event
-  useEffect(() => {
-    const handleWheel = (e: WheelEvent) => {
-      // Only trigger if scrolling down and we're in the waterdrop section
-      if (e.deltaY > 0) {
-        const currentSection = document.querySelector('#waterdrop-section');
-        if (currentSection) {
-          const rect = currentSection.getBoundingClientRect();
-          // Check if we're currently viewing this section
-          if (rect.top <= 100 && rect.bottom >= 100) {
-            e.preventDefault();
-            scrollToNextSection();
-          }
-        }
-      }
-    };
-
-    // Add event listener
-    window.addEventListener('wheel', handleWheel, { passive: false });
-
-    return () => {
-      window.removeEventListener('wheel', handleWheel);
-    };
-  }, []);
-
   return (
     <section 
       id="waterdrop-section" 
       className="relative h-screen flex items-center justify-center overflow-hidden" 
-      style={{ backgroundColor: '#121372' }}   
     > 
       
       <video 
         className="absolute top-0 left-0 w-full h-full object-cover" 
-        style={{ mixBlendMode: "screen", height: '128%', paddingTop: '88px' }}
+        style={{ mixBlendMode: "screen" }}
         autoPlay 
         loop 
         muted 
@@ -68,15 +31,15 @@ const WaterDropSection: React.FC = () => {
       </video>
 
       <div 
-        className={`text-center px-4 relative z-10 transition-all duration-1000 ease-out ${
+        className={`text-center px-4 sm:px-6 md:px-8 lg:px-12 relative z-10 transition-all duration-1000 ease-out ${
           showText 
             ? 'transform translate-y-0 opacity-100' 
             : 'transform translate-y-full opacity-0'
         }`}
-        style={{marginTop: '180px'}}
+        
       > 
         <h1 
-          className={`text-3xl text-[48px] md:text-4xl lg:text-5xl  leading-tight transition-all duration-1000 ease-out ${
+          className={`text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl leading-tight transition-all duration-1000 ease-out ${
             showText ? 'delay-200' : ''
           }`}
           style={{ 
@@ -89,7 +52,7 @@ const WaterDropSection: React.FC = () => {
           Purifying millions of gallons, 
         </h1> 
         <h1 
-          className={`text-3xl text-[48px] md:text-4xl lg:text-5xl  leading-tight mt-2 transition-all duration-1000 ease-out ${
+          className={`text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl leading-tight mt-2 transition-all duration-1000 ease-out ${
             showText ? 'delay-500' : ''
           }`}
           style={{ 
