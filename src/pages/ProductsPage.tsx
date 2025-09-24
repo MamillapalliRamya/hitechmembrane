@@ -45,7 +45,7 @@ const productPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50" id='pageTop'>
       <div className="max-w-7xl mx-auto pt-6">
         {/* Download Button */}
         <div className="text-center mb-12 ">
@@ -53,7 +53,7 @@ const productPage: React.FC = () => {
             href="/assets/pdf/sample.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#A8CF45] underline text-base sm:text-lg lg:text-[20px] inline-flex items-center gap-2 transition-colors duration-200 flex-wrap justify-center"
+            className="text-[#A8CF45] underline text-base sm:text-lg lg:text-[20px] inline-flex items-center gap-2 transition-colors duration-200 flex-wrap justify-center pt-24"
           >
             Download Hi-Tech RO Brochure
             <Download className="w-5 h-5 sm:w-6 sm:h-6" />

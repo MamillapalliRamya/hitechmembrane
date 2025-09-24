@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Sun, Moon,Phone } from "lucide-react";
+import { Menu, X, Sun, Moon, Phone } from "lucide-react";
 import { useTheme } from "../../context/ThemeContext";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
@@ -48,11 +48,11 @@ const Header: React.FC = () => {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
+        id="header"
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
             ? "bg-white dark:bg-gray-800 shadow-md py-2 sm:py-3"
-            : "bg-white dark:bg-gray-900 py-3 sm:py-5"
-        }`}
+            : "bg-white dark:bg-gray-900 py-2 sm:py-4"
+          }`}
       >
         <div className="container mx-auto px-3 sm:px-4 lg:px-6">
           <div className="flex justify-between items-center">
@@ -66,11 +66,11 @@ const Header: React.FC = () => {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav 
-              className="hidden lg:flex items-center space-x-6 xl:space-x-8" 
-              style={{ 
-                gap: "clamp(24px, 3vw, 40px)", 
-                fontWeight: '500', 
+            <nav
+              className="hidden lg:flex items-center space-x-6 xl:space-x-8"
+              style={{
+                gap: "clamp(24px, 3vw, 40px)",
+                fontWeight: '500',
                 fontSize: 'clamp(16px, 1.2vw, 20px)',
                 lineHeight: '100%'
               }}
@@ -90,65 +90,60 @@ const Header: React.FC = () => {
 
               <Link
                 to="/about"
-                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${
-                  isActive("/about")
+                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${isActive("/about")
                     ? "text-blue-600 dark:text-blue-400"
                     : isScrolled
-                    ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                    : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
-                }`}
+                      ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                      : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
+                  }`}
               >
                 {t("nav.about")}
               </Link>
 
               <Link
                 to="/products"
-                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${
-                  isActive("/products")
+                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${isActive("/products")
                     ? "text-blue-600 dark:text-blue-400"
                     : isScrolled
-                    ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                    : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
-                }`}
+                      ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                      : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
+                  }`}
               >
                 {t("nav.products")}
               </Link>
 
               <Link
                 to="/services"
-                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${
-                  isActive("/services")
+                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${isActive("/services")
                     ? "text-blue-600 dark:text-blue-400"
                     : isScrolled
-                    ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                    : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
-                }`}
+                      ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                      : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
+                  }`}
               >
                 {t("nav.services")}
               </Link>
 
               <Link
                 to="/media-room"
-                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${
-                  isActive("/media-room")
+                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${isActive("/media-room")
                     ? "text-blue-600 dark:text-blue-400"
                     : isScrolled
-                    ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                    : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
-                }`}
+                      ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                      : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
+                  }`}
               >
                 {t("nav.mediaRoom")}
               </Link>
 
               <Link
                 to="/contact"
-                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${
-                  isActive("/contact")
+                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${isActive("/contact")
                     ? "text-blue-600 dark:text-blue-400"
                     : isScrolled
-                    ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                    : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
-                }`}
+                      ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                      : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
+                  }`}
               >
                 {t("nav.contact")}
               </Link>
@@ -164,28 +159,25 @@ const Header: React.FC = () => {
               {/* Theme Toggle */}
               <button
                 onClick={toggleTheme}
-                className={`p-1.5 sm:p-2 rounded-full transition-all duration-200 hover:scale-110 ${
-                  isScrolled
+                className={`p-1.5 sm:p-2 rounded-full transition-all duration-200 hover:scale-110 ${isScrolled
                     ? "hover:bg-gray-100 dark:hover:bg-gray-700"
                     : "hover:bg-black/10 dark:hover:bg-white/10"
-                }`}
+                  }`}
                 aria-label="Toggle theme"
               >
                 {theme === "dark" ? (
                   <Sun
-                    className={`w-4 h-4 sm:w-5 sm:h-5 ${
-                      isScrolled
+                    className={`w-4 h-4 sm:w-5 sm:h-5 ${isScrolled
                         ? "text-gray-700 dark:text-gray-300"
                         : "text-gray-800 dark:text-gray-200"
-                    }`}
+                      }`}
                   />
                 ) : (
                   <Moon
-                    className={`w-4 h-4 sm:w-5 sm:h-5 ${
-                      isScrolled
+                    className={`w-4 h-4 sm:w-5 sm:h-5 ${isScrolled
                         ? "text-gray-700 dark:text-gray-300"
                         : "text-gray-800 dark:text-gray-200"
-                    }`}
+                      }`}
                   />
                 )}
               </button>
@@ -193,11 +185,10 @@ const Header: React.FC = () => {
               {/* CTA Button - Responsive sizing */}
               <Link
                 to="/contact"
-                className={`hidden sm:block px-3 py-1.5 sm:px-4 sm:py-2 lg:px-5 lg:py-2 rounded-md font-medium transition-all duration-200 hover:scale-105 text-sm lg:text-base ${
-                  isScrolled
+                className={`hidden sm:block px-3 py-1.5 sm:px-4 sm:py-2 lg:px-5 lg:py-2 rounded-md font-medium transition-all duration-200 hover:scale-105 text-sm lg:text-base ${isScrolled
                     ? "bg-blue-600 text-white hover:bg-blue-700 shadow-md"
                     : "bg-[#A8CF45] text-[#3D3E96] hover:bg-green-400 shadow-lg"
-                }`}
+                  }`}
               >
                 <span className="hidden lg:inline">{t("cta.requestQuote")}</span>
                 <span className="lg:hidden">Quote</span>
@@ -211,15 +202,13 @@ const Header: React.FC = () => {
               >
                 {mobileMenuOpen ? (
                   <X
-                    className={`w-5 h-5 sm:w-6 sm:h-6 ${
-                      isScrolled ? "text-gray-900 dark:text-gray-100" : "text-gray-800 dark:text-gray-200"
-                    }`}
+                    className={`w-5 h-5 sm:w-6 sm:h-6 ${isScrolled ? "text-gray-900 dark:text-gray-100" : "text-gray-800 dark:text-gray-200"
+                      }`}
                   />
                 ) : (
                   <Menu
-                    className={`w-5 h-5 sm:w-6 sm:h-6 ${
-                      isScrolled ? "text-gray-900 dark:text-gray-100" : "text-gray-800 dark:text-gray-200"
-                    }`}
+                    className={`w-5 h-5 sm:w-6 sm:h-6 ${isScrolled ? "text-gray-900 dark:text-gray-100" : "text-gray-800 dark:text-gray-200"
+                      }`}
                   />
                 )}
               </button>
@@ -232,11 +221,11 @@ const Header: React.FC = () => {
       {mobileMenuOpen && (
         <>
           {/* Backdrop */}
-          <div 
+          <div
             className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300"
             onClick={closeMobileMenu}
           />
-          
+
           {/* Mobile Menu */}
           <div className="lg:hidden bg-white dark:bg-gray-800 shadow-2xl fixed top-0 right-0 h-full w-80 max-w-[85vw] z-50 transform transition-transform duration-300 ease-in-out overflow-y-auto">
             {/* Mobile Menu Header */}
@@ -268,62 +257,57 @@ const Header: React.FC = () => {
               >
                 {t("nav.home")}
               </Link> */}
-              
+
               <Link
                 to="/about"
-                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${
-                  isActive("/about")
+                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${isActive("/about")
                     ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
                     : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
-                }`}
+                  }`}
                 onClick={closeMobileMenu}
               >
                 {t("nav.about")}
               </Link>
-              
+
               <Link
                 to="/products"
-                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${
-                  isActive("/products")
+                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${isActive("/products")
                     ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
                     : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
-                }`}
+                  }`}
                 onClick={closeMobileMenu}
               >
                 {t("nav.products")}
               </Link>
-              
+
               <Link
                 to="/services"
-                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${
-                  isActive("/services")
+                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${isActive("/services")
                     ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
                     : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
-                }`}
+                  }`}
                 onClick={closeMobileMenu}
               >
                 {t("nav.services")}
               </Link>
-              
+
               <Link
                 to="/media-room"
-                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${
-                  isActive("/media-room")
+                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${isActive("/media-room")
                     ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
                     : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
-                }`}
+                  }`}
                 onClick={closeMobileMenu}
               >
                 {t("nav.mediaRoom")}
               </Link>
-              
+
               <Link
                 to="/contact"
-                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${
-                  isActive("/contact")
+                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${isActive("/contact")
                     ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
                     : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
-                }`}
+                  }`}
                 onClick={closeMobileMenu}
               >
                 {t("nav.contact")}

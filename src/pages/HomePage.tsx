@@ -37,7 +37,7 @@ const HomePage: React.FC = () => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full pt-20" >
       {/* All sections with smooth entrance animations */}
       {allSections.map((section, index) => (
         <motion.section
@@ -49,7 +49,7 @@ const HomePage: React.FC = () => {
               : "bg-white"
           }`}
           style={{
-            minHeight: index < 3 ? '100vh' : 'auto', // First 3 sections full height
+            // minHeight: index < 1 ? '100vh' : 'auto', 
             margin: 0,
             padding: 0
           }}

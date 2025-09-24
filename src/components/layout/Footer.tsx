@@ -1,11 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import image1 from '../../assets/images/wetransfer_hitech/wtsapp_QR.png';
+import image2 from '../../assets/images/wetransfer_hitech/message_QR.png';
+import image3 from '../../assets/images/wetransfer_hitech/Line_QR.png';
 
 const Footer = () => {
+  const [activeQR, setActiveQR] = useState<string | null>(null);
+  const qrRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+
+  // Handle clicks outside QR popup
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (activeQR) {
+        const qrElement = qrRefs.current[activeQR];
+        if (qrElement && !qrElement.contains(event.target as Node)) {
+          setActiveQR(null);
+        }
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [activeQR]);
+
   const chatPlatforms = [
     {
       name: 'WhatsApp',
       href: '#',
       bgColor: 'bg-green-500 hover:bg-green-600',
+      qrCode: image1,
       icon: (
         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488" />
       )
@@ -14,6 +39,7 @@ const Footer = () => {
       name: 'WeChat',
       href: '#',
       bgColor: 'bg-green-400 hover:bg-green-500',
+      qrCode:image2, 
       icon: (
         <>
           <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.099 4.203 2.895 5.394L2.187 17.5l2.831-1.436c.747.131 1.543.198 2.372.198.248 0 .495-.013.742-.038-.158-.55-.237-1.122-.237-1.711 0-3.85 3.479-6.972 7.784-6.972.42 0 .832.032 1.23.092-.365-2.07-2.608-3.445-6.218-3.445zm-2.46 2.716c.5 0 .909.41.909.909s-.41.909-.909.909-.909-.41-.909-.909.41-.909.909-.909zm4.919 0c.5 0 .909.41.909.909s-.41.909-.909.909-.909-.41-.909-.909.41-.909.909-.909z" />
@@ -25,6 +51,7 @@ const Footer = () => {
       name: 'Line',
       href: '#',
       bgColor: 'bg-green-600 hover:bg-green-700',
+      qrCode: image3, 
       isCustom: true
     }
   ];
@@ -63,10 +90,10 @@ const Footer = () => {
   ];
 
   const navigationLinks = [
-    { title: 'Products', href: '#' },
+    { title: 'Products', href: '/products' },
     { title: 'About', href: '#' },
     { title: 'Events', href: '#' },
-    { title: 'Contact Us', href: '#' }
+    { title: 'Contact Us', href: '/contact' }
   ];
 
   const ContactIcon = () => (
@@ -81,6 +108,30 @@ const Footer = () => {
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
     </svg>
   );
+
+  const EmailIcon = () => (
+    <svg className="w-4 h-4 text-[#A8CF45]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+    </svg>
+  );
+
+  const handleChatClick = (platform: { name: string }) => {
+    setActiveQR(activeQR === platform.name ? null : platform.name);
+  };
+
+  const handlePhoneClick = () => {
+    window.location.href = 'tel:+918012345678';
+  };
+
+  const handleEmailClick = () => {
+    window.location.href = 'mailto:sales@hitechmembranes.com';
+  };
+
+  const handleLocationClick = () => {
+    const address = '700/273 Amata City Chonburi Industrial Estate Moo 1, Tambon Bankao, Amphur Phanthong ChonBuri, Thailand 20160';
+    const encodedAddress = encodeURIComponent(address);
+    window.open(`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`, '_blank');
+  };
 
   return (
     <footer 
@@ -103,11 +154,13 @@ const Footer = () => {
 
           {/* Navigation Links Section */}
           <div className="lg:col-span-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4 cursor-pointer">
               {navigationLinks.map((link, index) => (
                 <div key={link.title} className={index < 2 ? "space-y-6" : "space-y-6"}>
                   <div>
-                    <h3 className="text-xl font-normal text-white">{link.title}</h3>
+                    <Link to={link.href}>
+                      <h3 className="text-xl font-normal text-white hover:text-[#A8CF45] transition-colors">{link.title}</h3>
+                    </Link>
                   </div>
                 </div>
               ))}
@@ -115,26 +168,41 @@ const Footer = () => {
 
             {/* Chat With Us Section */}
             <div className="mt-8">
-              <h3 className="text-sm font-semibold mb-4  uppercase tracking-wider text-[#A8CF45]">
+              <h3 className="text-sm font-semibold mb-4 uppercase tracking-wider text-[#A8CF45]">
                 CHAT WITH US
               </h3>
-              <div className="flex space-x-4">
+              <div className="flex space-x-4 items-center">
                 {chatPlatforms.map((platform) => (
-                  <a
-                    key={platform.name}
-                    href={platform.href}
-                    className={`w-11 h-11 rounded-full flex items-center justify-center transition-colors ${platform.bgColor}`}
-                  >
-                    {platform.isCustom ? (
-                      <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center">
-                        <span className="text-green-600 font-bold text-sm">Line</span>
+                  <div key={platform.name} className="relative">
+                    <button
+                      onClick={() => handleChatClick(platform)}
+                      className={`w-11 h-11 rounded-full flex items-center justify-center transition-colors ${platform.bgColor}`}
+                    >
+                      {platform.isCustom ? (
+                        <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center">
+                          <span className="text-green-600 font-bold text-sm">Line</span>
+                        </div>
+                      ) : (
+                        <svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+                          {platform.icon}
+                        </svg>
+                      )}
+                    </button>
+                    
+                    {/* QR Code Popup */}
+                    {activeQR === platform.name && (
+                      <div 
+                        ref={(el) => (qrRefs.current[platform.name] = el)}
+                        className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 bg-white p-2 rounded-lg shadow-xl z-50"
+                      >
+                        <div className="w-20 h-20 bg-gray-200 flex items-center justify-center">
+                          <div className="text-center">
+                            <img src={platform.qrCode} alt={`${platform.name} QR Code`} className=" w-22 h-22 mx-auto" />
+                          </div>
+                        </div>
                       </div>
-                    ) : (
-                      <svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
-                        {platform.icon}
-                      </svg>
                     )}
-                  </a>
+                  </div>
                 ))}
               </div>
             </div>
@@ -143,18 +211,31 @@ const Footer = () => {
           {/* Contact and Location Section */}
           <div className="lg:col-span-5">
             {/* Contact Section */}
-            <div className="mb-3">
+            <div className="mb-6">
               <h3 className="text-sm font-semibold mb-4 text-[#A8CF45] uppercase tracking-wider">
                 CONTACT
               </h3>
-              <div className="flex items-center ">
+              
+              {/* Phone */}
+              <div 
+                className="flex items-center mb-3 cursor-pointer hover:opacity-80 transition-opacity"
+                onClick={handlePhoneClick}
+              >
                 <div className="w-8 h-8 rounded-full border-2 border-[#A8CF45] flex items-center justify-center mr-3 flex-shrink-0">
                   <ContactIcon />
                 </div>
                 <span className="text-sm text-white">+91-80-12345678</span>
               </div>
-              <div className="text-sm text-white ml-11">
-                sales@hitechmembranes.com
+              
+              {/* Email */}
+              <div 
+                className="flex items-center cursor-pointer hover:opacity-80 transition-opacity"
+                onClick={handleEmailClick}
+              >
+                <div className="w-8 h-8 rounded-full border-2 border-[#A8CF45] flex items-center justify-center mr-3 flex-shrink-0">
+                  <EmailIcon />
+                </div>
+                <span className="text-sm text-white">sales@hitechmembranes.com</span>
               </div>
             </div>
 
@@ -163,7 +244,10 @@ const Footer = () => {
               <h3 className="text-sm font-semibold mb-4 text-[#A8CF45] uppercase tracking-wider">
                 LOCATION
               </h3>
-              <div className="flex items-start">
+              <div 
+                className="flex items-start cursor-pointer hover:opacity-80 transition-opacity"
+                onClick={handleLocationClick}
+              >
                 <div className="w-8 h-8 rounded-full border-2 border-[#A8CF45] flex items-center justify-center mr-3 mt-1 flex-shrink-0">
                   <LocationIcon />
                 </div>
@@ -189,6 +273,8 @@ const Footer = () => {
                   <a
                     key={platform.name}
                     href={platform.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className={`w-7 h-7 rounded-full flex items-center justify-center transition-colors ${platform.bgColor}`}
                   >
                     <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
