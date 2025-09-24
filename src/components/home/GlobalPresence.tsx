@@ -391,8 +391,7 @@ const GlobalPresenceSection = () => {
     if (location.type === 'main' && location.reviews) {
       setSelectedLocation(location);
 
-      // Scale down the entire map to show complete view while making room for panel
-      // Move map slightly left to center it better with the panel open
+      
       setMapTransform(`translate(-120px, 0px) scale(0.8)`);
     }
   };
@@ -605,9 +604,29 @@ const GlobalPresenceSection = () => {
           {/* Reviews Side Panel */}
           {selectedLocation && (
             <div className="absolute top-4 right-0 w-[460px] bg-white rounded-2xl shadow-2xl border border-blue-900 z-30 max-h-[500px] overflow-hidden">
-              {/* Panel Header */}
               <div className="flex items-center justify-between px-3 py-4 border-b border-blue-900 bg-gradient-to-r from-blue-50 to-purple-50">
-                <h3 className="text-xl font-bold text-blue-900">{selectedLocation.country}</h3>
+                <div className="flex items-center space-x-3">
+                  <div className="w-8 h-8 rounded-full overflow-hidden border border-blue-900 shadow-sm">
+                    <img
+                      src={`https://flagcdn.com/w40/${selectedLocation.countryCode.toLowerCase()}.png`}
+                      alt={`${selectedLocation.country} flag`}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        if (e.currentTarget.nextElementSibling) {
+                          (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'flex';
+                        }
+                      }}
+                    />
+                    <div
+                      className="w-full h-full flex items-center justify-center text-lg"
+                      style={{ display: 'none' }}
+                    >
+                      🏳️
+                    </div>
+                  </div>
+                  <h3 className="text-xl font-bold text-blue-900">{selectedLocation.country}</h3>
+                </div>
                 <button
                   onClick={closePanel}
                   className="p-2 hover:bg-white hover:bg-opacity-50 rounded-full transition-all duration-200"
@@ -616,14 +635,12 @@ const GlobalPresenceSection = () => {
                 </button>
               </div>
 
-              {/* Reviews Section */}
               <div className="px-3 py-2">
                 <h4 className="text-sm font-semibold text-gray-800 mb-4 uppercase tracking-wide">Reviews</h4>
                 <div className="space-y-2 max-h-80 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300">
                   {selectedLocation.reviews?.map((review, index) => (
                     <div key={index} className="bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-colors duration-200">
                       <div className="flex gap-3">
-                        {/* Avatar with realistic profile image styling */}
                         <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-white shadow-md">
                           <div className="w-full h-full bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 flex items-center justify-center">
                             <span className="text-white text-sm font-bold">
@@ -632,7 +649,6 @@ const GlobalPresenceSection = () => {
                           </div>
                         </div>
 
-                        {/* Review Content */}
                         <div className="flex-1" style={{fontFamily: 'Diodrum Cyrillic'}}>
                           <div className="flex items-center justify-between mb-2">
                             <h5 className="font-semibold text-gray-900 text-sm">{review.name}</h5>

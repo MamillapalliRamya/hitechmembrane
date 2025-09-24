@@ -182,7 +182,7 @@ const HeroSection: React.FC = () => {
           addresses various water and sustainability challenges.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-4 sm:mt-6 lg:mt-8">
+        {/* <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-4 sm:mt-6 lg:mt-8">
           <button 
             className={`flex items-center justify-center relative overflow-hidden bg-[#A8CF45] text-[#3D3E96] transition-all duration-500 before:content-[''] before:absolute before:inset-0 before:bg-[#3D3E96] before:-translate-y-full before:transition-transform before:duration-500 hover:before:translate-y-0 hover:text-[#A8CF45] font-medium rounded-[12px] sm:rounded-[16px] ${
               windowWidth >= 1280 ? 'w-full sm:w-[283px] h-[60px] lg:h-[74px] text-[22px] lg:text-[28px]' :
@@ -194,7 +194,7 @@ const HeroSection: React.FC = () => {
           >
             <span className="relative z-10">Get Quote Now</span>
           </button>
-        </div>
+        </div> */}
       </div>
 
       {/* Image Blocks - Responsive */}

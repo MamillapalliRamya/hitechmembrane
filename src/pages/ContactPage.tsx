@@ -104,7 +104,7 @@ const ContactPage: React.FC = () => {
   return (
     <div className="bg-gray-100 min-h-screen">
       {/* Main Container with Responsive Padding */}
-      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-4 xl:px-12 py-2 sm:py-4 lg:py-8">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-4 xl:px-12 py-8 sm:py-16 lg:py-24">
         
         {/* Page Title */}
         <div className="mb-6 sm:mb-8">

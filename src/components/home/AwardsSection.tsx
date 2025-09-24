@@ -70,7 +70,7 @@ const AwardsSection = () => {
         </div>
         
         {/* Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           
           {/* Awards Side - comes from left */}
           <div 
@@ -104,9 +104,9 @@ const AwardsSection = () => {
               </div>
             </div>
             
-            <button className="border-2 border-blue-800 text-blue-800 px-8 py-3 rounded hover:bg-blue-600 hover:text-white transition-colors">
+            {/* <button className="border-2 border-blue-800 text-blue-800 px-8 py-3 rounded hover:bg-blue-600 hover:text-white transition-colors">
               View Awards
-            </button>
+            </button> */}
           </div>
           
           {/* Certifications Side - comes from right */}
@@ -137,9 +137,9 @@ const AwardsSection = () => {
               </div>
             </div>
             
-            <button className="border-2 border-blue-800 text-blue-800 px-8 py-3 rounded hover:bg-blue-600 hover:text-white transition-colors">
+            {/* <button className="border-2 border-blue-800 text-blue-800 px-8 py-3 rounded hover:bg-blue-600 hover:text-white transition-colors">
               View Certifications
-            </button>
+            </button> */}
           </div>
           
         </div>
