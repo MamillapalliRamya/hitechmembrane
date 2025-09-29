@@ -1,0 +1,64 @@
+{
+  "nav": {
+    "home": "Beranda",
+    "about": "Tentang Kami",
+    "products": "Produk",
+    "innovation": "Inovasi",
+    "ourImpact": "Dampak Kami",
+    "contact": "Kontak"
+  },
+  "hero": {
+    "title": "Air Bersih Hari Ini Masa Depan Lebih Baik Besok",
+    "subtitle": "Membran Hi-tech memurnikan lebih dari 10 juta galon air per menit secara global, memungkinkan air bersih dan aman untuk minum, pertanian, air permukaan. Teknologi RO kami mengatasi berbagai tantangan keberlanjutan yang meningkat.",
+    "cta": "Hubungi Kami"
+  },
+  "stats": {
+    "yearsExperience": "50+",
+    "yearsLabel": "Tahun Pengalaman",
+    "clients": "200+",
+    "clientsLabel": "Klien di Seluruh Dunia"
+  },
+  "about": {
+    "title": "Tentang Kami",
+    "description": "Di Perusahaan Membran RO Hi-tech, kami mengkhususkan diri dalam teknologi reverse osmosis (RO) untuk pemurnian air berkualitas tinggi. Membran kami memenuhi kebutuhan yang beragam, memastikan air minum berkomitmen pada keunggulan dan keberlanjutan. Kami memimpin dalam setiap aspek pengolahan air.",
+    "cta": "Baca Selengkapnya"
+  },
+  "products": {
+    "title": "Solusi Air Kami",
+    "viewAll": "Lihat Semua Produk",
+    "membrane": "Membran RO"
+  },
+  "events": {
+    "title": "Acara",
+    "eventName": "HITECH VIET 2016",
+    "dates": "9 - 11 Desember 2016",
+    "invitation": "Kami Dengan Hormat Mengundang Anda!"
+  },
+  "quality": {
+    "title": "Kualitas Luar Biasa yang Tak Tertandingi",
+    "viewAwards": "Lihat Penghargaan",
+    "viewCertificates": "Lihat Sertifikat"
+  },
+  "global": {
+    "title": "Kehadiran Global Kami",
+    "description": "Hi-Tech telah berhasil mempertahankan kehadiran globalnya berkat jaringan yang kuat dari mitra terampil yang melayani kepentingan pelanggan. Perusahaan terus memperkenalkan metodologi kerja baru untuk mencapai hasil yang luar biasa. Dengan harga yang kompetitif, manajemen sumber daya yang efisien, dan komitmen untuk memenuhi janji, Hi-Tech telah memperoleh kemitraan di seluruh dunia dan hubungan klien-perusahaan yang loyal yang beroperasi di seluruh wilayah."
+  },
+  "footer": {
+    "about": "Tentang Kami",
+    "products": "Produk",
+    "events": "Acara",
+    "contact": "Kontak",
+    "newsletter": {
+      "title": "Buletin",
+      "placeholder": "Masukkan email Anda",
+      "subscribe": "Berlangganan"
+    }
+  },
+  "cta": {
+    "requestQuote": "Minta Penawaran",
+    "getStarted": "Mulai",
+    "contactUs": "Hubungi Kami",
+    "learnMore": "Pelajari Lebih Lanjut",
+    "viewAll": "Lihat Semua"
+  }
+}

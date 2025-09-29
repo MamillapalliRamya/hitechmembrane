@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const HeroSection: React.FC = () => {
+  const { t } = useTranslation();
   const [videoPlaying, setVideoPlaying] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [imageLoadError, setImageLoadError] = useState<{ [key: string]: boolean }>({});
@@ -60,7 +62,17 @@ const HeroSection: React.FC = () => {
 
   // Get responsive dimensions based on screen size
   const getImageBlockDimensions = () => {
-    if (windowWidth >= 1440) { // XL screens
+    if (windowWidth >= 1920) { // FHD screens
+      return {
+        large: { width: 420, height: 520, borderRadius: { tl: 8, tr: 100, bl: 100, br: 6 }, border: 8 },
+        small: { width: 280, height: 440, borderRadius: { tl: 6, tr: 80, bl: 80, br: 6 }, border: 6 },
+        positions: { 
+          largeRight: 220, 
+          smallRight: -240,
+          rightMargin: 140 
+        }
+      };
+    } else if (windowWidth >= 1440) { // XL screens
       return {
         large: { width: 380, height: 480, borderRadius: { tl: 8, tr: 90, bl: 90, br: 6 }, border: 8 },
         small: { width: 250, height: 400, borderRadius: { tl: 6, tr: 70, bl: 70, br: 6 }, border: 6 },
@@ -107,7 +119,7 @@ const HeroSection: React.FC = () => {
           height: 170, 
           borderRadius: 16, 
           border: 3,
-          bottomMargin: windowWidth >= 480 ? 120 : 100 // More space on larger mobiles
+          bottomMargin: windowWidth >= 480 ? 120 : 100
         }
       };
     }
@@ -116,7 +128,7 @@ const HeroSection: React.FC = () => {
   const dimensions = getImageBlockDimensions();
   
   return (
-    <section className="relative overflow-hidden" style={{ height: windowWidth < 768 ? '120vh' : '100vh' }}>
+    <section className="relative overflow-hidden bg-[#06368F]" style={{ height: windowWidth < 768 ? '120vh' : '100vh' }}>
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         {videoPlaying && (
@@ -152,7 +164,8 @@ const HeroSection: React.FC = () => {
         `}
         style={{ 
           marginLeft: windowWidth >= 1024 ? "80px" : "0px",
-          maxWidth: windowWidth >= 1440 ? "700px" : 
+          maxWidth: windowWidth >= 1920 ? "890px" :
+                   windowWidth >= 1440 ? "790px" : 
                    windowWidth >= 1280 ? "650px" : 
                    windowWidth >= 1024 ? "580px" : 
                    windowWidth >= 768 ? "520px" : 
@@ -161,40 +174,26 @@ const HeroSection: React.FC = () => {
         }}
       >
         <h1 className={`font-semibold leading-tight mb-3 sm:mb-4 text-white ${
+          windowWidth >= 1920 ? 'text-6xl xl:text-7xl' :
           windowWidth >= 1440 ? 'text-5xl xl:text-6xl' :
           windowWidth >= 1280 ? 'text-4xl lg:text-5xl' :
           windowWidth >= 1024 ? 'text-3xl md:text-4xl' :
           windowWidth >= 768 ? 'text-2xl sm:text-3xl' :
           'text-xl sm:text-2xl'
         }`}>
-          Clean Water Today<br />Better Future Tomorrow
+          {t('hero.title')}
         </h1>
 
         <p className={`text-gray-100 mb-4 sm:mb-6 leading-relaxed ${
+          windowWidth >= 1920 ? 'text-xl lg:text-2xl max-w-[700px]' :
           windowWidth >= 1440 ? 'text-xl lg:text-2xl max-w-[650px]' :
           windowWidth >= 1280 ? 'text-lg lg:text-xl max-w-[600px]' :
           windowWidth >= 1024 ? 'text-base md:text-lg max-w-[520px]' :
           windowWidth >= 768 ? 'text-sm sm:text-base max-w-[480px]' :
           'text-sm max-w-full pr-4'
         }`}>
-          Hi-tech membranes purify over 10 million gallons of water per minute globally, 
-          enabling reuse and safe access to ground and surface water. Our RO Technology 
-          addresses various water and sustainability challenges.
+          {t('hero.subtitle')}
         </p>
-
-        {/* <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-4 sm:mt-6 lg:mt-8">
-          <button 
-            className={`flex items-center justify-center relative overflow-hidden bg-[#A8CF45] text-[#3D3E96] transition-all duration-500 before:content-[''] before:absolute before:inset-0 before:bg-[#3D3E96] before:-translate-y-full before:transition-transform before:duration-500 hover:before:translate-y-0 hover:text-[#A8CF45] font-medium rounded-[12px] sm:rounded-[16px] ${
-              windowWidth >= 1280 ? 'w-full sm:w-[283px] h-[60px] lg:h-[74px] text-[22px] lg:text-[28px]' :
-              windowWidth >= 1024 ? 'w-full sm:w-[260px] h-[55px] lg:h-[65px] text-[20px] lg:text-[24px]' :
-              windowWidth >= 768 ? 'w-full sm:w-[240px] h-[50px] sm:h-[55px] text-[18px] sm:text-[20px]' :
-              'w-full h-[45px] text-[16px]'
-            }`}
-            aria-label="Get Quote Now"
-          >
-            <span className="relative z-10">Get Quote Now</span>
-          </button>
-        </div> */}
       </div>
 
       {/* Image Blocks - Responsive */}

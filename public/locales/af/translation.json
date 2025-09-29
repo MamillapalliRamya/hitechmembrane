@@ -1,0 +1,64 @@
+{
+  "nav": {
+    "home": "Tuis",
+    "about": "Oor Ons",
+    "products": "Produkte",
+    "innovation": "Innovasie",
+    "ourImpact": "Ons Impak",
+    "contact": "Kontak"
+  },
+  "hero": {
+    "title": "Skoon Water Vandag Beter Toekoms Môre",
+    "subtitle": "Hi-tech membrane suiwer meer as 10 miljoen gelling water per minuut wêreldwyd, wat skoon en veilige water vir drink, landbou en oppervlakwater moontlik maak. Ons RO-tegnologie spreek verskeie volhoubaarheiduitdagings aan.",
+    "cta": "Kontak Ons"
+  },
+  "stats": {
+    "yearsExperience": "50+",
+    "yearsLabel": "Jaar Ondervinding",
+    "clients": "200+",
+    "clientsLabel": "Kliënte Wêreldwyd"
+  },
+  "about": {
+    "title": "Oor Ons",
+    "description": "By Hi-tech RO Membrane Maatskappy spesialiseer ons in omgekeerde osmose (RO) tegnologie vir hoë gehalte watersuiwering. Ons membrane voldoen aan diverse behoeftes en verseker dat drinkwater verbind is tot uitnemendheid en volhoubaarheid. Ons lei in elke aspek van waterbehandeling.",
+    "cta": "Lees Meer"
+  },
+  "products": {
+    "title": "Ons Wateroplossings",
+    "viewAll": "Bekyk Alle Produkte",
+    "membrane": "RO Membraan"
+  },
+  "events": {
+    "title": "Gebeure",
+    "eventName": "HITECH VIET 2016",
+    "dates": "9 - 11 Desember 2016",
+    "invitation": "Ons Nooi Jou Hartlik Uit!"
+  },
+  "quality": {
+    "title": "Uitsonderlike Gehalte wat Nie Geklop Kan Word Nie",
+    "viewAwards": "Bekyk Toekennings",
+    "viewCertificates": "Bekyk Sertifikate"
+  },
+  "global": {
+    "title": "Ons Globale Teenwoordigheid",
+    "description": "Hi-Tech het sy globale teenwoordigheid suksesvol gehandhaaf danksy 'n robuuste netwerk van bekwame vennote wat kliënte se belange dien. Die maatskappy hou aan om nuwe werk metodologie bekend te stel om uitstaande resultate te bereik. Met mededingende pryse, doeltreffende hulpbronbestuur, en 'n verbintenis om beloftes na te kom, het Hi-Tech wêreldwye vennootskappe en lojale firma-kliënt verhoudings verkry wat regoor die streek presteer."
+  },
+  "footer": {
+    "about": "Oor Ons",
+    "products": "Produkte",
+    "events": "Gebeure",
+    "contact": "Kontak",
+    "newsletter": {
+      "title": "Nuusbrief",
+      "placeholder": "Voer jou e-pos in",
+      "subscribe": "Teken In"
+    }
+  },
+  "cta": {
+    "requestQuote": "Kry 'n Kwotasie",
+    "getStarted": "Begin",
+    "contactUs": "Kontak Ons",
+    "learnMore": "Leer Meer",
+    "viewAll": "Bekyk Alles"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "Tungkol sa Amin",
+    "products": "Mga Produkto",
+    "innovation": "Inobasyon",
+    "ourImpact": "Aming Epekto",
+    "contact": "Makipag-ugnayan"
+  },
+  "hero": {
+    "title": "Malinis na Tubig Ngayon Mas Magandang Kinabukasan Bukas",
+    "subtitle": "Ang Hi-tech membranes ay naglilinis ng mahigit 10 milyong gallon ng tubig bawat minuto sa buong mundo, na nagbibigay ng malinis at ligtas na tubig para sa pag-inom, agrikultura, at tubig sa ibabaw. Ang aming RO Technology ay tumutugon sa iba't ibang mga hamon sa sustainability.",
+    "cta": "Makipag-ugnayan sa Amin"
+  },
+  "stats": {
+    "yearsExperience": "50+",
+    "yearsLabel": "Taon ng Karanasan",
+    "clients": "200+",
+    "clientsLabel": "Mga Kliyente sa Buong Mundo"
+  },
+  "about": {
+    "title": "Tungkol sa Amin",
+    "description": "Sa Hi-tech RO Membrane Company, nag-specialize kami sa reverse osmosis (RO) technology para sa mataas na kalidad ng paglilinis ng tubig. Ang aming mga membrane ay nakakatugon sa iba't ibang pangangailangan, na tinitiyak na ang tubig na inumin ay nakatuon sa kahusayan at sustainability. Kami ay nangunguna sa bawat aspeto ng paggamot sa tubig.",
+    "cta": "Magbasa pa"
+  },
+  "products": {
+    "title": "Aming Mga Solusyon sa Tubig",
+    "viewAll": "Tingnan Lahat ng Produkto",
+    "membrane": "RO Membrane"
+  },
+  "events": {
+    "title": "Mga Kaganapan",
+    "eventName": "HITECH VIET 2016",
+    "dates": "9 - 11 Disyembre 2016",
+    "invitation": "Buong pusong Inanyayahan Namin Kayo!"
+  },
+  "quality": {
+    "title": "Pambihirang Kalidad na Hindi Matatalo",
+    "viewAwards": "Tingnan ang mga Parangal",
+    "viewCertificates": "Tingnan ang mga Sertipiko"
+  },
+  "global": {
+    "title": "Aming Pandaigdigang Presensya",
+    "description": "Matagumpay na napanatili ng Hi-Tech ang kanyang pandaigdigang presensya salamat sa malakas na network ng mga bihasang kasosyo na naglilingkod sa mga interes ng customer. Patuloy na nagpapakilala ang kumpanya ng mga bagong metodolohiya ng trabaho upang makamit ang kahanga-hangang mga resulta. Sa competitive pricing, mahusay na pamamahala ng resources, at pangako sa pagtupad ng mga pangako, nakakuha ang Hi-Tech ng pandaigdigang partnerships at tapat na relasyon ng firm-client na gumagana sa buong rehiyon."
+  },
+  "footer": {
+    "about": "Tungkol sa Amin",
+    "products": "Mga Produkto",
+    "events": "Mga Kaganapan",
+    "contact": "Makipag-ugnayan",
+    "newsletter": {
+      "title": "Newsletter",
+      "placeholder": "Ilagay ang iyong email",
+      "subscribe": "Mag-subscribe"
+    }
+  },
+  "cta": {
+    "requestQuote": "Humingi ng Presyo",
+    "getStarted": "Magsimula",
+    "contactUs": "Makipag-ugnayan sa Amin",
+    "learnMore": "Matuto pa",
+    "viewAll": "Tingnan Lahat"
+  }
+}
