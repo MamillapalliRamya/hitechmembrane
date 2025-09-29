@@ -37,7 +37,7 @@ const productPage: React.FC = () => {
   ];
 
   const handleProductDownload = (productModel: string) => {
-    // Download the sample PDF for all products
+    
     const link = document.createElement('a');
     link.href = '/assets/pdf/sample.pdf';
     link.download = `${productModel}-DataSheet.pdf`;
@@ -46,7 +46,7 @@ const productPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50" id='pageTop'>
-      <div className="max-w-7xl mx-auto pt-6">
+      <div className="max-w-7xl mx-auto pt-4">
         {/* Download Button */}
         <div className="text-center mb-12 ">
           <a
