@@ -2,133 +2,63 @@
   "nav": {
     "home": "首页",
     "about": "关于我们",
-    "services": "服务",
     "products": "产品",
-    "technicalHub": "技术中心",
+    "innovation": "创新",
+    "ourImpact": "我们的影响",
     "contact": "联系我们"
   },
   "hero": {
-    "title": "全球领先的水过滤膜解决方案自1995年",
-    "subtitle": "以膜技术卓越著称，提供优质、可靠和精心设计的水过滤膜",
-    "cta": {
-      "primary": "立即开始",
-      "secondary": "查看产品"
-    }
+    "title": "今日洁净水 明日美好未来",
+    "subtitle": "Hi-tech膜每分钟在全球净化超过1000万加仑的水，为饮用、农业、地表水提供洁净安全的水。我们的RO技术解决了各种日益严峻的可持续性挑战。",
+    "cta": "联系我们"
   },
-  "awards": {
-    "title": "屡获殊荣的卓越表现",
-    "subtitle": "创新膜技术获得全球认可",
-    "waterDigest": {
-      "title": "Water Digest水务奖",
-      "description": "最佳膜（2014-2016）",
-      "support": "UNESCO支持"
-    },
-    "dubai": {
-      "title": "最佳膜技术奖",
-      "description": "迪拜2015",
-      "support": "行业卓越"
-    }
+  "stats": {
+    "yearsExperience": "50+",
+    "yearsLabel": "年经验",
+    "clients": "200+",
+    "clientsLabel": "全球客户"
   },
-  "industries": {
-    "title": "服务行业",
-    "subtitle": "精确解决方案满足各种需求",
-    "types": {
-      "household": {
-        "title": "家用",
-        "description": "低压POU RO系统（50/75/100 GPD）"
-      },
-      "municipal": {
-        "title": "市政",
-        "description": "获全球招标流程认可"
-      },
-      "healthcare": {
-        "title": "医疗保健",
-        "description": "透析用超纯水（XLE系列）"
-      },
-      "textile": {
-        "title": "纺织",
-        "description": "高温CP系列（4040/8040）"
-      },
-      "foodBeverage": {
-        "title": "食品饮料",
-        "description": "灌装和加工专用元件"
-      },
-      "commercial": {
-        "title": "商用",
-        "description": "ES系列：低能耗，高通量（150-400 GPD）"
-      }
-    }
+  "about": {
+    "title": "关于我们",
+    "description": "在Hi-tech RO膜公司，我们专注于反渗透（RO）技术，提供高质量的水净化。我们的膜满足多样化需求，确保饮用水致力于卓越和可持续性。我们在水处理的各个方面都处于领先地位。",
+    "cta": "了解更多"
   },
   "products": {
-    "title": "我们的产品",
-    "subtitle": "为性能和可持续性而设计",
-    "categories": {
-      "residential": {
-        "title": "住宅RO元件",
-        "description": "精确去除盐分和杂质"
-      },
-      "commercial": {
-        "title": "商用RO元件",
-        "description": "为学校、办公室和医院提供安全用水"
-      },
-      "industrial": {
-        "title": "工业RO元件",
-        "description": "实验室和工业用制药级解决方案"
-      }
-    }
+    "title": "我们的水解决方案",
+    "viewAll": "查看所有产品",
+    "membrane": "RO膜"
   },
-  "features": {
-    "title": "为什么Hi-Tech的服务脱颖而出？",
-    "subtitle": "通过精确度、专业知识和持续改进将'更好'转变为'最好'",
-    "customerCentric": {
-      "title": "以客户为中心",
-      "description": "您的反馈塑造我们的升级"
-    },
-    "support": {
-      "title": "端到端支持",
-      "description": "从设计到售后"
-    },
-    "expertise": {
-      "title": "认证专业知识",
-      "description": "ISO/WQA支持的质量协议"
-    }
+  "events": {
+    "title": "活动",
+    "eventName": "HITECH VIET 2016",
+    "dates": "2016年12月9-11日",
+    "invitation": "我们诚挚邀请您！"
   },
-  "contact": {
-    "title": "让我们一起优化您的水处理解决方案！",
-    "subtitle": "联系我们的团队讨论您的具体需求",
-    "form": {
-      "name": "姓名",
-      "email": "电子邮件",
-      "phone": "电话",
-      "message": "留言",
-      "submit": "提交"
-    }
+  "quality": {
+    "title": "无与伦比的卓越品质",
+    "viewAwards": "查看奖项",
+    "viewCertificates": "查看证书"
+  },
+  "global": {
+    "title": "我们的全球影响力",
+    "description": "Hi-Tech凭借为客户利益服务的熟练合作伙伴的强大网络，成功地保持了其全球影响力。公司继续引入新的工作方法以取得出色的成果。凭借具有竞争力的定价、高效的资源管理以及履行承诺的决心，Hi-Tech赢得了全球合作伙伴关系和在该地区运营的忠诚的公司-客户关系。"
   },
   "footer": {
-    "about": {
-      "description": "为最苛刻的工业环境提供精密分离膜"
-    },
-    "quickLinks": "快速链接",
-    "productLines": "产品线",
+    "about": "关于我们",
+    "products": "产品",
+    "events": "活动",
+    "contact": "联系我们",
     "newsletter": {
-      "title": "保持更新",
-      "description": "订阅我们的新闻通讯获取技术更新和行业见解",
-      "placeholder": "您的电子邮件地址",
-      "button": "订阅"
+      "title": "新闻通讯",
+      "placeholder": "输入您的电子邮件",
+      "subscribe": "订阅"
     }
   },
   "cta": {
-    "requestQuote": "请求报价",
+    "requestQuote": "获取报价",
     "getStarted": "开始使用",
     "contactUs": "联系我们",
     "learnMore": "了解更多",
     "viewAll": "查看全部"
-  },
-  "languages": {
-    "en": "English",
-    "th": "ไทย",
-    "ar": "العربية",
-    "zh": "中文",
-    "my": "မြန်မာ"
   }
 }

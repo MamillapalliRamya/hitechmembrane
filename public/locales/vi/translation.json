@@ -1,0 +1,64 @@
+{
+  "nav": {
+    "home": "Trang chủ",
+    "about": "Giới thiệu",
+    "products": "Sản phẩm",
+    "innovation": "Đổi mới",
+    "ourImpact": "Tác động",
+    "contact": "Liên hệ"
+  },
+  "hero": {
+    "title": "Nước sạch hôm nay Tương lai tốt đẹp hơn ngày mai",
+    "subtitle": "Màng Hi-tech lọc sạch hơn 10 triệu gallon nước mỗi phút trên toàn cầu, tạo ra nước sạch và an toàn để uống, nông nghiệp, nước mặt. Công nghệ RO của chúng tôi giải quyết các thách thức bền vững ngày càng tăng.",
+    "cta": "Liên hệ chúng tôi"
+  },
+  "stats": {
+    "yearsExperience": "50+",
+    "yearsLabel": "Năm kinh nghiệm",
+    "clients": "200+",
+    "clientsLabel": "Khách hàng toàn cầu"
+  },
+  "about": {
+    "title": "Giới thiệu",
+    "description": "Tại Công ty Màng RO Hi-tech, chúng tôi chuyên về công nghệ thẩm thấu ngược (RO) để lọc nước chất lượng cao. Màng của chúng tôi đáp ứng nhu cầu đa dạng, đảm bảo nước uống cam kết với sự xuất sắc và bền vững. Chúng tôi dẫn đầu trong mọi khía cạnh xử lý nước.",
+    "cta": "Đọc thêm"
+  },
+  "products": {
+    "title": "Giải pháp nước của chúng tôi",
+    "viewAll": "Xem tất cả sản phẩm",
+    "membrane": "Màng RO"
+  },
+  "events": {
+    "title": "Sự kiện",
+    "eventName": "HITECH VIET 2016",
+    "dates": "9 - 11 tháng 12, 2016",
+    "invitation": "Chúng tôi trân trọng mời bạn!"
+  },
+  "quality": {
+    "title": "Chất lượng đặc biệt không thể bị đánh bại",
+    "viewAwards": "Xem giải thưởng",
+    "viewCertificates": "Xem chứng chỉ"
+  },
+  "global": {
+    "title": "Sự hiện diện toàn cầu",
+    "description": "Hi-Tech đã duy trì thành công sự hiện diện toàn cầu nhờ vào mạng lưới đối tác lành nghề phục vụ lợi ích khách hàng. Công ty tiếp tục giới thiệu phương pháp làm việc mới để đạt được kết quả xuất sắc. Với giá cả cạnh tranh, quản lý nguồn lực hiệu quả và cam kết thực hiện lời hứa, Hi-Tech đã giành được quan hệ đối tác toàn cầu và mối quan hệ khách hàng-công ty trung thành hoạt động trên toàn khu vực."
+  },
+  "footer": {
+    "about": "Giới thiệu",
+    "products": "Sản phẩm",
+    "events": "Sự kiện",
+    "contact": "Liên hệ",
+    "newsletter": {
+      "title": "Bản tin",
+      "placeholder": "Nhập email của bạn",
+      "subscribe": "Đăng ký"
+    }
+  },
+  "cta": {
+    "requestQuote": "Nhận báo giá",
+    "getStarted": "Bắt đầu",
+    "contactUs": "Liên hệ chúng tôi",
+    "learnMore": "Tìm hiểu thêm",
+    "viewAll": "Xem tất cả"
+  }
+}

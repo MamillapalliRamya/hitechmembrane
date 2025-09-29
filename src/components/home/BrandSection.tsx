@@ -31,11 +31,11 @@ const AboutUsSection = () => {
         <img
           src="/assets/images/Isometric1.png"
           alt="RO Membrane Isometric View"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover"+
         />
       </div> */}
 
-      <div className="relative z-10 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto">
+      <div className="relative z-10 px-4 sm:px-6 lg:px-4 xl:px-6 max-w-7xl mx-auto">
         <div className="flex flex-col lg:flex-row items-center lg:items-center gap-12 lg:gap-16 xl:gap-20 2xl:gap-16">
 
           {/* Left side - Images and Statistics */}

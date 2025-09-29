@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Sun, Moon, Phone } from "lucide-react";
-import { useTheme } from "../../context/ThemeContext";
+// import { useTheme } from "../../context/ThemeContext";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
 
@@ -9,7 +9,7 @@ const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
-  const { theme, toggleTheme } = useTheme();
+  // const { theme, toggleTheme } = useTheme();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -75,19 +75,6 @@ const Header: React.FC = () => {
                 lineHeight: '100%'
               }}
             >
-              {/* <Link
-                to="/"
-                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${
-                  isActive("/")
-                    ? "text-blue-600 dark:text-blue-400"
-                    : isScrolled
-                    ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                    : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
-                }`}
-              >
-                {t("nav.home")}
-              </Link> */}
-
               <Link
                 to="/about"
                 className={`font-medium transition-colors hover:scale-105 transform duration-200 ${isActive("/about")
@@ -113,39 +100,27 @@ const Header: React.FC = () => {
               </Link>
 
               <Link
-                to="/services"
-                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${isActive("/services")
+                to="/innovation"
+                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${isActive("/innovation")
                     ? "text-blue-600 dark:text-blue-400"
                     : isScrolled
                       ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                       : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
                   }`}
               >
-                {t("nav.services")}
+                Innovation
               </Link>
 
               <Link
-                to="/media-room"
-                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${isActive("/media-room")
+                to="/our-impact"
+                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${isActive("/our-impact")
                     ? "text-blue-600 dark:text-blue-400"
                     : isScrolled
                       ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                       : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
                   }`}
               >
-                {t("nav.mediaRoom")}
-              </Link>
-
-              <Link
-                to="/contact"
-                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${isActive("/contact")
-                    ? "text-blue-600 dark:text-blue-400"
-                    : isScrolled
-                      ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                      : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
-                  }`}
-              >
-                {t("nav.contact")}
+                Our Impact
               </Link>
             </nav>
 
@@ -156,31 +131,7 @@ const Header: React.FC = () => {
                 <LanguageSelector />
               </div>
 
-              {/* Theme Toggle */}
-              <button
-                onClick={toggleTheme}
-                className={`p-1.5 sm:p-2 rounded-full transition-all duration-200 hover:scale-110 ${isScrolled
-                    ? "hover:bg-gray-100 dark:hover:bg-gray-700"
-                    : "hover:bg-black/10 dark:hover:bg-white/10"
-                  }`}
-                aria-label="Toggle theme"
-              >
-                {theme === "dark" ? (
-                  <Sun
-                    className={`w-4 h-4 sm:w-5 sm:h-5 ${isScrolled
-                        ? "text-gray-700 dark:text-gray-300"
-                        : "text-gray-800 dark:text-gray-200"
-                      }`}
-                  />
-                ) : (
-                  <Moon
-                    className={`w-4 h-4 sm:w-5 sm:h-5 ${isScrolled
-                        ? "text-gray-700 dark:text-gray-300"
-                        : "text-gray-800 dark:text-gray-200"
-                      }`}
-                  />
-                )}
-              </button>
+              
 
               {/* CTA Button - Responsive sizing */}
               <Link
@@ -246,18 +197,6 @@ const Header: React.FC = () => {
 
             {/* Mobile Navigation */}
             <nav className="flex flex-col p-4 space-y-2">
-              {/* <Link
-                to="/"
-                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${
-                  isActive("/")
-                    ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
-                    : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
-                }`}
-                onClick={closeMobileMenu}
-              >
-                {t("nav.home")}
-              </Link> */}
-
               <Link
                 to="/about"
                 className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${isActive("/about")
@@ -281,36 +220,25 @@ const Header: React.FC = () => {
               </Link>
 
               <Link
-                to="/services"
-                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${isActive("/services")
+                to="/innovation"
+                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${isActive("/innovation")
                     ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
                     : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
                   }`}
                 onClick={closeMobileMenu}
               >
-                {t("nav.services")}
+                Innovation
               </Link>
 
               <Link
-                to="/media-room"
-                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${isActive("/media-room")
+                to="/our-impact"
+                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${isActive("/our-impact")
                     ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
                     : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
                   }`}
                 onClick={closeMobileMenu}
               >
-                {t("nav.mediaRoom")}
-              </Link>
-
-              <Link
-                to="/contact"
-                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${isActive("/contact")
-                    ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
-                    : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
-                  }`}
-                onClick={closeMobileMenu}
-              >
-                {t("nav.contact")}
+                Our Impact
               </Link>
             </nav>
 
