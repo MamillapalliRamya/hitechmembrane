@@ -391,7 +391,7 @@ const GlobalPresenceSection = () => {
     if (location.type === 'main' && location.reviews) {
       setSelectedLocation(location);
 
-      
+
       setMapTransform(`translate(-120px, 0px) scale(0.8)`);
     }
   };
@@ -465,22 +465,26 @@ const GlobalPresenceSection = () => {
                       {/* Green map pin marker image for main offices */}
                       {location.type === 'main' && !imageLoadFailed[location.id] && (
                         <foreignObject
-                          x={location.x * 10 - 15}
-                          y={location.y * 10 - 30}
-                          width="20"
-                          height="24"
+                          x={location.x * 10 - 20}
+                          y={location.y * 10 - 35}
+                          width="40"
+                          height="48"
                           onMouseEnter={() => setHoveredLocation(location)}
                           onMouseLeave={() => setHoveredLocation(null)}
                           onClick={() => handleLocationClick(location)}
-                          style={{ cursor: 'pointer' }}
+                          style={{ cursor: 'pointer', overflow: 'visible' }}
                         >
                           <img
                             src="assets/images/green-pin-marker.png"
                             alt="Location marker"
-                            className="w-full h-full hover:scale-110 transition-transform duration-200"
+                            className="transition-transform duration-200"
                             style={{
                               filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
-                              pointerEvents: 'none'
+                              pointerEvents: 'none',
+                              transform: hoveredLocation?.id === location.id ? 'scale(1.4)' : 'scale(1)',
+                              transformOrigin: 'center center',
+                              width: '20px',
+                              height: '24px'
                             }}
                             onError={() => handleImageError(location.id)}
                           />
@@ -494,7 +498,12 @@ const GlobalPresenceSection = () => {
                           onMouseEnter={() => setHoveredLocation(location)}
                           onMouseLeave={() => setHoveredLocation(null)}
                           onClick={() => handleLocationClick(location)}
-                          style={{ cursor: 'pointer' }}
+                          style={{
+                            cursor: 'pointer',
+                            transform: hoveredLocation?.id === location.id ? 'scale(1.2)' : 'scale(1)',
+                            transformOrigin: 'center',
+                            transition: 'transform 0.2s'
+                          }}
                           className="marker-hover"
                         >
                           <path
@@ -649,7 +658,7 @@ const GlobalPresenceSection = () => {
                           </div>
                         </div>
 
-                        <div className="flex-1" style={{fontFamily: 'Diodrum Cyrillic'}}>
+                        <div className="flex-1" style={{ fontFamily: 'Diodrum Cyrillic' }}>
                           <div className="flex items-center justify-between mb-2">
                             <h5 className="font-semibold text-gray-900 text-sm">{review.name}</h5>
                             <div className="flex space-x-0.5">
