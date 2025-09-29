@@ -37,7 +37,7 @@ const HomePage: React.FC = () => {
   };
 
   return (
-    <div className="w-full pt-20" >
+    <div className="w-full pt-16" >
       {/* All sections with smooth entrance animations */}
       {allSections.map((section, index) => (
         <motion.section

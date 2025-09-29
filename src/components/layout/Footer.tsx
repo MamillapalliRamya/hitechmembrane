@@ -128,7 +128,7 @@ const Footer = () => {
   };
 
   const handleLocationClick = () => {
-    const address = '700/273 Amata City Chonburi Industrial Estate Moo 1, Tambon Bankao, Amphur Phanthong ChonBuri, Thailand 20160';
+    const address = 'Hi-Tech Membranes Co., Ltd. 700/273 Amata City Chonburi Industrial Estate Moo 1,Tambon Ban Kao, Amphur Phan Thong, Chonburi 20160 (THAILAND)';
     const encodedAddress = encodeURIComponent(address);
     window.open(`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`, '_blank');
   };
@@ -252,8 +252,8 @@ const Footer = () => {
                   <LocationIcon />
                 </div>
                 <p className="text-sm text-white leading-relaxed">
-                  700/273 Amata City Chonburi Industrial Estate Moo 1,<br />
-                  Tambon Bankao, Amphur Phanthong ChonBuri, Thailand 20160.
+                  Hi-Tech Membranes Co., Ltd. 700/273 Amata City Chonburi Industrial Estate Moo 1,
+                    Tambon Ban Kao, Amphur Phan Thong, Chonburi 20160 (THAILAND)
                 </p>
               </div>
             </div>

@@ -1,15 +1,38 @@
 import React, { useState, useEffect } from 'react';
 
 const WaterDropSection: React.FC = () => {
-  const [showText, setShowText] = useState(false);
+  const [textState, setTextState] = useState<'hidden' | 'visible' | 'exit'>('hidden');
 
   useEffect(() => {
-    // Wait for video to play for a bit before showing text
-    const timer = setTimeout(() => {
-      setShowText(true);
-    }, 2000); // Adjust timing as needed (2 seconds delay)
+    const runAnimation = () => {
+      // Reset to hidden
+      setTextState('hidden');
+      
+      // Show text after 3 seconds
+      const showTimer = setTimeout(() => {
+        setTextState('visible');
+      }, 3000);
 
-    return () => clearTimeout(timer);
+      // Hide text after 8.5 seconds
+      const hideTimer = setTimeout(() => {
+        setTextState('exit');
+      }, 8300);
+
+      // Loop back after animation completes (add small buffer for exit animation)
+      const loopTimer = setTimeout(() => {
+        runAnimation();
+      }, 11800); // Total cycle time
+
+      return () => {
+        clearTimeout(showTimer);
+        clearTimeout(hideTimer);
+        clearTimeout(loopTimer);
+      };
+    };
+
+    const cleanup = runAnimation();
+
+    return cleanup;
   }, []);
 
   return (
@@ -31,35 +54,28 @@ const WaterDropSection: React.FC = () => {
       </video>
 
       <div 
-        className={`text-center px-4 sm:px-6 md:px-8 lg:px-12 relative z-10 transition-all duration-1000 ease-out ${
-          showText 
+        className={`text-center px-4 sm:px-6 md:px-8 lg:px-12 relative z-10 transition-all duration-300 ease-out ${
+          textState === 'visible' 
             ? 'transform translate-y-0 opacity-100' 
+            : textState === 'exit'
+            ? 'transform -translate-y-full opacity-0'
             : 'transform translate-y-full opacity-0'
         }`}
-        
       > 
         <h1 
-          className={`text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl leading-tight transition-all duration-1000 ease-out ${
-            showText ? 'delay-200' : ''
-          }`}
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl leading-tight"
           style={{ 
             color: 'black', 
             fontFamily: 'Diodrum Cyrillic',
-            transform: showText ? 'translateY(0)' : 'translateY(50px)',
-            opacity: showText ? 1 : 0
           }}
         > 
           Purifying millions of gallons, 
         </h1> 
         <h1 
-          className={`text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl leading-tight mt-2 transition-all duration-1000 ease-out ${
-            showText ? 'delay-500' : ''
-          }`}
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl leading-tight mt-2"
           style={{ 
             color: 'black', 
             fontFamily: 'Diodrum Cyrillic, sans-serif',
-            transform: showText ? 'translateY(0)' : 'translateY(50px)',
-            opacity: showText ? 1 : 0
           }}
         > 
           Powering a sustainable future. 
