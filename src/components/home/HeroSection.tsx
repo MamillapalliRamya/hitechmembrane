@@ -159,7 +159,7 @@ const HeroSection: React.FC = () => {
 
       {/* Text Content Overlay with responsive animation */}
       <div
-        className={`relative z-20 px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-center transition-all duration-500 ease-out
+        className={`relative z-20 2xl:px-8 h-full flex flex-col justify-center transition-all duration-500 ease-out
           ${animateText ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'}
         `}
         style={{ 

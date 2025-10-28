@@ -12,28 +12,18 @@ const AboutUsSection = () => {
       ref={sectionRef}
       className="pt-[88px] pb-[60px] relative overflow-hidden"
     >
-
-
-      {/* Isometric RO Membrane Image */}
-      {/* <div
-        className="absolute hidden lg:block"
+      {/* Isometric RO Membrane Background Image */}
+        {/* <img
+        src="/assets/images/Isometric1.png"
+        alt=""
+        className={`absolute bottom-0 left-0 w-[600px] lg:w-[800px] xl:w-[674px] transition-all ease-out
+          ${isInView ? 'opacity-100 animate-[diagonalIn_1.2s_ease-out_0s_1_forwards,bounceSlight_2s_ease-in-out_1.2s_infinite]' : 'opacity-0'}`}
         style={{
-          width: '1028.57px',
-          height: '210.165px',
-          border: '1px solid rgb(0, 0, 0)',
-          opacity: 0.4,
-          marginTop: '245px',
-          marginLeft: '-280px',
-          transform: 'rotate(38.78deg)',
-          transformOrigin: 'center'
+          top: '-128px',
         }}
-      >
-        <img
-          src="/assets/images/Isometric1.png"
-          alt="RO Membrane Isometric View"
-          className="w-full h-full object-cover"+
-        />
-      </div> */}
+      /> */}
+
+
 
       <div className="relative z-10 px-4 sm:px-6 lg:px-4 xl:px-6 max-w-7xl mx-auto">
         <div className="flex flex-col lg:flex-row items-center lg:items-center gap-12 lg:gap-16 xl:gap-20 2xl:gap-16">
@@ -127,6 +117,31 @@ const AboutUsSection = () => {
           </motion.div>
         </div>
       </div>
+      <style>
+        {`
+         @keyframes diagonalIn {
+          0% {
+            transform: translate(-250px, 250px) scale(0.9);
+            opacity: 0;
+          }
+          70% {
+            transform: translate(10px, -10px) scale(1.05);
+            opacity: 1;
+          }
+          100% {
+            transform: translate(0, 0) scale(1);
+            opacity: 1;
+          }
+        }
+
+       
+          .animate-diagonal-in {
+          animation: diagonalIn 1.2s ease-out forwards;
+        }
+
+        
+`}
+      </style>
     </section>
   );
 };
