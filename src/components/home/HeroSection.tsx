@@ -159,25 +159,25 @@ const HeroSection: React.FC = () => {
 
       {/* Text Content Overlay with responsive animation */}
       <div
-        className={`relative z-20 2xl:px-8 h-full flex flex-col justify-center transition-all duration-500 ease-out
+        className={`ml-[40px] relative z-20 2xl:px-8 h-full flex flex-col justify-center transition-all duration-500 ease-out
           ${animateText ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'}
         `}
         style={{ 
-          marginLeft: windowWidth >= 1024 ? "80px" : "0px",
+          marginLeft: windowWidth >= 1440 ? "80px" : "40px",
           maxWidth: windowWidth >= 1920 ? "890px" :
                    windowWidth >= 1440 ? "790px" : 
                    windowWidth >= 1280 ? "650px" : 
                    windowWidth >= 1024 ? "580px" : 
                    windowWidth >= 768 ? "520px" : 
                    "100%",
-          paddingRight: windowWidth >= 768 ? "40px" : "0px"
+          // paddingRight: windowWidth >= 768 ? "40px" : "0px"
         }}
       >
         <h1 className={`font-semibold leading-tight mb-3 sm:mb-4 text-white ${
           windowWidth >= 1920 ? 'text-6xl xl:text-7xl' :
           windowWidth >= 1440 ? 'text-5xl xl:text-6xl' :
-          windowWidth >= 1280 ? 'text-4xl lg:text-5xl' :
-          windowWidth >= 1024 ? 'text-3xl md:text-4xl' :
+          windowWidth >= 1280 ? 'text-4xl lg:text-[56px]' :
+          windowWidth >= 1024 ? 'text-3xl md:text-[44px]' :
           windowWidth >= 768 ? 'text-2xl sm:text-3xl' :
           'text-xl sm:text-2xl'
         }`}>
@@ -187,8 +187,8 @@ const HeroSection: React.FC = () => {
         <p className={`text-gray-100 mb-4 sm:mb-6 leading-relaxed ${
           windowWidth >= 1920 ? 'text-xl lg:text-2xl max-w-[700px]' :
           windowWidth >= 1440 ? 'text-xl lg:text-2xl max-w-[650px]' :
-          windowWidth >= 1280 ? 'text-lg lg:text-xl max-w-[600px]' :
-          windowWidth >= 1024 ? 'text-base md:text-lg max-w-[520px]' :
+          windowWidth >= 1280 ? 'text-lg lg:text-[24px] max-w-[600px]' :
+          windowWidth >= 1024 ? 'text-base md:text-[19.2px] max-w-[520px]' :
           windowWidth >= 768 ? 'text-sm sm:text-base max-w-[480px]' :
           'text-sm max-w-full pr-4'
         }`}>
