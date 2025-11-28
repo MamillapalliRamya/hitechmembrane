@@ -13,7 +13,7 @@ const AwardsSection = () => {
           // Start bounce effect after pipe formation is complete
           setTimeout(() => {
             setShowBounce(true);
-          }, 1500); // After the slide animation completes
+          }, 1500); 
         }
       },
       { threshold: 0.3 }
@@ -33,7 +33,7 @@ const AwardsSection = () => {
 
   return (
     <section id="awards-section" className="py-16 bg-white overflow-hidden relative">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-4 relative">
+      <div className="mx-[80px] max-w-8xl px-4 sm:px-6 lg:px-4 relative">
         
         {/* Pipe Animation - Coming from bottom-left moving upward diagonally */}
         {/* <img
@@ -71,8 +71,6 @@ const AwardsSection = () => {
         
         {/* Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-          
-          {/* Awards Side - comes from left */}
           <div 
             className={`flex flex-col items-center transition-all duration-350 ease-out ${
               isVisible 
@@ -81,7 +79,6 @@ const AwardsSection = () => {
             }`}
           >
             <div className="grid grid-cols-2 gap-8 mb-16">
-              {/* Award 1 - Water Digest Trophy */}
               <div className="flex flex-col items-center">
                 <div className="mb-4 w-40 h-40 flex items-center justify-center" style={{width:"16rem", height:"18rem"}}>
                   <img 
@@ -91,8 +88,6 @@ const AwardsSection = () => {
                   />
                 </div>
               </div>
-              
-              {/* Award 2 - Golden Star Trophy */}
               <div className="flex flex-col items-center">
                 <div className="mb-4 w-40 h-40 flex items-center justify-center" style={{width:"16rem", height:"18rem"}}>
                   <img 
@@ -108,8 +103,6 @@ const AwardsSection = () => {
               View Awards
             </button> */}
           </div>
-          
-          {/* Certifications Side - comes from right */}
           <div 
             className={`flex flex-col items-center transition-all duration-350 ease-out ${
               isVisible 
@@ -118,7 +111,6 @@ const AwardsSection = () => {
             }`}
           >
             <div className="flex gap-16 mb-8">
-              {/* Certificate 1 */}
               <div className="w-50 h-68">
                 <img 
                   src="/assets/images/certificate1.png" 
@@ -126,8 +118,6 @@ const AwardsSection = () => {
                   className="w-full h-full object-contain shadow-lg rounded"
                 />
               </div>
-              
-              {/* Certificate 2 */}
               <div className="w-50 h-68">
                 <img 
                   src="/assets/images/certificate2.png" 

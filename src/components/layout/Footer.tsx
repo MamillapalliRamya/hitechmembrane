@@ -135,31 +135,31 @@ const Footer = () => {
 
   return (
     <footer 
-      className="text-white pt-6 px-4 sm:px-6 lg:px-8" 
+      className="text-white pt-6 px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20" 
       style={{ background: 'linear-gradient(5.56deg, #25275A 4.66%, #4145A1 95.85%)' }}
     >
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+      <div className="max-w-[1600px] mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-16 items-start">
           
           {/* Logo Section */}
-          <div className="lg:col-span-3 flex justify-start">
+          <div className="lg:col-span-3 flex justify-center md:justify-start">
             <div className="mb-4">
               <img
                 src="/logo-1 (1).png"
                 alt="Hi-Tech Logo"
-                className="h-29 w-auto"
+                className="h-20 sm:h-24 md:h-28 lg:h-29 w-auto"
               />
             </div>
           </div>
 
           {/* Navigation Links Section */}
           <div className="lg:col-span-4">
-            <div className="grid grid-cols-2 gap-4 cursor-pointer">
-              {navigationLinks.map((link, index) => (
-                <div key={link.title} className={index < 2 ? "space-y-6" : "space-y-6"}>
+            <div className="grid grid-cols-2 gap-4 cursor-pointer mb-8">
+              {navigationLinks.map((link) => (
+                <div key={link.title} className="space-y-6">
                   <div>
                     <Link to={link.href}>
-                      <h3 className="text-xl font-normal text-white hover:text-[#A8CF45] transition-colors">{link.title}</h3>
+                      <h3 className="text-lg sm:text-xl font-normal text-white hover:text-[#A8CF45] transition-colors">{link.title}</h3>
                     </Link>
                   </div>
                 </div>
@@ -167,7 +167,7 @@ const Footer = () => {
             </div>
 
             {/* Chat With Us Section */}
-            <div className="mt-8">
+            <div className="mt-6 md:mt-8">
               <h3 className="text-sm font-semibold mb-4 uppercase tracking-wider text-[#A8CF45]">
                 CHAT WITH US
               </h3>
@@ -176,14 +176,15 @@ const Footer = () => {
                   <div key={platform.name} className="relative">
                     <button
                       onClick={() => handleChatClick(platform)}
-                      className={`w-11 h-11 rounded-full flex items-center justify-center transition-colors ${platform.bgColor}`}
+                      className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-colors ${platform.bgColor}`}
+                      aria-label={`Chat on ${platform.name}`}
                     >
                       {platform.isCustom ? (
-                        <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center">
-                          <span className="text-green-600 font-bold text-sm">Line</span>
+                        <div className="w-6 h-6 sm:w-7 sm:h-7 bg-white rounded-full flex items-center justify-center">
+                          <span className="text-green-600 font-bold text-xs sm:text-sm">Line</span>
                         </div>
                       ) : (
-                        <svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
                           {platform.icon}
                         </svg>
                       )}
@@ -197,7 +198,7 @@ const Footer = () => {
                       >
                         <div className="w-20 h-20 bg-gray-200 flex items-center justify-center">
                           <div className="text-center">
-                            <img src={platform.qrCode} alt={`${platform.name} QR Code`} className=" w-22 h-22 mx-auto" />
+                            <img src={platform.qrCode} alt={`${platform.name} QR Code`} className="w-20 h-20 mx-auto object-cover" />
                           </div>
                         </div>
                       </div>
@@ -224,7 +225,7 @@ const Footer = () => {
                 <div className="w-8 h-8 rounded-full border-2 border-[#A8CF45] flex items-center justify-center mr-3 flex-shrink-0">
                   <ContactIcon />
                 </div>
-                <span className="text-sm text-white">+91-80-12345678</span>
+                <span className="text-sm text-white break-all">+91-80-12345678</span>
               </div>
               
               {/* Email */}
@@ -235,7 +236,7 @@ const Footer = () => {
                 <div className="w-8 h-8 rounded-full border-2 border-[#A8CF45] flex items-center justify-center mr-3 flex-shrink-0">
                   <EmailIcon />
                 </div>
-                <span className="text-sm text-white">sales@hitechmembranes.com</span>
+                <span className="text-sm text-white break-all">sales@hitechmembranes.com</span>
               </div>
             </div>
 
@@ -253,7 +254,7 @@ const Footer = () => {
                 </div>
                 <p className="text-sm text-white leading-relaxed">
                   Hi-Tech Membranes Co., Ltd. 700/273 Amata City Chonburi Industrial Estate Moo 1,
-                    Tambon Ban Kao, Amphur Phan Thong, Chonburi 20160 (THAILAND)
+                  Tambon Ban Kao, Amphur Phan Thong, Chonburi 20160 (THAILAND)
                 </p>
               </div>
             </div>
@@ -261,34 +262,35 @@ const Footer = () => {
         </div>
 
         {/* Bottom Section with Social Media */}
-        <div className="pt-2">
-          <div className="flex flex-col lg:flex-row justify-center items-center">
+        <div className="pt-6 md:pt-8 pb-4">
+          <div className="flex flex-col items-center space-y-4">
             {/* Social Media Icons */}
-            <div className="flex justify-center mb-4 lg:mb-0">
+            <div className="flex justify-center mb-2 sm:mb-4 lg:mb-0">
               <div 
-                className="flex space-x-8 rounded-xl px-8 py-2" 
+                className="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6 lg:gap-8 rounded-xl px-4 sm:px-6 md:px-8 py-2 sm:py-3" 
                 style={{ background: "#1A1C51" }}
               >
-                {socialPlatforms.map((platform) => (
-                  <a
-                    key={platform.name}
-                    href={platform.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`w-7 h-7 rounded-full flex items-center justify-center transition-colors ${platform.bgColor}`}
-                  >
-                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                      {platform.icon}
-                    </svg>
-                  </a>
-                ))}
-              </div>
+              {socialPlatforms.map((platform) => (
+                <a
+                  key={platform.name}
+                  href={platform.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center transition-colors ${platform.bgColor}`}
+                  aria-label={platform.name}
+                >
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    {platform.icon}
+                  </svg>
+                </a>
+              ))}
+            </div>
             </div>
           </div>
           
           {/* Copyright */}
           <div 
-            className="flex justify-end text-gray-400" 
+            className="flex justify-center md:justify-end text-gray-400 pt-2" 
             style={{ fontSize: '10px' }}
           >
             All Rights Reserved. Copyright ©2022 Hitechmembrane.Co.Ltd.
