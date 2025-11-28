@@ -35,10 +35,10 @@ const AwardsSection = () => {
 
   return (
     <section id="awards-section" className="py-16 bg-white overflow-hidden relative">
-      <div className="mx-[80px] max-w-8xl px-4 sm:px-6 lg:px-4 relative">
+      <div className="mx-[40px] lg:mx-[80px] 2xl:mr-[112px] max-w-8xl relative">
         
         {/* Top Right Membrane (2nd image - enters first) */}
-{/* <img
+<img
   src="/assets/images/isometrics/iso_4.svg"
   alt=""
   className={`absolute w-[334px] h-auto object-contain pointer-events-none transition-all ease-out
@@ -47,22 +47,22 @@ const AwardsSection = () => {
     left: '-95px',
     top: '-23px',
   }}
-/> */}
+/>
 
 {/* Top Left Membrane (1st image - enters second) */}
-{/* <img
+<img
   src="/assets/images/isometrics/iso_6.svg"
   alt=""
   className={`absolute w-[47px] h-auto object-contain pointer-events-none transition-all ease-out
-    ${isVisible ? 'opacity-100 animate-[diagonalIn_1s_ease-out_0.4s_1_forwards,bounceSlight_0.6s_ease-in-out_1.6s_1]' : 'opacity-0'}`}
+    ${isVisible ? ' animate-[diagonalIn_1s_ease-out_0.4s_1_forwards,bounceSlight_0.6s_ease-in-out_1.6s_1]' : 'opacity-0'}`}
   style={{
     left: '-83px',
     top: '129px',
   }}
-/> */}
+/>
 
 {/* Bottom Left Membrane (3rd image - enters last) */}
-{/* <img
+<img
   src="/assets/images/isometrics/iso_5.svg"
   alt=""
   className={`absolute w-[180px] h-auto object-contain pointer-events-none transition-all ease-out
@@ -71,7 +71,7 @@ const AwardsSection = () => {
     left: '-105px',
     top: '241px',
   }}
-/> */}
+/>
 
 
         {/* Heading - comes from top */}
