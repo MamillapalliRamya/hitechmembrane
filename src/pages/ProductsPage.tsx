@@ -154,9 +154,6 @@ const ProductPage: React.FC = () => {
 
 export default ProductPage;
 
-/* -------------------------
-   REUSABLE COMPONENTS
--------------------------- */
 
 const SectionTitle = ({ text }: { text: string }) => (
   <h2 className="font-semibold text-3xl sm:text-4xl lg:text-5xl text-[#3E4095] mt-14 mb-4">
