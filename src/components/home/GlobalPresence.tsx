@@ -703,7 +703,7 @@ const GlobalPresenceSection = () => {
                   <div className="flex space-x-0.5 scale-90 sm:scale-100">{renderStars(review.rating)}</div>
                 </div>
 
-                <p className="text-gray-700 text-[10px] sm:text-xs leading-snug">
+                <p className="text-gray-700 text-[10px] sm:text-xs leading-snug " style={{ fontFamily: "Diodrum Cyrillic" }}>
                   {review.text}
                 </p>
               </div>
