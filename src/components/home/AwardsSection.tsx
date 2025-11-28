@@ -88,7 +88,7 @@ const AwardsSection = () => {
         </div>
         
         {/* Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-24 items-center">
           <div 
             className={`flex flex-col items-center transition-all duration-350 ease-out ${
               isVisible 
@@ -98,7 +98,16 @@ const AwardsSection = () => {
           >
             <div className="grid grid-cols-2 gap-8 mb-16">
               <div className="flex flex-col items-center">
-                <div className="mb-4 w-40 h-40 flex items-center justify-center" style={{width:"16rem", height:"18rem"}}>
+                <div className="
+            mb-4 
+            flex items-center justify-center
+            w-36 h-40
+            sm:w-40 sm:h-48
+            md:w-44 md:h-52
+            lg:w-48 lg:h-56
+            xl:w-56 xl:h-64
+          "
+        >
                   <img 
                     src="/assets/images/award1.png" 
                     alt="Water Digest Award"
@@ -107,7 +116,16 @@ const AwardsSection = () => {
                 </div>
               </div>
               <div className="flex flex-col items-center">
-                <div className="mb-4 w-40 h-40 flex items-center justify-center" style={{width:"16rem", height:"18rem"}}>
+                <div className="
+            mb-4 
+            flex items-center justify-center
+            w-36 h-40       /* mobile */
+            sm:w-40 sm:h-48 /* small screens */
+            md:w-44 md:h-52 /* tablets */
+            lg:w-48 lg:h-56 /* laptops */
+            xl:w-56 xl:h-64 /* large screens */
+          "
+        >
                   <img 
                     src="/assets/images/award2.png" 
                     alt="Golden Star Trophy Award"

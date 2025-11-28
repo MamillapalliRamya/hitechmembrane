@@ -138,7 +138,7 @@ const Footer = () => {
       className="text-white pt-6 px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20" 
       style={{ background: 'linear-gradient(5.56deg, #25275A 4.66%, #4145A1 95.85%)' }}
     >
-      <div className="max-w-[1600px] mx-auto">
+      <div className="max-w-8xl mx-[40px] ">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-16 items-start">
           
           {/* Logo Section */}
