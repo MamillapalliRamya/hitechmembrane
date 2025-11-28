@@ -133,7 +133,7 @@ const Header: React.FC = () => {
 
               
 
-              {/* CTA Button - Responsive sizing */}
+              
               <Link
                 to="/contact"
                 className={`hidden sm:block px-3 py-1.5 sm:px-4 sm:py-2 lg:px-5 lg:py-2 rounded-md font-medium transition-all duration-200 hover:scale-105 text-sm lg:text-base ${isScrolled

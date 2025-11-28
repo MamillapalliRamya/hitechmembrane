@@ -444,14 +444,14 @@ const GlobalPresenceSection = () => {
               />
 
               {/* Fallback background if image doesn't load */}
-              <div
+              {/* <div
                 className="w-full aspect-[2/1] bg-gradient-to-br from-blue-100 to-purple-200 rounded-lg"
                 style={{
                   backgroundImage: 'linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 25%, #a5b4fc  50%, #8b5cf6 75%, #7c3aed 100%)',
                   filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.1))',
                   display: 'none'
                 }}
-              />
+              /> */}
 
               {/* Location Markers Overlay */}
               <div className="absolute inset-0">
@@ -492,7 +492,7 @@ const GlobalPresenceSection = () => {
                       )}
 
                       {/* Fallback SVG marker for main offices if image fails to load */}
-                      {location.type === 'main' && imageLoadFailed[location.id] && (
+                      {/* {location.type === 'main' && imageLoadFailed[location.id] && (
                         <g
                           transform={`translate(${location.x * 10}, ${location.y * 10})`}
                           onMouseEnter={() => setHoveredLocation(location)}
@@ -514,7 +514,7 @@ const GlobalPresenceSection = () => {
                           />
                           <circle cx="0" cy="-5" r="4" fill="#ffffff" />
                         </g>
-                      )}
+                      )} */}
                     </g>
                   ))}
                 </svg>
@@ -612,68 +612,109 @@ const GlobalPresenceSection = () => {
 
           {/* Reviews Side Panel */}
           {selectedLocation && (
-            <div className="absolute top-4 right-0 w-[460px] bg-white rounded-2xl shadow-2xl border border-blue-900 z-30 max-h-[500px] overflow-hidden">
-              <div className="flex items-center justify-between px-3 py-4 border-b border-blue-900 bg-gradient-to-r from-blue-50 to-purple-50">
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 rounded-full overflow-hidden border border-blue-900 shadow-sm">
-                    <img
-                      src={`https://flagcdn.com/w40/${selectedLocation.countryCode.toLowerCase()}.png`}
-                      alt={`${selectedLocation.country} flag`}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        e.currentTarget.style.display = 'none';
-                        if (e.currentTarget.nextElementSibling) {
-                          (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'flex';
-                        }
-                      }}
-                    />
-                    <div
-                      className="w-full h-full flex items-center justify-center text-lg"
-                      style={{ display: 'none' }}
-                    >
-                      🏳️
-                    </div>
-                  </div>
-                  <h3 className="text-xl font-bold text-blue-900">{selectedLocation.country}</h3>
+  <div
+    className="
+      absolute top-3 right-0 
+      w-full max-w-[330px] sm:max-w-[360px] md:max-w-[420px] lg:max-w-[460px]
+      bg-white rounded-2xl shadow-2xl border border-blue-900 z-30
+      max-h-[450px] overflow-hidden
+      mx-2
+    "
+  >
+    {/* Header */}
+    <div
+      className="
+        flex items-center justify-between
+        px-2 sm:px-3 
+        py-2 sm:py-3
+        border-b border-blue-900
+        bg-gradient-to-r from-blue-50 to-purple-50
+      "
+    >
+      <div className="flex items-center space-x-2 sm:space-x-3">
+        <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full overflow-hidden border border-blue-900 shadow-sm">
+          <img
+            src={`https://flagcdn.com/w40/${selectedLocation.countryCode.toLowerCase()}.png`}
+            alt={`${selectedLocation.country} flag`}
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              e.currentTarget.style.display = "none";
+              if (e.currentTarget.nextElementSibling) {
+                (e.currentTarget.nextElementSibling as HTMLElement).style.display = "flex";
+              }
+            }}
+          />
+          <div
+            className="w-full h-full flex items-center justify-center text-base"
+            style={{ display: "none" }}
+          >
+            🏳️
+          </div>
+        </div>
+
+        <h3 className="text-sm sm:text-lg font-bold text-blue-900">
+          {selectedLocation.country}
+        </h3>
+      </div>
+
+      <button
+        onClick={closePanel}
+        className="
+          p-1 sm:p-2 rounded-full 
+          hover:bg-white hover:bg-opacity-50
+          transition-all duration-200
+        "
+      >
+        <X className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
+      </button>
+    </div>
+
+    {/* Reviews Section */}
+    <div className="px-2 py-2 sm:px-3 sm:py-3">
+      <h4 className="text-[10px] sm:text-xs font-semibold text-gray-800 mb-2 sm:mb-3 uppercase tracking-wide">
+        Reviews
+      </h4>
+
+      <div className="space-y-2 max-h-[300px] sm:max-h-[340px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300">
+        {selectedLocation.reviews?.map((review, index) => (
+          <div
+            key={index}
+            className="
+              bg-gray-50 rounded-xl p-2 sm:p-3 
+              hover:bg-gray-100 transition-colors duration-200
+            "
+          >
+            <div className="flex gap-2 sm:gap-3">
+              {/* Avatar */}
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden flex-shrink-0 ring-1 ring-white shadow-md">
+                <div className="w-full h-full bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 flex items-center justify-center">
+                  <span className="text-[10px] sm:text-xs text-white font-bold">
+                    {review.name.split(" ").map((n) => n[0]).join("")}
+                  </span>
                 </div>
-                <button
-                  onClick={closePanel}
-                  className="p-2 hover:bg-white hover:bg-opacity-50 rounded-full transition-all duration-200"
-                >
-                  <X className="w-5 h-5 text-gray-600" />
-                </button>
               </div>
 
-              <div className="px-3 py-2">
-                <h4 className="text-sm font-semibold text-gray-800 mb-4 uppercase tracking-wide">Reviews</h4>
-                <div className="space-y-2 max-h-80 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300">
-                  {selectedLocation.reviews?.map((review, index) => (
-                    <div key={index} className="bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-colors duration-200">
-                      <div className="flex gap-3">
-                        <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-white shadow-md">
-                          <div className="w-full h-full bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 flex items-center justify-center">
-                            <span className="text-white text-sm font-bold">
-                              {review.name.split(' ').map(n => n[0]).join('')}
-                            </span>
-                          </div>
-                        </div>
-
-                        <div className="flex-1" style={{ fontFamily: 'Diodrum Cyrillic' }}>
-                          <div className="flex items-center justify-between mb-2">
-                            <h5 className="font-semibold text-gray-900 text-sm">{review.name}</h5>
-                            <div className="flex space-x-0.5">
-                              {renderStars(review.rating)}
-                            </div>
-                          </div>
-                          <p className="text-gray-700 text-sm leading-relaxed">{review.text}</p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+              {/* Review Content */}
+              <div className="flex-1" style={{ fontFamily: "Diodrum Cyrillic" }}>
+                <div className="flex items-center justify-between mb-1">
+                  <h5 className="font-semibold text-gray-900 text-xs sm:text-sm">
+                    {review.name}
+                  </h5>
+                  <div className="flex space-x-0.5 scale-90 sm:scale-100">{renderStars(review.rating)}</div>
                 </div>
+
+                <p className="text-gray-700 text-[10px] sm:text-xs leading-snug">
+                  {review.text}
+                </p>
               </div>
             </div>
-          )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+)}
+
         </div>
 
         <div className="max-w-4xl mx-auto text-center">
