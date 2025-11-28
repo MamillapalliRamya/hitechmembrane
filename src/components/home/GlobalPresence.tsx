@@ -675,7 +675,7 @@ const GlobalPresenceSection = () => {
         Reviews
       </h4>
 
-      <div className="space-y-2 max-h-[300px] sm:max-h-[340px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300">
+      <div className="space-y-2 max-h-[300px] md:max-h-[] sm:max-h-[340px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300">
         {selectedLocation.reviews?.map((review, index) => (
           <div
             key={index}
