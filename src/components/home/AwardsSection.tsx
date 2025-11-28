@@ -37,8 +37,8 @@ const AwardsSection = () => {
     <section id="awards-section" className="py-16 bg-white overflow-hidden relative">
       <div className="mx-[40px] lg:mx-[80px] 2xl:mr-[112px] max-w-8xl relative">
         
-        {/* Top Right Membrane (2nd image - enters first) */}
-<img
+       
+{/* <img
   src="/assets/images/isometrics/iso_4.svg"
   alt=""
   className={`absolute w-[334px] h-auto object-contain pointer-events-none transition-all ease-out
@@ -49,7 +49,7 @@ const AwardsSection = () => {
   }}
 />
 
-{/* Top Left Membrane (1st image - enters second) */}
+
 <img
   src="/assets/images/isometrics/iso_6.svg"
   alt=""
@@ -59,10 +59,10 @@ const AwardsSection = () => {
     left: '-83px',
     top: '129px',
   }}
-/>
+/> */}
 
-{/* Bottom Left Membrane (3rd image - enters last) */}
-<img
+
+{/* <img
   src="/assets/images/isometrics/iso_5.svg"
   alt=""
   className={`absolute w-[180px] h-auto object-contain pointer-events-none transition-all ease-out
@@ -71,7 +71,7 @@ const AwardsSection = () => {
     left: '-105px',
     top: '241px',
   }}
-/>
+/> */}
 
 
         {/* Heading - comes from top */}
