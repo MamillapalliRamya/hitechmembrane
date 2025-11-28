@@ -45,7 +45,7 @@ const productPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50" id='pageTop'>
+    <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto pt-4">
         {/* Download Button */}
         <div className="text-center mb-12 ">

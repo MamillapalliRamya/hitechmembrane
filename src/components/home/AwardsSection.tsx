@@ -19,6 +19,8 @@ const AwardsSection = () => {
       { threshold: 0.3 }
     );
 
+   
+
     const element = document.getElementById('awards-section');
     if (element) {
       observer.observe(element);
@@ -35,26 +37,42 @@ const AwardsSection = () => {
     <section id="awards-section" className="py-16 bg-white overflow-hidden relative">
       <div className="mx-[80px] max-w-8xl px-4 sm:px-6 lg:px-4 relative">
         
-        {/* Pipe Animation - Coming from bottom-left moving upward diagonally */}
-        {/* <img
-          src={image1}
-          alt="Pipes"
-          className={`absolute w-[400px] h-auto z-10 object-contain transition-all duration-1500 ease-in-out ${
-            isVisible ? 'opacity-100' : 'opacity-0'
-          } ${showBounce ? 'animate-custom-bounce' : ''}`}
-         style={{
-            left: isVisible ? '0' : '-400px', // Move from left to final position
-            top: isVisible ? '50%' : '80%', // Move from bottom area to middle
-            transform: isVisible 
-              ? 'translateY(-120%) scaleX(-1.2) rotate(84deg)' // Final position
-              : 'translateY(-50%) scaleX(-1.2) rotate(84deg)', // Start position (less Y offset)
-            transformOrigin: 'left center',
-            transitionProperty: 'left, top, transform, opacity',
-            transitionDuration: '1.5s',
-            transitionTimingFunction: 'ease-in-out',
-            opacity: '0.3',
-          }}
-        /> */}
+        {/* Top Right Membrane (2nd image - enters first) */}
+{/* <img
+  src="/assets/images/isometrics/iso_4.svg"
+  alt=""
+  className={`absolute w-[334px] h-auto object-contain pointer-events-none transition-all ease-out
+    ${isVisible ? 'opacity-100 animate-[diagonalIn_1s_ease-out_0s_1_forwards,bounceSlight_0.6s_ease-in-out_1.2s_1]' : 'opacity-0'}`}
+  style={{
+    left: '-95px',
+    top: '-23px',
+  }}
+/> */}
+
+{/* Top Left Membrane (1st image - enters second) */}
+{/* <img
+  src="/assets/images/isometrics/iso_6.svg"
+  alt=""
+  className={`absolute w-[47px] h-auto object-contain pointer-events-none transition-all ease-out
+    ${isVisible ? 'opacity-100 animate-[diagonalIn_1s_ease-out_0.4s_1_forwards,bounceSlight_0.6s_ease-in-out_1.6s_1]' : 'opacity-0'}`}
+  style={{
+    left: '-83px',
+    top: '129px',
+  }}
+/> */}
+
+{/* Bottom Left Membrane (3rd image - enters last) */}
+{/* <img
+  src="/assets/images/isometrics/iso_5.svg"
+  alt=""
+  className={`absolute w-[180px] h-auto object-contain pointer-events-none transition-all ease-out
+    ${isVisible ? 'opacity-100 animate-[diagonalIn_1s_ease-out_0.8s_1_forwards,bounceSlight_0.6s_ease-in-out_2s_1]' : 'opacity-0'}`}
+  style={{
+    left: '-105px',
+    top: '241px',
+  }}
+/> */}
+
 
         {/* Heading - comes from top */}
         <div 
@@ -137,26 +155,36 @@ const AwardsSection = () => {
 
       {/* Custom Bounce Animation - Opposite to growth direction */}
       <style>{`
-        @keyframes bounceOpposite {
+        @keyframes diagonalIn {
           0% {
-            left: 0;
-            top: 50%;
-            transform: translateY(-120%) scaleX(-1.2) rotate(84deg);
+            transform: translate(-200px, 200px) scale(0.9);
+            opacity: 0;
           }
-          50% {
-            left: -30px;
-            top: 55%;
-            transform: translateY(-115%) scaleX(-1.2) rotate(84deg);
+          70% {
+            transform: translate(10px, -10px) scale(1.05);
+            opacity: 1;
           }
           100% {
-            left: 0;
-            top: 50%;
-            transform: translateY(-120%) scaleX(-1.2) rotate(84deg);
+            transform: translate(0, 0) scale(1);
+            opacity: 1;
           }
         }
+
+        @keyframes bounceSlight {
+          0%, 100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-5px);
+          }
+        }
+
+        .animate-diagonal-in {
+          animation: diagonalIn 1.2s ease-out forwards;
+        }
         
-        .animate-custom-bounce {
-          animation: bounceOpposite 1.5s ease-in-out 1 forwards;
+        .animate-bounce-slight {
+          animation: bounceSlight 2s ease-in-out infinite;
         }
       `}</style>
     </section>
