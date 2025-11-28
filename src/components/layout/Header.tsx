@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Sun, Moon, Phone } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react";
 // import { useTheme } from "../../context/ThemeContext";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
@@ -54,8 +54,8 @@ const Header: React.FC = () => {
             : "bg-white dark:bg-gray-900 py-1 sm:py-2"
           }`}
       >
-        <div className="container mx-auto px-3 sm:px-4 lg:px-6">
-          <div className="flex justify-between items-center">
+        <div className="w-full">
+          <div className="flex justify-between items-center mx-[40px] lg:mx-[80px] 2xl:mx-[112px]">
             {/* Logo */}
             <Link to="/" className="flex items-center flex-shrink-0">
               <img

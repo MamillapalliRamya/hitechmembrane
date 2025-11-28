@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -35,7 +35,7 @@ const EventsSection = () => {
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.3, ease: "easeOut" }}
         viewport={{ once: true, amount: 0.5 }}
-        className="text-3xl sm:text-4xl lg:text-[48px]  text-[#3E4095] text-center mb-12"
+        className="text-3xl sm:text-4xl lg:text-[48px] 2xl:text-[60px] text-[#333333] text-center mb-12 2xl:mb-16"
         style={{ fontFamily: "Diodrum Cyrillic, sans-serif" }}
       >
         Events
@@ -47,12 +47,13 @@ const EventsSection = () => {
         whileInView={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
         viewport={{ once: true, amount: 0.3 }}
-        className="flex flex-wrap justify-center gap-6 sm:gap-8"
+        className="flex justify-between gap-10 mx-[40px] xl:mx-[80px] 2xl:mx-[112px] 3xl:gap-[72px]"
       >
         {visibleEvents.map((event) => (
           <div
             key={event.id}
-            className="relative flex items-center justify-center w-[90%] sm:w-[300px] lg:w-[400px] h-[320px] sm:h-[380px] lg:h-[428px] overflow-hidden rounded-lg shadow-md"
+            className="relative flex items-center justify-center h-[320px] sm:h-[380px] lg:h-auto 3xl:h-[553px] w-[90%] sm:w-[300px] lg:w-auto 3xl:w-[516px]
+                       overflow-hidden rounded-lg shadow-md 2xl:w-auto 2xl:h-auto"
           >
             <img
               src={event.image}
@@ -64,11 +65,11 @@ const EventsSection = () => {
             
             {/* Event Title */}
             <div
-              className="absolute bottom-6 left-6 text-white drop-shadow-lg"
+              className="absolute bottom-4 text-[20px] lg:text-[24px] xl:text-[30px] 2xl:text-[36px] left-5 text-white drop-shadow-lg"
               style={{
                 fontFamily: "Diodrum Cyrillic, sans-serif",
                 fontWeight: "700",
-                fontSize: "20px",
+                // fontSize: "36px",
               }}
             >
               {event.title}

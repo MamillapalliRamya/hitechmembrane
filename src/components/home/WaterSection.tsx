@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 
 const WaterSolutionsSection = () => {
@@ -92,7 +92,7 @@ const WaterSolutionsSection = () => {
         <div className="
           flex justify-center items-center 
           flex-wrap sm:flex-nowrap 
-          gap-8 sm:gap-12 lg:gap-24 2xl:gap-[230px]
+          gap-8 sm:gap-12 lg:gap-28 2xl:gap-[230px]
           py-8
         ">
           {products.map((product, index) => {
