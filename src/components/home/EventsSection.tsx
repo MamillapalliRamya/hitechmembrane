@@ -213,35 +213,32 @@ const EventsSection = () => {
           </button>
         </div>
         {/* ---------------- ISOMETRIC SIDE IMAGE ---------------- */}
-        <motion.img
+        
+
+  {/* ISOMETRIC IMAGE FOR EVENTS SECTION ↙ */}
+{/* ISOMETRIC IMAGE FOR EVENTS SECTION ↙ */}
+<motion.img
   src="/assets/images/isometrics/isometric_3.svg"
   alt="Isometric Tube"
-  /* ✨ 1. Start completely outside screen (top-right corner) */
-  initial={{ x: 300, y: -300, opacity: 0 }}
-
-  /* ✨ 2. Slide diagonally ↙ into place with delay */
-  animate={{
-    x: 0,
-    y: 0,
-    opacity: 0.7,
-    transition: {
-      delay: 1.8,       // ⏳ Wait until Water + Events load
-      duration: 0.9,
-      ease: "easeOut",
-    },
+  initial={{
+    opacity: 0,
+    x: 380,   // start off-screen RIGHT 
+    y: -380,  // start off-screen TOP
+    scale: 0.92,
   }}
-
-  /* ✨ 3. Bounce slightly after coming into view */
   whileInView={{
-    y: [0, -12, 0],
-    transition: {
-      delay: 2.8,       // bounce AFTER slide completes
-      duration: 0.35,
-      ease: "easeOut",
-    },
+    opacity: [0, 1, 1, 1, 1, 1],    // fade in and stay visible
+    x: [380, 0, 15, -8, 4, 0],      // bounce horizontally (right to left with overshoot)
+    y: [-380, 0, -15, 8, -4, 0],    // bounce vertically (top to bottom with overshoot)
+    scale: [0.92, 1, 1.02, 0.98, 1.01, 1], // subtle scale bounce
   }}
-
-  viewport={{ once: true }}
+  transition={{
+    duration: 1.8,    // total animation time
+    delay: 1.2,       // delay to wait for event images to load
+    ease: [0.34, 1.56, 0.64, 1], // bouncy easing
+    times: [0, 0.5, 0.65, 0.8, 0.9, 1], // control timing of each keyframe
+  }}
+  viewport={{ once: true, amount: 0.2 }}
   className="
     hidden lg:block
     absolute
@@ -250,15 +247,14 @@ const EventsSection = () => {
     xl:bottom-[573px]
     2xl:bottom-[573px]
     3xl:bottom-[573px]
-    translate-y-[40%]
     w-[350px]
     md:w-[420px]
     lg:w-[300px]
     xl:w-[342px]
     2xl:w-[460px]
     3xl:w-[600px]
-    pointer-events-none
     opacity-70
+    pointer-events-none
     z-0
   "
 />
