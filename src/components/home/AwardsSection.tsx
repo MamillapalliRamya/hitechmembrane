@@ -160,11 +160,11 @@ const AwardsSection = () => {
           }
           70% {
             transform: translate(10px, -10px) scale(1.05);
-            opacity: 1;
+            opacity: 0;
           }
           100% {
             transform: translate(0, 0) scale(1);
-            opacity: 1;
+            opacity: 0.25;
           }
         }
 

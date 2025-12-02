@@ -3,6 +3,19 @@ import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const EventsSection = () => {
+  /* ---------------- WATER SOLUTIONS LOGIC ---------------- */
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const products = [
+    { id: 1, name: "ES-1812-75 RO Membrane", image: "/assets/images/MembraneTube3.png" },
+    { id: 2, name: "ES-1812-75 RO Membrane", image: "/assets/images/MembraneTube2.png" },
+    { id: 3, name: "ES-1812-75 RO Membrane", image: "/assets/images/MembraneTube1.png" },
+  ];
+
+  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % products.length);
+  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + products.length) % products.length);
+
+  /* ---------------- EVENTS LOGIC ---------------- */
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const events = [
@@ -17,93 +30,241 @@ const EventsSection = () => {
   const itemsPerView = 3;
   const maxIndex = Math.max(0, events.length - itemsPerView);
 
-  const handlePrevious = () => {
-    setCurrentIndex((prev) => Math.max(0, prev - 1));
-  };
-
-  const handleNext = () => {
-    setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
-  };
+  const handlePrevious = () => setCurrentIndex((prev) => Math.max(0, prev - 1));
+  const handleNext = () => setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
 
   const visibleEvents = events.slice(currentIndex, currentIndex + itemsPerView);
 
   return (
-    <section className="py-16 bg-white relative overflow-hidden">
-      {/* Section Title */}
-      <motion.h2
-        initial={{ y: -80, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
-        viewport={{ once: true, amount: 0.5 }}
-        className="text-3xl sm:text-4xl lg:text-[48px] 2xl:text-[60px] text-[#333333] text-center mb-12 2xl:mb-16"
-        style={{ fontFamily: "Diodrum Cyrillic, sans-serif" }}
-      >
-        Events
-      </motion.h2>
+    <section className="bg-white w-full overflow-hidden">
 
-      {/* Events Carousel */}
-      <motion.div
-        initial={{ x: -200, opacity: 0 }}
-        whileInView={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
-        viewport={{ once: true, amount: 0.3 }}
-        className="flex justify-between gap-10 mx-[40px] xl:mx-[80px] 2xl:mx-[112px] 3xl:gap-[72px]"
-      >
-        {visibleEvents.map((event) => (
-          <div
-            key={event.id}
-            className="relative flex items-center justify-center h-[320px] sm:h-[380px] lg:h-auto 3xl:h-[553px] w-[90%] sm:w-[300px] lg:w-auto 3xl:w-[516px]
-                       overflow-hidden rounded-lg shadow-md 2xl:w-auto 2xl:h-auto"
-          >
-            <img
-              src={event.image}
-              alt={`Event ${event.id}`}
-              className="w-full h-full object-cover"
-            />
-            {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-            
-            {/* Event Title */}
-            <div
-              className="absolute bottom-4 text-[20px] lg:text-[24px] xl:text-[30px] 2xl:text-[36px] left-5 text-white drop-shadow-lg"
-              style={{
-                fontFamily: "Diodrum Cyrillic, sans-serif",
-                fontWeight: "700",
-                // fontSize: "36px",
-              }}
-            >
-              {event.title}
-            </div>
+      {/* -----------------------------------------------------------
+            WATER SOLUTIONS SECTION
+      ----------------------------------------------------------- */}
+      <section className="py-10 bg-white relative overflow-hidden">
+        <motion.h2
+          initial={{ y: -40, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          viewport={{ once: true, amount: 0.1 }}
+          className="text-3xl sm:text-4xl lg:text-[48px] 2xl:text-[56px] text-[#3E4095] text-center"
+          style={{ fontFamily: "Diodrum Cyrillic, sans-serif", fontWeight: "500" }}
+        >
+          Our Water Solutions
+        </motion.h2>
+
+        <motion.div
+          initial={{ y: 60, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
+          viewport={{ once: true, amount: 0.3 }}
+          className="relative max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12 mt-12 2xl:mt-[90px]"
+        >
+          {products.length > 3 && (
+            <>
+              <button
+                onClick={prevSlide}
+                className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 z-20"
+              >
+                <img src="/assets/images/arrowLeft.png" alt="Previous" className="h-[40px] sm:h-[54px] w-auto" />
+              </button>
+
+              <button
+                onClick={nextSlide}
+                className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 z-20"
+              >
+                <img src="/assets/images/arrowRight.png" alt="Next" className="h-[40px] sm:h-[54px] w-auto" />
+              </button>
+            </>
+          )}
+
+          <div className="flex justify-center items-center flex-wrap sm:flex-nowrap 
+            gap-8 sm:gap-12 lg:gap-24 3xl:gap-[230px] py-8">
+            {products.map((product, index) => {
+              let scale = "";
+              let opacity = "";
+
+              if (index === currentSlide) {
+                scale = "scale-110";
+                opacity = "opacity-100";
+              } else if (
+                index === (currentSlide - 1 + products.length) % products.length ||
+                index === (currentSlide + 1) % products.length
+              ) {
+                scale = "scale-100";
+                opacity = "opacity-80";
+              } else {
+                scale = "scale-90";
+                opacity = "opacity-40";
+              }
+
+              return (
+                <div
+                  key={product.id}
+                  className={`flex flex-col items-center 
+                  gap-6 sm:gap-[45px] 2xl:gap-[60px]
+                  min-w-[150px] sm:min-w-[200px] lg:min-w-[240px]`}
+                >
+                  <div className="relative mb-6 flex items-center justify-center">
+                    <div className=" bg-[#A8CF45] w-[160px] h-[140px] rounded-bl-[25%] rounded-br-[121%] rounded-tl-[121%] rounded-tr-[25%]
+                                opacity-20 2xl:w-[301px] 2xl:h-[226px] 2xl:rounded-br-[147%] 2xl:rounded-tl-[147%] 2xl:rotate-[-5deg]"></div>
+
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="object-contain w-[120px] sm:w-[160px] lg:w-[195px] 2xl:w-[237px]"
+                      />
+                    </div>
+                  </div>
+
+                  <h3 className="text-base sm:text-lg lg:text-[20px] 2xl:text-[24px] font-medium text-[#323232] text-center whitespace-nowrap">
+                    {product.name}
+                  </h3>
+                </div>
+              );
+            })}
           </div>
-        ))}
-      </motion.div>
+        </motion.div>
 
-      {/* Navigation Arrows */}
-      <div className="flex justify-center items-center gap-4 mt-10">
-        <button
-          onClick={handlePrevious}
-          disabled={currentIndex === 0}
-          className={`w-12 h-12 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
-            currentIndex === 0
-              ? "border-gray-300 text-gray-300 cursor-not-allowed"
-              : "border-[#A8CF45] text-[#A8CF45] hover:bg-[#A8CF45] hover:text-white"
-          }`}
+        <motion.div
+          initial={{ y: 60, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
+          viewport={{ once: true, amount: 0.2 }}
+          className="text-center mt-8 sm:mt-[50px]"
         >
-          <ChevronLeft size={20} />
-        </button>
+          <button className="
+          w-[220px] sm:w-[260px] lg:w-[307px]
+          h-[55px] sm:h-[60px] lg:h-[69px] 
+          bg-[#A8CF45] text-[#3E4095] 
+          px-6 sm:px-8 py-3 rounded-lg 
+          font-medium text-sm sm:text-lg 2xl:text-2xl
+          hover:bg-[#98C135] transition-colors duration-200">
+            View All Products
+          </button>
+        </motion.div>
+      
 
-        <button
-          onClick={handleNext}
-          disabled={currentIndex >= maxIndex}
-          className={`w-12 h-12 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
-            currentIndex >= maxIndex
-              ? "border-gray-300 text-gray-300 cursor-not-allowed"
-              : "border-[#A8CF45] text-[#A8CF45] hover:bg-[#A8CF45] hover:text-white"
-          }`}
+      {/* -----------------------------------------------------------
+            EVENTS SECTION
+      ----------------------------------------------------------- */}
+      {/* <section className="py-16 bg-white relative overflow-hidden"> */}
+        <motion.h2
+          initial={{ y: -80, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          viewport={{ once: true, amount: 0.5 }}
+          className="text-3xl pt-16 sm:text-4xl lg:text-[48px] 2xl:text-[60px] text-[#333333] text-center mb-12 2xl:mb-16 "
+          style={{ fontFamily: "Diodrum Cyrillic, sans-serif" }}
         >
-          <ChevronRight size={20} />
-        </button>
-      </div>
+          Events
+        </motion.h2>
+
+        <motion.div
+          initial={{ x: -200, opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          viewport={{ once: true, amount: 0.3 }}
+          className="flex justify-between gap-10 mx-[40px] xl:mx-[80px] 2xl:mx-[112px] 3xl:gap-[72px] overflow-hidden pt-4 z-20 
+    relative"
+        >
+          {visibleEvents.map((event) => (
+            <div
+              key={event.id}
+              className="relative flex items-center justify-center h-[320px] sm:h-[380px] lg:h-auto 3xl:h-[553px] 
+              w-[90%] sm:w-[300px] lg:w-auto 3xl:w-[516px]
+              overflow-hidden rounded-lg shadow-md 2xl:w-auto 2xl:h-auto"
+            >
+              <img src={event.image} alt={event.title} className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+
+              <div
+                className="absolute bottom-4 text-[20px] lg:text-[24px] xl:text-[30px] 2xl:text-[36px] left-5 text-white drop-shadow-lg"
+                style={{ fontFamily: "Diodrum Cyrillic, sans-serif", fontWeight: "700" }}
+              >
+                {event.title}
+              </div>
+            </div>
+          ))}
+        </motion.div>
+
+        <div className="flex justify-center items-center gap-4 mt-10">
+          <button
+            onClick={handlePrevious}
+            disabled={currentIndex === 0}
+            className={`w-12 h-12 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${currentIndex === 0
+                ? "border-gray-300 text-gray-300 cursor-not-allowed"
+                : "border-[#A8CF45] text-[#A8CF45] hover:bg-[#A8CF45] hover:text-white"
+              }`}
+          >
+            <ChevronLeft size={20} />
+          </button>
+
+          <button
+            onClick={handleNext}
+            disabled={currentIndex >= maxIndex}
+            className={`w-12 h-12 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${currentIndex >= maxIndex
+                ? "border-gray-300 text-gray-300 cursor-not-allowed"
+                : "border-[#A8CF45] text-[#A8CF45] hover:bg-[#A8CF45] hover:text-white"
+              }`}
+          >
+            <ChevronRight size={20} />
+          </button>
+        </div>
+        {/* ---------------- ISOMETRIC SIDE IMAGE ---------------- */}
+        <motion.img
+  src="/assets/images/isometrics/isometric_3.svg"
+  alt="Isometric Tube"
+  /* ✨ 1. Start completely outside screen (top-right corner) */
+  initial={{ x: 300, y: -300, opacity: 0 }}
+
+  /* ✨ 2. Slide diagonally ↙ into place with delay */
+  animate={{
+    x: 0,
+    y: 0,
+    opacity: 0.7,
+    transition: {
+      delay: 1.8,       // ⏳ Wait until Water + Events load
+      duration: 0.9,
+      ease: "easeOut",
+    },
+  }}
+
+  /* ✨ 3. Bounce slightly after coming into view */
+  whileInView={{
+    y: [0, -12, 0],
+    transition: {
+      delay: 2.8,       // bounce AFTER slide completes
+      duration: 0.35,
+      ease: "easeOut",
+    },
+  }}
+
+  viewport={{ once: true }}
+  className="
+    hidden lg:block
+    absolute
+    right-0
+    lg:bottom-[477px]
+    xl:bottom-[573px]
+    2xl:bottom-[573px]
+    3xl:bottom-[573px]
+    translate-y-[40%]
+    w-[350px]
+    md:w-[420px]
+    lg:w-[300px]
+    xl:w-[342px]
+    2xl:w-[460px]
+    3xl:w-[600px]
+    pointer-events-none
+    opacity-70
+    z-0
+  "
+/>
+
+      </section>
+
     </section>
   );
 };

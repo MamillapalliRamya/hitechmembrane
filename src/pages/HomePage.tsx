@@ -5,7 +5,7 @@ import HeroSection from "../components/home/HeroSection";
 import AwardsSection from "../components/home/AwardsSection";
 import GlobalPresenceSection from "../components/home/GlobalPresence";
 import WaterDropSection from "../components/home/WaterDropsSection";
-import WaterSolutionsSection from "../components/home/WaterSection";
+// import WaterSolutionsSection from "../components/home/WaterSection";
 import EventsSection from "../components/home/EventsSection";
 
 const HomePage: React.FC = () => {
@@ -14,7 +14,7 @@ const HomePage: React.FC = () => {
     { id: "water-drop", component: <WaterDropSection /> },
     { id: "hero", component: <HeroSection /> },
     { id: "about", component: <AboutUsSection /> },
-    { id: "water-solutions", component: <WaterSolutionsSection /> },
+    // { id: "water-solutions", component: <WaterSolutionsSection /> },
     { id: "events", component: <EventsSection /> },
     { id: "awards", component: <AwardsSection /> },
     { id: "global-presence", component: <GlobalPresenceSection /> },
