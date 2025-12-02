@@ -57,7 +57,7 @@ const AwardsSection = () => {
           }}
         />
 
-        {/* IMAGE 3 — iso_5 */}
+        
         <img
           src="/assets/images/isometrics/iso_5.svg"
           alt=""
