@@ -2,36 +2,41 @@ import React from "react";
 
 const GroupCompanies = () => {
   return (
-    <section className="relative h-screen max-h-[200px] sm:max-h-[240px] lg:max-h-[273px] overflow-hidden">
+    <section className="relative w-full overflow-hidden py-10 sm:py-12 lg:py-16">
       {/* Background Image */}
       <div className="absolute inset-0 w-full h-full">
-        <img 
-          src="/assets/images/waterflow_image.png" 
-          alt="waterflow" 
+        <img
+          src="/assets/images/waterflow_image.png"
+          alt="waterflow"
           className="w-full h-full object-cover"
         />
       </div>
 
-      {/* Centered Content */}
-      <div className="relative z-20 h-full flex items-center justify-center px-4 sm:px-6 lg:px-8">
-        <div 
-          className="flex flex-col lg:flex-row items-center justify-center lg:justify-between 
-                     gap-6 sm:gap-8 lg:gap-[300px] text-white w-full max-w-7xl"
-        >
-          <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-[40px] text-[#FFFFFF] 
-                         leading-[100%] text-center lg:text-left
-                         max-w-[90%] sm:w-[600px] lg:w-[713px]">
-            Learn more about Hi-tech's advanced RO water filter membranes.
+      {/* Content */}
+      <div className="relative z-20 flex items-center justify-center">
+        <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-between 
+                        gap-6 sm:gap-10 lg:gap-20 xl:gap-32 2xl:gap-[300px]
+                        text-white w-full max-w-[1400px] 3xl:max-w-[1600px] lg:mx-[80px] 2xl:mx-0">
+
+          {/* Heading */}
+          <h1
+            className="text-center lg:text-left
+                       text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[42px]
+                       font-medium leading-snug sm:leading-normal xl:leading-[45px]
+                       max-w-[900px] flex-nowrap"
+          >
+            Learn more about Hi-tech's advanced <br></br>RO water filter membranes.
           </h1>
-          
-          <button 
-            className="w-[200px] sm:w-[220px] lg:w-[264px] 
-                       h-[50px] sm:h-[60px] lg:h-[69px] 
-                       text-base sm:text-lg lg:text-[24px] 
-                       font-medium rounded-[4px] flex items-center justify-center 
+
+          {/* Button */}
+          <button
+            className="w-[180px] sm:w-[200px] lg:w-[240px]
+                       h-[50px] sm:h-[55px] lg:h-[65px]
+                       text-base sm:text-lg lg:text-xl
+                       font-medium rounded-[6px] flex items-center justify-center
                        relative overflow-hidden flex-shrink-0
                        bg-[#A8CF45] text-[#393185] transition-all duration-500
-                       before:content-[''] before:absolute before:inset-0 before:bg-[#393185] 
+                       before:content-[''] before:absolute before:inset-0 before:bg-[#393185]
                        before:-translate-y-full before:transition-transform before:duration-500
                        hover:before:translate-y-0 hover:text-[#A8CF45]
                        active:scale-95"
