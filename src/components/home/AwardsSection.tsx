@@ -123,7 +123,7 @@ const AwardsSection = () => {
             </div>
           </div>
 
-          {/* RIGHT SIDE */}
+         
           <div
             className={`flex flex-col items-center transition-all duration-350 ease-out ${
               isVisible
