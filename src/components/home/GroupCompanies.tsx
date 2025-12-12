@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const GroupCompanies = () => {
   return (
@@ -41,7 +42,9 @@ const GroupCompanies = () => {
                        hover:before:translate-y-0 hover:text-[#A8CF45]
                        active:scale-95"
           >
-            <span className="relative z-10">Let's Talk</span>
+            <Link
+              to="/contact">
+              <span className="relative z-10">Let's Talk</span></Link>
           </button>
         </div>
       </div>
