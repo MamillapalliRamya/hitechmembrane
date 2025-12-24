@@ -4,12 +4,11 @@ import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import HomePage from './pages/HomePage.tsx';
 import ProductsPage from './pages/ProductsPage.tsx';
-import TechnicalHubPage from './pages/TechnicalHubPage.tsx';
 import ContactPage from './pages/ContactPage.tsx';
 import AboutPage from './pages/AboutPage.tsx';
-import ServicesPage from './pages/ServicesPage.tsx';
 import ChatBot from './components/chat/ChatBot';
 import { ThemeProvider } from './context/ThemeContext';
+import EventsPage from './pages/EventsPage.tsx';
 
 function AppContent() {
   const location = useLocation();
@@ -23,13 +22,12 @@ function AppContent() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
-          <Route path="/services" element={<ServicesPage />} />
           <Route path="/products" element={<ProductsPage />} />
           {/* <Route path="/products/residential-ro-membranes" element={<ResidentialProductsPage />} /> */}
           {/* <Route path="/products/commercial-ro-membranes" element={<CommercialProductsPage />} /> */}
           {/* <Route path="/products/industrial-ro-membranes" element={<IndustrialProductsPage />} /> */}
           {/* <Route path="/products/:id" element={<ProductDetailPage />} /> */}
-          <Route path="/technical-hub" element={<TechnicalHubPage />} />
+          <Route path="/events" element={<EventsPage />} />
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
       </main>
