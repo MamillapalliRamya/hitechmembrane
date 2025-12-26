@@ -18,8 +18,14 @@ interface Review {
   rating: number;
   text: string;
 }
+interface GlobalPresenceSectionProps {
+  title?: string;
+}
 
-const GlobalPresenceSection = () => {
+
+
+const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
+  title = "Our Global Presence"}) => {
   const [hoveredLocation, setHoveredLocation] = useState<Location | null>(null);
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
   const [imageLoadFailed, setImageLoadFailed] = useState<{ [key: number]: boolean }>({});
@@ -414,12 +420,12 @@ const GlobalPresenceSection = () => {
     <section className="py-16 bg-gray-50 relative overflow-hidden">
       <div className="mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-5xl  text-gray-700 mb-8">
-            Our Global Presence
+          <h2 className="sm:text-2xl text-2xl md:text-5xl  text-gray-700 md:mb-20 mb-10">
+            {title}
           </h2>
         </div>
 
-        <div className="relative mb-12 overflow-hidden rounded-lg" style={{ minHeight: '400px' }}>
+        <div className="relative mb-12 overflow-hidden rounded-lg" >
           <div className="relative w-full max-w-6xl mx-auto">
             {/* World Map Container with smooth transitions */}
             <div
@@ -443,15 +449,7 @@ const GlobalPresenceSection = () => {
                 }}
               />
 
-              {/* Fallback background if image doesn't load */}
-              {/* <div
-                className="w-full aspect-[2/1] bg-gradient-to-br from-blue-100 to-purple-200 rounded-lg"
-                style={{
-                  backgroundImage: 'linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 25%, #a5b4fc  50%, #8b5cf6 75%, #7c3aed 100%)',
-                  filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.1))',
-                  display: 'none'
-                }}
-              /> */}
+              
 
               {/* Location Markers Overlay */}
               <div className="absolute inset-0">
@@ -491,30 +489,7 @@ const GlobalPresenceSection = () => {
                         </foreignObject>
                       )}
 
-                      {/* Fallback SVG marker for main offices if image fails to load */}
-                      {/* {location.type === 'main' && imageLoadFailed[location.id] && (
-                        <g
-                          transform={`translate(${location.x * 10}, ${location.y * 10})`}
-                          onMouseEnter={() => setHoveredLocation(location)}
-                          onMouseLeave={() => setHoveredLocation(null)}
-                          onClick={() => handleLocationClick(location)}
-                          style={{
-                            cursor: 'pointer',
-                            transform: hoveredLocation?.id === location.id ? 'scale(1.2)' : 'scale(1)',
-                            transformOrigin: 'center',
-                            transition: 'transform 0.2s'
-                          }}
-                          className="marker-hover"
-                        >
-                          <path
-                            d="M0,-20 C-8,-20 -15,-13 -15,-5 C-15,3 0,20 0,20 C0,20 15,3 15,-5 C15,-13 8,-20 0,-20 Z"
-                            fill="#84cc16"
-                            stroke="#ffffff"
-                            strokeWidth="2"
-                          />
-                          <circle cx="0" cy="-5" r="4" fill="#ffffff" />
-                        </g>
-                      )} */}
+                     
                     </g>
                   ))}
                 </svg>
@@ -615,10 +590,10 @@ const GlobalPresenceSection = () => {
   <div
     className="
       absolute top-3 right-0 
-      w-full max-w-[330px] sm:max-w-[360px] md:max-w-[420px] lg:max-w-[460px]
+      w-full max-w-[250px] sm:max-w-[360px] md:max-w-[420px] lg:max-w-[460px]
       bg-white rounded-2xl shadow-2xl border border-blue-900 z-30
-      max-h-[450px] overflow-hidden
-      mx-2
+      md:max-h-[450px]  max-h-[190px] overflow-hidden
+      mx-2 
     "
   >
     {/* Header */}
@@ -675,7 +650,7 @@ const GlobalPresenceSection = () => {
         Reviews
       </h4>
 
-      <div className="space-y-2 max-h-[300px] md:max-h-[] sm:max-h-[340px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300">
+      <div className="space-y-2 max-h-[170px] md:max-h-[] sm:max-h-[340px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300">
         {selectedLocation.reviews?.map((review, index) => (
           <div
             key={index}

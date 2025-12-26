@@ -8,8 +8,9 @@ import TechnicalHubPage from './pages/TechnicalHubPage.tsx';
 import ContactPage from './pages/ContactPage.tsx';
 import AboutPage from './pages/AboutPage.tsx';
 import ServicesPage from './pages/ServicesPage.tsx';
-import ChatBot from './components/chat/ChatBot';
+// import ChatBot from './components/chat/ChatBot';
 import { ThemeProvider } from './context/ThemeContext';
+import TestimonialsPage from './pages/Testimonials-ourimpact';
 
 function AppContent() {
   const location = useLocation();
@@ -25,6 +26,7 @@ function AppContent() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/products" element={<ProductsPage />} />
+          <Route path="/ourimpact" element={<TestimonialsPage/>}/>
           {/* <Route path="/products/residential-ro-membranes" element={<ResidentialProductsPage />} /> */}
           {/* <Route path="/products/commercial-ro-membranes" element={<CommercialProductsPage />} /> */}
           {/* <Route path="/products/industrial-ro-membranes" element={<IndustrialProductsPage />} /> */}
