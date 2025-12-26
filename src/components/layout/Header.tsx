@@ -67,9 +67,9 @@ const Header: React.FC = () => {
 
             {/* Desktop Navigation */}
             <nav
-              className="hidden lg:flex items-center space-x-6 xl:space-x-8"
+              className="hidden lg:flex items-center space-x-4 xl:space-x-8"
               style={{
-                gap: "clamp(24px, 3vw, 40px)",
+                gap: "clamp(10px, 3vw, 40px)",
                 fontWeight: '500',
                 fontSize: 'clamp(16px, 1.2vw, 20px)',
                 lineHeight: '100%'
@@ -121,6 +121,17 @@ const Header: React.FC = () => {
                   }`}
               >
                 Our Impact
+              </Link>
+              <Link
+                to="/events"
+                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${isActive("/events")
+                    ? "text-blue-600 dark:text-blue-400"
+                    : isScrolled
+                      ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                      : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
+                  }`}
+              >
+                Events
               </Link>
             </nav>
 
@@ -239,6 +250,16 @@ const Header: React.FC = () => {
                 onClick={closeMobileMenu}
               >
                 Our Impact
+              </Link>
+              <Link
+                to="#"
+                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${isActive("/events")
+                    ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
+                    : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
+                  }`}
+                onClick={closeMobileMenu}
+              >
+                Events
               </Link>
             </nav>
 

@@ -184,3 +184,14 @@ footer,footer p {
   font-family: 'Diodrum Cyrillic';
   
 }
+
+/* Hide scrollbar but allow scroll */
+html, body {
+  overflow: auto;       
+  scrollbar-width: none; 
+  margin: 0;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
