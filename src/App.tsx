@@ -6,8 +6,8 @@ import HomePage from './pages/HomePage.tsx';
 import ProductsPage from './pages/ProductsPage.tsx';
 import ContactPage from './pages/ContactPage.tsx';
 import AboutPage from './pages/AboutPage.tsx';
-import ChatBot from './components/chat/ChatBot';
 import { ThemeProvider } from './context/ThemeContext';
+import TestimonialsPage from './pages/Testimonials-ourimpact';
 import EventsPage from './pages/EventsPage.tsx';
 
 function AppContent() {
@@ -23,6 +23,7 @@ function AppContent() {
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/products" element={<ProductsPage />} />
+          <Route path="/ourimpact" element={<TestimonialsPage/>}/>
           {/* <Route path="/products/residential-ro-membranes" element={<ResidentialProductsPage />} /> */}
           {/* <Route path="/products/commercial-ro-membranes" element={<CommercialProductsPage />} /> */}
           {/* <Route path="/products/industrial-ro-membranes" element={<IndustrialProductsPage />} /> */}
