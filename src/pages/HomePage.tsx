@@ -39,7 +39,7 @@ const HomePage: React.FC = () => {
   return (
     <div className="w-full pt-16" >
       {/* All sections with smooth entrance animations */}
-      {allSections.map((section, index) => (
+      {allSections.map((section) => (
         <motion.section
           key={section.id}
           id={section.id}
