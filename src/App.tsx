@@ -14,7 +14,6 @@ import { ThemeProvider } from './context/ThemeContext';
 function AppContent() {
   const location = useLocation();
   const hideFooter = location.pathname === '/contact';
-  
 
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
