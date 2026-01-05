@@ -91,8 +91,8 @@ const Footer = () => {
 
   const navigationLinks = [
     { title: 'Products', href: '/products' },
-    { title: 'About', href: '#' },
-    { title: 'Events', href: '#' },
+    { title: 'About', href: '/about' },
+    { title: 'Events', href: '/events' },
     { title: 'Contact Us', href: '/contact' }
   ];
 
