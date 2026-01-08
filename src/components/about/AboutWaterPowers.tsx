@@ -6,18 +6,7 @@ const AboutWaterPowers: React.FC = () => {
       <div className="max-w-[1440px] mx-auto px-6 md:px-10">
 
         {/* ================= TOP HEADING ================= */}
-        {/* <div className="mb-14">
-          <div className="max-w-[1100px] mx-auto">
-            <h2
-              className="inline-block text-center text-[38px] md:text-[48px] lg:text-[60px] font-semibold text-[#3E4095] leading-snug">
-              “Water Powers Every Industry.”
-            </h2>
-            <p
-              className="mt-3 text-[16px] md:text-[18px] lg:text-[20px] text-[#2A2A2A] max-w-[420px] ml-auto font-medium">
-              It flows through every process – moving,<br /> cooling, cleansing, and fueling progress.
-            </p>
-          </div>
-        </div> */}
+       
         <div className="mb-14">
           <div className="max-w-[1100px] mx-auto flex flex-col items-center text-center">
             
