@@ -16,22 +16,28 @@ const AboutRevolutionary: React.FC = () => {
           </div>
 
           {/* Right Side - Content (approximately 65-70% width) */}
-          <div className="w-full px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24 py-12 md:py-14 lg:py-16 xl:py-20 flex flex-col justify-center space-y-6 md:space-y-7 lg:space-y-8">
+          <div className="w-full px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24 py-12 md:py-14 lg:py-16 xl:py-20 flex flex-col justify-center">
+  
             {/* Heading */}
-            <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-[2.5rem] font-bold text-[#A7CD45] leading-tight">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-[2.5rem] font-bold text-[#A7CD45] leading-tight mb-4">
               Revolutionary Start to Worldwide Impact
             </h2>
 
+            <h3 className="text-[24px] md:text-[24px] lg:text-[24px] xl:text-[25px] font-bold text-[#58585B] leading-tight">
+              From Engineering Roots to Global Impact
+            </h3>
+
             {/* Paragraph 1 */}
-            <p className="text-base md:text-lg lg:text-[1.05rem] xl:text-[1.125rem] text-[#58585B] font-medium leading-relaxed">
-              In 2016, we expanded into Thailand and introduced the country's first-ever membrane rolling line. This milestone was more than a technological achievement—it signaled our role in shaping the future of water treatment in Asia, and beyond.
+            <p className="mt-6 text-base md:text-lg lg:text-[1.05rem] xl:text-[1.125rem] text-gray-600 font-medium leading-relaxed">
+              Hi-Tech Membranes was established with a clear objective—to develop dependable reverse osmosis membrane technology that addresses real-world water challenges.
             </p>
 
             {/* Paragraph 2 */}
-            <p className="text-base md:text-lg lg:text-[1.05rem] xl:text-[1.125rem] text-[#58585B] font-medium leading-relaxed">
-              Today, our membranes help industries and communities worldwide tap new water sources, reuse wastewater, and secure sustainable clean water—driven by the same spirit of innovation and responsibility that started our journey.
+            <p className="mt-4 text-base md:text-lg lg:text-[1.05rem] xl:text-[1.125rem] text-gray-600 font-medium leading-relaxed">
+              From our manufacturing base in Asia, we have grown into a global supplier, supporting OEM partners, system integrators, and water treatment professionals across multiple regions. Our focus remains on process consistency, product reliability, and long-term partnerships.
             </p>
           </div>
+
         </div>
       </div>
     </section>

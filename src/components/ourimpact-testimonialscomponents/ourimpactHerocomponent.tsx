@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import { ArrowLeft, ArrowRight, Star, Quote } from 'lucide-react';
 import { countriesData } from './Globalvoicesoftrust';
+import vector14 from "../../assets/card-curves/Vector 14.svg"
+import vector13 from "../../assets/card-curves/Vector 13.svg"
+import vector12 from "../../assets/card-curves/Vector 12.svg"
+import vector11 from "../../assets/card-curves/Vector 11.svg"
+import vector8 from "../../assets/card-curves/Vector 8.svg"
+import vector9 from "../../assets/card-curves/Vector 9.svg"
+
 
 interface Testimonial {
     id: number;
@@ -43,7 +50,68 @@ const TestimonialsHero: React.FC = () => {
     };
 
     return (
-        <section className="py-16 md:py-24 lg:py-32 xl:py-40 bg-white relative overflow-hidden">
+<section className=" py-16 md:py-24 lg:py-32 xl:py-40 bg-white relative overflow-hidden z-0">
+        <div className="">
+          <img
+            src={vector14}
+            alt=""
+            className="w-full object-contain opacity-40 absolute"
+             style={{
+              transform: 'rotate(168deg)',
+              top:"-720px",
+              left: '130px',
+            }}
+          />
+          <img
+            src={vector13}
+            alt=""
+            className="w-full object-contain opacity-40 absolute"
+             style={{
+              transform: 'rotate(-37deg)',
+              top:"-450.21px",
+              left: '80px',
+            }}
+          />
+          <img
+            src={vector12}
+            alt=""
+            className="w-full object-contain opacity-40 absolute"
+            style={{
+              transform: 'rotate(-5deg)',
+              top:"-305px",
+              left: '18px',
+            }}
+          />
+          <img
+            src={vector11}
+            alt=""
+            className="w-full object-contain opacity-40 absolute"
+            style={{
+              transform: 'rotate(12deg)',
+              top: '-140px',
+              left: '8px',
+            }}
+          />
+           <img
+            src={vector8}
+            alt=""
+            className="w-full object-contain opacity-40 absolute" style={{
+              transform: 'rotate(-7deg)',
+              top: '65px',
+            }}
+          />
+          <img
+            src={vector9}
+            alt=""
+            className="absolute w-full object-contain opacity-40 pointer-events-none"
+            style={{
+                top: '225px',
+                left: '-2px',
+                transform: 'rotate(-1.8deg)',
+                
+            }}
+            />
+        </div>
             <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8 lg:px-14 xl:px-16 2xl:px-28 relative z-10">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
 
@@ -79,45 +147,9 @@ const TestimonialsHero: React.FC = () => {
 
                     {/* RIGHT CONTENT - TESTIMONIAL CARD */}
                     
-<div className="relative flex justify-center">
-
-  {/* CARD CURVES (BOUND TO CARD SIZE) */}
-  {/* <svg
-    className="absolute z-0 w-[130%] h-[130%]"
-    style={{
-      top: '20%',
-      left: '50%',
-      transform: 'translate(-100%, -30%)',
-    }}
-    viewBox="0 0 1200 400"
-    preserveAspectRatio="none"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M0 80 C 300 40, 900 140, 1200 100"
-      stroke="#C9CCF5"
-      strokeOpacity="0.6"
-      strokeWidth="1"
-    />
-    <path
-      d="M0 140 C 320 120, 920 220, 1200 180"
-      stroke="#C9CCF5"
-      strokeOpacity="0.55"
-      strokeWidth="1"
-    />
-    <path
-      d="M0 200 C 360 200, 960 320, 1200 280"
-      stroke="#C9CCF5"
-      strokeOpacity="0.5"
-      strokeWidth="1"
-    />
-  </svg> */}
-
-  {/* TESTIMONIAL CARD */}
-  <div className="relative z-10 bg-white rounded-2xl lg:rounded-3xl shadow-xl border-4 md:border-6 lg:border-8 border-[#A8CF454D] p-5 sm:p-6 lg:p-8 max-w-xl w-full">
-
-
+            <div className="relative flex justify-center">
+             {/* TESTIMONIAL CARD */}
+                        <div className="relative z-10 bg-white rounded-2xl lg:rounded-3xl shadow-xl border-4 md:border-6 lg:border-8 border-[#A8CF454D] p-5 sm:p-6 lg:p-8 max-w-xl w-full">
                             {/* Country Flag */}
                             <div className="absolute top-4 right-4 lg:top-6 lg:right-6">
                                 <div className="w-8 h-6 sm:w-9 sm:h-7 lg:w-10 lg:h-8 rounded-md overflow-hidden shadow-md">

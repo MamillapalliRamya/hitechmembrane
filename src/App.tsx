@@ -9,6 +9,7 @@ import AboutPage from './pages/AboutPage.tsx';
 import { ThemeProvider } from './context/ThemeContext';
 import TestimonialsPage from './pages/Testimonials-ourimpact';
 import EventsPage from './pages/EventsPage.tsx';
+import Innovation from './pages/Innovation.tsx';
 
 function AppContent() {
   const location = useLocation();
@@ -23,6 +24,7 @@ function AppContent() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/ourimpact" element={<TestimonialsPage/>}/>
+          <Route path="/innovation" element={<Innovation/>}/>
           {/* <Route path="/products/residential-ro-membranes" element={<ResidentialProductsPage />} /> */}
           {/* <Route path="/products/commercial-ro-membranes" element={<CommercialProductsPage />} /> */}
           {/* <Route path="/products/industrial-ro-membranes" element={<IndustrialProductsPage />} /> */}
@@ -32,7 +34,7 @@ function AppContent() {
         </Routes>
       </main>
       {!hideFooter && <Footer />}
-      {/* <ChatBot /> */}
+      {/* <ChatBot/> */}
     </div>
   );
 }

@@ -31,6 +31,9 @@ const AboutOurStory: React.FC = () => {
             <h2 className="text-[28px] mt-8 md:text-[36px] lg:text-[44px] font-bold text-[#3D3E96] leading-snug">
               Access to clean water is a human right, and<br/> technology can make it possible for everyone.
             </h2>
+             <p className="text-center text-[#58585B] mb-12 max-w-3xl mx-auto text-[22.02px] mt-5 font-medium">
+            Advancing water purification through membrane technology.
+            </p>
 
             {/* Blue Quote – aligned with heading end */}
             <div className="absolute -right-20 top-[82px]">
@@ -54,13 +57,13 @@ const AboutOurStory: React.FC = () => {
           {/* Text */}
           <div className="max-w-[900px] space-y-6 text-center">
             <p className="text-[20px] md:text-[18px] font-medium text-[#58585B] leading-relaxed">
-              Our story began in 1995 in India, driven by this mission. What started as a vision soon grew
-              into a commitment—to engineer solutions that combine innovation with real-world impact.
+              {/* Our story began in 1995 in India, driven by this mission. What started as a vision soon grew
+              into a commitment—to engineer solutions that combine innovation with real-world impact. */}
+              Hi-Tech Membranes is a dedicated reverse osmosis membrane manufacturer focused on delivering reliable water purification solutions for diverse applications worldwide.
             </p>
 
             <p className="text-[20px] md:text-[18px] font-medium text-[#58585B] leading-relaxed">
-              By 2009, we began rolling membranes in India, building a reputation for high-performance
-              products that met the rising need for reliable, sustainable water treatment.
+              With decades of experience in membrane manufacturing, we support customers across residential, commercial, industrial, and desalination sectors through consistent performance, controlled processes, and application-driven design.
             </p>
           </div>
 

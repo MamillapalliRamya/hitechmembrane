@@ -7,9 +7,9 @@ const EventsSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const products = [
-    { id: 1, name: "ES-1812-75 RO Membrane", image: "/assets/images/MembraneTube3.png" },
-    { id: 2, name: "ES-1812-75 RO Membrane", image: "/assets/images/MembraneTube2.png" },
-    { id: 3, name: "ES-1812-75 RO Membrane", image: "/assets/images/MembraneTube1.png" },
+    { id: 1, name: "Residential Membranes", image: "/assets/images/MembraneTube3.png" },
+    { id: 2, name: "Industrial Membranes", image: "/assets/images/MembraneTube2.png" },
+    { id: 3, name: "Sea Water Membranes", image: "/assets/images/MembraneTube1.png" },
   ];
 
   const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % products.length);

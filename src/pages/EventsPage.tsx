@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Calendar, ArrowRight } from 'lucide-react';
+import ProductInnovation from "../assets/images/wetransfer_hitech/Product-Innovation_img.svg";
+import Industry_News from "../assets/images/wetransfer_hitech/Industry_News.svg";
+import Sustainability from "../assets/images/wetransfer_hitech/Sustainability.svg";
+import Case_Study from "../assets/images/wetransfer_hitech/Case_Study.svg";
+
 
 interface Event {
     id: number;
@@ -11,6 +17,15 @@ interface Event {
     image: string;
     booth?: string;
 }
+interface Article {
+  id: number;
+  title: string;
+  date: string;
+  description: string;
+  category: string;
+  image: string;
+  featured?: boolean;
+}
 
 interface PastEvent extends Event {
     day: string;
@@ -18,6 +33,8 @@ interface PastEvent extends Event {
 
 const EventsPage: React.FC = () => {
     const [selectedMonth, setSelectedMonth] = useState<string>('September');
+     const [selectedFilter, setSelectedFilter] = useState('All Articles');
+     const [selectedYear, setSelectedYear] = useState('2025');
 
     const upcomingEvents: Event[] = [
         {
@@ -69,6 +86,47 @@ const EventsPage: React.FC = () => {
             image: '/assets/images/events_bg.svg'
         }
     ];
+     const articles: Article[] = [
+    {
+      id: 1,
+      title: "Hi-Tech Membranes Launches Revolutionary Nano-Filtration Technology",
+      date: "January 15, 2026",
+      description: "Our latest breakthrough in nano-filtration technology sets new industry standards for water purification efficiency and sustainability.",
+      category: "Product Innovation",
+      image: ProductInnovation,
+      featured: true
+    },
+    {
+      id: 2,
+      title: "Industry Insights: The Future of Reverse Osmosis Technology",
+      date: "December 28, 2025",
+      description: "Explore the latest trends and innovations shaping the future of RO membrane technology and water treatment.",
+      category: "Industry News",
+      image: Industry_News,
+    },
+    {
+      id: 3,
+      title: "Sustainability Report 2025: Our Journey Towards Carbon Neutrality",
+      date: "December 18, 2025",
+      description: "Discover our achievements and ongoing commitments to environmental sustainability and carbon reduction.",
+      category: "Sustainability",
+      image: Sustainability,
+    },
+    {
+      id: 4,
+      title: "Customer Success Story: Transforming Industrial Water Treatment",
+      date: "December 16, 2025",
+      description: "How a leading manufacturing company achieved 40% cost savings with our advanced membrane solutions.",
+      category: "Case Study",
+      image: Case_Study,
+    }
+  ];
+
+  const filters = ['All Articles', 'Innovation', 'Research', 'Sustainability'];
+  const years = ['2025', '2024', '2023'];
+
+  const featuredArticle = articles.find(article => article.featured);
+  const regularArticles = articles.filter(article => !article.featured);
 
     return (
         <div className="min-h-screen w-full bg-white">
@@ -92,6 +150,133 @@ const EventsPage: React.FC = () => {
                 </div>
             </section>
 
+             {/* News & Articles */}
+            <div className="bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto">
+                {/* Header */}
+                <div className="text-center mb-12">
+                <h1 className="text-4xl sm:text-5xl font-bold text-indigo-900 mb-4">
+                    News & Articles
+                </h1>
+                <p className="text-[#6F6F6F] text-[18.96px]">
+                    Stay updated with the latest innovations, insights, and stories from Hi-Tech Membranes
+                </p>
+                </div>
+
+                {/* Featured Article */}
+                {featuredArticle && (
+                <div className="mb-12 bg-white rounded-[18.96px] shadow-lg overflow-hidden">
+                    <div className="grid md:grid-cols-2 gap-0">
+                    <div className="relative h-64 md:h-auto">
+                        <div className="absolute top-4 left-4 z-10">
+                        <span className="bg-[#A8CF45] text-[#3D3E96] px-3 py-1 rounded-full text-sm font-semibold">
+                            Featured
+                        </span>
+                        </div>
+                        <img 
+                        src={featuredArticle.image} 
+                        alt={featuredArticle.title}
+                        className="w-full h-full object-cover"
+                        />
+                    </div>
+                    <div className="p-8 flex flex-col justify-center">
+                        <span className="inline-block bg-[#3E4095] text-white px-4 py-3 rounded-full text-sm font-semibold mb-4 w-fit">
+                        {featuredArticle.category}
+                        </span>
+                        <h2 className="text-[34.12px] sm:text-[34.12px] font-bold text-[#161616] mb-4">
+                        {featuredArticle.title}
+                        </h2>
+                        <div className="flex items-center text-[#6F6F6F] text-[15.17px] mb-4 font-medium">
+                        <Calendar className="w-4 h-4 mr-2" />
+                        <span>{featuredArticle.date}</span>
+                        </div>
+                        <p className="text-[#454545] text-[17.06px] mb-6 leading-relaxed">
+                        {featuredArticle.description}
+                        </p>
+                        <button className="flex items-center text-indigo-600 font-semibold hover:text-indigo-700 transition-colors">
+                        Read More
+                        <ArrowRight className="w-4 h-4 ml-2" />
+                        </button>
+                    </div>
+                    </div>
+                </div>
+                )}
+
+                {/* Filter Buttons and Year Selector */}
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+                <div className="flex flex-wrap gap-2">
+                    {filters.map((filter) => (
+                    <button
+                        key={filter}
+                        onClick={() => setSelectedFilter(filter)}
+                        className={`px-4 py-2 rounded-full font-medium transition-colors ${
+                        selectedFilter === filter
+                            ? 'bg-[#3E4095] text-white'
+                            : 'bg-white text-gray-700 text-[15.17px] hover:bg-gray-100 border '
+                        }`}
+                    >
+                        {filter}
+                    </button>
+                    ))}
+                </div>
+                <div className="relative">
+                    <select
+                    value={selectedYear}
+                    onChange={(e) => setSelectedYear(e.target.value)}
+                    className="appearance-none bg-white border border-gray-300 rounded-lg px-4 py-2 pr-10 font-medium text-gray-700 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"
+                    >
+                    {years.map((year) => (
+                        <option key={year} value={year}>
+                        {year}
+                        </option>
+                    ))}
+                    </select>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-700">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                    </div>
+                </div>
+                </div>
+
+                {/* Articles Grid */}
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {regularArticles.map((article) => (
+                    <div 
+                    key={article.id}
+                    className="bg-white rounded-[18.96px] shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
+                    >
+                    <div className="relative h-48">
+                        <img 
+                        src={article.image} 
+                        alt={article.title}
+                        className="w-full h-full object-cover"
+                        />
+                    </div>
+                    <div className="p-6">
+                        <span className="inline-block bg-[#3E4095] text-white px-3 py-1 rounded-full text-xs font-semibold mb-3">
+                        {article.category}
+                        </span>
+                        <h3 className="text-[20.85px] font-bold text-[#161616] mb-3 line-clamp-2">
+                        {article.title}
+                        </h3>
+                        <div className="flex items-center text-[#6F6F6F] text-[13.27px] mb-3 font-medium">
+                        <Calendar className="w-4 h-4 mr-2" />
+                        <span>{article.date}</span>
+                        </div>
+                        <p className="text-gray-600 text-[13.27px] mb-4 line-clamp-3 font-medium">
+                        {article.description}
+                        </p>
+                        <button className="flex items-center text-indigo-600 font-semibold text-sm hover:text-indigo-700 transition-colors">
+                        Read More
+                        <ArrowRight className="w-4 h-4 ml-2" />
+                        </button>
+                    </div>
+                    </div>
+                ))}
+                </div>
+            </div>
+            </div>
 
             {/* Upcoming Events Section */}
             <section className="mt-6 lg:mt-9 mb-8 sm:mb-12 lg:mb-16">
@@ -127,10 +312,10 @@ const EventsPage: React.FC = () => {
                                     </span>
                                 </div>
 
-                                <h3 className=" text-lg sm:text-xl md:text-2xl lg:text-4xl xl:text-[36px] font-bold text-[#161616] mb-4 leading-tight ">
+                                <h3 className=" text-[36px] sm:text-xl md:text-2xl lg:text-[36px] xl:text-[36px] font-bold text-[#161616] mb-4 leading-tight ">
                                     {event.title}
                                 </h3>
-                                <p className=" text-[#454545] text-sm sm:text-base lg:text-lg xl:text-lg 2xl:text-xl leading-relaxed line-clamp-3 ">
+                                <p className=" text-[#454545] text-[16px] sm:text-[16px] lg:text-[16px] xl:text-lg 2xl:text-[16px] leading-relaxed line-clamp-3 ">
                                     {event.description}
                                 </p>
                             </div>
@@ -149,7 +334,7 @@ const EventsPage: React.FC = () => {
                         <select
                             value={selectedMonth}
                             onChange={(e) => setSelectedMonth(e.target.value)}
-                            className=" appearance-none w-full px-4 sm:px-6 md:px-8 lg:px-10 py-2 sm:py-3 md:py-4 border border-gray-300 rounded-xl sm:rounded-[16px] text-base sm:text-lg md:text-xl lg:text-[24px] bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 ">
+                            className=" text-black appearance-none w-full px-4 sm:px-6 md:px-8 lg:px-10 py-2 sm:py-3 md:py-4 border border-gray-300 rounded-xl sm:rounded-[16px] text-base sm:text-lg md:text-xl lg:text-[24px] bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 ">
                             <option value="September">September</option>
                             <option value="October">October</option>
                             <option value="November">November</option>
@@ -189,7 +374,7 @@ const EventsPage: React.FC = () => {
                                                 {event.title}
                                             </h3>
 
-                                            <p className="text-[#454545] text-sm sm:text-base lg:text-[20px] xl:text-[18px] 2xl:text-[26px] leading-relaxed 2xl:leading-[36px] max-w-[95%] ">
+                                            <p className="text-[#454545] font-medium text-[18px] sm:text-[16px] lg:text-[20px] xl:text-[20px] 2xl:text-[20px] leading-relaxed 2xl:leading-[36px] max-w-[95%] ">
                                                 {event.description}
                                             </p>
 
@@ -202,7 +387,6 @@ const EventsPage: React.FC = () => {
                                                 className="w-full h-full object-cover"
                                             />
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -212,43 +396,48 @@ const EventsPage: React.FC = () => {
             </section>
 
             {/* CTA Section */}
-            <section
-                className=" relative bg-[#3E4095] min-h-[300px] sm:min-h-[420px] lg:min-h-[480px] pb-12 pt-[80px] sm:pt-[110px] sm:pb-16 md:pt-24 lg:pb-20 lg:pt-[138px] xl:pt-[128px] px-6 sm:px-8 md:px-12 text-center overflow-hidden mx-4 sm:mx-8 md:mx-16 lg:mx-24 xl:mx-24 2xl:mx-[160px] rounded-2xl sm:rounded-3xl mb-12 sm:mb-16 lg:mb-20 xl:mb-24">
-                <div className="relative z-10 flex flex-col items-center justify-center h-full max-w-[900px] mx-auto">
-                    <h2 className="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[48px] font-bold mb-4 sm:mb-8 2xl:mb-10 leading-tight">
-                        Want to meet us at an upcoming event?
+            <div className="bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto">
+                <div className="relative bg-gradient-to-br from-indigo-700 via-indigo-800 to-indigo-900 rounded-3xl overflow-hidden shadow-2xl">
+                {/* Background Pattern/Texture */}
+                <div className="absolute inset-0 bg-indigo-900 opacity-50"></div>
+                
+                {/* Content Container */}
+                <div className="relative z-10 py-16 px-6 sm:py-20 sm:px-12 lg:py-24 lg:px-16 text-center">
+                    {/* Main Heading */}
+                    <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-6 leading-tight">
+                    Want to meet us at an upcoming event?
                     </h2>
-
-                    <p className=" text-white text-sm sm:text-base md:text-lg lg:text-xl xl:text-[22px] mb-4 sm:mb-8 2xl:mb-12 leading-relaxed">
-                        Contact our team at{" "}
-                        <a
-                            href="mailto:sales@hitechmembranes.com"
-                            className="underline font-medium hover:text-[#C4F34A] transition-colors"
-                        >
-                            sales@hitechmembranes.com
-                        </a>{" "}
-                        to schedule a meeting.
+                    
+                    {/* Subheading with Email */}
+                    <p className="text-lg sm:text-xl lg:text-2xl text-white mb-8 max-w-4xl mx-auto">
+                    Contact our team at{' '}
+                    <a 
+                        href="mailto:sales@hitechmembranes.com"
+                        className="underline hover:text-lime-300 transition-colors font-medium"
+                    >
+                        sales@hitechmembranes.com
+                    </a>{' '}
+                    to schedule a meeting.
                     </p>
-
-                    <Link to="/contact">
-  <button
-    className="w-[160px] sm:w-[180px] md:w-[200px] h-[48px] sm:h-[54px] md:h-[60px] bg-lime-400 text-[#3E4095] text-sm sm:text-base md:text-lg font-semibold rounded-lg hover:bg-lime-300 transition-colors"
-  >
-    Contact Us
-  </button>
-</Link>
+                    
+                    {/* CTA Button */}
+                    <button className="bg-lime-400 hover:bg-lime-500 text-indigo-900 font-bold text-lg px-8 py-3 sm:px-10 sm:py-4 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                    Contact Us
+                    </button>
                 </div>
-
-
+                
+                {/* Logo in Bottom Right */}
                 <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 md:bottom-8 md:right-10 w-14 sm:w-16 md:w-20 opacity-90">
-                    <img
-                        src="/logo-1 (1).png"
-                        alt="Hi-Tech Membranes"
-                        className="w-full h-auto"
-                    />
+                            <img
+                                src="/logo-1 (1).png"
+                                alt="Hi-Tech Membranes"
+                                className="w-full h-auto"
+                            />
+                        </div>
                 </div>
-
-            </section>
+            </div>
+            </div>
         </div>
     );
 };

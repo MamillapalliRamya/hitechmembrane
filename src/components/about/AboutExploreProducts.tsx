@@ -5,9 +5,13 @@ const AboutExploreProducts: React.FC = () => {
     <section className="w-full px-4 md:px-8 lg:px-16 xl:px-24 2xl:px-32 pb-16 bg-white">
       <div className="max-w-[1440px] mx-auto">
         {/* Heading */}
-        <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-[3.5rem] font-semibold text-[#3E4095] text-center mb-12 md:mb-16 lg:mb-20">
-          Explore our Products
+       <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-[3.5rem] font-semibold text-[#3E4095] text-center mb-6 md:mb-8 lg:mb-10">
+          Explore Our Product Portfolio
         </h2>
+
+        <p className="text-center text-[#58585B] max-w-3xl mx-auto text-[22px] leading-relaxed font-medium mb-12 md:mb-16 lg:mb-20">
+          RO membrane elements engineered for residential, commercial, industrial, and seawater applications.
+        </p>
 
         {/* Products Grid - 3 columns */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 lg:gap-12 xl:gap-16">
@@ -79,6 +83,10 @@ const AboutExploreProducts: React.FC = () => {
               Commercial Membranes
             </h3>
           </div>
+          <button className="col-span-1 md:col-span-3 justify-self-center bg-lime-400 hover:bg-lime-500 text-indigo-900 font-bold text-lg px-8 py-3 sm:px-10 sm:py-4 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+            Explore Our RO Elements
+          </button>
+
         </div>
       </div>
     </section>

@@ -238,11 +238,11 @@ const ProductTable = ({ title, rows, onDownload }: any) => {
           <tbody>
             {rows.map((row: any, idx: number) => (
               <tr key={idx} className={idx % 2 ? "bg-white" : "bg-gray-50"}>
-                <td className="px-4 py-3 text-center border">{row.model}</td>
-                <td className="px-4 py-3 text-center border">{row.measurement}</td>
-                <td className="px-4 py-3 text-center border">{row.activeArea}</td>
-                <td className="px-4 py-3 text-center border">{row.flow}</td>
-                <td className="px-4 py-3 text-center border">{row.rejection}</td>
+                <td className="px-4 py-3 text-center border text-black">{row.model}</td>
+                <td className="px-4 py-3 text-center border text-black">{row.measurement}</td>
+                <td className="px-4 py-3 text-center border text-black">{row.activeArea}</td>
+                <td className="px-4 py-3 text-center border text-black">{row.flow}</td>
+                <td className="px-4 py-3 text-center border text-black">{row.rejection}</td>
 
                 {showLayer && (
                   <td className="px-4 py-3 text-center border">{row.layer}</td>

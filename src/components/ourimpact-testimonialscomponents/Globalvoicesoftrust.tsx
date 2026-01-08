@@ -243,7 +243,7 @@ const GlobalVoicesOfTrust: React.FC = () => {
   const displayReviews = selectedCountryData?.reviews.slice(0, 6) || [];
 
   return (
-    <section className="py-12 sm:py-16 md:py-24 lg:py-22 xl:py-30 relative overflow-hidden bg-white">
+    <section className=" relative overflow-hidden bg-white">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 2xl:px-34  relative z-10">
         {/* Section Title */}
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-[#3E4095] text-center mb-6 sm:mb-8 md:mb-10 lg:mb-12">

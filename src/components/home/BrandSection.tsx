@@ -59,7 +59,7 @@ const AboutUsSection = () => {
               >
                 <div className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#3E4095]">Years of</div>
                 <div className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#3E4095]">Experience</div>
-                <div className="text-[#A8CF45] text-[38px] sm:text-[50px] lg:text-[60px]">50+</div>
+                <div className="text-[#A8CF45] text-[38px] sm:text-[50px] lg:text-[60px]">30+</div>
               </motion.div>
 
               <div className="relative">
@@ -84,8 +84,8 @@ const AboutUsSection = () => {
               About Us
             </h2>
 
-            <p className="text-gray-600 text-sm sm:text-base lg:text-lg 2xl:text-[24.6px] 
-              3xl:text-[24px] leading-relaxed max-w-2xl lg:mx-0">
+            <p className="text-gray-600 text-sm sm:text-base lg:text-lg 2xl:text-[20px] 
+              3xl:text-[20px] leading-relaxed max-w-2xl lg:mx-0">
               At Hi-tech Ro Membrane Company, we specialize in reverse osmosis technology for
               high-quality water purification. Our membranes meet diverse needs, ensuring clean
               drinking water. Committed to excellence and sustainability, we lead in water

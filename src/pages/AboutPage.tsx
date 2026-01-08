@@ -34,6 +34,15 @@ const AboutPage: React.FC = () => {
 
       {/* Our Clients Section */}
       <AboutOurClients />
+       {/* <p className="text-center text-[#58585B] text-[16px] md:text-[16px] font-medium max-w-3xl mx-auto bg-[#F5F5F5] ">
+          “At Hi-Tech Membranes, technology, responsibility, and reliability come together to support a cleaner water future.”
+      </p> */}
+     <div className="w-full bg-[#F5F5F5] p-4">
+      <p className="text-center text-gray-600 text-[16px] md:text-[16px] font-medium max-w-3xl mx-auto">
+        “At Hi-Tech Membranes, technology, responsibility, and reliability come together to support a cleaner water future.”
+      </p>
+    </div>
+
     </div>
   );
 };

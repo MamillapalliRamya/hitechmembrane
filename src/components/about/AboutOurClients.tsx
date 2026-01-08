@@ -5,9 +5,18 @@ const AboutOurClients: React.FC = () => {
     <section className="w-full px-4 md:px-8 lg:px-16 xl:px-24 2xl:px-32 py-12 md:py-14 lg:py-16 xl:py-18 bg-[#F5F5F5]">
       <div className="max-w-[1440px] mx-auto">
         {/* Heading */}
-        <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-[3.5rem] font-semibold text-[#3E4095] text-center mb-4 md:mb-4 lg:mb-6 xl:mb-6">
-          Our Clients
-        </h2>
+        <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-[3.5rem] font-semibold text-[#3E4095] text-center">
+            OUR CLIENTS / PARTNERS
+          </h2>
+
+          <h4 className="text-center text-[#58585B] max-w-3xl mx-auto text-[24px] leading-relaxed font-medium mt-5">
+            Trusted by Water Treatment Professionals Worldwide
+          </h4>
+
+          <p className="text-center text-gray-600 max-w-3xl mx-auto text-[20px] leading-relaxed font-medium mt-4">
+            Our membranes are used by OEMs, distributors, and system integrators across multiple industries—supporting long-term projects and sustainable water solutions.
+          </p>
+
 
         {/* Clients Grid - 2 Rows with varying heights */}
         <div className="flex flex-col ">
@@ -109,6 +118,7 @@ const AboutOurClients: React.FC = () => {
           </div>
         </div>
       </div>
+     
     </section>
   );
 };
