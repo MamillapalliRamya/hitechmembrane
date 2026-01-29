@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
-import { ArrowLeft, ArrowRight, Star, Quote } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Star } from 'lucide-react';
 import { countriesData } from './Globalvoicesoftrust';
-import vector14 from "../../assets/card-curves/Vector 14.svg"
-import vector13 from "../../assets/card-curves/Vector 13.svg"
 import vector12 from "../../assets/card-curves/Vector 12.svg"
-import vector11 from "../../assets/card-curves/Vector 11.svg"
 import vector8 from "../../assets/card-curves/Vector 8.svg"
 import vector9 from "../../assets/card-curves/Vector 9.svg"
 
@@ -50,84 +47,56 @@ const TestimonialsHero: React.FC = () => {
     };
 
     return (
-<section className=" py-16 md:py-24 lg:py-32 xl:py-40 bg-white relative overflow-hidden z-0">
-        <div className="">
-          <img
-            src={vector14}
-            alt=""
-            className="w-full object-contain opacity-40 absolute"
-             style={{
-              transform: 'rotate(168deg)',
-              top:"-720px",
-              left: '130px',
-            }}
-          />
-          <img
-            src={vector13}
-            alt=""
-            className="w-full object-contain opacity-40 absolute"
-             style={{
-              transform: 'rotate(-37deg)',
-              top:"-450.21px",
-              left: '80px',
-            }}
-          />
-          <img
-            src={vector12}
-            alt=""
-            className="w-full object-contain opacity-40 absolute"
-            style={{
-              transform: 'rotate(-5deg)',
-              top:"-305px",
-              left: '18px',
-            }}
-          />
-          <img
-            src={vector11}
-            alt=""
-            className="w-full object-contain opacity-40 absolute"
-            style={{
-              transform: 'rotate(12deg)',
-              top: '-140px',
-              left: '8px',
-            }}
-          />
-           <img
-            src={vector8}
-            alt=""
-            className="w-full object-contain opacity-40 absolute" style={{
-              transform: 'rotate(-7deg)',
-              top: '65px',
-            }}
-          />
-          <img
-            src={vector9}
-            alt=""
-            className="absolute w-full object-contain opacity-40 pointer-events-none"
-            style={{
-                top: '225px',
-                left: '-2px',
-                transform: 'rotate(-1.8deg)',
+        <section className=" py-16 md:py-24 lg:py-32 xl:py-40 bg-white relative overflow-hidden z-0">
+            <div className="">
                 
-            }}
-            />
-        </div>
+                <img
+                    src={vector12}
+                    alt=""
+                    className="w-full object-contain opacity-40 absolute"
+                    style={{
+                        transform: 'rotate(-5deg)',
+                        top: "-305px",
+                        left: '18px',
+                    }}
+                />
+                
+                <img
+                    src={vector8}
+                    alt=""
+                    className="w-full object-contain opacity-40 absolute" style={{
+                        transform: 'rotate(-7deg)',
+                        top: '65px',
+                    }}
+                />
+                <img
+                    src={vector9}
+                    alt=""
+                    className="absolute w-full object-contain opacity-40 pointer-events-none"
+                    style={{
+                        top: '225px',
+                        left: '-2px',
+                        transform: 'rotate(-1.8deg)',
+
+                    }}
+                />
+            </div>
             <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8 lg:px-14 xl:px-16 2xl:px-28 relative z-10">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
 
                     {/* LEFT CONTENT */}
                     <div className="md:pr-4 lg:pr-8">
-                        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#3E4095] mb-4 lg:mb-6">
+                        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[50px] xl:ml-[30px] font-bold text-[#3E4095] mb-4 lg:mb-6 2xl:mb-8">
                             What Our Clients Say
                         </h1>
 
-                        <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-[#404040] mb-6 lg:mb-8 leading-relaxed" style={{ fontFamily: 'Nato, sans-serif' }}>
+                        <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl xl:ml-[30px] text-[#404040] mb-6 lg:mb-8 leading-relaxed" style={{ fontFamily: 'Nato, sans-serif' }}>
                             Trusted by industries, municipalities,
                             <br />
                             and distributors across the globe.
                         </p>
 
-                        <div className="flex space-x-3 lg:space-x-4">
+                        <div className="flex space-x-3 lg:space-x-4 xl:ml-[30px]">
                             <button
                                 onClick={prevSlide}
                                 className="w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 bg-[#8ABF03] rounded-lg flex items-center justify-center transition-colors hover:bg-[#7AA003]"
@@ -146,68 +115,16 @@ const TestimonialsHero: React.FC = () => {
                     </div>
 
                     {/* RIGHT CONTENT - TESTIMONIAL CARD */}
-                    
-            <div className="relative flex justify-center">
-             {/* TESTIMONIAL CARD */}
-                        <div className="relative z-10 bg-white rounded-2xl lg:rounded-3xl shadow-xl border-4 md:border-6 lg:border-8 border-[#A8CF454D] p-5 sm:p-6 lg:p-8 max-w-xl w-full">
-                            {/* Country Flag */}
-                            <div className="absolute top-4 right-4 lg:top-6 lg:right-6">
-                                <div className="w-8 h-6 sm:w-9 sm:h-7 lg:w-10 lg:h-8 rounded-md overflow-hidden shadow-md">
-                                    <img
-                                        src={`https://flagcdn.com/w80/${testimonials[currentIndex].countryCode}.png`}
-                                        alt="Country flag"
-                                        className="w-full h-full object-cover"
-                                        onError={(e) => {
-                                            e.currentTarget.style.display = 'none';
-                                        }}
-                                    />
-                                </div>
-                            </div>
 
-                            {/* Rating Stars */}
-                            <div className="flex space-x-1 mb-4 lg:mb-6">
-                                {renderStars(testimonials[currentIndex].rating)}
-                            </div>
+                    <div className="relative flex justify-center">
+                        {/* TESTIMONIAL CARD */}
+                        <div className="relative z-10 bg-white rounded-2xl lg:rounded-3xl shadow-xl w-[600px] xl:w-[742px] 2xl:w-[800px]">
 
-                            {/* Testimonial Text */}
-                            <p className="text-sm sm:text-base md:text-base lg:text-lg text-gray-900 leading-relaxed mb-6 lg:mb-8 pr-8 lg:pr-12 font-inter">
-                                {testimonials[currentIndex].text}
-                            </p>
-
-                            {/* User Info */}
-                            <div className="flex items-center space-x-3 mb-6 lg:mb-8">
-                                <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-gradient-to-br from-lime-400 to-green-500 flex items-center justify-center text-white font-bold text-base lg:text-lg flex-shrink-0">
-                                    {testimonials[currentIndex].name.charAt(0)}
-                                </div>
-                                <div className="min-w-0">
-                                    <p className="font-semibold text-gray-900 text-sm lg:text-base truncate">
-                                        {testimonials[currentIndex].company}
-                                    </p>
-                                    <p className="text-sm text-gray-600 truncate">
-                                        {testimonials[currentIndex].name}
-                                    </p>
-                                </div>
-                            </div>
-
-                            {/* Quotation Mark */}
-                            <div className="absolute bottom-4 right-4 lg:bottom-6 lg:right-6">
-                                <Quote className="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 text-[#E2E3FF]" />
-                            </div>
-
-                            {/* Pagination Dots */}
-                            <div className="flex space-x-2">
-                                {testimonials.map((_, index) => (
-                                    <button
-                                        key={index}
-                                        onClick={() => setCurrentIndex(index)}
-                                        className={`h-2 rounded-full transition-all ${index === currentIndex
-                                                ? 'w-6 bg-blue-900'
-                                                : 'w-2 bg-gray-300'
-                                            }`}
-                                        aria-label={`Go to testimonial ${index + 1}`}
-                                    />
-                                ))}
-                            </div>
+                            <img
+                                src="/assets/images/ourimpact_img.png"
+                                alt="Testimonial"
+                                className="w-full h-auto rounded-xl object-cover"
+                            />
 
                         </div>
                     </div>

@@ -77,7 +77,7 @@ const HeroSection: React.FC = () => {
         large: { width: 380, height: 480, borderRadius: { tl: 8, tr: 90, bl: 90, br: 6 }, border: 8 },
         small: { width: 250, height: 400, borderRadius: { tl: 6, tr: 70, bl: 70, br: 6 }, border: 6 },
         positions: { 
-          largeRight: 180, 
+          largeRight: 120, 
           smallRight: -200,
           rightMargin: 100 
         }
@@ -145,7 +145,7 @@ const HeroSection: React.FC = () => {
                 setVideoPlaying(false);
               }}
             >
-              <source src="/assets/videos/home_page_bg_animation.mp4" type="video/mp4" />
+              <source src="/assets/videos/Homepage_BackgroundRO.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </div>
@@ -157,13 +157,15 @@ const HeroSection: React.FC = () => {
         <div className="absolute inset-0 z-0 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700"></div>
       )}
 
+      <div className="absolute inset-0 z-10 bg-[#0000004D]" />
+
       {/* Text Content Overlay with responsive animation */}
       <div
-        className={`ml-[40px] relative z-20 2xl:px-8 h-full flex flex-col justify-center transition-all duration-500 ease-out
+        className={`ml-[50px] relative z-20 2xl:px-8 h-full flex flex-col justify-center transition-all duration-500 ease-out
           ${animateText ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'}
         `}
         style={{ 
-          marginLeft: windowWidth >= 1290 ? "80px" : "40px",
+          marginLeft: windowWidth >= 1290 ? "80px" : "50px",
           maxWidth: windowWidth >= 1920 ? "890px" :
                    windowWidth >= 1440 ? "790px" : 
                    windowWidth >= 1280 ? "650px" : 
@@ -175,9 +177,10 @@ const HeroSection: React.FC = () => {
       >
         <h1 className={`font-semibold leading-tight mb-3 sm:mb-4 text-white ${
           windowWidth >= 1920 ? 'text-6xl xl:text-7xl' :
-          windowWidth >= 1440 ? 'text-5xl xl:text-6xl' :
-          windowWidth >= 1280 ? 'text-4xl lg:text-[54px]' :
-          windowWidth >= 1024 ? 'text-3xl md:text-[44px]' :
+          windowWidth >= 1440 ? 'text-5xl xl:text-[54px]' :
+          windowWidth >= 1280 ? 'text-4xl lg:text-[48px]' :
+          windowWidth >= 1100 ? 'text-3xl md:text-[38px] ml-[40px]' :
+          windowWidth >= 1024 ? 'text-3xl md:text-[35px] ml-[40px]' :
           windowWidth >= 768 ? 'text-2xl sm:text-3xl' : 
           'text-xl sm:text-2xl'
         }`}>
@@ -188,12 +191,21 @@ const HeroSection: React.FC = () => {
           windowWidth >= 1920 ? 'text-xl lg:text-2xl max-w-[700px]' :
           windowWidth >= 1440 ? 'text-xl lg:text-2xl max-w-[650px]' :
           windowWidth >= 1280 ? 'text-lg lg:text-[22px] max-w-[600px]' :
-          windowWidth >= 1024 ? 'text-base md:text-[19.2px] max-w-[520px]' :
+           windowWidth >= 1100 ? 'text-base md:text-[19.2px] max-w-[520px] ml-[40px]' :
+          windowWidth >= 1024 ? 'text-base md:text-[18px] max-w-[460px] ml-[40px]' :
           windowWidth >= 768 ? 'text-sm sm:text-base max-w-[480px]' :
           'text-sm max-w-full pr-4'
         }`}>
           {t('hero.subtitle')}
         </p>
+        <a href="/contact">
+        <button className="bg-[#A8CF45] text-[#3E4095] rounded-lg font-medium text-sm sm:text-base
+          lg:text-lg 2xl:text-[20px] 3xl:text-[22px] hover:bg-[#98C135] transition-colors 
+          duration-300 px-6 py-3 sm:px-8 sm:py-4 w-max ml-[40px] lg:mx-0"
+        >
+          Talk to Our Experts
+        </button>
+        </a>
       </div>
 
       {/* Image Blocks - Responsive */}
@@ -219,7 +231,7 @@ const HeroSection: React.FC = () => {
                   borderBottomRightRadius: `${dimensions.large.borderRadius.br}px`,
                   borderBottomLeftRadius: isSwapped ? `${dimensions.small.borderRadius.bl}px` : `${dimensions.large.borderRadius.bl}px`,
                   borderWidth: isSwapped ? `${dimensions.small.border}px` : `${dimensions.large.border}px`,
-                  borderColor: 'white',
+                  borderColor: '#A8CF45',
                   borderStyle: 'solid',
                   boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
                   transition: 'all 1s ease-in-out',
@@ -265,7 +277,7 @@ const HeroSection: React.FC = () => {
                   borderBottomRightRadius: `${dimensions.small.borderRadius.br}px`,
                   borderBottomLeftRadius: isSwapped ? `${dimensions.large.borderRadius.bl}px` : `${dimensions.small.borderRadius.bl}px`,
                   borderWidth: isSwapped ? `${dimensions.large.border}px` : `${dimensions.small.border}px`,
-                  borderColor: 'white',
+                  borderColor: '#A8CF45',
                   borderStyle: 'solid',
                   boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
                   transition: 'all 1s ease-in-out',

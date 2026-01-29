@@ -5,8 +5,10 @@ import HeroSection from "../components/home/HeroSection";
 import AwardsSection from "../components/home/AwardsSection";
 import GlobalPresenceSection from "../components/home/GlobalPresence";
 import WaterDropSection from "../components/home/WaterDropsSection";
-// import WaterSolutionsSection from "../components/home/WaterSection";
+// import  WaterSolutionsSection  from "../components/home/WaterSection";
 import EventsSection from "../components/home/EventsSection";
+import Applications from "../components/home/ApplicationSection";
+import WhyChooseUs from "../components/home/WhyChooseUsSection";
 
 const HomePage: React.FC = () => {
   // All sections in order
@@ -16,6 +18,8 @@ const HomePage: React.FC = () => {
     { id: "about", component: <AboutUsSection /> },
     // { id: "water-solutions", component: <WaterSolutionsSection /> },
     { id: "events", component: <EventsSection /> },
+    { id: "why-choose-us", component: <WhyChooseUs /> },
+    { id: "applications", component: <Applications/> },
     { id: "awards", component: <AwardsSection /> },
     { id: "global-presence", component: <GlobalPresenceSection /> },
   ];

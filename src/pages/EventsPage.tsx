@@ -60,7 +60,7 @@ const EventsPage: React.FC = () => {
     const pastEvents: PastEvent[] = [
         {
             id: 1,
-            day: '10th',
+            day: 'Dec',
             location: 'Amsterdam, Netherlands',
             title: 'Aquatech Amsterdam 2025',
             date: 'Nov 11 - Nov 14',
@@ -69,7 +69,7 @@ const EventsPage: React.FC = () => {
         },
         {
             id: 2,
-            day: '16th',
+            day: 'Oct',
             location: 'Berlin, Germany',
             title: 'Water Tech Europe 2025',
             date: 'Oct 15 - Oct 18',
@@ -78,7 +78,7 @@ const EventsPage: React.FC = () => {
         },
         {
             id: 3,
-            day: '25th',
+            day: 'Sep',
             location: 'Tokyo, Japan',
             title: 'Japan Water Expo 2025',
             date: 'Sep 20 - Sep 23',
@@ -335,9 +335,9 @@ const EventsPage: React.FC = () => {
                             value={selectedMonth}
                             onChange={(e) => setSelectedMonth(e.target.value)}
                             className=" text-black appearance-none w-full px-4 sm:px-6 md:px-8 lg:px-10 py-2 sm:py-3 md:py-4 border border-gray-300 rounded-xl sm:rounded-[16px] text-base sm:text-lg md:text-xl lg:text-[24px] bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 ">
-                            <option value="September">September</option>
-                            <option value="October">October</option>
-                            <option value="November">November</option>
+                            <option value="September">2025</option>
+                            <option value="October">2026</option>
+                            <option value="November">2024</option>
                         </select>
 
                         {/* Dropdown Icon */}
@@ -422,9 +422,11 @@ const EventsPage: React.FC = () => {
                     </p>
                     
                     {/* CTA Button */}
+                    <a href="/contact">
                     <button className="bg-lime-400 hover:bg-lime-500 text-indigo-900 font-bold text-lg px-8 py-3 sm:px-10 sm:py-4 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
                     Contact Us
                     </button>
+                    </a>
                 </div>
                 
                 {/* Logo in Bottom Right */}

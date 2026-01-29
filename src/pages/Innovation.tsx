@@ -15,6 +15,8 @@ import Portfolio4 from "../assets/images/wetransfer_hitech/Sea_Water_Membrane.sv
 import { ChevronRight } from 'lucide-react';
 import { X, Star } from "lucide-react";
 import image1 from "../assets/images/wetransfer_hitech/logo-1.png";
+import heroBg from "../assets/images/wetransfer_hitech/innovation_bg.jpg";
+
 
 interface Review {
   name: string;
@@ -510,13 +512,11 @@ const Innovation: React.FC = () => {
       {/* Hero Section */}
       <section className="relative bg-gradient-to-r from-indigo-900 to-indigo-700 text-white py-20 px-4 overflow-hidden h-[637px]">
         {/* Background Image Overlay */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center opacity-30"
-          style={{
-            backgroundImage: `url('${innovationData.hero.backgroundImage}')`,
-            // height:"750.651611328125px"
-          }}
-        ></div>
+        <div
+  className="absolute inset-0 bg-cover bg-center opacity-30"
+  style={{ backgroundImage: `url(${heroBg})` }}
+></div>
+
         
         {/* Content */}
         <div className="relative z-10 max-w-4xl mx-auto text-center">
@@ -875,7 +875,55 @@ const Innovation: React.FC = () => {
                 }}
               />
 
-              
+              {/* Info Boxes on Map */}
+              <div className="absolute inset-0 pointer-events-none">
+                {/* Multiple Export Markets Served - Top Left */}
+                <div 
+                  className="absolute bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm whitespace-nowrap"
+                  style={{ 
+                    // left: '12%', 
+                    top: '24%',
+                    transform: 'translateY(-50%)'
+                  }}
+                >
+                  Multiple Export Markets Served
+                </div>
+
+                {/* 30+ Years of Manufacturing Experience - Top Right */}
+                <div 
+                  className="absolute bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm whitespace-nowrap"
+                  style={{ 
+                    right: '1%', 
+                    top: '17%',
+                    transform: 'translateY(-50%)'
+                  }}
+                >
+                  30+ Years of Manufacturing Experience
+                </div>
+
+                {/* OEM & Private Label Partners Worldwide - Right Side */}
+                <div 
+                  className="absolute bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm whitespace-nowrap"
+                  style={{ 
+                    right: '-3%', 
+                    top: '48%',
+                    transform: 'translateY(-50%)'
+                  }}
+                >
+                  OEM & Private Label Partners Worldwide
+                </div>
+
+                {/* 200+ Global Customers - Bottom Left */}
+                <div 
+                  className="absolute bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm whitespace-nowrap"
+                  style={{ 
+                    left: '20%', 
+                    bottom: '18%',
+                  }}
+                >
+                  200+ Global Customers
+                </div>
+              </div>
 
               {/* Location Markers Overlay */}
               <div className="absolute inset-0">
@@ -899,7 +947,7 @@ const Innovation: React.FC = () => {
                           style={{ cursor: 'pointer', overflow: 'visible' }}
                         >
                           <img
-                            src="assets/images/green-pin-marker.png"
+                            src="assets/images/blue-pin-marker.png"
                             alt="Location marker"
                             className="transition-transform duration-200"
                             style={{
