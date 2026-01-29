@@ -448,6 +448,56 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
                   }
                 }}
               />
+{/* Info Boxes on Map */}
+              <div className="absolute inset-0 pointer-events-none">
+                {/* Multiple Export Markets Served - Top Left */}
+                <div 
+                  className="absolute bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm whitespace-nowrap"
+                  style={{ 
+                    // left: '12%', 
+                    top: '24%',
+                    transform: 'translateY(-50%)'
+                  }}
+                >
+                  Multiple Export Markets Served
+                </div>
+
+                {/* 30+ Years of Manufacturing Experience - Top Right */}
+                <div 
+                  className="absolute bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm whitespace-nowrap"
+                  style={{ 
+                    right: '1%', 
+                    top: '17%',
+                    transform: 'translateY(-50%)'
+                  }}
+                >
+                  30+ Years of Manufacturing Experience
+                </div>
+
+                {/* OEM & Private Label Partners Worldwide - Right Side */}
+                <div 
+                  className="absolute bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm whitespace-nowrap"
+                  style={{ 
+                    right: '-3%', 
+                    top: '48%',
+                    transform: 'translateY(-50%)'
+                  }}
+                >
+                  OEM & Private Label Partners Worldwide
+                </div>
+
+                {/* 200+ Global Customers - Bottom Left */}
+                <div 
+                  className="absolute bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm whitespace-nowrap"
+                  style={{ 
+                    left: '20%', 
+                    bottom: '18%',
+                  }}
+                >
+                  200+ Global Customers
+                </div>
+              </div>
+
 
               
 
@@ -473,7 +523,7 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
                           style={{ cursor: 'pointer', overflow: 'visible' }}
                         >
                           <img
-                            src="assets/images/green-pin-marker.png"
+                            src="assets/images/blue-pin-marker.png"
                             alt="Location marker"
                             className="transition-transform duration-200"
                             style={{

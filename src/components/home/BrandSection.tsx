@@ -91,14 +91,21 @@ const AboutUsSection = () => {
               drinking water. Committed to excellence and sustainability, we lead in water
               treatment solutions.
             </p>
+            <p className="text-gray-600 text-sm sm:text-base lg:text-lg 2xl:text-[20px] 
+              3xl:text-[20px] leading-relaxed max-w-2xl lg:mx-0">
+              Our RO membranes are built for stable performance, 
+              efficient operation, and long-term reliability, helping 
+              customers achieve clean water production while 
+              optimizing operating costs.
+            </p>
 
             <button
               className="bg-[#A8CF45] text-[#3E4095] rounded-lg font-medium text-sm sm:text-base 
               lg:text-lg 2xl:text-[20px] 3xl:text-[22px] hover:bg-[#98C135] transition-colors 
-              duration-300 h-[45px] sm:h-[53px] w-[137px] 2xl:w-[160px] 3xl:w-[180px] 
+              duration-300 h-[45px] sm:h-[53px] w-[225px] 2xl:w-[240px] 3xl:w-[255px] 
               mx-auto lg:mx-0"
             >
-              Know more
+              Learn More About Us
             </button>
           </motion.div>
         </div>

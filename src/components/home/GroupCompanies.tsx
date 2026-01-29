@@ -26,7 +26,7 @@ const GroupCompanies = () => {
                        font-medium leading-snug sm:leading-normal xl:leading-[45px]
                        max-w-[900px] flex-nowrap"
           >
-            Learn more about Hi-tech's advanced <br></br>RO water filter membranes.
+            Need help choosing the right membrane?
           </h1>
 
           {/* Button */}

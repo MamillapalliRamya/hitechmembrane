@@ -44,9 +44,13 @@ const ProductPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-8xl mx-[90px] pt-10">
+        <div className="text-center font-semibold mb-10 pt-14 text-[#3D3B8E] text-lg sm:text-xl lg:text-2xl xl:text-[30px] 2xl:text-[40px] mt-10">
 
+          Reverse Osmosis Membrane Elements for Every Water Challenge
+
+        </div>
         {/* Download Button */}
-        <div className="text-center mb-16 pt-14">
+        <div className="text-end mb-3 pt-14">
           <a
             href="/assets/pdf/sample.pdf"
             target="_blank"
@@ -113,7 +117,8 @@ const ProductPage: React.FC = () => {
 
         {/* RESIDENTIAL SECTION */}
         <SectionTitle text="Residential RO Membranes" />
-        <SectionDescription text="An efficient RO Water Filter system needs a precise membrane to remove salts and impurities. Hi-Tech produces RO membranes for homes and offices that eliminate 95% to 98% of dissolved chemicals. These spiral membranes feature multiple TFC envelopes around a central tube, allowing permeate to flow into the envelope and spiral for collection." />
+        <SectionDescription text="Hi-Tech Residential RO membranes are designed to deliver safe, clean drinking water through efficient removal of dissolved salts, heavy metals, and contaminants." />
+        <SectionDescription text="Our RE and ES series membranes offer high rejection rates of 97-98%, ensuring optimal performance for household water purification systems." />
 
         <ProductTable
           title="RE Series"
@@ -139,7 +144,8 @@ const ProductPage: React.FC = () => {
 
         {/* INDUSTRIAL */}
         <SectionTitle text="Industrial RO Membranes" />
-        <SectionDescription text="Industries like pharmaceuticals and bioengineering need large quantities of pure water. However, water pollution and cleaning costs are increasing. Hi-Tech provides top-notch industrial RO membranes that efficiently eliminate chemicals. Our BW brackish water membranes are favored for their high recovery rates, low energy use, and durability, rejecting 98-99% of impurities." />
+        <SectionDescription text="Hi-Tech Industrial RO membranes are designed for high-capacity water treatment systems operating under demanding conditions." />
+        <SectionDescription text="These membranes are used in industries such as power generation, pharmaceuticals, food & beverage, textiles, and manufacturing—where consistent water quality and operational reliability are critical." />
 
         <ProductTable
           title=""
@@ -154,7 +160,8 @@ const ProductPage: React.FC = () => {
 
         {/* COMMERCIAL SECTION */}
         <SectionTitle text="Commercial RO Membranes" />
-        <SectionDescription text="Water is essential for life, especially in schools and colleges. Hi-Tech's BW range water purifier rejects 95% of dissolved salts, ensuring safe drinking water for offices, industries, hospitals, and malls." />
+        <SectionDescription text="Hi-Tech Commercial RO membrane elements are engineered for continuous operation in commercial water treatment systems." />
+        <SectionDescription text="Suitable for hotels, restaurants, hospitals, office buildings, and packaged RO plants, these membranes provide reliable performance, reduced fouling tendencies, and consistent permeate quality." />
 
         <ProductTable
           title=""
@@ -169,7 +176,8 @@ const ProductPage: React.FC = () => {
 
         {/* SEA WATER SECTION*/}
         <SectionTitle text="Sea Water RO Membranes" />
-        <SectionDescription text="Seawater plays a crucial role in many sectors. This series seawater membrane system efficiently eliminates 95% of dissolved salts, ensuring safe and clean water for businesses, manufacturing plants, hospitals, and retail centers." />
+        <SectionDescription text="Hi-Tech Seawater RO membranes are specifically engineered to treat high-salinity seawater and brackish sources." />
+        <SectionDescription text="Designed for desalination plants, coastal facilities, and offshore applications, these membranes deliver high rejection performance while maintaining operational efficiency under extreme conditions." />
 
         <ProductTable
           title=""
@@ -181,6 +189,10 @@ const ProductPage: React.FC = () => {
           ]}
           onDownload={handleProductDownload}
         />
+        <div>
+          <h1 className='text-center font-semibold mb-6 lg:mb-10 lg:text-[30px] xl:text-[35px] 2xl:text-[40px]'>
+            Custom specifications and private-label options available <br></br>for OEM partners.</h1>
+        </div>
       </div>
       <GroupCompanies />
     </div>

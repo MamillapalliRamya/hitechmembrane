@@ -1,6 +1,13 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  Droplets,
+  Factory,
+  Recycle,
+  Waves,
+  Coffee,
+  Building2
+} from 'lucide-react';
 
 const EventsSection = () => {
   /* ---------------- WATER SOLUTIONS LOGIC ---------------- */
@@ -15,25 +22,47 @@ const EventsSection = () => {
   const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % products.length);
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + products.length) % products.length);
 
-  /* ---------------- EVENTS LOGIC ---------------- */
-  const [currentIndex, setCurrentIndex] = useState(0);
+  /* ---------------- APPLICATIONS DATA ---------------- */
+  const ICON_PROPS = { size: 32, color: '#9EE872', strokeWidth: 2 };
 
-  const events = [
-    { id: 1, image: "/assets/images/Hitech-Viet-2016.png", title: "HITECH VIET 2016" },
-    { id: 2, image: "/assets/images/Hitech-Viet-2016.png", title: "HITECH VIET 2017" },
-    { id: 3, image: "/assets/images/Hitech-Viet-2016.png", title: "HITECH VIET 2018" },
-    { id: 4, image: "/assets/images/Hitech-Viet-2016.png", title: "HITECH VIET 2019" },
-    { id: 5, image: "/assets/images/Hitech-Viet-2016.png", title: "HITECH VIET 2020" },
-    { id: 6, image: "/assets/images/Hitech-Viet-2016.png", title: "HITECH VIET 2021" },
-  ];
-
-  const itemsPerView = 3;
-  const maxIndex = Math.max(0, events.length - itemsPerView);
-
-  const handlePrevious = () => setCurrentIndex((prev) => Math.max(0, prev - 1));
-  const handleNext = () => setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
-
-  const visibleEvents = events.slice(currentIndex, currentIndex + itemsPerView);
+const applications = [
+  {
+    icon: <Droplets {...ICON_PROPS} />,
+    title: 'Residential Water Treatment',
+    description:
+      'Reliable RO membranes for drinking water production and large-scale municipal systems.'
+  },
+  {
+    icon: <Factory {...ICON_PROPS} />,
+    title: 'Industrial Process Water',
+    description:
+      'High-performance RO membranes for manufacturing, power plants, and industrial operations.'
+  },
+  {
+    icon: <Recycle {...ICON_PROPS} />,
+    title: 'Wastewater Reuse & Recycling',
+    description:
+      'Advanced membrane solutions enabling safe water reuse and sustainable resource management.'
+  },
+  {
+    icon: <Waves {...ICON_PROPS} />,
+    title: 'Seawater Desalination',
+    description:
+      'RO membranes engineered for high-pressure seawater desalination applications.'
+  },
+  {
+    icon: <Coffee {...ICON_PROPS} />,
+    title: 'Food & Beverage Processing',
+    description:
+      'Consistent water quality solutions meeting hygiene and production standards.'
+  },
+  {
+    icon: <Building2 {...ICON_PROPS} />,
+    title: 'Commercial & Infrastructure',
+    description:
+      'RO membranes for hotels, hospitals, commercial buildings, and infrastructure projects.'
+  }
+];
 
   return (
     <section className="bg-white w-full overflow-hidden">
@@ -47,18 +76,28 @@ const EventsSection = () => {
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
           viewport={{ once: true, amount: 0.1 }}
-          className="text-3xl sm:text-4xl lg:text-[48px] 2xl:text-[56px] text-[#3E4095] text-center"
+          className="text-3xl sm:text-4xl lg:text-[48px] 2xl:text-[56px] text-[#3E4095] text-center mb-6"
           style={{ fontFamily: "Diodrum Cyrillic, sans-serif", fontWeight: "500" }}
         >
           Our Water Solutions
         </motion.h2>
+
+        <motion.p
+          initial={{ y: 20, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
+          viewport={{ once: true, amount: 0.1 }}
+          className="text-center text-gray-600 mt-4 text-base sm:text-lg lg:text-xl px-4"
+        >
+          Advanced RO membrane solutions engineered for diverse <br /> water treatment applications.
+        </motion.p>
 
         <motion.div
           initial={{ y: 60, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
           viewport={{ once: true, amount: 0.3 }}
-          className="relative max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12 mt-12 2xl:mt-[90px]"
+          className="relative px-4 sm:px-6 lg:px-12 mt-12 2xl:mt-[90px] mx-[40px]"
         >
           {products.length > 3 && (
             <>
@@ -98,12 +137,31 @@ const EventsSection = () => {
                 opacity = "opacity-40";
               }
 
+              // Define features for each product
+              const productFeatures = {
+                "Residential Membranes": [
+                  "Stable rejection performance",
+                  "Long membrane life",
+                  "Compatible with standard RO systems"
+                ],
+                "Industrial Membranes": [
+                  "High salt rejection",
+                  "Consistent flux under variable conditions",
+                  "Optimized for continuous operation"
+                ],
+                "Sea Water Membranes": [
+                  "Excellent salt rejection",
+                  "Energy-efficient performance",
+                  "Suitable for large-scale desalination plants"
+                ]
+              };
+
               return (
                 <div
                   key={product.id}
                   className={`flex flex-col items-center 
                   gap-6 sm:gap-[45px] 2xl:gap-[60px]
-                  min-w-[150px] sm:min-w-[200px] lg:min-w-[240px]`}
+                  min-w-[150px] sm:min-w-[200px] lg:min-w-[280px] xl:min-w-[320px]`}
                 >
                   <div className="relative mb-6 flex items-center justify-center">
                     <div className=" bg-[#A8CF45] w-[160px] h-[140px] rounded-bl-[25%] rounded-br-[121%] rounded-tl-[121%] rounded-tr-[25%]
@@ -118,9 +176,21 @@ const EventsSection = () => {
                     </div>
                   </div>
 
-                  <h3 className="text-base sm:text-lg lg:text-[20px] 2xl:text-[24px] font-medium text-[#323232] text-center whitespace-nowrap">
+                  <h3 className="text-base sm:text-lg lg:text-[20px] 2xl:text-[24px] font-semibold text-[#323232] text-center whitespace-nowrap">
                     {product.name}
                   </h3>
+
+                  {/* Feature blocks */}
+                  <div className="flex flex-col gap-3 w-full max-w-[320px]">
+                    {productFeatures[product.name as keyof typeof productFeatures]?.map((feature, idx) => (
+                      <div
+                        key={idx}
+                        className="bg-[#F6F6F6] font-semibold rounded-lg px-4 py-3 text-center text-sm sm:text-base xl:text-[18px] 2xl:text-[21px] text-[#58585B] shadow-[1px_4px_4px_0px_#00000026]"
+                      >
+                        {feature}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               );
             })}
@@ -135,130 +205,106 @@ const EventsSection = () => {
           className="text-center mt-8 sm:mt-[50px]"
         >
           <button className="
-          w-[220px] sm:w-[260px] lg:w-[307px]
+          w-[220px] sm:w-[260px] lg:w-[307px] 2xl:w-[340px]
           h-[55px] sm:h-[60px] lg:h-[69px] 
           bg-[#A8CF45] text-[#3E4095] 
           px-6 sm:px-8 py-3 rounded-lg 
           font-medium text-sm sm:text-lg 2xl:text-2xl
           hover:bg-[#98C135] transition-colors duration-200">
-            View All Products
+            Explore Our RO Elements
           </button>
         </motion.div>
-      
+      </section>
 
       {/* -----------------------------------------------------------
-            EVENTS SECTION
+            APPLICATIONS SECTION
       ----------------------------------------------------------- */}
-      {/* <section className="py-16 bg-white relative overflow-hidden"> */}
-        <motion.h2
-          initial={{ y: -80, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-          viewport={{ once: true, amount: 0.5 }}
-          className="text-3xl pt-16 sm:text-4xl lg:text-[48px] 2xl:text-[60px] text-[#333333] text-center mb-12 2xl:mb-16 "
-          style={{ fontFamily: "Diodrum Cyrillic, sans-serif" }}
-        >
-          Events
-        </motion.h2>
+      <section className="relative overflow-hidden py-20 lg:py-24">
+        <div className="relative mx-[40px] xl:mx-[80px] 2xl:mx-[112px]">
 
-        <motion.div
-          initial={{ x: -200, opacity: 0 }}
-          whileInView={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          viewport={{ once: true, amount: 0.3 }}
-          className="flex justify-between gap-10 mx-[40px] xl:mx-[80px] 2xl:mx-[112px] 3xl:gap-[72px] overflow-hidden pt-4 z-20 
-    relative"
-        >
-          {visibleEvents.map((event) => (
-            <div
-              key={event.id}
-              className="relative flex items-center justify-center h-[320px] sm:h-[380px] lg:h-auto 3xl:h-[553px] 
-              w-[90%] sm:w-[300px] lg:w-auto 3xl:w-[516px]
-              overflow-hidden rounded-lg shadow-md 2xl:w-auto 2xl:h-auto"
-            >
-              <img src={event.image} alt={event.title} className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+          {/* Section Header */}
+          <div className="mb-12 text-center lg:mb-14">
+            <h2 className="mb-10 text-4xl font-semibold tracking-tight text-[#3E4095] lg:text-[40px] xl:text-[48px] 2xl:text-[54px]">
+              Applications
+            </h2>
+            <p className="mx-auto text-lg text-[#6F6F6F] lg:text-[22px] xl:text-[20px] 2xl:text-[24px]">
+              RO membrane solutions designed for diverse water treatment applications.
+            </p>
+          </div>
 
+          {/* Applications Grid */}
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {applications.map((app, index) => (
               <div
-                className="absolute bottom-4 text-[20px] lg:text-[24px] xl:text-[30px] 2xl:text-[36px] left-5 text-white drop-shadow-lg"
-                style={{ fontFamily: "Diodrum Cyrillic, sans-serif", fontWeight: "700" }}
+                key={index}
+                className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-8 "
               >
-                {event.title}
+                {/* Gradient Overlay on Hover */}
+                <div className="absolute inset-0 " />
+
+                <div className="relative">
+                  {/* Icon */}
+                  <div className="mb-4 xl:mb-6 flex h-16 w-16 items-center justify-center rounded-xl bg-[#3d4a9d]">
+                    {app.icon}
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="mb-4 xl:mb-6 text-xl font-bold leading-tight text-[#161616] lg:text-[22px] xl:text-[24px] 2xl:text-[35px]">
+                    {app.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="leading-relaxed text-[#454545] lg:text-[16px] 2xl:text-[22px]">
+                    {app.description}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
-        </motion.div>
-
-        <div className="flex justify-center items-center gap-4 mt-10">
-          <button
-            onClick={handlePrevious}
-            disabled={currentIndex === 0}
-            className={`w-12 h-12 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${currentIndex === 0
-                ? "border-gray-300 text-gray-300 cursor-not-allowed"
-                : "border-[#A8CF45] text-[#A8CF45] hover:bg-[#A8CF45] hover:text-white"
-              }`}
-          >
-            <ChevronLeft size={20} />
-          </button>
-
-          <button
-            onClick={handleNext}
-            disabled={currentIndex >= maxIndex}
-            className={`w-12 h-12 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${currentIndex >= maxIndex
-                ? "border-gray-300 text-gray-300 cursor-not-allowed"
-                : "border-[#A8CF45] text-[#A8CF45] hover:bg-[#A8CF45] hover:text-white"
-              }`}
-          >
-            <ChevronRight size={20} />
-          </button>
+            ))}
+          </div>
         </div>
-        {/* ---------------- ISOMETRIC SIDE IMAGE ---------------- */}
-        
 
-  {/* ISOMETRIC IMAGE FOR EVENTS SECTION ↙ */}
-{/* ISOMETRIC IMAGE FOR EVENTS SECTION ↙ */}
-<motion.img
-  src="/assets/images/isometrics/isometric_3.svg"
-  alt="Isometric Tube"
-  initial={{
-    opacity: 0,
-    x: 380,   // start off-screen RIGHT 
-    y: -380,  // start off-screen TOP
-    scale: 0.92,
-  }}
-  whileInView={{
-    opacity: [0, 1, 1, 1, 1, 1],    // fade in and stay visible
-    x: [380, 0, 15, -8, 4, 0],      // bounce horizontally (right to left with overshoot)
-    y: [-380, 0, -15, 8, -4, 0],    // bounce vertically (top to bottom with overshoot)
-    scale: [0.92, 1, 1.02, 0.98, 1.01, 1], // subtle scale bounce
-  }}
-  transition={{
-    duration: 1.8,    // total animation time
-    delay: 1.2,       // delay to wait for event images to load
-    ease: [0.34, 1.56, 0.64, 1], // bouncy easing
-    times: [0, 0.5, 0.65, 0.8, 0.9, 1], // control timing of each keyframe
-  }}
-  viewport={{ once: true, amount: 0.2 }}
-  className="
-    hidden lg:block
-    absolute
-    right-0
-    lg:bottom-[477px]
-    xl:bottom-[573px]
-    2xl:bottom-[573px]
-    3xl:bottom-[573px]
-    w-[350px]
-    md:w-[420px]
-    lg:w-[300px]
-    xl:w-[342px]
-    2xl:w-[460px]
-    3xl:w-[600px]
-    opacity-70
-    pointer-events-none
-    z-0
-  "
-/>
-
+        {/* ISOMETRIC IMAGE FOR APPLICATIONS SECTION ↙ */}
+        <motion.img
+          src="/assets/images/isometrics/isometric_3.svg"
+          alt="Isometric Tube"
+          initial={{
+            opacity: 0,
+            x: 380,   // start off-screen RIGHT 
+            y: -380,  // start off-screen TOP
+            scale: 0.92,
+          }}
+          whileInView={{
+            opacity: [0, 1, 1, 1, 1, 1],    // fade in and stay visible
+            x: [380, 0, 15, -8, 4, 0],      // bounce horizontally (right to left with overshoot)
+            y: [-380, 0, -15, 8, -4, 0],    // bounce vertically (top to bottom with overshoot)
+            scale: [0.92, 1, 1.02, 0.98, 1.01, 1], // subtle scale bounce
+          }}
+          transition={{
+            duration: 1.8,    // total animation time
+            delay: 1.2,       // delay to wait for event images to load
+            ease: [0.34, 1.56, 0.64, 1], // bouncy easing
+            times: [0, 0.5, 0.65, 0.8, 0.9, 1], // control timing of each keyframe
+          }}
+          viewport={{ once: true, amount: 0.2 }}
+          className="
+            hidden lg:block
+            absolute
+            right-0
+            lg:bottom-[477px]
+            xl:bottom-[573px]
+            2xl:bottom-[573px]
+            3xl:bottom-[573px]
+            w-[350px]
+            md:w-[420px]
+            lg:w-[300px]
+            xl:w-[342px]
+            2xl:w-[460px]
+            3xl:w-[600px]
+            opacity-70
+            pointer-events-none
+            z-0
+          "
+        />
       </section>
 
     </section>
