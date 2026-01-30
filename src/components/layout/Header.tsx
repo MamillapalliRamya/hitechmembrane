@@ -50,8 +50,8 @@ const Header: React.FC = () => {
       <header
         id="header"
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-            ? "bg-white dark:bg-gray-800 shadow-md py-1 sm:py-2"
-            : "bg-white dark:bg-gray-900 py-1 sm:py-2"
+          ? "bg-white dark:bg-gray-800 shadow-md py-1 sm:py-2"
+          : "bg-white dark:bg-gray-900 py-1 sm:py-2"
           }`}
       >
         <div className="w-full">
@@ -78,10 +78,10 @@ const Header: React.FC = () => {
               <Link
                 to="/about"
                 className={`font-medium transition-colors hover:scale-105 transform duration-200 ${isActive("/about")
-                    ? "text-blue-600 dark:text-blue-400"
-                    : isScrolled
-                      ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                      : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
+                  ? "text-blue-600 dark:text-blue-400"
+                  : isScrolled
+                    ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                    : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
                   }`}
               >
                 {t("nav.about")}
@@ -90,10 +90,10 @@ const Header: React.FC = () => {
               <Link
                 to="/products"
                 className={`font-medium transition-colors hover:scale-105 transform duration-200 ${isActive("/products")
-                    ? "text-blue-600 dark:text-blue-400"
-                    : isScrolled
-                      ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                      : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
+                  ? "text-blue-600 dark:text-blue-400"
+                  : isScrolled
+                    ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                    : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
                   }`}
               >
                 {t("nav.products")}
@@ -102,10 +102,10 @@ const Header: React.FC = () => {
               <Link
                 to="/innovation"
                 className={`font-medium transition-colors hover:scale-105 transform duration-200 ${isActive("/innovation")
-                    ? "text-blue-600 dark:text-blue-400"
-                    : isScrolled
-                      ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                      : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
+                  ? "text-blue-600 dark:text-blue-400"
+                  : isScrolled
+                    ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                    : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
                   }`}
               >
                 Innovation
@@ -113,11 +113,11 @@ const Header: React.FC = () => {
 
               <Link
                 to="/ourimpact"
-                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${isActive("/our-impact")
-                    ? "text-blue-600 dark:text-blue-400"
-                    : isScrolled
-                      ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                      : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
+                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${isActive("/ourimpact")
+                  ? "text-blue-600 dark:text-blue-400"
+                  : isScrolled
+                    ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                    : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
                   }`}
               >
                 Our Impact
@@ -125,10 +125,10 @@ const Header: React.FC = () => {
               <Link
                 to="/events"
                 className={`font-medium transition-colors hover:scale-105 transform duration-200 ${isActive("/events")
-                    ? "text-blue-600 dark:text-blue-400"
-                    : isScrolled
-                      ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                      : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
+                  ? "text-blue-600 dark:text-blue-400"
+                  : isScrolled
+                    ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                    : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
                   }`}
               >
                 Events
@@ -142,19 +142,31 @@ const Header: React.FC = () => {
                 <LanguageSelector />
               </div>
 
-              
-
-              
               <Link
                 to="/contact"
-                className={`hidden sm:block px-3 py-1.5 sm:px-4 sm:py-2 lg:px-5 lg:py-2 rounded-md font-medium transition-all duration-200 hover:scale-105 text-sm lg:text-base ${isScrolled
-                    ? "bg-blue-600 text-white hover:bg-blue-700 shadow-md"
-                    : "bg-[#A8CF45] text-[#3D3E96] hover:bg-green-400 shadow-lg"
-                  }`}
+                className="
+    hidden sm:block
+    px-3 py-1.5 sm:px-4 sm:py-2 lg:px-5 lg:py-2
+    rounded-md font-medium
+    text-sm lg:text-base
+    bg-[#A8CF45] text-[#3D3E96]
+    shadow-lg
+
+    cursor-pointer
+    inline-flex items-center justify-center
+
+    transform-gpu
+    transition-transform duration-300 ease-out
+    hover:scale-110
+  "
               >
                 <span className="hidden lg:inline">{t("cta.requestQuote")}</span>
                 <span className="lg:hidden">Quote</span>
               </Link>
+
+
+
+
 
               {/* Mobile Menu Button */}
               <button
@@ -211,8 +223,8 @@ const Header: React.FC = () => {
               <Link
                 to="/about"
                 className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${isActive("/about")
-                    ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
-                    : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
+                  ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
+                  : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
                   }`}
                 onClick={closeMobileMenu}
               >
@@ -222,8 +234,8 @@ const Header: React.FC = () => {
               <Link
                 to="/products"
                 className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${isActive("/products")
-                    ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
-                    : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
+                  ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
+                  : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
                   }`}
                 onClick={closeMobileMenu}
               >
@@ -233,8 +245,8 @@ const Header: React.FC = () => {
               <Link
                 to="/innovation"
                 className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${isActive("/innovation")
-                    ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
-                    : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
+                  ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
+                  : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
                   }`}
                 onClick={closeMobileMenu}
               >
@@ -242,20 +254,23 @@ const Header: React.FC = () => {
               </Link>
 
               <Link
-                to="/ourimpact"
-                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${isActive("/our-impact")
-                    ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
-                    : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
-                  }`}
-                onClick={closeMobileMenu}
-              >
-                Our Impact
-              </Link>
+  to="/ourimpact"
+  className={`font-medium transition-colors hover:scale-105 transform duration-200 ${
+    isActive("/ourimpact")
+      ? "text-blue-600 dark:text-blue-400"
+      : isScrolled
+        ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+        : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
+  }`}
+>
+  Our Impact
+</Link>
+
               <Link
                 to="#"
                 className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${isActive("/events")
-                    ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
-                    : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
+                  ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
+                  : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
                   }`}
                 onClick={closeMobileMenu}
               >

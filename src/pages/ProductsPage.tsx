@@ -90,7 +90,7 @@ const ProductPage: React.FC = () => {
 
               {/* Blue overlay */}
               <div
-                className="absolute inset-0 bg-[#3E4095] transition-all duration-500 ease-in-out group-hover:w-full w-[140px]"
+                className="absolute inset-0 bg-[#3E4095] transition-all duration-500 ease-in-out group-hover:w-full w-[140px] xl:w-[180px] 2xl:w-[260px]"
                 style={{ transformOrigin: "left" }}
               />
 
