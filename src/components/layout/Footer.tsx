@@ -143,6 +143,7 @@ const Footer = () => {
           
           {/* Logo Section */}
           <div className="lg:col-span-3 flex justify-center md:justify-start">
+            <a href="/">
             <div className="mb-4">
               <img
                 src="/logo-1 (1).png"
@@ -150,6 +151,7 @@ const Footer = () => {
                 className="h-20 sm:h-24 md:h-28 lg:h-29 w-auto"
               />
             </div>
+            </a>
           </div>
 
           {/* Navigation Links Section */}

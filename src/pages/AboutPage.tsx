@@ -37,11 +37,19 @@ const AboutPage: React.FC = () => {
        {/* <p className="text-center text-[#58585B] text-[16px] md:text-[16px] font-medium max-w-3xl mx-auto bg-[#F5F5F5] ">
           “At Hi-Tech Membranes, technology, responsibility, and reliability come together to support a cleaner water future.”
       </p> */}
-     <div className="w-full bg-[#F5F5F5] p-4">
-      <p className="text-center text-gray-600 text-[16px] md:text-[16px] font-medium max-w-3xl mx-auto">
-        “At Hi-Tech Membranes, technology, responsibility, and reliability come together to support a cleaner water future.”
-      </p>
-    </div>
+    <div
+  className="w-full bg-white py-16 px-40"
+  style={{
+    backgroundImage: "url('/assets/images/about/above footer.svg')", // change to your image
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "right center",
+    backgroundSize: "auto 80%", // adjust size as needed
+  }}
+>
+  <p className="text-center text-[#3E4095] text-[36px] md:text-[36px] font-medium mx-auto max-w-4xl">
+    At Hi-Tech Membranes, technology, responsibility, and reliability come together to support a cleaner water future.
+  </p>
+</div>
 
     </div>
   );
