@@ -36,11 +36,11 @@ const GroupCompanies = () => {
                        text-base sm:text-lg lg:text-xl
                        font-medium rounded-[6px] flex items-center justify-center
                        relative overflow-hidden flex-shrink-0
-                       bg-[#A8CF45] text-[#393185] transition-all duration-500
-                       before:content-[''] before:absolute before:inset-0 before:bg-[#393185]
-                       before:-translate-y-full before:transition-transform before:duration-500
-                       hover:before:translate-y-0 hover:text-[#A8CF45]
-                       active:scale-95"
+                       bg-[#A8CF45] text-[#393185] shadow-lg cursor-pointer
+                       transform
+                       transition-all duration-300 ease-in-out
+                       hover:scale-105
+                       hover:bg-[#98C135]"
           >
             <Link
               to="/contact">

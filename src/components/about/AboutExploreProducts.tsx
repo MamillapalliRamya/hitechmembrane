@@ -83,7 +83,7 @@ const AboutExploreProducts: React.FC = () => {
               Commercial Membranes
             </h3>
           </div>
-          <button className="col-span-1 md:col-span-3 justify-self-center bg-lime-400 hover:bg-lime-500 text-indigo-900 font-bold text-lg px-8 py-3 sm:px-10 sm:py-4 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+          <button className="col-span-1 md:col-span-3 justify-self-center bg-[#A8CF45] hover:bg-[#98C135] text-indigo-900 font-bold text-lg px-8 py-3 sm:px-10 sm:py-4 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
             Explore Our RO Elements
           </button>
 

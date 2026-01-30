@@ -210,7 +210,11 @@ const applications = [
           bg-[#A8CF45] text-[#3E4095] 
           px-6 sm:px-8 py-3 rounded-lg 
           font-medium text-sm sm:text-lg 2xl:text-2xl
-          hover:bg-[#98C135] transition-colors duration-200">
+          shadow-lg cursor-pointer
+    transform
+    transition-all duration-300 ease-in-out
+    hover:scale-105
+    hover:bg-[#98C135]">
             Explore Our RO Elements
           </button>
         </motion.div>

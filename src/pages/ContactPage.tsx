@@ -286,7 +286,11 @@ const ContactPage: React.FC = () => {
                   <div className="pt-4 flex justify-center">
                     <button
                       type="submit"
-                      className="w-full sm:w-auto bg-green-500 hover:bg-green-600 text-blue-900 font-medium py-3 px-8 rounded transition-colors"
+                      className="w-full sm:w-auto bg-green-500 shadow-lg cursor-pointer
+                                transform
+                                transition-all duration-300 ease-in-out
+                                hover:scale-105
+                                hover:bg-[#98C135] text-blue-900 font-medium py-3 px-8 rounded"
                       style={{ backgroundColor: '#A8CF45' }}
                     >
                       Get Quote Now

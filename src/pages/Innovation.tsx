@@ -93,7 +93,7 @@ const innovationData = {
   team: [
     { value: "50+", label: "Dedicated Engineers" },
     { value: "100+", label: "Research Innovations" },
-    { value: "25", label: "Active Thought Leaders" }
+    { value: "25+", label: "Active Thought Leaders" }
   ],
   portfolio: [
     { title: "Residential Reverse Osmosis Systems", description: "High-performance RO membranes for home water purification systems" },
@@ -572,8 +572,12 @@ const Innovation: React.FC = () => {
             text-[#3D3E96]
             rounded-[12px]
             text-[28px] font-medium
-            opacity-100 transition hover:brightness-70
-        "
+            opacity-100 transition shadow-lg cursor-pointer
+            transform
+            transition-all duration-300 ease-in-out
+            hover:scale-105
+            hover:bg-[#98C135]
+                "
         >
         {innovationData.hero.buttonText}
         </button>
@@ -591,10 +595,10 @@ const Innovation: React.FC = () => {
         />
 
         {/* Content */}
-        <div className="relative max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="relative mx-[40px] 2xl:mx-[90px] xl:mx-[60px] grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
             {/* LEFT: Quote Section */}
-            <div className="text-left max-w-xl ">
+            <div className="text-left  ">
                 <img src={vector} className="text-white text-6xl leading-none mb-4" />
             <p
                 className="
@@ -633,6 +637,7 @@ const Innovation: React.FC = () => {
                 flex flex-col gap-6
                 w-full
                 sm:w-[350px]
+                2xl:w-[450px]
                 mx-auto
                 lg:mx-0
                 lg:ml-auto
@@ -665,7 +670,7 @@ const Innovation: React.FC = () => {
 
       {/* Innovation Pillars */}
       <section className="py-16 px-4 bg-white">
-        <div className="max-w-6xl mx-auto">
+        <div className="mx-[40px] 2xl:mx-[90px] xl:mx-[60px]">
           <h2
             className=" font-['Diodrum_Cyrillic'] font-bold text-center text-[#3D3B8E] tracking-[0px] leading-[60.05px] text-[32px] sm:text-[40px] sm:leading-[44px] md:text-[48px] md:leading-[52px] lg:text-[50.05px] lg:leading-[60.05px] mb-4"
             >
@@ -676,7 +681,7 @@ const Innovation: React.FC = () => {
             Innovation isn't just about technology—it's about creating meaningful impact through sustainable solutions
           </p>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 xl:gap-20">
             {innovationData.pillars.map((pillar, index) => (
             <div
                 key={index}
@@ -781,7 +786,7 @@ const Innovation: React.FC = () => {
             {/* Optional overlay for readability */}
             {/* <div className="absolute inset-0 bg-white/70" /> */}
 
-            <div className="relative max-w-6xl mx-auto text-center flex flex-col items-center">
+            <div className="relative mx-[40px] xl:mx-[60px] 2xl:mx-[90px] text-center flex flex-col items-center">
                 <h2 className="text-3xl md:text-[45px] font-bold text-[#3D3B8E] mb-8">
                 The Minds Behind Innovation
                 </h2>
@@ -792,10 +797,10 @@ const Innovation: React.FC = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 w-full mt-10">
                 {innovationData.team.map((item, index) => (
                     <div key={index} className="text-center">
-                    <div className="text-5xl font-bold text-[#FFFFFF] mb-2">
+                    <div className="text-[60px] xl:text-[75px] 2xl:text-[80px] font-bold text-[#FFFFFF] mb-2">
                         {item.value}
                     </div>
-                    <div className="text-[#3D3B8E] font-semibold text-[18.52px]">
+                    <div className="text-[#3D3B8E] font-semibold text-[20px] xl:text-[22.02px] 2xl:text-[24.02px]">
                         {item.label}
                     </div>
                     </div>
