@@ -19,7 +19,11 @@ const JoinPartnersSection: React.FC = () => {
                         <a href='/contact'>
                             <button className="mt-6 sm:mt-8 px-6 sm:px-7 py-2 w-[150px]
                                            bg-[#A8CF45] text-[#3E4095] 
-                                           font-semibold rounded-lg">
+                                           font-semibold rounded-lg shadow-lg cursor-pointer
+                                           transform
+                                           transition-all duration-300 ease-in-out
+                                           hover:scale-105
+                                           hover:bg-[#98C135]">
                                 Contact Us
                             </button>
                         </a>

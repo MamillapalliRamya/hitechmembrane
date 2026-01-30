@@ -199,12 +199,25 @@ const HeroSection: React.FC = () => {
           {t('hero.subtitle')}
         </p>
         <a href="/contact">
-        <button className="bg-[#A8CF45] text-[#3E4095] rounded-lg font-medium text-sm sm:text-base
-          lg:text-lg 2xl:text-[20px] 3xl:text-[22px] hover:bg-[#98C135] transition-colors 
-          duration-300 px-6 py-3 sm:px-8 sm:py-4 w-max ml-[40px] lg:mx-0"
-        >
-          Talk to Our Experts
-        </button>
+        <button
+  className="
+    bg-[#A8CF45] text-[#3E4095]
+    rounded-lg font-medium
+    text-sm sm:text-base lg:text-lg 2xl:text-[20px] 3xl:text-[22px]
+
+    px-6 py-3 sm:px-8 sm:py-4
+    w-max ml-[40px] lg:mx-0
+
+    shadow-lg cursor-pointer
+    transform
+    transition-all duration-300 ease-in-out
+    hover:scale-105
+    hover:bg-[#98C135]
+  "
+>
+  Talk to Our Experts
+</button>
+
         </a>
       </div>
 

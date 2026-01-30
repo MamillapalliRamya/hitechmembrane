@@ -15,6 +15,10 @@ function AppContent() {
   const location = useLocation();
   const hideFooter = location.pathname === '/contact';
 
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
       <Header />
