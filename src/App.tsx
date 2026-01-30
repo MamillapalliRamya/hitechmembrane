@@ -29,7 +29,7 @@ function AppContent() {
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/ourimpact" element={<TestimonialsPage/>}/>
           <Route path="/innovation" element={<Innovation/>}/>
-          {/* <Route path="/products/residential-ro-membranes" element={<ResidentialProductsPage />} /> */}
+          
           {/* <Route path="/products/commercial-ro-membranes" element={<CommercialProductsPage />} /> */}
           {/* <Route path="/products/industrial-ro-membranes" element={<IndustrialProductsPage />} /> */}
          
