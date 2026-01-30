@@ -1,88 +1,67 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from "react";
 
-const WaterDropSection: React.FC = () => {
+interface Props {
+  onComplete: () => void;
+}
+
+const WaterDropSection: React.FC<Props> = ({ onComplete }) => {
   const [textState, setTextState] = useState<'hidden' | 'visible' | 'exit'>('hidden');
 
   useEffect(() => {
-    const runAnimation = () => {
-      // Reset to hidden
-      setTextState('hidden');
-      
-      // Show text after 3 seconds
-      const showTimer = setTimeout(() => {
-        setTextState('visible');
-      }, 3000);
+    document.body.style.overflow = "hidden";
 
-      // Hide text after 8.5 seconds
-      const hideTimer = setTimeout(() => {
-        setTextState('exit');
-      }, 8300);
+    const show = setTimeout(() => setTextState("visible"), 3000);
+    const exit = setTimeout(() => setTextState("exit"), 8300);
 
-      // Loop back after animation completes (add small buffer for exit animation)
-      const loopTimer = setTimeout(() => {
-        runAnimation();
-      }, 11800); // Total cycle time
+    const done = setTimeout(() => {
+      document.body.style.overflow = "auto";
+      onComplete();
+    }, 11800);
 
-      return () => {
-        clearTimeout(showTimer);
-        clearTimeout(hideTimer);
-        clearTimeout(loopTimer);
-      };
+    return () => {
+      clearTimeout(show);
+      clearTimeout(exit);
+      clearTimeout(done);
+      document.body.style.overflow = "auto";
     };
-
-    const cleanup = runAnimation();
-
-    return cleanup;
-  }, []);
+  }, [onComplete]);
 
   return (
-    <section 
-      id="waterdrop-section" 
-      className="relative h-screen flex items-center justify-center overflow-hidden" 
-    > 
-      
-      <video 
-        className="absolute top-0 left-0 w-full h-full object-cover" 
-        style={{ mixBlendMode: "screen" }}
-        autoPlay 
-        loop 
-        muted 
+    <section className="fixed inset-0 z-[9999] overflow-hidden">
+      {/* VIDEO BACKGROUND */}
+      <video
+        className="absolute inset-0 w-full h-full object-cover z-0"
+        autoPlay
+        muted
         playsInline
       >
         <source src="/assets/videos/waterdrops_loop.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
       </video>
 
-      <div 
-        className={`text-center px-4 sm:px-6 md:px-8 lg:px-12 relative z-10 transition-all duration-300 ease-out ${
-          textState === 'visible' 
-            ? 'transform translate-y-0 opacity-100' 
-            : textState === 'exit'
-            ? 'transform -translate-y-full opacity-0'
-            : 'transform translate-y-full opacity-0'
-        }`}
-      > 
-        <h1 
-          className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl leading-tight"
-          style={{ 
-            color: 'black', 
-            fontFamily: 'Diodrum Cyrillic',
-          }}
-        > 
-          Purifying millions of gallons, 
-        </h1> 
-        <h1 
-          className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl leading-tight mt-2"
-          style={{ 
-            color: 'black', 
-            fontFamily: 'Diodrum Cyrillic, sans-serif',
-          }}
-        > 
-          Powering a sustainable future. 
-        </h1> 
-      </div> 
-    </section> 
-  ); 
-}; 
+      {/* OPTIONAL DARK OVERLAY (helps text readability) */}
+      <div className="absolute inset-0 bg-black/10 z-10" />
+
+      {/* TEXT */}
+      <div
+        className={`relative z-20 flex flex-col items-center justify-center h-full
+          transition-all duration-700 ease-out
+          ${
+            textState === "visible"
+              ? "translate-y-0 opacity-100"
+              : textState === "exit"
+              ? "-translate-y-full opacity-0"
+              : "translate-y-full opacity-0"
+          }`}
+      >
+        <h1 className="text-4xl md:text-5xl text-black font-medium">
+          Purifying millions of gallons,
+        </h1>
+        <h1 className="text-4xl md:text-5xl text-black font-medium mt-2">
+          Powering a sustainable future.
+        </h1>
+      </div>
+    </section>
+  );
+};
 
 export default WaterDropSection;
