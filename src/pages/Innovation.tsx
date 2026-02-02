@@ -62,44 +62,44 @@ const innovationData = {
     {
       icon: icon1,
       title: "Revolutionary RO Technology",
-      description: "Our advanced reverse osmosis technology delivers pure water while minimizing waste and energy consumption.",
+      description: "Our advanced reverse osmosis membranes deliver exceptional performance with industry-leading filtration efficiency and durability.",
       metric: "99.9%",
-      metricLabel: "Purification Efficiency"
+      metricLabel: "Filtration Rate"
     },
     {
       icon: icon2,
       title: "Sustainable Manufacturing",
-      description: "We're committed to eco-friendly production processes that reduce our carbon footprint.",
+      description: "We prioritize eco-friendly production processes that minimize environmental impact while maximizing product quality.",
       metric: "50%",
-      metricLabel: "Reduction in Carbon Emissions"
+      metricLabel: "Reduced Carbon Footprint"
     },
     {
       icon: icon3,
       title: "Customer-Centric Solutions",
-      description: "Round-the-clock support and continuous innovation to meet evolving customer needs.",
+      description: "Every innovation is driven by real-world customer needs, ensuring practical solutions for diverse water treatment challenges.",
       metric: "24/7",
-      metricLabel: "Customer Support"
+      metricLabel: "Technical Support"
     }
   ],
   timeline: [
-    { year: "1995", title: "In-Built Membranes Founded", description: "Started our journey with revolutionary membrane technology" },
-    { year: "2000", title: "First International Expansion", description: "Expanded operations to serve global markets" },
-    { year: "2005", title: "Revolutionary RO Series", description: "Launched our flagship water purification systems" },
-    { year: "2010", title: "200+ Claims Worldwide", description: "Achieved recognition across international markets" },
-    { year: "2015", title: "Advanced ES Series Membranes", description: "Introduced next-gen filtration technology" },
-    { year: "2020", title: "ISO Certifications Achieved", description: "Certified for quality and environmental standards" },
-    { year: "2025", title: "Next Gen Carbon Technology", description: "Leading the future of sustainable water solutions" }
+    { year: "1995", title: "Hi-Tech Membranes Founded", description: "Our journey began with a vision to revolutionize water purification technology" },
+    { year: "2000", title: "First International Expansion", description: "Extended our reach to serve customers across multiple continents" },
+    { year: "2005", title: "Revolutionary RE Series Launch", description: "Introduced groundbreaking residential membrane technology" },
+    { year: "2010", title: "200+ Claims Worldwide", description: "Achieved major milestone in global customer partnerships" },
+    { year: "2015", title: "Advanced ES Series Membranes", description: "Launched high-efficiency commercial-grade membrane solutions" },
+    { year: "2020", title: "Sustainability Certifications Achieved", description: "Recognized for environmental excellence and sustainable practices" },
+    { year: "2025", title: "Next-Gen Sea Water Membranes", description: "Pioneering desalination technology for coastal communities" }
   ],
   team: [
-    { value: "50+", label: "Dedicated Engineers" },
-    { value: "100+", label: "Research Innovations" },
-    { value: "25+", label: "Active Thought Leaders" }
+    { value: "50+", label: "Engineers & Scientists" },
+    { value: "100+", label: "Patents & Innovations" },
+    { value: "25+", label: "Average Years of Experience" }
   ],
   portfolio: [
-    { title: "Residential Reverse Osmosis Systems", description: "High-performance RO membranes for home water purification systems" },
-    { title: "Commercial Treatment Solutions", description: "Reliable membranes for restaurants, hospitals, and businesses" },
-    { title: "Industrial Membrane Systems", description: "Heavy-duty filtration solutions for large-scale water treatment" },
-    { title: "Pre-Water Membrane Technology", description: "Advanced desalination technology for coastal applications" }
+    { title: "Residential Membrane Element", description: "High-performance RO membranes for home water purification systems" },
+    { title: "Commercial Membrane Element", description: "Reliable membranes for restaurants, hospitals, and businesses" },
+    { title: "Industrial Membrane Element", description: "Heavy-duty filtration solutions for large-scale water treatment" },
+    { title: "Sea Water Membrane Element", description: "Advanced desalination technology for coastal applications" }
   ],
   globalPresence: [
     { value: "3", label: "Innovation Centers" ,country: "USA, Europe, Asia" },
@@ -678,7 +678,7 @@ const Innovation: React.FC = () => {
             </h2>
 
           <p className="text-center text-[#4A5565] mb-12 max-w-3xl mx-auto text-[22.02px]">
-            Innovation isn't just about technology—it's about creating meaningful impact through sustainable solutions
+            Three core principles guide our commitment to advancing water purification technology          
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 xl:gap-20">
@@ -732,7 +732,7 @@ const Innovation: React.FC = () => {
             Our Innovation Journey
             </h2>
             <p className="text-center text-[#4A5565] mb-12 max-w-3xl mx-auto text-[22.02px]">
-            A timeline of groundbreaking achievements and milestones
+            Three decades of continuous advancement in water purification technology
             </p>
 
             <div className="relative ">
@@ -812,7 +812,7 @@ const Innovation: React.FC = () => {
 
       {/* Innovation Portfolio */}
       <section className="py-16 px-4 bg-[#3D3B8E] text-white">
-        <div className="max-w-6xl mx-auto">
+        <div className="mx-[20px] lg:mx-[40px] 2xl:mx-[90px]">
           <h2 className="text-3xl md:text-[45px] font-bold text-center mb-4">
             Our Innovation Portfolio
           </h2>
@@ -822,16 +822,16 @@ const Innovation: React.FC = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {innovationData.portfolio.map((product, index) => (
-              <div key={index} className="bg-white text-gray-800 rounded-[17.52px] overflow-hidden shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2">
-                 <div className="h-48 w-full overflow-hidden">
+              <div key={index} className="bg-white text-gray-800 rounded-[17.52px] overflow-hidden shadow-lg">
+                 <div className=" w-full overflow-hidden">
                     <img
                     src={portfolioImages[index]}
                     alt={product.title}
-                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                    className="w-full h-full object-cover "
                     />
                 </div>
                 <div className="p-6">
-                  <h3 className="font-bold text-[20.02px] font-['Diodrum_Cyrillic'] mb-2">{product.title}</h3>
+                  <h3 className="font-bold text-[20.02px] font-['Diodrum_Cyrillic'] text-[#3D3B8E] mb-2">{product.title}</h3>
                   <p className="text-gray-600 text-[17px]">{product.description}</p>
                 </div>
                 <button className=" p-6 group inline-flex items-center gap-2 text-[#B8D332] font-semibold text-[20.02px] ">

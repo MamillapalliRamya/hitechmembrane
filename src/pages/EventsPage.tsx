@@ -152,7 +152,7 @@ const EventsPage: React.FC = () => {
 
              {/* News & Articles */}
             <div className="bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-7xl mx-auto">
+            <div className="mx-[40px] xl:mx-[60px] 2xl:mx-[140px]">
                 {/* Header */}
                 <div className="text-center mb-12">
                 <h1 className="text-4xl sm:text-5xl font-bold text-indigo-900 mb-4">

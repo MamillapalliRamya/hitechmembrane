@@ -38,7 +38,7 @@ const AboutPage: React.FC = () => {
           “At Hi-Tech Membranes, technology, responsibility, and reliability come together to support a cleaner water future.”
       </p> */}
     <div
-  className="w-full bg-white py-16 px-40"
+  className="w-full bg-white py-16 px-40 "
   style={{
     backgroundImage: "url('/assets/images/about/above footer.svg')", // change to your image
     backgroundRepeat: "no-repeat",
