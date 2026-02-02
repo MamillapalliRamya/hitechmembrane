@@ -94,7 +94,7 @@ const ProductPage: React.FC = () => {
           Reverse Osmosis Membrane Elements for Every Water Challenge
 
         </div>
-        {/* Download Button */}
+       
         <div className="text-end mb-3 pt-14">
           <a
             href="/assets/pdf/sample.pdf"
