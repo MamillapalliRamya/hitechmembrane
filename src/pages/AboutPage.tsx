@@ -38,18 +38,35 @@ const AboutPage: React.FC = () => {
           “At Hi-Tech Membranes, technology, responsibility, and reliability come together to support a cleaner water future.”
       </p> */}
     <div
-  className="w-full bg-white py-16 px-40 "
+  className="w-full bg-white py-12 sm:py-14 md:py-16 
+             px-4 sm:px-8 md:px-16 lg:px-24 xl:px-40"
   style={{
-    backgroundImage: "url('/assets/images/about/above footer.svg')", // change to your image
+    backgroundImage: "url('/assets/images/about/above footer.svg')",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "right center",
-    backgroundSize: "auto 80%", // adjust size as needed
+    backgroundSize: "auto 60%", // mobile default
   }}
 >
-  <p className="text-center text-[#3E4095] text-[36px] md:text-[36px] font-medium mx-auto max-w-4xl">
+  <p className="text-center text-[#3E4095] 
+                text-xl sm:text-2xl md:text-3xl lg:text-4xl 
+                font-medium mx-auto max-w-4xl leading-relaxed">
     At Hi-Tech Membranes, technology, responsibility, and reliability come together to support a cleaner water future.
   </p>
+
+  <style>{`
+    @media (min-width: 768px) {
+      div[style*="above footer.svg"] {
+        background-size: auto 75%;
+      }
+    }
+    @media (min-width: 1280px) {
+      div[style*="above footer.svg"] {
+        background-size: auto 80%;
+      }
+    }
+  `}</style>
 </div>
+
 
     </div>
   );
