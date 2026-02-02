@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 import WaterDropSection from "../components/home/WaterDropsSection";
@@ -11,7 +11,23 @@ import AwardsSection from "../components/home/AwardsSection";
 import GlobalPresenceSection from "../components/home/GlobalPresence";
 
 const HomePage: React.FC = () => {
-  const [introDone, setIntroDone] = useState(false);
+  useEffect(() => {
+    const navEntry = performance.getEntriesByType("navigation")[0] as any;
+
+    // If the page is refreshed, clear the flag
+    if (navEntry?.type === "reload") {
+      sessionStorage.removeItem("introPlayed");
+    }
+  }, []);
+
+  const [introDone, setIntroDone] = useState(
+    () => sessionStorage.getItem("introPlayed") === "true"
+  );
+
+  const handleIntroComplete = () => {
+    setIntroDone(true);
+    sessionStorage.setItem("introPlayed", "true");
+  };
 
   const sections = [
     <HeroSection />,
@@ -25,12 +41,10 @@ const HomePage: React.FC = () => {
 
   return (
     <>
-      {/* Intro */}
       {!introDone && (
-        <WaterDropSection onComplete={() => setIntroDone(true)} />
+        <WaterDropSection onComplete={handleIntroComplete} />
       )}
 
-      {/* Main content */}
       {introDone && (
         <div className="w-full pt-16">
           {sections.map((Section, i) => (

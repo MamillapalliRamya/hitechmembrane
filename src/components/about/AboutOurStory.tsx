@@ -3,7 +3,7 @@ import React from "react";
 const AboutOurStory: React.FC = () => {
   return (
     <section className="relative w-full bg-white overflow-hidden py-6 md:py-8">
-      <div className="max-w-[1440px] mx-auto px-6 md:px-10 relative">
+      <div className=" relative">
 
         {/* Green Vector Line */}
         <div className="absolute left-0 right-0  pointer-events-none z-0">

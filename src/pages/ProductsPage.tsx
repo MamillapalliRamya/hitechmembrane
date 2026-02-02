@@ -2,34 +2,79 @@ import { Download, ChevronDown } from 'lucide-react';
 import React from 'react';
 import GroupCompanies from '../components/home/GroupCompanies';
 
+const SlidingImages = ({ images }: { images: string[] }) => {
+  const [current, setCurrent] = React.useState(0);
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % images.length);
+    }, 1200); // <-- speed of sliding (change if you want)
+    return () => clearInterval(interval);
+  }, [images.length]);
+
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      {images.map((img, index) => (
+        <img
+          key={index}
+          src={img}
+          alt=""
+          className={`absolute w-full h-full object-cover transition-all duration-500 ${
+            index === current
+              ? "opacity-100 translate-x-0"
+              : "opacity-0 translate-x-full"
+          }`}
+        />
+      ))}
+    </div>
+  );
+};
+
+
 const ProductPage: React.FC = () => {
   const categories = [
     {
       id: 1,
       title: "Residential",
       subtitle: "RO Membranes",
-      video: "/assets/videos/residentialMembrane.mp4",
+      images: [
+      "/assets/images/residential_image1.png",
+      "/assets/images/residential_image2.jpg",
+      "/assets/images/residential_image3.jpeg",
+    ],
       alt: "Water tap with clean water flowing"
     },
     {
       id: 2,
       title: "Industrial",
       subtitle: "RO Membranes",
-      image: "/assets/images/IndustryImage.png",
+      images: [
+        "/assets/images/industrial_image1.jpg",
+        "/assets/images/industrial_image2.jpg",
+        "/assets/images/industrial_image3.jpg",
+      ],
       alt: "Industrial factory with smokestacks"
     },
     {
       id: 3,
       title: "Commercial",
       subtitle: "RO Membranes",
-      video: "/assets/videos/CommericialMembrane.mp4",
+      images: [
+        "/assets/images/commercial_image1.jpg",
+        "/assets/images/commercial_image2.jpg",
+        "/assets/images/commercial_image3.jpg",
+      ],
       alt: "Commercial water filtration equipment"
     },
     {
       id: 4,
       title: "Sea Water",
       subtitle: "RO Membranes",
-      image: "/assets/images/waterBeach.png",
+      images: [
+        "/assets/images/Seawater_image1.png",
+        "/assets/images/Seawater_image2.jpg",
+        "/assets/images/Seawater_image3.png",
+      ],
       alt: "Clear blue ocean water"
     }
   ];
@@ -70,23 +115,11 @@ const ProductPage: React.FC = () => {
               className="relative h-[230px] sm:h-[260px] lg:h-[300px] overflow-hidden rounded-xl shadow-lg group"
             >
               {/* Background */}
-              <div className="absolute inset-0">
-                {category.video ? (
-                  <video
-                    src={category.video}
-                    autoPlay
-                    loop
-                    muted
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <img
-                    src={category.image}
-                    className="w-full h-full object-cover"
-                    alt={category.alt}
-                  />
-                )}
-              </div>
+              {/* Background Slider */}
+<div className="absolute inset-0">
+  <SlidingImages images={category.images} />
+</div>
+
 
               {/* Blue overlay */}
               <div

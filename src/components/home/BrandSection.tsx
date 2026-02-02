@@ -86,10 +86,8 @@ const AboutUsSection = () => {
 
             <p className="text-gray-600 text-sm sm:text-base lg:text-lg 2xl:text-[20px] 
               3xl:text-[20px] leading-relaxed max-w-2xl lg:mx-0">
-              At Hi-tech Ro Membrane Company, we specialize in reverse osmosis technology for
-              high-quality water purification. Our membranes meet diverse needs, ensuring clean
-              drinking water. Committed to excellence and sustainability, we lead in water
-              treatment solutions.
+              Hi-Tech Membranes is a trusted RO membrane element manufacturer with over 30+ years of experience in reverse osmosis technology. 
+              We supply high-quality membranes designed for industrial, commercial, and municipal applications worldwide.
             </p>
             <p className="text-gray-600 text-sm sm:text-base lg:text-lg 2xl:text-[20px] 
               3xl:text-[20px] leading-relaxed max-w-2xl lg:mx-0">

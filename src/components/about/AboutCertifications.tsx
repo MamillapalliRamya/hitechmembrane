@@ -10,10 +10,10 @@ const AboutCertifications: React.FC = () => {
         </h2>
 
         {/* Certifications Grid - 5 certificates in a row */}
-        <div className="flex flex-wrap justify-center gap-4 md:gap-6 lg:gap-8 mb-12 md:mb-16 lg:mb-20">
+        <div className="flex flex-wrap justify-center gap-4 md:gap-6 lg:gap-8 2xl:gap-16 mb-12 md:mb-16 lg:mb-20">
           {/* Certificate Card 1 */}
           <div className="relative group">
-            <div className="w-[150px] md:w-[170px] lg:w-[185px] xl:w-[200px] aspect-[3/4] rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
+            <div className="w-[150px] md:w-[170px] lg:w-[185px] xl:w-[200px] 2xl:w-[220px] aspect-[3/4] rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
               <img
                 src="/assets/images/certificate1.png"
                 alt="CE Marking Certificate 1"
@@ -28,7 +28,7 @@ const AboutCertifications: React.FC = () => {
 
           {/* Certificate Card 2 */}
           <div className="relative group">
-            <div className="w-[150px] md:w-[170px] lg:w-[185px] xl:w-[200px] aspect-[3/4] rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
+            <div className="w-[150px] md:w-[170px] lg:w-[185px] xl:w-[200px] 2xl:w-[220px] aspect-[3/4] rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
               <img
                 src="/assets/images/certificate1.png"
                 alt="CE Marking Certificate 2"
@@ -43,7 +43,7 @@ const AboutCertifications: React.FC = () => {
 
           {/* Certificate Card 3 */}
           <div className="relative group">
-            <div className="w-[150px] md:w-[170px] lg:w-[185px] xl:w-[200px] aspect-[3/4] rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
+            <div className="w-[150px] md:w-[170px] lg:w-[185px] xl:w-[200px] 2xl:w-[220px] aspect-[3/4] rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
               <img
                 src="/assets/images/certificate1.png"
                 alt="CE Marking Certificate 3"
@@ -58,7 +58,7 @@ const AboutCertifications: React.FC = () => {
 
           {/* Certificate Card 4 */}
           <div className="relative group">
-            <div className="w-[150px] md:w-[170px] lg:w-[185px] xl:w-[200px] aspect-[3/4] rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
+            <div className="w-[150px] md:w-[170px] lg:w-[185px] xl:w-[200px] 2xl:w-[220px] aspect-[3/4] rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
               <img
                 src="/assets/images/certificate1.png"
                 alt="CE Marking Certificate 4"
@@ -73,7 +73,7 @@ const AboutCertifications: React.FC = () => {
 
           {/* Certificate Card 5 */}
           <div className="relative group">
-            <div className="w-[150px] md:w-[170px] lg:w-[185px] xl:w-[200px] aspect-[3/4] rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
+            <div className="w-[150px] md:w-[170px] lg:w-[185px] xl:w-[200px] 2xl:w-[220px]aspect-[3/4] rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
               <img
                 src="/assets/images/certificate1.png"
                 alt="CE Marking Certificate 5"
