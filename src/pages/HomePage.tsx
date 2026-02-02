@@ -12,13 +12,17 @@ import GlobalPresenceSection from "../components/home/GlobalPresence";
 
 const HomePage: React.FC = () => {
   useEffect(() => {
-    const navEntry = performance.getEntriesByType("navigation")[0] as any;
+  const handleBeforeUnload = () => {
+    sessionStorage.removeItem("introPlayed"); // clear ONLY on real refresh/close
+  };
 
-    // If the page is refreshed, clear the flag
-    if (navEntry?.type === "reload") {
-      sessionStorage.removeItem("introPlayed");
-    }
-  }, []);
+  window.addEventListener("beforeunload", handleBeforeUnload);
+
+  return () => {
+    window.removeEventListener("beforeunload", handleBeforeUnload);
+  };
+}, []);
+
 
   const [introDone, setIntroDone] = useState(
     () => sessionStorage.getItem("introPlayed") === "true"
