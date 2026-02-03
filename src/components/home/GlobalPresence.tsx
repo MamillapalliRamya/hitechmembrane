@@ -10,6 +10,7 @@ interface Location {
   countryCode: string;
   type: 'main' | 'warehouse' | 'site';
   reviews?: Review[];
+  pinColor?: '#3394FF' | '#B8D332'; // Added pin color property
 }
 
 interface Review {
@@ -25,7 +26,7 @@ interface GlobalPresenceSectionProps {
 
 
 const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
-  title = "Our Global Presence"}) => {
+  title = "Our Global Presence" }) => {
   const [hoveredLocation, setHoveredLocation] = useState<Location | null>(null);
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
   const [imageLoadFailed, setImageLoadFailed] = useState<{ [key: number]: boolean }>({});
@@ -40,6 +41,7 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
       y: 22,
       countryCode: 'in',
       type: 'main',
+      pinColor: '#B8D332', // Green pin for India
       reviews: [
         {
           name: 'Raj Patel',
@@ -60,6 +62,7 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
       y: 21,
       countryCode: 'th',
       type: 'main',
+      pinColor: '#B8D332', // Green pin for Thailand
       reviews: [
         {
           name: 'Alex Johnson',
@@ -351,6 +354,7 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
       y: 18,
       countryCode: 'us',
       type: 'main',
+      pinColor: '#B8D332', // Green pin for USA
       reviews: [
         {
           name: 'Robert Johnson',
@@ -446,12 +450,12 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
                   }
                 }}
               />
-{/* Info Boxes on Map */}
+              {/* Info Boxes on Map */}
               <div className=" hidden sm:block absolute inset-0 pointer-events-none">
                 {/* Multiple Export Markets Served - Top Left */}
-                <div 
-                  className="absolute bg-[#a8d96e] text-gray-800 px-2 py-1 md:px-4 md:py-2 rounded-md md:rounded-lg shadow-lg font-semibold text-[8px] sm:text-xs md:text-sm whitespace-nowrap"
-                  style={{ 
+                <div
+                  className="absolute bg-[#B8D332] text-[#3E4095] px-2 py-1 md:px-4 md:py-2 rounded-md md:rounded-lg shadow-lg font-semibold text-[8px] sm:text-xs md:text-sm whitespace-nowrap"
+                  style={{
                     left: '2%',
                     top: '24%',
                     transform: 'translateY(-50%)'
@@ -462,10 +466,10 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
                 </div>
 
                 {/* 30+ Years of Manufacturing Experience - Top Right */}
-                <div 
-                  className="absolute bg-[#a8d96e] text-gray-800 px-2 py-1 md:px-4 md:py-2 rounded-md md:rounded-lg shadow-lg font-semibold text-[8px] sm:text-xs md:text-sm whitespace-nowrap"
-                  style={{ 
-                    right: '1%', 
+                <div
+                  className="absolute bg-[#B8D332] text-[#3E4095] px-2 py-1 md:px-4 md:py-2 rounded-md md:rounded-lg shadow-lg font-semibold text-[8px] sm:text-xs md:text-sm whitespace-nowrap"
+                  style={{
+                    right: '1%',
                     top: '17%',
                     transform: 'translateY(-50%)'
                   }}
@@ -475,10 +479,10 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
                 </div>
 
                 {/* OEM & Private Label Partners Worldwide - Right Side */}
-                <div 
-                  className="absolute bg-[#a8d96e] text-gray-800 px-2 py-1 md:px-4 md:py-2 rounded-md md:rounded-lg shadow-lg font-semibold text-[8px] sm:text-xs md:text-sm whitespace-nowrap"
-                  style={{ 
-                    right: '1%', 
+                <div
+                  className="absolute bg-[#B8D332] text-[#3E4095] px-2 py-1 md:px-4 md:py-2 rounded-md md:rounded-lg shadow-lg font-semibold text-[8px] sm:text-xs md:text-sm whitespace-nowrap"
+                  style={{
+                    right: '1%',
                     top: '48%',
                     transform: 'translateY(-50%)'
                   }}
@@ -489,9 +493,9 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
                 </div>
 
                 {/* 200+ Global Customers - Bottom Left */}
-                <div 
-                  className="absolute bg-[#a8d96e] text-gray-800 px-2 py-1 md:px-4 md:py-2 rounded-md md:rounded-lg shadow-lg font-semibold text-[8px] sm:text-xs md:text-sm whitespace-nowrap"
-                  style={{ 
+                <div
+                  className="absolute bg-[#B8D332] text-[#3E4095] px-2 py-1 md:px-4 md:py-2 rounded-md md:rounded-lg shadow-lg font-semibold text-[8px] sm:text-xs md:text-sm whitespace-nowrap"
+                  style={{
                     left: '5%',
                     bottom: '18%',
                   }}
@@ -510,20 +514,22 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
                 >
                   {locations.map((location) => (
                     <g key={location.id}>
-                      {/* Green map pin marker image for main offices */}
+                      {/* Map pin marker image for main offices */}
                       {location.type === 'main' && !imageLoadFailed[location.id] && (
                         <foreignObject
-                          x={location.x * 10 - 20}
-                          y={location.y * 10 - 35}
-                          width="40"
-                          height="48"
+                          x={location.x * 10 - (location.pinColor === '#B8D332' ? 25 : 20)}
+                          y={location.y * 10 - (location.pinColor === '#B8D332' ? 45 : 35)}
+                          width={location.pinColor === '#B8D332' ? '55' : '40'}
+                          height={location.pinColor === '#B8D332' ? '65' : '48'}
                           onMouseEnter={() => setHoveredLocation(location)}
                           onMouseLeave={() => setHoveredLocation(null)}
                           onClick={() => handleLocationClick(location)}
                           style={{ cursor: 'pointer', overflow: 'visible' }}
                         >
                           <img
-                            src="assets/images/blue-pin-marker.png"
+                            src={location.pinColor === '#B8D332'
+                              ? "assets/images/green-pin-marker.png"
+                              : "assets/images/blue-pin-marker.png"}
                             alt="Location marker"
                             className="transition-transform duration-200"
                             style={{
@@ -531,8 +537,8 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
                               pointerEvents: 'none',
                               transform: hoveredLocation?.id === location.id ? 'scale(1.4)' : 'scale(1)',
                               transformOrigin: 'center center',
-                              width: '20px',
-                              height: '24px'
+                              width: location.pinColor === '#B8D332' ? '25px' : '20px',
+                              height: location.pinColor === '#B8D332' ? '35px' : '24px'
                             }}
                             onError={() => handleImageError(location.id)}
                           />
@@ -634,20 +640,20 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
           </div>
 
           {/* Mobile text blocks - below map */}
-<div className="sm:hidden mt-6 space-y-3 text-center px-4">
-  <div className="bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
-    Multiple Export Markets Served
-  </div>
-  <div className="bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
-    30+ Years of Manufacturing Experience
-  </div>
-  <div className="bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
-    OEM & Private Label Partners Worldwide
-  </div>
-  <div className="bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
-    200+ Global Customers
-  </div>
-</div>
+          <div className="sm:hidden mt-6 space-y-3 text-center px-4">
+            <div className="bg-[#B8D332] text-[#3E4095] px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
+              Multiple Export Markets Served
+            </div>
+            <div className="bg-[#B8D332] text-[#3E4095] px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
+              30+ Years of Manufacturing Experience
+            </div>
+            <div className="bg-[#B8D332] text-[#3E4095] px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
+              OEM & Private Label Partners Worldwide
+            </div>
+            <div className="bg-[#B8D332] text-[#3E4095] px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
+              200+ Global Customers
+            </div>
+          </div>
 
           {/* Reviews Side Panel - Mobile Optimized */}
           {selectedLocation && (
@@ -748,18 +754,17 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
                               {[...Array(5)].map((_, starIndex) => (
                                 <Star
                                   key={starIndex}
-                                  className={`w-2.5 h-2.5 md:w-4 md:h-4 ${
-                                    starIndex < review.rating 
-                                      ? 'text-yellow-400 fill-current' 
+                                  className={`w-2.5 h-2.5 md:w-4 md:h-4 ${starIndex < review.rating
+                                      ? 'text-yellow-400 fill-current'
                                       : 'text-gray-300'
-                                  }`}
+                                    }`}
                                 />
                               ))}
                             </div>
                           </div>
 
-                          <p 
-                            className="text-gray-700 text-[9px] md:text-xs leading-snug line-clamp-2 md:line-clamp-none" 
+                          <p
+                            className="text-gray-700 text-[9px] md:text-xs leading-snug line-clamp-2 md:line-clamp-none"
                             style={{ fontFamily: "Diodrum Cyrillic" }}
                           >
                             {review.text}
