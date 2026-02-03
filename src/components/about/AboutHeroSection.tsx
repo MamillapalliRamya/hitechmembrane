@@ -73,7 +73,7 @@ const AboutHeroSection: React.FC = () => {
         }
       `}</style>
 
-      <section className="w-full py-8 md:py-12 lg:py-16 overflow-hidden">
+      <section className="w-full py-8 md:py-12 lg:py-16 overflow-hidden mt-[40px] md:mt-0">
         <div className="hidden lg:block">
           <div className="w-full flex justify-center items-center">
             <div className="relative mx-auto" style={{ width: 'min(1440px, 95vw)', aspectRatio: '1440/600' }}>

@@ -28,10 +28,10 @@ const AboutOurStory: React.FC = () => {
               />
             </div>
 
-            <h2 className="text-[28px] mt-8 md:text-[36px] lg:text-[44px] font-bold text-[#3D3E96] leading-snug">
+            <h2 className="mx-[20px] text-[28px] mt-8 md:text-[36px] lg:text-[44px] font-bold text-[#3D3E96] leading-snug">
               Access to clean water is a human right, and<br/> technology can make it possible for everyone.
             </h2>
-             <p className="text-center text-[#58585B] mb-12 max-w-3xl mx-auto text-[22.02px] mt-5 font-medium">
+             <p className="mx-[20px] text-center text-[#58585B] mb-12 text-[22.02px] mt-5 font-medium">
             Advancing water purification through membrane technology.
             </p>
 

@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const Applications = () => {
   /* ---------------- EVENTS LOGIC ---------------- */
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [itemsPerView, setItemsPerView] = useState(3);
 
   const events = [
     { id: 1, image: "/assets/images/Hitech-Viet-2016.png", title: "HITECH VIET 2016" },
@@ -15,7 +16,20 @@ const Applications = () => {
     { id: 6, image: "/assets/images/Hitech-Viet-2016.png", title: "HITECH VIET 2021" },
   ];
 
-  const itemsPerView = 3;
+  useEffect(() => {
+  const handleResize = () => {
+    const width = window.innerWidth;
+
+    if (width < 640) setItemsPerView(1);       // mobile
+    else if (width >= 640 && width < 1024) setItemsPerView(2); // tablet
+    else setItemsPerView(3);                   // desktop
+  };
+
+  handleResize(); // initial check
+  window.addEventListener("resize", handleResize);
+  return () => window.removeEventListener("resize", handleResize);
+}, []);
+
   const maxIndex = Math.max(0, events.length - itemsPerView);
 
   const handlePrevious = () => setCurrentIndex((prev) => Math.max(0, prev - 1));
@@ -34,7 +48,7 @@ const Applications = () => {
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
           viewport={{ once: true, amount: 0.5 }}
-          className="text-3xl pt-16 sm:text-4xl lg:text-[48px] 2xl:text-[60px] text-[#333333] text-center mb-12 2xl:mb-16 "
+          className="text-[40px] md:pt-16 sm:text-4xl lg:text-[48px] 2xl:text-[60px] text-[#333333] text-center md:mb-12 2xl:mb-16 "
           style={{ fontFamily: "Diodrum Cyrillic, sans-serif" }}
         >
           Events
@@ -45,14 +59,15 @@ const Applications = () => {
           whileInView={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
           viewport={{ once: true, amount: 0.3 }}
-          className="flex justify-between gap-10 mx-[40px] xl:mx-[80px] 2xl:mx-[112px] 3xl:gap-[72px] overflow-hidden pt-4 z-20 
-    relative"
+          className={`flex gap-10 mx-[40px] xl:mx-[80px] 2xl:mx-[112px] 3xl:gap-[72px] overflow-hidden pt-4 z-20 relative ${
+    itemsPerView === 1 ? "justify-center" : itemsPerView === 2 ? "justify-center" : "justify-between"
+  }`}
         >
           {visibleEvents.map((event) => (
             <div
               key={event.id}
-              className="relative flex items-center justify-center h-[320px] sm:h-[380px] lg:h-auto 3xl:h-[553px] 
-              w-[90%] sm:w-[300px] lg:w-auto 3xl:w-[516px]
+              className="relative flex items-center justify-center h-[250px] sm:h-[380px] lg:h-auto 3xl:h-[553px] 
+               sm:w-[300px] lg:w-auto 3xl:w-[516px]
               overflow-hidden rounded-lg shadow-md 2xl:w-auto 2xl:h-auto"
             >
               <img src={event.image} alt={event.title} className="w-full h-full object-cover" />
