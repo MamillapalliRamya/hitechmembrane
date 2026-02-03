@@ -396,8 +396,6 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
   const handleLocationClick = (location: Location) => {
     if (location.type === 'main' && location.reviews) {
       setSelectedLocation(location);
-
-
       setMapTransform(`translate(-120px, 0px) scale(0.8)`);
     }
   };
@@ -417,15 +415,15 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
   };
 
   return (
-    <section className="py-16 bg-gray-50 relative overflow-hidden">
+    <section className="py-8 md:py-16 bg-gray-50 relative overflow-hidden">
       <div className="mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="sm:text-2xl text-2xl md:text-5xl  text-gray-700 md:mb-20 mb-10">
+        <div className="text-center mb-6 md:mb-12">
+          <h2 className="text-xl sm:text-2xl md:text-5xl text-gray-700 mb-6 md:mb-20">
             {title}
           </h2>
         </div>
 
-        <div className="relative mb-12 overflow-hidden rounded-lg" >
+        <div className="relative mb-8 md:mb-12 overflow-hidden rounded-lg">
           <div className="relative w-full max-w-6xl mx-auto">
             {/* World Map Container with smooth transitions */}
             <div
@@ -448,58 +446,61 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
                   }
                 }}
               />
-{/* Info Boxes on Map */}
+
+              {/* Info Boxes on Map - Responsive */}
               <div className="absolute inset-0 pointer-events-none">
                 {/* Multiple Export Markets Served - Top Left */}
                 <div 
-                  className="absolute bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm whitespace-nowrap"
+                  className="absolute bg-[#a8d96e] text-gray-800 px-2 py-1 md:px-4 md:py-2 rounded-md md:rounded-lg shadow-lg font-semibold text-[8px] sm:text-xs md:text-sm whitespace-nowrap"
                   style={{ 
-                    // left: '12%', 
+                    left: '2%',
                     top: '24%',
                     transform: 'translateY(-50%)'
                   }}
                 >
-                  Multiple Export Markets Served
+                  <span className="hidden sm:inline">Multiple Export Markets Served</span>
+                  <span className="sm:hidden">Export Markets</span>
                 </div>
 
                 {/* 30+ Years of Manufacturing Experience - Top Right */}
                 <div 
-                  className="absolute bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm whitespace-nowrap"
+                  className="absolute bg-[#a8d96e] text-gray-800 px-2 py-1 md:px-4 md:py-2 rounded-md md:rounded-lg shadow-lg font-semibold text-[8px] sm:text-xs md:text-sm whitespace-nowrap"
                   style={{ 
                     right: '1%', 
                     top: '17%',
                     transform: 'translateY(-50%)'
                   }}
                 >
-                  30+ Years of Manufacturing Experience
+                  <span className="hidden sm:inline">30+ Years of Manufacturing Experience</span>
+                  <span className="sm:hidden">30+ Years</span>
                 </div>
 
                 {/* OEM & Private Label Partners Worldwide - Right Side */}
                 <div 
-                  className="absolute bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm whitespace-nowrap"
+                  className="absolute bg-[#a8d96e] text-gray-800 px-2 py-1 md:px-4 md:py-2 rounded-md md:rounded-lg shadow-lg font-semibold text-[8px] sm:text-xs md:text-sm whitespace-nowrap"
                   style={{ 
-                    right: '-3%', 
+                    right: '1%', 
                     top: '48%',
                     transform: 'translateY(-50%)'
                   }}
                 >
-                  OEM & Private Label Partners Worldwide
+                  <span className="hidden md:inline">OEM & Private Label Partners Worldwide</span>
+                  <span className="hidden sm:inline md:hidden">OEM Partners Worldwide</span>
+                  <span className="sm:hidden">OEM Partners</span>
                 </div>
 
                 {/* 200+ Global Customers - Bottom Left */}
                 <div 
-                  className="absolute bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm whitespace-nowrap"
+                  className="absolute bg-[#a8d96e] text-gray-800 px-2 py-1 md:px-4 md:py-2 rounded-md md:rounded-lg shadow-lg font-semibold text-[8px] sm:text-xs md:text-sm whitespace-nowrap"
                   style={{ 
-                    left: '20%', 
+                    left: '5%',
                     bottom: '18%',
                   }}
                 >
-                  200+ Global Customers
+                  <span className="hidden sm:inline">200+ Global Customers</span>
+                  <span className="sm:hidden">200+ Customers</span>
                 </div>
               </div>
-
-
-              
 
               {/* Location Markers Overlay */}
               <div className="absolute inset-0">
@@ -538,8 +539,6 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
                           />
                         </foreignObject>
                       )}
-
-                     
                     </g>
                   ))}
                 </svg>
@@ -550,14 +549,14 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
                 <>
                   {/* Flag + Country (above marker) */}
                   <div
-                    className="absolute z-20 bg-white px-3 py-2 rounded-lg shadow-lg border border-gray-200 pointer-events-none flex items-center space-x-2"
+                    className="absolute z-20 bg-white px-2 py-1 md:px-3 md:py-2 rounded-md md:rounded-lg shadow-lg border border-gray-200 pointer-events-none flex items-center space-x-1 md:space-x-2"
                     style={{
                       left: `${(hoveredLocation.x * 10) * (100 / 1000)}%`,
                       top: `${(hoveredLocation.y * 10) * (100 / 500)}%`,
-                      transform: 'translate(-50%, -180%)', // above marker
+                      transform: 'translate(-50%, -180%)',
                     }}
                   >
-                    <div className="w-6 h-6 rounded-full overflow-hidden border border-gray-300">
+                    <div className="w-4 h-4 md:w-6 md:h-6 rounded-full overflow-hidden border border-gray-300">
                       <img
                         src={`https://flagcdn.com/w40/${hoveredLocation.countryCode.toLowerCase()}.png`}
                         alt={`${hoveredLocation.country} flag`}
@@ -570,24 +569,24 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
                         }}
                       />
                       <div
-                        className="w-full h-full flex items-center justify-center text-sm"
+                        className="w-full h-full flex items-center justify-center text-xs md:text-sm"
                         style={{ display: 'none' }}
                       >
                         🏳️
                       </div>
                     </div>
-                    <span className="text-sm font-semibold text-gray-800">
+                    <span className="text-xs md:text-sm font-semibold text-gray-800">
                       {hoveredLocation.country}
                     </span>
                   </div>
 
                   {/* Click to know more (below marker) */}
                   <div
-                    className="absolute z-20 bg-yellow-200 text-gray-800 px-3 py-1 rounded-md shadow border border-green-300 pointer-events-none text-xs font-medium"
+                    className="absolute z-20 bg-yellow-200 text-gray-800 px-2 py-1 md:px-3 rounded-md shadow border border-green-300 pointer-events-none text-[9px] md:text-xs font-medium"
                     style={{
                       left: `${(hoveredLocation.x * 10) * (100 / 1000)}%`,
                       top: `${(hoveredLocation.y * 10) * (100 / 500)}%`,
-                      transform: 'translate(-50%, 10px)', // below marker
+                      transform: 'translate(-50%, 10px)',
                     }}
                   >
                     Click to know more
@@ -598,7 +597,7 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
               {/* Original Tooltip for Warehouse and Site Locations */}
               {hoveredLocation && (hoveredLocation.type === 'warehouse' || hoveredLocation.type === 'site') && !selectedLocation && (
                 <div
-                  className="absolute z-10 bg-white px-3 py-2 rounded-lg shadow-lg border border-gray-200 pointer-events-none"
+                  className="absolute z-10 bg-white px-2 py-1 md:px-3 md:py-2 rounded-md md:rounded-lg shadow-lg border border-gray-200 pointer-events-none"
                   style={{
                     left: `${(hoveredLocation.x * 10) * (100 / 1000)}%`,
                     top: `${(hoveredLocation.y * 10) * (100 / 500)}%`,
@@ -606,11 +605,11 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
                   }}
                 >
                   <div className="flex items-center space-x-2">
-                    <div className="w-8 h-8 flex items-center justify-center">
+                    <div className="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center">
                       <img
                         src={image1}
                         alt="HiTech Logo"
-                        className="w-8 h-8 object-contain"
+                        className="w-6 h-6 md:w-8 md:h-8 object-contain"
                         onError={(e) => {
                           e.currentTarget.style.display = 'none';
                           if (e.currentTarget.nextElementSibling) {
@@ -623,7 +622,7 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
                       </span>
                     </div>
 
-                    <span className="text-sm font-semibold text-gray-800">
+                    <span className="text-xs md:text-sm font-semibold text-gray-800">
                       {hoveredLocation.type === 'warehouse' ? 'Warehouse' : 'Site'}
                     </span>
                   </div>
@@ -635,115 +634,133 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
             </div>
           </div>
 
-          {/* Reviews Side Panel */}
+          {/* Reviews Side Panel - Mobile Optimized */}
           {selectedLocation && (
-  <div
-    className="
-      absolute top-3 right-0 
-      w-full max-w-[250px] sm:max-w-[360px] md:max-w-[420px] lg:max-w-[460px]
-      bg-white rounded-2xl shadow-2xl border border-blue-900 z-30
-      md:max-h-[450px]  max-h-[190px] overflow-hidden
-      mx-2 
-    "
-  >
-    {/* Header */}
-    <div
-      className="
-        flex items-center justify-between
-        px-2 sm:px-3 
-        py-2 sm:py-3
-        border-b border-blue-900
-        bg-gradient-to-r from-blue-50 to-purple-50
-      "
-    >
-      <div className="flex items-center space-x-2 sm:space-x-3">
-        <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full overflow-hidden border border-blue-900 shadow-sm">
-          <img
-            src={`https://flagcdn.com/w40/${selectedLocation.countryCode.toLowerCase()}.png`}
-            alt={`${selectedLocation.country} flag`}
-            className="w-full h-full object-cover"
-            onError={(e) => {
-              e.currentTarget.style.display = "none";
-              if (e.currentTarget.nextElementSibling) {
-                (e.currentTarget.nextElementSibling as HTMLElement).style.display = "flex";
-              }
-            }}
-          />
-          <div
-            className="w-full h-full flex items-center justify-center text-base"
-            style={{ display: "none" }}
-          >
-            🏳️
-          </div>
-        </div>
+            <div
+              className="
+                absolute 
+                top-2 md:top-3 
+                right-1 md:right-0 
+                w-[calc(100%-8px)] sm:w-[280px] md:w-[360px] lg:w-[420px] xl:w-[460px]
+                bg-white rounded-lg md:rounded-2xl shadow-2xl border border-blue-900 z-30
+                max-h-[220px] sm:max-h-[280px] md:max-h-[450px]
+                overflow-hidden
+              "
+            >
+              {/* Header */}
+              <div
+                className="
+                  flex items-center justify-between
+                  px-2 md:px-3 
+                  py-1.5 md:py-3
+                  border-b border-blue-900
+                  bg-gradient-to-r from-blue-50 to-purple-50
+                "
+              >
+                <div className="flex items-center space-x-1.5 md:space-x-3">
+                  <div className="w-5 h-5 md:w-8 md:h-8 rounded-full overflow-hidden border border-blue-900 shadow-sm flex-shrink-0">
+                    <img
+                      src={`https://flagcdn.com/w40/${selectedLocation.countryCode.toLowerCase()}.png`}
+                      alt={`${selectedLocation.country} flag`}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none";
+                        if (e.currentTarget.nextElementSibling) {
+                          (e.currentTarget.nextElementSibling as HTMLElement).style.display = "flex";
+                        }
+                      }}
+                    />
+                    <div
+                      className="w-full h-full flex items-center justify-center text-sm"
+                      style={{ display: "none" }}
+                    >
+                      🏳️
+                    </div>
+                  </div>
 
-        <h3 className="text-sm sm:text-lg font-bold text-blue-900">
-          {selectedLocation.country}
-        </h3>
-      </div>
-
-      <button
-        onClick={closePanel}
-        className="
-          p-1 sm:p-2 rounded-full 
-          hover:bg-white hover:bg-opacity-50
-          transition-all duration-200
-        "
-      >
-        <X className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
-      </button>
-    </div>
-
-    {/* Reviews Section */}
-    <div className="px-2 py-2 sm:px-3 sm:py-3">
-      <h4 className="text-[10px] sm:text-xs font-semibold text-gray-800 mb-2 sm:mb-3 uppercase tracking-wide">
-        Reviews
-      </h4>
-
-      <div className="space-y-2 max-h-[170px] md:max-h-[] sm:max-h-[340px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300">
-        {selectedLocation.reviews?.map((review, index) => (
-          <div
-            key={index}
-            className="
-              bg-gray-50 rounded-xl p-2 sm:p-3 
-              hover:bg-gray-100 transition-colors duration-200
-            "
-          >
-            <div className="flex gap-2 sm:gap-3">
-              {/* Avatar */}
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden flex-shrink-0 ring-1 ring-white shadow-md">
-                <div className="w-full h-full bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 flex items-center justify-center">
-                  <span className="text-[10px] sm:text-xs text-white font-bold">
-                    {review.name.split(" ").map((n) => n[0]).join("")}
-                  </span>
+                  <h3 className="text-xs md:text-lg font-bold text-blue-900 truncate">
+                    {selectedLocation.country}
+                  </h3>
                 </div>
+
+                <button
+                  onClick={closePanel}
+                  className="
+                    p-1 md:p-2 rounded-full 
+                    hover:bg-white hover:bg-opacity-50
+                    transition-all duration-200
+                    flex-shrink-0
+                  "
+                  aria-label="Close reviews"
+                >
+                  <X className="w-3.5 h-3.5 md:w-5 md:h-5 text-gray-600" />
+                </button>
               </div>
 
-              {/* Review Content */}
-              <div className="flex-1" style={{ fontFamily: "Diodrum Cyrillic" }}>
-                <div className="flex items-center justify-between mb-1">
-                  <h5 className="font-semibold text-gray-900 text-xs sm:text-sm">
-                    {review.name}
-                  </h5>
-                  <div className="flex space-x-0.5 scale-90 sm:scale-100">{renderStars(review.rating)}</div>
-                </div>
+              {/* Reviews Section */}
+              <div className="px-2 md:px-3 py-1.5 md:py-3">
+                <h4 className="text-[9px] md:text-xs font-semibold text-gray-800 mb-1.5 md:mb-3 uppercase tracking-wide">
+                  Reviews
+                </h4>
 
-                <p className="text-gray-700 text-[10px] sm:text-xs leading-snug " style={{ fontFamily: "Diodrum Cyrillic" }}>
-                  {review.text}
-                </p>
+                <div className="space-y-1.5 md:space-y-2 max-h-[150px] sm:max-h-[200px] md:max-h-[340px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
+                  {selectedLocation.reviews?.map((review, index) => (
+                    <div
+                      key={index}
+                      className="
+                        bg-gray-50 rounded-lg md:rounded-xl 
+                        p-1.5 md:p-3 
+                        hover:bg-gray-100 transition-colors duration-200
+                      "
+                    >
+                      <div className="flex gap-1.5 md:gap-3">
+                        {/* Avatar */}
+                        <div className="w-7 h-7 md:w-10 md:h-10 rounded-full overflow-hidden flex-shrink-0 ring-1 ring-white shadow-md">
+                          <div className="w-full h-full bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 flex items-center justify-center">
+                            <span className="text-[9px] md:text-xs text-white font-bold">
+                              {review.name.split(" ").map((n) => n[0]).join("")}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Review Content */}
+                        <div className="flex-1 min-w-0" style={{ fontFamily: "Diodrum Cyrillic" }}>
+                          <div className="flex items-start md:items-center justify-between mb-0.5 md:mb-1 gap-1">
+                            <h5 className="font-semibold text-gray-900 text-[10px] md:text-sm truncate flex-1">
+                              {review.name}
+                            </h5>
+                            <div className="flex space-x-0.5 flex-shrink-0">
+                              {[...Array(5)].map((_, starIndex) => (
+                                <Star
+                                  key={starIndex}
+                                  className={`w-2.5 h-2.5 md:w-4 md:h-4 ${
+                                    starIndex < review.rating 
+                                      ? 'text-yellow-400 fill-current' 
+                                      : 'text-gray-300'
+                                  }`}
+                                />
+                              ))}
+                            </div>
+                          </div>
+
+                          <p 
+                            className="text-gray-700 text-[9px] md:text-xs leading-snug line-clamp-2 md:line-clamp-none" 
+                            style={{ fontFamily: "Diodrum Cyrillic" }}
+                          >
+                            {review.text}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
-)}
-
+          )}
         </div>
 
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-lg text-gray-600 leading-relaxed font-regular">
+        <div className="max-w-4xl mx-auto text-center px-4">
+          <p className="text-sm sm:text-base md:text-lg text-gray-600 leading-relaxed font-regular">
             Hi-Tech has successfully maintained its global presence thanks to a robust network of skilled
             associates. By prioritizing customer interests, the company continually adapts its work
             methodology to achieve outstanding results. With competitive pricing, efficient resource
