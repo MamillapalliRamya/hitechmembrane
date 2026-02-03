@@ -566,12 +566,16 @@ const Innovation: React.FC = () => {
         <button
         className="
             font-['Clash Grotesk']
-            w-[283px]
-            h-[74px]
+            w-[200px]
+            h-[52px]
+            sm:w-[240px]
+            md:w-[283px]
+            md:h-[74px]
             bg-[#A8CF45]
             text-[#3D3E96]
             rounded-[12px]
-            text-[28px] font-medium
+            text-[24px]
+            md:text-[28px] font-medium
             opacity-100 transition shadow-lg cursor-pointer
             transform
             transition-all duration-300 ease-in-out
@@ -595,7 +599,7 @@ const Innovation: React.FC = () => {
         />
 
         {/* Content */}
-        <div className="relative mx-[40px] 2xl:mx-[90px] xl:mx-[60px] grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="relative mx-[20px] lg:[40px] 2xl:mx-[90px] xl:mx-[60px] grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
             {/* LEFT: Quote Section */}
             <div className="text-left  ">
@@ -670,7 +674,7 @@ const Innovation: React.FC = () => {
 
       {/* Innovation Pillars */}
       <section className="py-16 px-4 bg-white">
-        <div className="mx-[40px] 2xl:mx-[90px] xl:mx-[60px]">
+        <div className="lg:mx-[40px] 2xl:mx-[90px] xl:mx-[60px]">
           <h2
             className=" font-['Diodrum_Cyrillic'] font-bold text-center text-[#3D3B8E] tracking-[0px] leading-[60.05px] text-[32px] sm:text-[40px] sm:leading-[44px] md:text-[48px] md:leading-[52px] lg:text-[50.05px] lg:leading-[60.05px] mb-4"
             >
@@ -786,11 +790,11 @@ const Innovation: React.FC = () => {
             {/* Optional overlay for readability */}
             {/* <div className="absolute inset-0 bg-white/70" /> */}
 
-            <div className="relative mx-[40px] xl:mx-[60px] 2xl:mx-[90px] text-center flex flex-col items-center">
+            <div className="relative lg:mx-[40px] xl:mx-[60px] 2xl:mx-[90px] text-center flex flex-col items-center">
                 <h2 className="text-3xl md:text-[45px] font-bold text-[#3D3B8E] mb-8">
                 The Minds Behind Innovation
                 </h2>
-                <p className="text-center text-[#4A5565] mb-12 max-w-3xl mx-auto text-[24.02px]">
+                <p className="text-center text-[#4A5565] lg:mb-12 max-w-3xl mx-auto text-[24.02px]">
                 Meet our team of engineers, scientists, and water treatment experts
                 </p>
 
@@ -881,7 +885,7 @@ const Innovation: React.FC = () => {
               />
 
               {/* Info Boxes on Map */}
-              <div className="absolute inset-0 pointer-events-none">
+              <div className="hidden sm:block absolute inset-0 pointer-events-none">
                 {/* Multiple Export Markets Served - Top Left */}
                 <div 
                   className="absolute bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm whitespace-nowrap"
@@ -1063,6 +1067,22 @@ const Innovation: React.FC = () => {
               )}
             </div>
           </div>
+
+                    {/* Mobile text blocks - below map */}
+<div className="sm:hidden mt-6 space-y-3 text-center px-4">
+  <div className="bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
+    Multiple Export Markets Served
+  </div>
+  <div className="bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
+    30+ Years of Manufacturing Experience
+  </div>
+  <div className="bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
+    OEM & Private Label Partners Worldwide
+  </div>
+  <div className="bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
+    200+ Global Customers
+  </div>
+</div>
 
           {/* Reviews Side Panel */}
           {selectedLocation && (

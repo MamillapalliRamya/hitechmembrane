@@ -12,7 +12,7 @@ const AboutWaterPowers: React.FC = () => {
   {/* Title - Left */}
   <div>
     <h2
-      className="text-[38px] md:text-[48px] lg:text-[60px] font-semibold text-[#3E4095] leading-snug">
+      className="text-[30px] md:text-[48px] lg:text-[60px] font-semibold text-[#3E4095] leading-snug text-center md:text-left">
       "Water Powers Every Industry."
     </h2>
   </div>
@@ -20,12 +20,12 @@ const AboutWaterPowers: React.FC = () => {
   {/* Paragraphs - Right */}
   <div>
     <p
-      className="mt-5 text-[16px] md:text-[18px] xl:text-[28px] text-gray-600 font-medium text-end">
+      className="mt-5 text-[16px] md:text-[18px] xl:text-[28px] text-gray-600 font-medium text-center md:text-end">
       Clean and reliable water is essential across industries—from drinking water <br></br>production to complex industrial processes.
     </p>
 
     <p
-      className="mt-5 text-[16px] md:text-[18px] xl:text-[28px] text-gray-600 font-medium text-end">
+      className="mt-5 text-[16px] md:text-[18px] xl:text-[28px] text-gray-600 font-medium text-center md:text-end">
       Our reverse osmosis membranes are designed to perform consistently across a <br></br>wide range of applications, supporting sustainable operations and efficient <br></br>water management worldwide.
     </p>
   </div>
@@ -37,7 +37,7 @@ const AboutWaterPowers: React.FC = () => {
 
         {/* ================= GLOBAL IMPACT ================= */}
 <div className="mb-16">
-  <h3 className="text-[40px] md:text-[48px] font-bold text-[#3E4095] mb-10 mx-[40px]">
+  <h3 className="text-[30px] md:text-[48px] font-bold text-[#3E4095] mb-10 mx-[40px] text-center md:text-left">
     Our Global Impact
   </h3>
 

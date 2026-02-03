@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import { Calendar, ArrowRight } from 'lucide-react';
 import ProductInnovation from "../assets/images/wetransfer_hitech/Product-Innovation_img.svg";
 import Industry_News from "../assets/images/wetransfer_hitech/Industry_News.svg";
@@ -152,7 +151,7 @@ const EventsPage: React.FC = () => {
 
              {/* News & Articles */}
             <div className="bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-            <div className="mx-[40px] xl:mx-[60px] 2xl:mx-[140px]">
+            <div className="lg:mx-[40px] xl:mx-[60px] 2xl:mx-[140px]">
                 {/* Header */}
                 <div className="text-center mb-12">
                 <h1 className="text-4xl sm:text-5xl font-bold text-indigo-900 mb-4">
@@ -183,7 +182,7 @@ const EventsPage: React.FC = () => {
                         <span className="inline-block bg-[#3E4095] text-white px-4 py-3 rounded-full text-sm font-semibold mb-4 w-fit">
                         {featuredArticle.category}
                         </span>
-                        <h2 className="text-[34.12px] sm:text-[34.12px] font-bold text-[#161616] mb-4">
+                        <h2 className="text-[25px] sm:text-[34.12px] font-bold text-[#161616] mb-4">
                         {featuredArticle.title}
                         </h2>
                         <div className="flex items-center text-[#6F6F6F] text-[15.17px] mb-4 font-medium">
@@ -283,7 +282,7 @@ const EventsPage: React.FC = () => {
                 <h2 className="text-center text-[#3E4095] text-xl sm:text-2xl md:text-3xl lg:text-[36px] xl:text-[48px] 2xl:text-[54px] font-semibold mb-6 sm:mb-8 lg:mb-12 px-4">
                     Upcoming Events
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8 px-[80px] sm:px-[160px] md:px-12 lg:px-16 xl:px-24 2xl:px-[112px]">
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8 mx-[20px]  md:mx-[40px]  xl:px-[70px] 2xl:px-[112px]">
                     {upcomingEvents.map((event) => (
                         <div
                             key={event.id}
@@ -303,7 +302,7 @@ const EventsPage: React.FC = () => {
                             </div>
                             <div className="px-2">
                                 <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-3">
-                                    <span className=" bg-[#3E4095] text-white px-7 py-1.5 rounded-[45px] text-sm lg:text-base xl:text-lg font-medium whitespace-nowrap">
+                                    <span className="text-center bg-[#3E4095] text-white px-7 py-1.5 rounded-[45px] text-sm lg:text-base xl:text-lg font-medium whitespace-nowrap">
                                         {event.location}
                                     </span>
 
@@ -380,7 +379,7 @@ const EventsPage: React.FC = () => {
 
                                         </div>
 
-                                        <div className="flex-shrink-0 w-full h-auto min-h-[180px] sm:min-h-[200px] md:min-h-[220px] xl:w-[420px] 2xl:w-[480px] 3xl:w-[600px] h-[180px] 2xl:h-[220px] 3xl:h-[250px] rounded-[28px]  lg:rounded-[40px] xl:rounded-3xl overflow-hidden">
+                                        <div className="flex-shrink-0 w-full min-h-[180px] sm:min-h-[200px] md:min-h-[220px] xl:w-[420px] 2xl:w-[480px] 3xl:w-[600px] h-[180px] 2xl:h-[220px] 3xl:h-[250px] rounded-[28px]  lg:rounded-[40px] xl:rounded-3xl overflow-hidden">
                                             <img
                                                 src={event.image}
                                                 alt={event.title}
