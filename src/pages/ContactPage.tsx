@@ -424,8 +424,8 @@ const ContactPage: React.FC = () => {
 
                 {/* Country Markers */}
                 {/* USA Marker */}
-                <div className="absolute" style={{ left: '20%', top: '24%' }}>
-                  <div className="flex items-center  gap-2 bg-white px-2 py-2 rounded-medium shadow-md">
+                <div className="absolute" style={{ left: '19%', top: '24%' }}>
+                  <div className="flex items-center  gap-2 bg-white px-2 py-2 rounded-lg shadow-md">
                     <div className="w-6 h-6 rounded-full overflow-hidden flex items-center justify-center bg-blue-500">
                       <svg className="w-4 h-4" viewBox="0 0 24 24">
                         <rect width="24" height="3" fill="white" />
@@ -444,8 +444,8 @@ const ContactPage: React.FC = () => {
                 </div>
 
                 {/* India Marker */}
-                <div className="absolute" style={{ left: '57%', top: '37%' }}>
-                  <div className="flex items-center gap-2 bg-white px-2 py-2 rounded-medium  shadow-md">
+                <div className="absolute" style={{ left: '57%', top: '38%' }}>
+                  <div className="flex items-center gap-2 bg-white px-2 py-2 rounded-lg  shadow-md">
                     <div className="w-6 h-6 rounded-full overflow-hidden flex items-center justify-center">
                       <svg className="w-6 h-6" viewBox="0 0 24 24">
                         <rect width="24" height="8" fill="#FF9933" />
@@ -459,8 +459,8 @@ const ContactPage: React.FC = () => {
                 </div>
 
                 {/* Thailand Marker */}
-                <div className="absolute" style={{ left: '73%', top: '37%' }}>
-                  <div className="flex items-center  gap-2 bg-white px-2 py-2 rounded-medium  shadow-md">
+                <div className="absolute" style={{ left: '73%', top: '38%' }}>
+                  <div className="flex items-center  gap-2 bg-white px-2 py-2 rounded-lg  shadow-md">
                     <div className="w-6 h-6 rounded-full overflow-hidden flex items-center justify-center">
                       <svg className="w-6 h-6" viewBox="0 0 24 24">
                         <rect width="24" height="4" fill="#ED1C24" />
