@@ -8,7 +8,7 @@ const SlidingImages = ({ images }: { images: string[] }) => {
   React.useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % images.length);
-    }, 1200); // <-- speed of sliding (change if you want)
+    }, 1200); 
     return () => clearInterval(interval);
   }, [images.length]);
 
