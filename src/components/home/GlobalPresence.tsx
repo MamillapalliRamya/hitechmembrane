@@ -423,7 +423,7 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
           </h2>
         </div>
 
-        <div className="relative mb-8 md:mb-12 overflow-hidden rounded-lg">
+        <div className="relative mb-12 overflow-hidden rounded-lg " >
           <div className="relative w-full max-w-6xl mx-auto">
             {/* World Map Container with smooth transitions */}
             <div
@@ -446,9 +446,8 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
                   }
                 }}
               />
-
-              {/* Info Boxes on Map - Responsive */}
-              <div className="absolute inset-0 pointer-events-none">
+{/* Info Boxes on Map */}
+              <div className=" hidden sm:block absolute inset-0 pointer-events-none">
                 {/* Multiple Export Markets Served - Top Left */}
                 <div 
                   className="absolute bg-[#a8d96e] text-gray-800 px-2 py-1 md:px-4 md:py-2 rounded-md md:rounded-lg shadow-lg font-semibold text-[8px] sm:text-xs md:text-sm whitespace-nowrap"
@@ -633,6 +632,22 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
               )}
             </div>
           </div>
+
+          {/* Mobile text blocks - below map */}
+<div className="sm:hidden mt-6 space-y-3 text-center px-4">
+  <div className="bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
+    Multiple Export Markets Served
+  </div>
+  <div className="bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
+    30+ Years of Manufacturing Experience
+  </div>
+  <div className="bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
+    OEM & Private Label Partners Worldwide
+  </div>
+  <div className="bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
+    200+ Global Customers
+  </div>
+</div>
 
           {/* Reviews Side Panel - Mobile Optimized */}
           {selectedLocation && (

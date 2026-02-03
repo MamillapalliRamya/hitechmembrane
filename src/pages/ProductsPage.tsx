@@ -88,7 +88,7 @@ const ProductPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-8xl mx-[90px] pt-10">
+      <div className="mx-[20px] lg:mx-[40px] xl:mx-[60px] 2xl:mx-[90px] pt-10">
         <div className="text-center font-semibold mb-10 pt-14 text-[#3D3B8E] text-lg sm:text-xl lg:text-2xl xl:text-[30px] 2xl:text-[40px] mt-10">
 
           Reverse Osmosis Membrane Elements for Every Water Challenge

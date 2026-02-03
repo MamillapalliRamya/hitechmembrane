@@ -8,9 +8,9 @@ const AboutUsSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="pt-[88px] pb-[184px] relative overflow-hidden"
+      className="pt-[88px] lg:pb-[184px] relative overflow-hidden"
     >
-      <div className="relative z-10 ml-[40px] xl:mx-[80px] 2xl:ml-[112px] pr-3">
+      <div className="relative z-10 sm:ml-[40px] xl:mx-[80px] 2xl:ml-[112px] pr-3">
         <div className="flex flex-col lg:flex-row items-center lg:items-center gap-8 xl:gap-16 2xl:gap-[128px]">
 
           {/* LEFT SIDE IMAGES + STATS */}
@@ -142,7 +142,7 @@ const AboutUsSection = () => {
       ease: [0.22, 1, 0.36, 1], // soft, smooth
     },
   }}
-  className="
+  className=" hidden lg:block
     absolute 
     opacity-90
     w-[300px] sm:w-[450px] md:w-[600px] xl:w-[700px] 2xl:w-[780px] 3xl:w-[812px]

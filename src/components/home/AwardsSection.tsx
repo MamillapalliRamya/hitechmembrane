@@ -90,7 +90,7 @@ const AwardsSection = () => {
         </div>
 
         {/* Main Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-24 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 md:gap-24 items-center">
 
           {/* LEFT SIDE */}
           <div

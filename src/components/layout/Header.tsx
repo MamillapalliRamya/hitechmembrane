@@ -255,7 +255,7 @@ const Header: React.FC = () => {
 
               <Link
   to="/ourimpact"
-  className={`font-medium transition-colors hover:scale-105 transform duration-200 ${
+  className={`font-medium py-3 px-4 rounded-lg transition-colors hover:scale-105 transform duration-200 ${
     isActive("/ourimpact")
       ? "text-blue-600 dark:text-blue-400"
       : isScrolled
@@ -267,7 +267,7 @@ const Header: React.FC = () => {
 </Link>
 
               <Link
-                to="#"
+                to="/events"
                 className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${isActive("/events")
                   ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
                   : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
