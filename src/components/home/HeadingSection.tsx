@@ -27,7 +27,6 @@ const AboutExcellence: React.FC = () => {
 
 
       <div className="max-w-7xl mx-auto">
-        {/* Heading slides from top */}
         <motion.div
           initial={{ opacity: 0, y: -60 }}
           whileInView={{ opacity: 1, y: 0 }}
