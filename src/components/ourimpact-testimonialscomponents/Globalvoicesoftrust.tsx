@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Star} from 'lucide-react';
+import { useTranslateContent } from '../../hooks/useTranslateContent';
 
 export interface Review {
   id: number;
@@ -225,8 +226,10 @@ export const countriesData: Country[] = [
     }
   ];
 
-const GlobalVoicesOfTrust: React.FC = () => {
-  const [selectedCountry, setSelectedCountry] = useState('Thailand');
+// Component to handle individual review translation
+const TranslatedReview: React.FC<{ review: Review; countryCode: string }> = ({ review, countryCode }) => {
+  const { translatedText: translatedReviewText } = useTranslateContent(review.text);
+  const { translatedText: translatedCompany } = useTranslateContent(review.company);
 
   const renderStars = (rating: number) => {
     return [...Array(5)].map((_, index) => (
@@ -239,6 +242,61 @@ const GlobalVoicesOfTrust: React.FC = () => {
     ));
   };
 
+  return (
+    <div className="bg-white rounded-lg sm:rounded-xl border-2 border-gray-200 p-4 sm:p-5 md:p-6 lg:p-7 hover:shadow-lg transition-shadow">
+      {/* Country Flag */}
+      <div className="flex justify-between items-start mb-3 sm:mb-4 md:mb-5">
+        <div className="flex space-x-0.5 sm:space-x-1">
+          {renderStars(review.rating)}
+        </div>
+        <div className="w-7 h-5 sm:w-8 sm:h-6 md:w-9 md:h-7 rounded-sm overflow-hidden flex-shrink-0">
+          <img
+            src={`https://flagcdn.com/w80/${countryCode}.png`}
+            alt="Country flag"
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              e.currentTarget.style.display = 'none';
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Review Text */}
+      <p className="text-gray-900 text-sm sm:text-base md:text-md lg:text-md xl:text-lg  mb-4 sm:mb-5 md:mb-6 leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
+        {translatedReviewText}
+      </p>
+
+      {/* User Info */}
+      <div className="flex items-center space-x-2 sm:space-x-3 ">
+        <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 lg:w-12 lg:h-12 rounded-full overflow-hidden bg-gradient-to-br from-lime-400 to-green-500 flex items-center justify-center flex-shrink-0">
+          <span className="text-white font-bold text-xs sm:text-sm md:text-base">
+            {review.name.charAt(0)}
+          </span>
+        </div>
+        <div className="min-w-0">
+          <p className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base truncate">{translatedCompany}</p>
+          <p className="text-gray-600 text-xs sm:text-sm truncate">{review.name}</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const GlobalVoicesOfTrust: React.FC = () => {
+  const [selectedCountry, setSelectedCountry] = useState('Thailand');
+
+  // Text content for translation
+  const headingText = "Global Voices of Trust";
+  const showingText = "Showing";
+  const outOfText = "out of";
+  const reviewsText = "reviews";
+
+  // Translation hooks
+  const { translatedText: translatedHeading } = useTranslateContent(headingText);
+  const { translatedText: translatedShowing } = useTranslateContent(showingText);
+  const { translatedText: translatedOutOf } = useTranslateContent(outOfText);
+  const { translatedText: translatedReviews } = useTranslateContent(reviewsText);
+
   const selectedCountryData = countriesData.find(c => c.name === selectedCountry);
   const displayReviews = selectedCountryData?.reviews.slice(0, 6) || [];
 
@@ -247,7 +305,7 @@ const GlobalVoicesOfTrust: React.FC = () => {
       <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 2xl:px-34  relative z-10">
         {/* Section Title */}
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-[#3E4095] text-center mb-6 sm:mb-8 md:mb-10 lg:mb-12">
-          Global Voices of Trust
+          {translatedHeading}
         </h2>
 
         {/* Country Tabs - First Row */}
@@ -288,51 +346,17 @@ const GlobalVoicesOfTrust: React.FC = () => {
 
         {/* Review Count */}
         <p className="text-gray-600 text-sm sm:text-base md:text-lg lg:text-xl mb-4 sm:mb-6 md:mb-8">
-          Showing {displayReviews.length} out of {selectedCountryData?.reviews.length || 0} reviews
+          {translatedShowing} {displayReviews.length} {translatedOutOf} {selectedCountryData?.reviews.length || 0} {translatedReviews}
         </p>
 
         {/* Reviews Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-8">
           {displayReviews.map((review) => (
-            <div
-              key={review.id}
-              className="bg-white rounded-lg sm:rounded-xl border-2 border-gray-200 p-4 sm:p-5 md:p-6 lg:p-7 hover:shadow-lg transition-shadow"
-            >
-              {/* Country Flag */}
-              <div className="flex justify-between items-start mb-3 sm:mb-4 md:mb-5">
-                <div className="flex space-x-0.5 sm:space-x-1">
-                  {renderStars(review.rating)}
-                </div>
-                <div className="w-7 h-5 sm:w-8 sm:h-6 md:w-9 md:h-7 rounded-sm overflow-hidden flex-shrink-0">
-                  <img
-                    src={`https://flagcdn.com/w80/${selectedCountryData?.code}.png`}
-                    alt={`${selectedCountry} flag`}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                    }}
-                  />
-                </div>
-              </div>
-
-              {/* Review Text */}
-              <p className="text-gray-900 text-sm sm:text-base md:text-md lg:text-md xl:text-lg  mb-4 sm:mb-5 md:mb-6 leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
-                {review.text}
-              </p>
-
-              {/* User Info */}
-              <div className="flex items-center space-x-2 sm:space-x-3 ">
-                <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 lg:w-12 lg:h-12 rounded-full overflow-hidden bg-gradient-to-br from-lime-400 to-green-500 flex items-center justify-center flex-shrink-0">
-                  <span className="text-white font-bold text-xs sm:text-sm md:text-base">
-                    {review.name.charAt(0)}
-                  </span>
-                </div>
-                <div className="min-w-0">
-                  <p className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base truncate">{review.company}</p>
-                  <p className="text-gray-600 text-xs sm:text-sm truncate">{review.name}</p>
-                </div>
-              </div>
-            </div>
+            <TranslatedReview 
+              key={review.id} 
+              review={review} 
+              countryCode={selectedCountryData?.code || ''} 
+            />
           ))}
         </div>
       </div>

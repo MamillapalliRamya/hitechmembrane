@@ -12,10 +12,10 @@ const HeroSection: React.FC = () => {
 
   const heroTitle = "Advanced RO Membrane Solutions for a Thirsty World";
   const heroDesc = "High-performance reverse osmosis membranes engineered for industrial, commercial, and municipal water treatment applications worldwide.";
-
+const herobutton="Talk to Our Experts"
   const { translatedText: translatedTitle } = useTranslateContent(heroTitle);
   const { translatedText: translatedDesc } = useTranslateContent(heroDesc);
-
+const { translatedText: translatedButton } = useTranslateContent(herobutton);
   // Handle window resize
   useEffect(() => {
     const handleResize = () => {
@@ -221,7 +221,7 @@ const HeroSection: React.FC = () => {
     hover:bg-[#98C135]
   "
 >
-  Talk to Our Experts
+  {translatedButton}
 </button>
 
         </a>

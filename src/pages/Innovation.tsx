@@ -32,6 +32,7 @@ interface Location {
   countryCode: string;
   type: "main" | "warehouse" | "site";
   reviews?: Review[];
+  pinColor?: '#3394FF' | '#B8D332'; // Added pin color property
 }
 
 
@@ -44,11 +45,11 @@ const innovationData = {
     backgroundImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80"
 
   },
- stat:{
+  stat: {
     backgroundImage1: vecteezy_pool,
     backgroundImage2: vecteezy_clear,
 
- },
+  },
   stats: [
     { value: "30+", label: "Years of Experience" },
     { value: "100+", label: "Awards in Technology and Innovation" },
@@ -102,9 +103,9 @@ const innovationData = {
     { title: "Sea Water Membrane Element", description: "Advanced desalination technology for coastal applications" }
   ],
   globalPresence: [
-    { value: "3", label: "Innovation Centers" ,country: "USA, Europe, Asia" },
-    { value: "22", label: "Countries Served",country: "Global partnerships" },
-    { value: "5", label: "Continents",country: "Worldwide presence" }
+    { value: "3", label: "Innovation Centers", country: "USA, Europe, Asia" },
+    { value: "22", label: "Countries Served", country: "Global partnerships" },
+    { value: "5", label: "Continents", country: "Worldwide presence" }
   ]
 };
 
@@ -120,16 +121,16 @@ const Innovation: React.FC = () => {
   const heroTitle = innovationData.hero.title;
   const heroDescription = innovationData.hero.description;
   const heroButtonText = innovationData.hero.buttonText;
-  
+
   // Stats labels
   const stat1Label = innovationData.stats[0].label;
   const stat2Label = innovationData.stats[1].label;
   const stat3Label = innovationData.stats[2].label;
-  
+
   // Quote section
   const quoteText = innovationData.quote.text;
   const quoteAuthor = innovationData.quote.author;
-  
+
   // Innovation Pillars
   const pillarsHeading = "Our Innovation Pillars";
   const pillarsSubtext = "Three core principles guide our commitment to advancing water purification technology";
@@ -142,23 +143,23 @@ const Innovation: React.FC = () => {
   const pillar3Title = innovationData.pillars[2].title;
   const pillar3Description = innovationData.pillars[2].description;
   const pillar3MetricLabel = innovationData.pillars[2].metricLabel;
-  
+
   // Timeline
   const timelineHeading = "Our Innovation Journey";
   const timelineSubtext = "Three decades of continuous advancement in water purification technology";
-  
+
   // Team section
   const teamHeading = "The Minds Behind Innovation";
   const teamSubtext = "Meet our team of engineers, scientists, and water treatment experts";
   const team1Label = innovationData.team[0].label;
   const team2Label = innovationData.team[1].label;
   const team3Label = innovationData.team[2].label;
-  
+
   // Portfolio
   const portfolioHeading = "Our Innovation Portfolio";
   const portfolioSubtext = "Cutting-edge membrane technology designed for every water treatment need";
   const learnMoreText = "Learn More";
-  
+
   // Global Presence
   const globalHeading = "Innovation Hubs Worldwide";
   const globalSubtext = "Our global network of research and development centers";
@@ -170,21 +171,21 @@ const Innovation: React.FC = () => {
   const reviewsHeading = "Reviews";
   const warehouseText = "Warehouse";
   const siteText = "Site";
-  
+
   // Translation hooks - Hero Section
   const { translatedText: translatedHeroTitle } = useTranslateContent(heroTitle);
   const { translatedText: translatedHeroDescription } = useTranslateContent(heroDescription);
   const { translatedText: translatedHeroButtonText } = useTranslateContent(heroButtonText);
-  
+
   // Translation hooks - Stats
   const { translatedText: translatedStat1Label } = useTranslateContent(stat1Label);
   const { translatedText: translatedStat2Label } = useTranslateContent(stat2Label);
   const { translatedText: translatedStat3Label } = useTranslateContent(stat3Label);
-  
+
   // Translation hooks - Quote
   const { translatedText: translatedQuoteText } = useTranslateContent(quoteText);
   const { translatedText: translatedQuoteAuthor } = useTranslateContent(quoteAuthor);
-  
+
   // Translation hooks - Pillars
   const { translatedText: translatedPillarsHeading } = useTranslateContent(pillarsHeading);
   const { translatedText: translatedPillarsSubtext } = useTranslateContent(pillarsSubtext);
@@ -197,11 +198,11 @@ const Innovation: React.FC = () => {
   const { translatedText: translatedPillar3Title } = useTranslateContent(pillar3Title);
   const { translatedText: translatedPillar3Description } = useTranslateContent(pillar3Description);
   const { translatedText: translatedPillar3MetricLabel } = useTranslateContent(pillar3MetricLabel);
-  
+
   // Translation hooks - Timeline
   const { translatedText: translatedTimelineHeading } = useTranslateContent(timelineHeading);
   const { translatedText: translatedTimelineSubtext } = useTranslateContent(timelineSubtext);
-  
+
   // Translate timeline items
   const translatedTimeline1Title = useTranslateContent(innovationData.timeline[0].title).translatedText;
   const translatedTimeline1Desc = useTranslateContent(innovationData.timeline[0].description).translatedText;
@@ -217,19 +218,19 @@ const Innovation: React.FC = () => {
   const translatedTimeline6Desc = useTranslateContent(innovationData.timeline[5].description).translatedText;
   const translatedTimeline7Title = useTranslateContent(innovationData.timeline[6].title).translatedText;
   const translatedTimeline7Desc = useTranslateContent(innovationData.timeline[6].description).translatedText;
-  
+
   // Translation hooks - Team
   const { translatedText: translatedTeamHeading } = useTranslateContent(teamHeading);
   const { translatedText: translatedTeamSubtext } = useTranslateContent(teamSubtext);
   const { translatedText: translatedTeam1Label } = useTranslateContent(team1Label);
   const { translatedText: translatedTeam2Label } = useTranslateContent(team2Label);
   const { translatedText: translatedTeam3Label } = useTranslateContent(team3Label);
-  
+
   // Translation hooks - Portfolio
   const { translatedText: translatedPortfolioHeading } = useTranslateContent(portfolioHeading);
   const { translatedText: translatedPortfolioSubtext } = useTranslateContent(portfolioSubtext);
   const { translatedText: translatedLearnMoreText } = useTranslateContent(learnMoreText);
-  
+
   // Translate portfolio items
   const translatedPortfolio1Title = useTranslateContent(innovationData.portfolio[0].title).translatedText;
   const translatedPortfolio1Desc = useTranslateContent(innovationData.portfolio[0].description).translatedText;
@@ -239,7 +240,7 @@ const Innovation: React.FC = () => {
   const translatedPortfolio3Desc = useTranslateContent(innovationData.portfolio[2].description).translatedText;
   const translatedPortfolio4Title = useTranslateContent(innovationData.portfolio[3].title).translatedText;
   const translatedPortfolio4Desc = useTranslateContent(innovationData.portfolio[3].description).translatedText;
-  
+
   // Translation hooks - Global Presence
   const { translatedText: translatedGlobalHeading } = useTranslateContent(globalHeading);
   const { translatedText: translatedGlobalSubtext } = useTranslateContent(globalSubtext);
@@ -251,7 +252,7 @@ const Innovation: React.FC = () => {
   const { translatedText: translatedReviewsHeading } = useTranslateContent(reviewsHeading);
   const { translatedText: translatedWarehouseText } = useTranslateContent(warehouseText);
   const { translatedText: translatedSiteText } = useTranslateContent(siteText);
-  
+
   // Translate global presence items
   const translatedGlobal1Label = useTranslateContent(innovationData.globalPresence[0].label).translatedText;
   const translatedGlobal1Country = useTranslateContent(innovationData.globalPresence[0].country).translatedText;
@@ -271,7 +272,7 @@ const Innovation: React.FC = () => {
     "translate(0, 0) scale(1)"
   );
 
- const locations: Location[] = [
+  const locations: Location[] = [
     // Original locations
     {
       id: 1,
@@ -280,6 +281,7 @@ const Innovation: React.FC = () => {
       y: 22,
       countryCode: 'in',
       type: 'main',
+      pinColor: '#B8D332', // Green pin for Thailand
       reviews: [
         {
           name: 'Raj Patel',
@@ -300,6 +302,7 @@ const Innovation: React.FC = () => {
       y: 21,
       countryCode: 'th',
       type: 'main',
+      pinColor: '#B8D332', // Green pin for Thailand
       reviews: [
         {
           name: 'Alex Johnson',
@@ -591,6 +594,7 @@ const Innovation: React.FC = () => {
       y: 18,
       countryCode: 'us',
       type: 'main',
+      pinColor: '#B8D332', // Green pin for USA
       reviews: [
         {
           name: 'Robert Johnson',
@@ -647,9 +651,8 @@ const Innovation: React.FC = () => {
     [...Array(5)].map((_, i) => (
       <Star
         key={i}
-        className={`w-4 h-4 ${
-          i < rating ? "text-yellow-400 fill-current" : "text-gray-300"
-        }`}
+        className={`w-4 h-4 ${i < rating ? "text-yellow-400 fill-current" : "text-gray-300"
+          }`}
       />
     ));
 
@@ -682,10 +685,10 @@ const Innovation: React.FC = () => {
           style={{ backgroundImage: `url(${heroBg})` }}
         ></div>
 
-        
+
         {/* Content */}
         <div className="relative z-10 max-w-4xl mx-auto text-center">
-         <h1
+          <h1
             className="
                 font-['Diodrum_Cyrillic']
                 font-bold
@@ -701,12 +704,12 @@ const Innovation: React.FC = () => {
                 mb-6
                 mt-16
             "
-            >
+          >
             {translatedHeroTitle}
-            </h1>
+          </h1>
 
 
-        <p className="
+          <p className="
                 font-['Diodrum_Cyrillic']
                 font-medium
                 text-[16px]
@@ -724,12 +727,12 @@ const Innovation: React.FC = () => {
                 mx-auto
                 mb-8
             "
-            >
-        {translatedHeroDescription}
-        </p>
+          >
+            {translatedHeroDescription}
+          </p>
 
-        <button
-        className="
+          <button
+            className="
             font-['Clash Grotesk']
             w-[200px]
             h-[52px]
@@ -747,9 +750,9 @@ const Innovation: React.FC = () => {
             hover:scale-105
             hover:bg-[#98C135]
                 "
-        >
-        {translatedHeroButtonText}
-        </button>
+          >
+            {translatedHeroButtonText}
+          </button>
         </div>
       </section>
 
@@ -757,20 +760,20 @@ const Innovation: React.FC = () => {
       <section className="relative w-full py-20 px-4 overflow-hidden">
         {/* Background Image */}
         <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
             backgroundImage: `url(${innovationData.stat.backgroundImage1})`,
-            }}
+          }}
         />
 
         {/* Content */}
         <div className="relative mx-[20px] lg:[40px] 2xl:mx-[90px] xl:mx-[60px] grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
-            {/* LEFT: Quote Section */}
-            <div className="text-left  ">
-                <img src={vector} className="text-white text-6xl leading-none mb-4" />
+          {/* LEFT: Quote Section */}
+          <div className="text-left  ">
+            <img src={vector} className="text-white text-6xl leading-none mb-4" />
             <p
-                className="
+              className="
                 font-['Diodrum_Cyrillic']
                 font-bold
                 text-[28px] leading-[36px]
@@ -781,11 +784,11 @@ const Innovation: React.FC = () => {
                 text-indigo-900
                 "
             >
-               "{translatedQuoteText}"
+              "{translatedQuoteText}"
             </p>
 
             <p
-                className="
+              className="
                 font-['Noto_Sans']
                 font-normal
                 text-[16px] leading-[26px]
@@ -796,12 +799,12 @@ const Innovation: React.FC = () => {
                 mt-6
                 "
             >
-                — {translatedQuoteAuthor}
+              — {translatedQuoteAuthor}
             </p>
-            </div>
+          </div>
 
-            {/* RIGHT: Stats Cards */}
-            <div
+          {/* RIGHT: Stats Cards */}
+          <div
             className="
                 flex flex-col gap-6
                 w-full
@@ -811,40 +814,40 @@ const Innovation: React.FC = () => {
                 lg:mx-0
                 lg:ml-auto
             "
-            >
-              {/* Stat 1 */}
-              <div className="bg-white rounded-xl shadow-lg px-6 py-5 sm:px-8 sm:py-6 flex flex-col justify-center">
-                <div className="text-[#B8D332] text-4xl sm:text-5xl font-bold mb-2">
-                  {innovationData.stats[0].value}
-                </div>
-                <div className="text-[#3D3B8E] font-bold font-['Diodrum Cyrillic']">
-                  {translatedStat1Label}
-                </div>
+          >
+            {/* Stat 1 */}
+            <div className="bg-white rounded-xl shadow-lg px-6 py-5 sm:px-8 sm:py-6 flex flex-col justify-center">
+              <div className="text-[#B8D332] text-4xl sm:text-5xl font-bold mb-2">
+                {innovationData.stats[0].value}
               </div>
-              
-              {/* Stat 2 */}
-              <div className="bg-white rounded-xl shadow-lg px-6 py-5 sm:px-8 sm:py-6 flex flex-col justify-center">
-                <div className="text-[#B8D332] text-4xl sm:text-5xl font-bold mb-2">
-                  {innovationData.stats[1].value}
-                </div>
-                <div className="text-[#3D3B8E] font-bold font-['Diodrum Cyrillic']">
-                  {translatedStat2Label}
-                </div>
-              </div>
-              
-              {/* Stat 3 */}
-              <div className="bg-white rounded-xl shadow-lg px-6 py-5 sm:px-8 sm:py-6 flex flex-col justify-center">
-                <div className="text-[#B8D332] text-4xl sm:text-5xl font-bold mb-2">
-                  {innovationData.stats[2].value}
-                </div>
-                <div className="text-[#3D3B8E] font-bold font-['Diodrum Cyrillic']">
-                  {translatedStat3Label}
-                </div>
+              <div className="text-[#3D3B8E] font-bold font-['Diodrum Cyrillic']">
+                {translatedStat1Label}
               </div>
             </div>
 
+            {/* Stat 2 */}
+            <div className="bg-white rounded-xl shadow-lg px-6 py-5 sm:px-8 sm:py-6 flex flex-col justify-center">
+              <div className="text-[#B8D332] text-4xl sm:text-5xl font-bold mb-2">
+                {innovationData.stats[1].value}
+              </div>
+              <div className="text-[#3D3B8E] font-bold font-['Diodrum Cyrillic']">
+                {translatedStat2Label}
+              </div>
+            </div>
+
+            {/* Stat 3 */}
+            <div className="bg-white rounded-xl shadow-lg px-6 py-5 sm:px-8 sm:py-6 flex flex-col justify-center">
+              <div className="text-[#B8D332] text-4xl sm:text-5xl font-bold mb-2">
+                {innovationData.stats[2].value}
+              </div>
+              <div className="text-[#3D3B8E] font-bold font-['Diodrum Cyrillic']">
+                {translatedStat3Label}
+              </div>
+            </div>
+          </div>
+
         </div>
-        </section>
+      </section>
 
 
 
@@ -853,134 +856,132 @@ const Innovation: React.FC = () => {
         <div className="lg:mx-[40px] 2xl:mx-[90px] xl:mx-[60px]">
           <h2
             className=" font-['Diodrum_Cyrillic'] font-bold text-center text-[#3D3B8E] tracking-[0px] leading-[60.05px] text-[32px] sm:text-[40px] sm:leading-[44px] md:text-[48px] md:leading-[52px] lg:text-[50.05px] lg:leading-[60.05px] mb-4"
-            >
+          >
             {translatedPillarsHeading}
-            </h2>
+          </h2>
 
           <p className="text-center text-[#4A5565] mb-12 max-w-3xl mx-auto text-[22.02px]">
             {translatedPillarsSubtext}
           </p>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 xl:gap-20">
             {/* Pillar 1 */}
             <div className="bg-white rounded-lg p-8 transition shadow-[0px_0px_6px_-1px_rgba(0,0,0,0.08),0px_0px_12px_-2px_rgba(0,0,0,0.12)] hover:shadow-xl">
               <div
                 className="flex items-center justify-center mb-5 bg-[#B8D3321A]"
                 style={{
-                    width: "60.0869px",
-                    height: "60.0869px",
-                    padding: "5px",
-                    opacity: 1,
-                    borderRadius: "9999px",
+                  width: "60.0869px",
+                  height: "60.0869px",
+                  padding: "5px",
+                  opacity: 1,
+                  borderRadius: "9999px",
                 }}
-                >
+              >
                 <img
-                    src={innovationData.pillars[0].icon}
-                    alt=""
-                    className="w-9 h-9 object-contain"
+                  src={innovationData.pillars[0].icon}
+                  alt=""
+                  className="w-9 h-9 object-contain"
                 />
-                </div>
-
-                <h3 className="text-[25.03px] font-bold text-[#3D3B8E] mb-3 font-['Diodrum Cyrillic]">{translatedPillar1Title}</h3>
-                <p className="text-[#4A5565] mb-6 text-[18.02px]">{translatedPillar1Description}</p>
-                <div className=' border border-gray-100'> </div>
-                <div className="text-[40.05px] font-bold text-[#B8D332] mb-2">{innovationData.pillars[0].metric}</div>
-                <div className="text-gray-600 text-[17.52px]">{translatedPillar1MetricLabel}</div>
               </div>
+
+              <h3 className="text-[25.03px] font-bold text-[#3D3B8E] mb-3 font-['Diodrum Cyrillic]">{translatedPillar1Title}</h3>
+              <p className="text-[#4A5565] mb-6 text-[18.02px]">{translatedPillar1Description}</p>
+              <div className=' border border-gray-100'> </div>
+              <div className="text-[40.05px] font-bold text-[#B8D332] mb-2">{innovationData.pillars[0].metric}</div>
+              <div className="text-gray-600 text-[17.52px]">{translatedPillar1MetricLabel}</div>
+            </div>
 
             {/* Pillar 2 */}
             <div className="bg-white rounded-lg p-8 transition shadow-[0px_0px_6px_-1px_rgba(0,0,0,0.08),0px_0px_12px_-2px_rgba(0,0,0,0.12)] hover:shadow-xl">
               <div
                 className="flex items-center justify-center mb-5 bg-[#B8D3321A]"
                 style={{
-                    width: "60.0869px",
-                    height: "60.0869px",
-                    padding: "5px",
-                    opacity: 1,
-                    borderRadius: "9999px",
+                  width: "60.0869px",
+                  height: "60.0869px",
+                  padding: "5px",
+                  opacity: 1,
+                  borderRadius: "9999px",
                 }}
-                >
+              >
                 <img
-                    src={innovationData.pillars[1].icon}
-                    alt=""
-                    className="w-9 h-9 object-contain"
+                  src={innovationData.pillars[1].icon}
+                  alt=""
+                  className="w-9 h-9 object-contain"
                 />
-                </div>
-
-                <h3 className="text-[25.03px] font-bold text-[#3D3B8E] mb-3 font-['Diodrum Cyrillic]">{translatedPillar2Title}</h3>
-                <p className="text-[#4A5565] mb-6 text-[18.02px]">{translatedPillar2Description}</p>
-                <div className=' border border-gray-100'> </div>
-                <div className="text-[40.05px] font-bold text-[#B8D332] mb-2">{innovationData.pillars[1].metric}</div>
-                <div className="text-gray-600 text-[17.52px]">{translatedPillar2MetricLabel}</div>
               </div>
+
+              <h3 className="text-[25.03px] font-bold text-[#3D3B8E] mb-3 font-['Diodrum Cyrillic]">{translatedPillar2Title}</h3>
+              <p className="text-[#4A5565] mb-6 text-[18.02px]">{translatedPillar2Description}</p>
+              <div className=' border border-gray-100'> </div>
+              <div className="text-[40.05px] font-bold text-[#B8D332] mb-2">{innovationData.pillars[1].metric}</div>
+              <div className="text-gray-600 text-[17.52px]">{translatedPillar2MetricLabel}</div>
+            </div>
 
             {/* Pillar 3 */}
             <div className="bg-white rounded-lg p-8 transition shadow-[0px_0px_6px_-1px_rgba(0,0,0,0.08),0px_0px_12px_-2px_rgba(0,0,0,0.12)] hover:shadow-xl">
               <div
                 className="flex items-center justify-center mb-5 bg-[#B8D3321A]"
                 style={{
-                    width: "60.0869px",
-                    height: "60.0869px",
-                    padding: "5px",
-                    opacity: 1,
-                    borderRadius: "9999px",
+                  width: "60.0869px",
+                  height: "60.0869px",
+                  padding: "5px",
+                  opacity: 1,
+                  borderRadius: "9999px",
                 }}
-                >
+              >
                 <img
-                    src={innovationData.pillars[2].icon}
-                    alt=""
-                    className="w-9 h-9 object-contain"
+                  src={innovationData.pillars[2].icon}
+                  alt=""
+                  className="w-9 h-9 object-contain"
                 />
-                </div>
-
-                <h3 className="text-[25.03px] font-bold text-[#3D3B8E] mb-3 font-['Diodrum Cyrillic]">{translatedPillar3Title}</h3>
-                <p className="text-[#4A5565] mb-6 text-[18.02px]">{translatedPillar3Description}</p>
-                <div className=' border border-gray-100'> </div>
-                <div className="text-[40.05px] font-bold text-[#B8D332] mb-2">{innovationData.pillars[2].metric}</div>
-                <div className="text-gray-600 text-[17.52px]">{translatedPillar3MetricLabel}</div>
               </div>
+
+              <h3 className="text-[25.03px] font-bold text-[#3D3B8E] mb-3 font-['Diodrum Cyrillic]">{translatedPillar3Title}</h3>
+              <p className="text-[#4A5565] mb-6 text-[18.02px]">{translatedPillar3Description}</p>
+              <div className=' border border-gray-100'> </div>
+              <div className="text-[40.05px] font-bold text-[#B8D332] mb-2">{innovationData.pillars[2].metric}</div>
+              <div className="text-gray-600 text-[17.52px]">{translatedPillar3MetricLabel}</div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Innovation Journey Timeline */}
-        <section className="py-16 px-4 bg-gradient-to-b from-gray-50 to-white">
+      <section className="py-16 px-4 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-4xl mx-auto">
-            <h2  className=" font-['Diodrum_Cyrillic'] font-bold text-center text-[#3D3B8E] tracking-[0px] leading-[60.05px] text-[32px] sm:text-[40px] sm:leading-[44px] md:text-[48px] md:leading-[52px] lg:text-[50.05px] lg:leading-[60.05px] mb-4"
->
+          <h2 className=" font-['Diodrum_Cyrillic'] font-bold text-center text-[#3D3B8E] tracking-[0px] leading-[60.05px] text-[32px] sm:text-[40px] sm:leading-[44px] md:text-[48px] md:leading-[52px] lg:text-[50.05px] lg:leading-[60.05px] mb-4"
+          >
             {translatedTimelineHeading}
-            </h2>
-            <p className="text-center text-[#4A5565] mb-12 max-w-3xl mx-auto text-[22.02px]">
+          </h2>
+          <p className="text-center text-[#4A5565] mb-12 max-w-3xl mx-auto text-[22.02px]">
             {translatedTimelineSubtext}
-            </p>
+          </p>
 
-            <div className="relative ">
+          <div className="relative ">
             {/* Center Vertical Line */}
             <div className="absolute left-1/2 -translate-x-1/2 h-full w-1 bg-[#B8D332] hidden md:block"></div>
 
             {translatedTimelineData.map((item, index) => (
-                <div
+              <div
                 key={index}
-                className={`relative mb-12 flex  ${
-                    index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                } flex-col items-center `}
-                >
+                className={`relative mb-12 flex  ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+                  } flex-col items-center `}
+              >
                 {/* Content */}
                 <div
-                    className={`w-full md:w-5/12  ${
-                    index % 2 === 0 ? 'md:text-right md:pr-8' : 'md:text-left md:pl-8'
+                  className={`w-full md:w-5/12  ${index % 2 === 0 ? 'md:text-right md:pr-8' : 'md:text-left md:pl-8'
                     } text-center    bg-white
                    shadow-[0px_0px_6px_-1px_rgba(0,0,0,0.08),0px_0px_12px_-2px_rgba(0,0,0,0.12)]
 
-                    rounded-[12.51px] p-[20px] `} 
+                    rounded-[12.51px] p-[20px] `}
                 >
-                    <div className="text-4xl font-bold text-[#B8D332] mb-2">
+                  <div className="text-4xl font-bold text-[#B8D332] mb-2">
                     {item.year}
-                    </div>
-                    <h3 className="text-[20px] font-bold text-[#3D3B8E] mb-2">
+                  </div>
+                  <h3 className="text-[20px] font-bold text-[#3D3B8E] mb-2">
                     {item.title}
-                    </h3>
-                    <p className="text-[#4A5565] text-[15px] font-Regular">{item.description}</p>
+                  </h3>
+                  <p className="text-[#4A5565] text-[15px] font-Regular">{item.description}</p>
                 </div>
 
                 {/* ✅ PERFECTLY CENTERED DOT */}
@@ -988,64 +989,64 @@ const Innovation: React.FC = () => {
 
                 {/* Spacer */}
                 <div className="w-full md:w-5/12"></div>
-                </div>
+              </div>
             ))}
-            </div>
+          </div>
         </div>
-        </section>
+      </section>
 
 
       {/* Team Section */}
       <section
-            className="relative py-16 px-4 bg-center bg-no-repeat bg-cover"
-            style={{
-                backgroundImage: `url(${innovationData.stat.backgroundImage2})`,
-            }}
-            >
-            {/* Optional overlay for readability */}
-            {/* <div className="absolute inset-0 bg-white/70" /> */}
+        className="relative py-16 px-4 bg-center bg-no-repeat bg-cover"
+        style={{
+          backgroundImage: `url(${innovationData.stat.backgroundImage2})`,
+        }}
+      >
+        {/* Optional overlay for readability */}
+        {/* <div className="absolute inset-0 bg-white/70" /> */}
 
-            <div className="relative lg:mx-[40px] xl:mx-[60px] 2xl:mx-[90px] text-center flex flex-col items-center">
-                <h2 className="text-3xl md:text-[45px] font-bold text-[#3D3B8E] mb-8">
-                {translatedTeamHeading}
-                </h2>
-                <p className="text-center text-[#4A5565] lg:mb-12 max-w-3xl mx-auto text-[24.02px]">
-                {translatedTeamSubtext}
-                </p>
+        <div className="relative lg:mx-[40px] xl:mx-[60px] 2xl:mx-[90px] text-center flex flex-col items-center">
+          <h2 className="text-3xl md:text-[45px] font-bold text-[#3D3B8E] mb-8">
+            {translatedTeamHeading}
+          </h2>
+          <p className="text-center text-[#4A5565] lg:mb-12 max-w-3xl mx-auto text-[24.02px]">
+            {translatedTeamSubtext}
+          </p>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 w-full mt-10">
-                  {/* Team Item 1 */}
-                  <div className="text-center">
-                    <div className="text-[60px] xl:text-[75px] 2xl:text-[80px] font-bold text-[#FFFFFF] mb-2">
-                      {innovationData.team[0].value}
-                    </div>
-                    <div className="text-[#3D3B8E] font-semibold text-[20px] xl:text-[22.02px] 2xl:text-[24.02px]">
-                      {translatedTeam1Label}
-                    </div>
-                  </div>
-                  
-                  {/* Team Item 2 */}
-                  <div className="text-center">
-                    <div className="text-[60px] xl:text-[75px] 2xl:text-[80px] font-bold text-[#FFFFFF] mb-2">
-                      {innovationData.team[1].value}
-                    </div>
-                    <div className="text-[#3D3B8E] font-semibold text-[20px] xl:text-[22.02px] 2xl:text-[24.02px]">
-                      {translatedTeam2Label}
-                    </div>
-                  </div>
-                  
-                  {/* Team Item 3 */}
-                  <div className="text-center">
-                    <div className="text-[60px] xl:text-[75px] 2xl:text-[80px] font-bold text-[#FFFFFF] mb-2">
-                      {innovationData.team[2].value}
-                    </div>
-                    <div className="text-[#3D3B8E] font-semibold text-[20px] xl:text-[22.02px] 2xl:text-[24.02px]">
-                      {translatedTeam3Label}
-                    </div>
-                  </div>
-                </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 w-full mt-10">
+            {/* Team Item 1 */}
+            <div className="text-center">
+              <div className="text-[60px] xl:text-[75px] 2xl:text-[80px] font-bold text-[#FFFFFF] mb-2">
+                {innovationData.team[0].value}
+              </div>
+              <div className="text-[#3D3B8E] font-semibold text-[20px] xl:text-[22.02px] 2xl:text-[24.02px]">
+                {translatedTeam1Label}
+              </div>
             </div>
-        </section>
+
+            {/* Team Item 2 */}
+            <div className="text-center">
+              <div className="text-[60px] xl:text-[75px] 2xl:text-[80px] font-bold text-[#FFFFFF] mb-2">
+                {innovationData.team[1].value}
+              </div>
+              <div className="text-[#3D3B8E] font-semibold text-[20px] xl:text-[22.02px] 2xl:text-[24.02px]">
+                {translatedTeam2Label}
+              </div>
+            </div>
+
+            {/* Team Item 3 */}
+            <div className="text-center">
+              <div className="text-[60px] xl:text-[75px] 2xl:text-[80px] font-bold text-[#FFFFFF] mb-2">
+                {innovationData.team[2].value}
+              </div>
+              <div className="text-[#3D3B8E] font-semibold text-[20px] xl:text-[22.02px] 2xl:text-[24.02px]">
+                {translatedTeam3Label}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
 
       {/* Innovation Portfolio */}
@@ -1057,26 +1058,26 @@ const Innovation: React.FC = () => {
           <p className="text-center opacity-90 mb-12 max-w-3xl mx-auto text-[22px] mt-5">
             {translatedPortfolioSubtext}
           </p>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {translatedPortfolioData.map((product, index) => (
               <div key={index} className="bg-white text-gray-800 rounded-[17.52px] overflow-hidden shadow-lg">
-                 <div className=" w-full overflow-hidden">
-                    <img
+                <div className=" w-full overflow-hidden">
+                  <img
                     src={portfolioImages[index]}
                     alt={product.title}
                     className="w-full h-full object-cover "
-                    />
+                  />
                 </div>
                 <div className="p-6">
                   <h3 className="font-bold text-[20.02px] font-['Diodrum_Cyrillic'] text-[#3D3B8E] mb-2">{product.title}</h3>
                   <p className="text-gray-600 text-[17px]">{product.description}</p>
                 </div>
                 <button className=" p-6 group inline-flex items-center gap-2 text-[#B8D332] font-semibold text-[20.02px] ">
-                {translatedLearnMoreText}
-                <span className="transition-transform duration-300 group-hover:translate-x-1">
-                    <ChevronRight className='mt-[4px] mr-3'/>
-                </span>
+                  {translatedLearnMoreText}
+                  <span className="transition-transform duration-300 group-hover:translate-x-1">
+                    <ChevronRight className='mt-[4px] mr-3' />
+                  </span>
                 </button>
               </div>
             ))}
@@ -1084,7 +1085,7 @@ const Innovation: React.FC = () => {
         </div>
       </section>
 
-         {/* ---------------- Global Presence ---------------- */}
+      {/* ---------------- Global Presence ---------------- */}
       <section className="py-16 px-4 bg-white">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-3xl md:text-[45px] font-bold text-[#3D3B8E]">
@@ -1095,374 +1096,373 @@ const Innovation: React.FC = () => {
           </p>
 
           <div className="relative mb-12 overflow-hidden rounded-lg" >
-          <div className="relative w-full max-w-6xl mx-auto">
-            {/* World Map Container with smooth transitions */}
-            <div
-              className="relative transition-transform duration-1000 ease-in-out origin-center"
-              style={{
-                transform: mapTransform,
-                willChange: 'transform'
-              }}
-            >
-              {/* World Map Image */}
-              <img
-                src="assets/images/worldMapviolet.png"
-                alt="World Map"
-                className="w-full h-auto"
-                style={{ filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.1))' }}
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                  if (e.currentTarget.nextElementSibling) {
-                    (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'block';
-                  }
+            <div className="relative w-full max-w-6xl mx-auto">
+              {/* World Map Container with smooth transitions */}
+              <div
+                className="relative transition-transform duration-1000 ease-in-out origin-center"
+                style={{
+                  transform: mapTransform,
+                  willChange: 'transform'
                 }}
-              />
-
-              {/* Info Boxes on Map */}
-              <div className="hidden sm:block absolute inset-0 pointer-events-none">
-                {/* Multiple Export Markets Served - Top Left */}
-                <div 
-                  className="absolute bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm whitespace-nowrap"
-                  style={{ 
-                    // left: '12%', 
-                    top: '24%',
-                    transform: 'translateY(-50%)'
+              >
+                {/* World Map Image */}
+                <img
+                  src="assets/images/worldMapviolet.png"
+                  alt="World Map"
+                  className="w-full h-auto"
+                  style={{ filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.1))' }}
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    if (e.currentTarget.nextElementSibling) {
+                      (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'block';
+                    }
                   }}
-                >
-                  {translatedMapInfo1}
+                />
+
+                {/* Info Boxes on Map */}
+                <div className="hidden sm:block absolute inset-0 pointer-events-none">
+                  {/* Multiple Export Markets Served - Top Left */}
+                  <div
+                    className="absolute bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm whitespace-nowrap"
+                    style={{
+                      // left: '12%', 
+                      top: '24%',
+                      transform: 'translateY(-50%)'
+                    }}
+                  >
+                    {translatedMapInfo1}
+                  </div>
+
+                  {/* 30+ Years of Manufacturing Experience - Top Right */}
+                  <div
+                    className="absolute bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm whitespace-nowrap"
+                    style={{
+                      right: '1%',
+                      top: '17%',
+                      transform: 'translateY(-50%)'
+                    }}
+                  >
+                    {translatedMapInfo2}
+                  </div>
+
+                  {/* OEM & Private Label Partners Worldwide - Right Side */}
+                  <div
+                    className="absolute bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm whitespace-nowrap"
+                    style={{
+                      right: '-3%',
+                      top: '48%',
+                      transform: 'translateY(-50%)'
+                    }}
+                  >
+                    {translatedMapInfo3}
+                  </div>
+
+                  {/* 200+ Global Customers - Bottom Left */}
+                  <div
+                    className="absolute bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm whitespace-nowrap"
+                    style={{
+                      left: '20%',
+                      bottom: '18%',
+                    }}
+                  >
+                    {translatedMapInfo4}
+                  </div>
                 </div>
 
-                {/* 30+ Years of Manufacturing Experience - Top Right */}
-                <div 
-                  className="absolute bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm whitespace-nowrap"
-                  style={{ 
-                    right: '1%', 
-                    top: '17%',
-                    transform: 'translateY(-50%)'
-                  }}
-                >
-                  {translatedMapInfo2}
+                <div className="absolute inset-0">
+                  <svg
+                    viewBox="0 0 1000 500"
+                    className="w-full h-full"
+                    style={{ position: 'absolute', top: 0, left: 0 }}
+                  >
+                    {locations.map((location) => (
+                      <g key={location.id}>
+                        {/* Map pin marker image for main offices */}
+                        {location.type === 'main' && !imageLoadFailed[location.id] && (
+                          <foreignObject
+                            x={location.x * 10 - (location.pinColor === '#B8D332' ? 25 : 20)}
+                            y={location.y * 10 - (location.pinColor === '#B8D332' ? 45 : 35)}
+                            width={location.pinColor === '#B8D332' ? '55' : '40'}
+                            height={location.pinColor === '#B8D332' ? '65' : '48'}
+                            onMouseEnter={() => setHoveredLocation(location)}
+                            onMouseLeave={() => setHoveredLocation(null)}
+                            onClick={() => handleLocationClick(location)}
+                            style={{ cursor: 'pointer', overflow: 'visible' }}
+                          >
+                            <img
+                              src={location.pinColor === '#B8D332'
+                                ? "assets/images/green-pin-marker.png"
+                                : "assets/images/blue-pin-marker.png"}
+                              alt="Location marker"
+                              className="transition-transform duration-200"
+                              style={{
+                                filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
+                                pointerEvents: 'none',
+                                transform: hoveredLocation?.id === location.id ? 'scale(1.4)' : 'scale(1)',
+                                transformOrigin: 'center center',
+                                width: location.pinColor === '#B8D332' ? '25px' : '20px',
+                                height: location.pinColor === '#B8D332' ? '35px' : '24px'
+                              }}
+                              onError={() => handleImageError(location.id)}
+                            />
+                          </foreignObject>
+                        )}
+                      </g>
+                    ))}
+                  </svg>
                 </div>
 
-                {/* OEM & Private Label Partners Worldwide - Right Side */}
-                <div 
-                  className="absolute bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm whitespace-nowrap"
-                  style={{ 
-                    right: '-3%', 
-                    top: '48%',
-                    transform: 'translateY(-50%)'
-                  }}
-                >
-                  {translatedMapInfo3}
-                </div>
-
-                {/* 200+ Global Customers - Bottom Left */}
-                <div 
-                  className="absolute bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm whitespace-nowrap"
-                  style={{ 
-                    left: '20%', 
-                    bottom: '18%',
-                  }}
-                >
-                  {translatedMapInfo4}
-                </div>
-              </div>
-
-              {/* Location Markers Overlay */}
-              <div className="absolute inset-0">
-                <svg
-                  viewBox="0 0 1000 500"
-                  className="w-full h-full"
-                  style={{ position: 'absolute', top: 0, left: 0 }}
-                >
-                  {locations.map((location) => (
-                    <g key={location.id}>
-                      {/* Green map pin marker image for main offices */}
-                      {location.type === 'main' && !imageLoadFailed[location.id] && (
-                        <foreignObject
-                          x={location.x * 10 - 20}
-                          y={location.y * 10 - 35}
-                          width="40"
-                          height="48"
-                          onMouseEnter={() => setHoveredLocation(location)}
-                          onMouseLeave={() => setHoveredLocation(null)}
-                          onClick={() => handleLocationClick(location)}
-                          style={{ cursor: 'pointer', overflow: 'visible' }}
+                {/* Enhanced Tooltip for Main Offices */}
+                {hoveredLocation && hoveredLocation.type === 'main' && !selectedLocation && (
+                  <>
+                    {/* Flag + Country (above marker) */}
+                    <div
+                      className="absolute z-20 bg-white px-3 py-2 rounded-lg shadow-lg border border-gray-200 pointer-events-none flex items-center space-x-2"
+                      style={{
+                        left: `${(hoveredLocation.x * 10) * (100 / 1000)}%`,
+                        top: `${(hoveredLocation.y * 10) * (100 / 500)}%`,
+                        transform: 'translate(-50%, -180%)', // above marker
+                      }}
+                    >
+                      <div className="w-6 h-6 rounded-full overflow-hidden border border-gray-300">
+                        <img
+                          src={`https://flagcdn.com/w40/${hoveredLocation.countryCode.toLowerCase()}.png`}
+                          alt={`${hoveredLocation.country} flag`}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            e.currentTarget.style.display = 'none';
+                            if (e.currentTarget.nextElementSibling) {
+                              (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'block';
+                            }
+                          }}
+                        />
+                        <div
+                          className="w-full h-full flex items-center justify-center text-sm"
+                          style={{ display: 'none' }}
                         >
-                          <img
-                            src="assets/images/blue-pin-marker.png"
-                            alt="Location marker"
-                            className="transition-transform duration-200"
-                            style={{
-                              filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
-                              pointerEvents: 'none',
-                              transform: hoveredLocation?.id === location.id ? 'scale(1.4)' : 'scale(1)',
-                              transformOrigin: 'center center',
-                              width: '20px',
-                              height: '24px'
-                            }}
-                            onError={() => handleImageError(location.id)}
-                          />
-                        </foreignObject>
-                      )}
-
-                     
-                    </g>
-                  ))}
-                </svg>
-              </div>
-
-              {/* Enhanced Tooltip for Main Offices */}
-              {hoveredLocation && hoveredLocation.type === 'main' && !selectedLocation && (
-                <>
-                  {/* Flag + Country (above marker) */}
-                  <div
-                    className="absolute z-20 bg-white px-3 py-2 rounded-lg shadow-lg border border-gray-200 pointer-events-none flex items-center space-x-2"
-                    style={{
-                      left: `${(hoveredLocation.x * 10) * (100 / 1000)}%`,
-                      top: `${(hoveredLocation.y * 10) * (100 / 500)}%`,
-                      transform: 'translate(-50%, -180%)', // above marker
-                    }}
-                  >
-                    <div className="w-6 h-6 rounded-full overflow-hidden border border-gray-300">
-                      <img
-                        src={`https://flagcdn.com/w40/${hoveredLocation.countryCode.toLowerCase()}.png`}
-                        alt={`${hoveredLocation.country} flag`}
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                          e.currentTarget.style.display = 'none';
-                          if (e.currentTarget.nextElementSibling) {
-                            (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'block';
-                          }
-                        }}
-                      />
-                      <div
-                        className="w-full h-full flex items-center justify-center text-sm"
-                        style={{ display: 'none' }}
-                      >
-                        🏳️
+                          🏳️
+                        </div>
                       </div>
-                    </div>
-                    <span className="text-sm font-semibold text-gray-800">
-                      {hoveredLocation.country}
-                    </span>
-                  </div>
-
-                  {/* Click to know more (below marker) */}
-                  <div
-                    className="absolute z-20 bg-yellow-200 text-gray-800 px-3 py-1 rounded-md shadow border border-green-300 pointer-events-none text-xs font-medium"
-                    style={{
-                      left: `${(hoveredLocation.x * 10) * (100 / 1000)}%`,
-                      top: `${(hoveredLocation.y * 10) * (100 / 500)}%`,
-                      transform: 'translate(-50%, 10px)', // below marker
-                    }}
-                  >
-                    {translatedClickToKnowMore}
-                  </div>
-                </>
-              )}
-
-              {/* Original Tooltip for Warehouse and Site Locations */}
-              {hoveredLocation && (hoveredLocation.type === 'warehouse' || hoveredLocation.type === 'site') && !selectedLocation && (
-                <div
-                  className="absolute z-10 bg-white px-3 py-2 rounded-lg shadow-lg border border-gray-200 pointer-events-none"
-                  style={{
-                    left: `${(hoveredLocation.x * 10) * (100 / 1000)}%`,
-                    top: `${(hoveredLocation.y * 10) * (100 / 500)}%`,
-                    transform: 'translate(15px, -12px)',
-                  }}
-                >
-                  <div className="flex items-center space-x-2">
-                    <div className="w-8 h-8 flex items-center justify-center">
-                      <img
-                        src={image1}
-                        alt="HiTech Logo"
-                        className="w-8 h-8 object-contain"
-                        onError={(e) => {
-                          e.currentTarget.style.display = 'none';
-                          if (e.currentTarget.nextElementSibling) {
-                            (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'block';
-                          }
-                        }}
-                      />
-                      <span className="text-gray-800 text-xs font-bold" style={{ display: 'none' }}>
-                        HT
+                      <span className="text-sm font-semibold text-gray-800">
+                        {hoveredLocation.country}
                       </span>
                     </div>
 
-                    <span className="text-sm font-semibold text-gray-800">
-                      {hoveredLocation.type === 'warehouse' ? translatedWarehouseText : translatedSiteText}
-                    </span>
+                    {/* Click to know more (below marker) */}
+                    <div
+                      className="absolute z-20 bg-yellow-200 text-gray-800 px-3 py-1 rounded-md shadow border border-green-300 pointer-events-none text-xs font-medium"
+                      style={{
+                        left: `${(hoveredLocation.x * 10) * (100 / 1000)}%`,
+                        top: `${(hoveredLocation.y * 10) * (100 / 500)}%`,
+                        transform: 'translate(-50%, 10px)', // below marker
+                      }}
+                    >
+                      {translatedClickToKnowMore}
+                    </div>
+                  </>
+                )}
+
+                {/* Original Tooltip for Warehouse and Site Locations */}
+                {hoveredLocation && (hoveredLocation.type === 'warehouse' || hoveredLocation.type === 'site') && !selectedLocation && (
+                  <div
+                    className="absolute z-10 bg-white px-3 py-2 rounded-lg shadow-lg border border-gray-200 pointer-events-none"
+                    style={{
+                      left: `${(hoveredLocation.x * 10) * (100 / 1000)}%`,
+                      top: `${(hoveredLocation.y * 10) * (100 / 500)}%`,
+                      transform: 'translate(15px, -12px)',
+                    }}
+                  >
+                    <div className="flex items-center space-x-2">
+                      <div className="w-8 h-8 flex items-center justify-center">
+                        <img
+                          src={image1}
+                          alt="HiTech Logo"
+                          className="w-8 h-8 object-contain"
+                          onError={(e) => {
+                            e.currentTarget.style.display = 'none';
+                            if (e.currentTarget.nextElementSibling) {
+                              (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'block';
+                            }
+                          }}
+                        />
+                        <span className="text-gray-800 text-xs font-bold" style={{ display: 'none' }}>
+                          HT
+                        </span>
+                      </div>
+
+                      <span className="text-sm font-semibold text-gray-800">
+                        {hoveredLocation.type === 'warehouse' ? translatedWarehouseText : translatedSiteText}
+                      </span>
+                    </div>
+
+                    {/* Tooltip Arrow pointing left */}
+                    <div className="absolute left-0 top-1/2 transform -translate-x-full -translate-y-1/2 w-0 h-0 border-t-2 border-b-2 border-r-2 border-transparent border-r-white"></div>
                   </div>
-
-                  {/* Tooltip Arrow pointing left */}
-                  <div className="absolute left-0 top-1/2 transform -translate-x-full -translate-y-1/2 w-0 h-0 border-t-2 border-b-2 border-r-2 border-transparent border-r-white"></div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
-          </div>
 
-                    {/* Mobile text blocks - below map */}
-<div className="sm:hidden mt-6 space-y-3 text-center px-4">
-  <div className="bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
-    {translatedMapInfo1}
-  </div>
-  <div className="bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
-    {translatedMapInfo2}
-  </div>
-  <div className="bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
-    {translatedMapInfo3}
-  </div>
-  <div className="bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
-    {translatedMapInfo4}
-  </div>
-</div>
+            {/* Mobile text blocks - below map */}
+            <div className="sm:hidden mt-6 space-y-3 text-center px-4">
+              <div className="bg-[#B8D332] text-[#3E4095] px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
+                {translatedMapInfo1}
+              </div>
+              <div className="bg-[#B8D332] text-[#3E4095] px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
+                {translatedMapInfo2}
+              </div>
+              <div className="bg-[#B8D332] text-[#3E4095] px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
+                {translatedMapInfo3}
+              </div>
+              <div className="bg-[#B8D332] text-[#3E4095] px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
+                {translatedMapInfo4}
+              </div>
+            </div>
 
-          {/* Reviews Side Panel */}
-          {selectedLocation && (
-        <div
-            className="
+            {/* Reviews Side Panel */}
+            {selectedLocation && (
+              <div
+                className="
             absolute top-3 right-0 
             w-full max-w-[250px] sm:max-w-[360px] md:max-w-[420px] lg:max-w-[460px]
             bg-white rounded-2xl shadow-2xl border border-blue-900 z-30
             md:max-h-[450px]  max-h-[190px] overflow-hidden
             mx-2 
             "
-        >
-            {/* Header */}
-            <div
-            className="
+              >
+                {/* Header */}
+                <div
+                  className="
                 flex items-center justify-between
                 px-2 sm:px-3 
                 py-2 sm:py-3
                 border-b border-blue-900
                 bg-gradient-to-r from-blue-50 to-purple-50
             "
-            >
-            <div className="flex items-center space-x-2 sm:space-x-3">
-                <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full overflow-hidden border border-blue-900 shadow-sm">
-                <img
-                    src={`https://flagcdn.com/w40/${selectedLocation.countryCode.toLowerCase()}.png`}
-                    alt={`${selectedLocation.country} flag`}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                    e.currentTarget.style.display = "none";
-                    if (e.currentTarget.nextElementSibling) {
-                        (e.currentTarget.nextElementSibling as HTMLElement).style.display = "flex";
-                    }
-                    }}
-                />
-                <div
-                    className="w-full h-full flex items-center justify-center text-base"
-                    style={{ display: "none" }}
                 >
-                    🏳️
-                </div>
-                </div>
+                  <div className="flex items-center space-x-2 sm:space-x-3">
+                    <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full overflow-hidden border border-blue-900 shadow-sm">
+                      <img
+                        src={`https://flagcdn.com/w40/${selectedLocation.countryCode.toLowerCase()}.png`}
+                        alt={`${selectedLocation.country} flag`}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.currentTarget.style.display = "none";
+                          if (e.currentTarget.nextElementSibling) {
+                            (e.currentTarget.nextElementSibling as HTMLElement).style.display = "flex";
+                          }
+                        }}
+                      />
+                      <div
+                        className="w-full h-full flex items-center justify-center text-base"
+                        style={{ display: "none" }}
+                      >
+                        🏳️
+                      </div>
+                    </div>
 
-                <h3 className="text-sm sm:text-lg font-bold text-blue-900">
-                {selectedLocation.country}
-                </h3>
-            </div>
+                    <h3 className="text-sm sm:text-lg font-bold text-blue-900">
+                      {selectedLocation.country}
+                    </h3>
+                  </div>
 
-            <button
-                onClick={closePanel}
-                className="
+                  <button
+                    onClick={closePanel}
+                    className="
                 p-1 sm:p-2 rounded-full 
                 hover:bg-white hover:bg-opacity-50
                 transition-all duration-200
                 "
-            >
-                <X className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
-            </button>
-            </div>
+                  >
+                    <X className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
+                  </button>
+                </div>
 
-            {/* Reviews Section */}
-            <div className="px-2 py-2 sm:px-3 sm:py-3">
-            <h4 className="text-[10px] sm:text-xs font-semibold text-gray-800 mb-2 sm:mb-3 uppercase tracking-wide">
-                {translatedReviewsHeading}
-            </h4>
+                {/* Reviews Section */}
+                <div className="px-2 py-2 sm:px-3 sm:py-3">
+                  <h4 className="text-[10px] sm:text-xs font-semibold text-gray-800 mb-2 sm:mb-3 uppercase tracking-wide">
+                    {translatedReviewsHeading}
+                  </h4>
 
-            <div className="space-y-2 max-h-[170px] md:max-h-[] sm:max-h-[340px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300">
-                {selectedLocation.reviews?.map((review, index) => (
-                <div
-                    key={index}
-                    className="
+                  <div className="space-y-2 max-h-[170px] md:max-h-[] sm:max-h-[340px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300">
+                    {selectedLocation.reviews?.map((review, index) => (
+                      <div
+                        key={index}
+                        className="
                     bg-gray-50 rounded-xl p-2 sm:p-3 
                     hover:bg-gray-100 transition-colors duration-200
                     "
-                >
-                    <div className="flex gap-2 sm:gap-3">
-                    {/* Avatar */}
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden flex-shrink-0 ring-1 ring-white shadow-md">
-                        <div className="w-full h-full bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 flex items-center justify-center">
-                        <span className="text-[10px] sm:text-xs text-white font-bold">
-                            {review.name.split(" ").map((n) => n[0]).join("")}
-                        </span>
-                        </div>
-                    </div>
+                      >
+                        <div className="flex gap-2 sm:gap-3">
+                          {/* Avatar */}
+                          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden flex-shrink-0 ring-1 ring-white shadow-md">
+                            <div className="w-full h-full bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 flex items-center justify-center">
+                              <span className="text-[10px] sm:text-xs text-white font-bold">
+                                {review.name.split(" ").map((n) => n[0]).join("")}
+                              </span>
+                            </div>
+                          </div>
 
-                    {/* Review Content */}
-                    <div className="flex-1" style={{ fontFamily: "Diodrum Cyrillic" }}>
-                        <div className="flex items-center justify-between mb-1">
-                        <h5 className="font-semibold text-gray-900 text-xs sm:text-sm">
-                            {review.name}
-                        </h5>
-                        <div className="flex space-x-0.5 scale-90 sm:scale-100">{renderStars(review.rating)}</div>
-                        </div>
+                          {/* Review Content */}
+                          <div className="flex-1" style={{ fontFamily: "Diodrum Cyrillic" }}>
+                            <div className="flex items-center justify-between mb-1">
+                              <h5 className="font-semibold text-gray-900 text-xs sm:text-sm">
+                                {review.name}
+                              </h5>
+                              <div className="flex space-x-0.5 scale-90 sm:scale-100">{renderStars(review.rating)}</div>
+                            </div>
 
-                        <p className="text-gray-700 text-[10px] sm:text-xs leading-snug " style={{ fontFamily: "Diodrum Cyrillic" }}>
-                        {review.text}
-                        </p>
-                    </div>
-                    </div>
+                            <p className="text-gray-700 text-[10px] sm:text-xs leading-snug " style={{ fontFamily: "Diodrum Cyrillic" }}>
+                              {review.text}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                ))}
-            </div>
-            </div>
-        </div>
-        )} 
-        </div>
+              </div>
+            )}
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8" >
             {/* Global Presence Item 1 */}
             <div className="bg-[#F8F8F8] rounded-[20px] flex flex-col items-center justify-center text-center px-2 py-5">
               <div className="text-5xl font-bold text-[#B8D332] mb-2 " >
-                {innovationData.globalPresence[0].value} 
+                {innovationData.globalPresence[0].value}
               </div>
               <div className="text-[#3D3B8E] font-bold text-xl mb-2">
-                {translatedGlobal1Label} 
-              </div> 
+                {translatedGlobal1Label}
+              </div>
               <div className="text-gray-600">
-               {translatedGlobal1Country}
+                {translatedGlobal1Country}
               </div>
             </div>
-            
+
             {/* Global Presence Item 2 */}
             <div className="bg-[#F8F8F8] rounded-[20px] flex flex-col items-center justify-center text-center px-2 py-5">
               <div className="text-5xl font-bold text-[#B8D332] mb-2 " >
-                {innovationData.globalPresence[1].value} 
+                {innovationData.globalPresence[1].value}
               </div>
               <div className="text-[#3D3B8E] font-bold text-xl mb-2">
-                {translatedGlobal2Label} 
-              </div> 
+                {translatedGlobal2Label}
+              </div>
               <div className="text-gray-600">
-               {translatedGlobal2Country}
+                {translatedGlobal2Country}
               </div>
             </div>
-            
+
             {/* Global Presence Item 3 */}
             <div className="bg-[#F8F8F8] rounded-[20px] flex flex-col items-center justify-center text-center px-2 py-5">
               <div className="text-5xl font-bold text-[#B8D332] mb-2 " >
-                {innovationData.globalPresence[2].value} 
+                {innovationData.globalPresence[2].value}
               </div>
               <div className="text-[#3D3B8E] font-bold text-xl mb-2">
-                {translatedGlobal3Label} 
-              </div> 
+                {translatedGlobal3Label}
+              </div>
               <div className="text-gray-600">
-               {translatedGlobal3Country}
+                {translatedGlobal3Country}
               </div>
             </div>
-            </div>
+          </div>
         </div>
       </section>
     </div>

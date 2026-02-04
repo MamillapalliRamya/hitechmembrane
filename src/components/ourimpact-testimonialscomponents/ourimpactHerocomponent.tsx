@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowLeft, ArrowRight, Star } from 'lucide-react';
+import { useTranslateContent } from '../../hooks/useTranslateContent';
 import { countriesData } from './Globalvoicesoftrust';
 import vector12 from "../../assets/card-curves/Vector 12.svg"
 import vector8 from "../../assets/card-curves/Vector 8.svg"
@@ -18,6 +19,14 @@ interface Testimonial {
 
 const TestimonialsHero: React.FC = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
+
+    // Text content for translation
+    const headingText = "What Our Clients Say";
+    const subHeadingText = "Trusted by industries, municipalities, and distributors across the globe.";
+
+    // Translation hooks
+    const { translatedText: translatedHeading } = useTranslateContent(headingText);
+    const { translatedText: translatedSubHeading } = useTranslateContent(subHeadingText);
 
     const testimonials: Testimonial[] = countriesData.flatMap(country =>
         country.reviews.map(review => ({
@@ -87,13 +96,11 @@ const TestimonialsHero: React.FC = () => {
                     {/* LEFT CONTENT */}
                     <div className="md:pr-4 lg:pr-8">
                         <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[50px] xl:ml-[30px] font-bold text-[#3E4095] mb-4 lg:mb-6 2xl:mb-8">
-                            What Our Clients Say
+                            {translatedHeading}
                         </h1>
 
                         <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl xl:ml-[30px] text-[#404040] mb-6 lg:mb-8 leading-relaxed" style={{ fontFamily: 'Nato, sans-serif' }}>
-                            Trusted by industries, municipalities,
-                            <br />
-                            and distributors across the globe.
+                            {translatedSubHeading}
                         </p>
 
                         <div className="flex space-x-3 lg:space-x-4 xl:ml-[30px]">
