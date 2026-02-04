@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Phone } from "lucide-react";
-// import { useTheme } from "../../context/ThemeContext";
 import { useTranslation } from "react-i18next";
-import LanguageSelector from "./LanguageSelector";
+import LanguageSelector from "../common/LanguageSelector";
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
-  // const { theme, toggleTheme } = useTheme();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -21,7 +19,6 @@ const Header: React.FC = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu on window resize
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024) {
@@ -49,10 +46,11 @@ const Header: React.FC = () => {
     <>
       <header
         id="header"
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-          ? "bg-white dark:bg-gray-800 shadow-md py-1 sm:py-2"
-          : "bg-white dark:bg-gray-900 py-1 sm:py-2"
-          }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled
+            ? "bg-white dark:bg-gray-800 shadow-md py-1 sm:py-2"
+            : "bg-white dark:bg-gray-900 py-1 sm:py-2"
+        }`}
       >
         <div className="w-full">
           <div className="flex justify-between items-center mx-[40px] lg:mx-[80px] 2xl:mx-[112px]">
@@ -77,61 +75,67 @@ const Header: React.FC = () => {
             >
               <Link
                 to="/about"
-                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${isActive("/about")
-                  ? "text-blue-600 dark:text-blue-400"
-                  : isScrolled
+                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${
+                  isActive("/about")
+                    ? "text-blue-600 dark:text-blue-400"
+                    : isScrolled
                     ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                     : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
-                  }`}
+                }`}
               >
                 {t("nav.about")}
               </Link>
 
               <Link
                 to="/products"
-                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${isActive("/products")
-                  ? "text-blue-600 dark:text-blue-400"
-                  : isScrolled
+                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${
+                  isActive("/products")
+                    ? "text-blue-600 dark:text-blue-400"
+                    : isScrolled
                     ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                     : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
-                  }`}
+                }`}
               >
                 {t("nav.products")}
               </Link>
 
               <Link
                 to="/innovation"
-                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${isActive("/innovation")
-                  ? "text-blue-600 dark:text-blue-400"
-                  : isScrolled
+                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${
+                  isActive("/innovation")
+                    ? "text-blue-600 dark:text-blue-400"
+                    : isScrolled
                     ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                     : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
-                  }`}
+                }`}
               >
-                Innovation
+                {t("nav.innovation")}
               </Link>
 
               <Link
                 to="/ourimpact"
-                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${isActive("/ourimpact")
-                  ? "text-blue-600 dark:text-blue-400"
-                  : isScrolled
+                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${
+                  isActive("/ourimpact")
+                    ? "text-blue-600 dark:text-blue-400"
+                    : isScrolled
                     ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                     : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
-                  }`}
+                }`}
               >
-                Our Impact
+                {t("nav.ourimpact")}
               </Link>
+
               <Link
                 to="/events"
-                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${isActive("/events")
-                  ? "text-blue-600 dark:text-blue-400"
-                  : isScrolled
+                className={`font-medium transition-colors hover:scale-105 transform duration-200 ${
+                  isActive("/events")
+                    ? "text-blue-600 dark:text-blue-400"
+                    : isScrolled
                     ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                     : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
-                  }`}
+                }`}
               >
-                Events
+                {t("nav.events")}
               </Link>
             </nav>
 
@@ -145,28 +149,22 @@ const Header: React.FC = () => {
               <Link
                 to="/contact"
                 className="
-    hidden sm:block
-    px-3 py-1.5 sm:px-4 sm:py-2 lg:px-5 lg:py-2
-    rounded-md font-medium
-    text-sm lg:text-base
-    bg-[#A8CF45] text-[#3D3E96]
-    shadow-lg
-
-    cursor-pointer
-    inline-flex items-center justify-center
-
-    transform-gpu
-    transition-transform duration-300 ease-out
-    hover:scale-110
-  "
+                  hidden sm:block
+                  px-3 py-1.5 sm:px-4 sm:py-2 lg:px-5 lg:py-2
+                  rounded-md font-medium
+                  text-sm lg:text-base
+                  bg-[#A8CF45] text-[#3D3E96]
+                  shadow-lg
+                  cursor-pointer
+                  inline-flex items-center justify-center
+                  transform-gpu
+                  transition-transform duration-300 ease-out
+                  hover:scale-110
+                "
               >
                 <span className="hidden lg:inline">{t("cta.requestQuote")}</span>
                 <span className="lg:hidden">Quote</span>
               </Link>
-
-
-
-
 
               {/* Mobile Menu Button */}
               <button
@@ -176,13 +174,15 @@ const Header: React.FC = () => {
               >
                 {mobileMenuOpen ? (
                   <X
-                    className={`w-5 h-5 sm:w-6 sm:h-6 ${isScrolled ? "text-gray-900 dark:text-gray-100" : "text-gray-800 dark:text-gray-200"
-                      }`}
+                    className={`w-5 h-5 sm:w-6 sm:h-6 ${
+                      isScrolled ? "text-gray-900 dark:text-gray-100" : "text-gray-800 dark:text-gray-200"
+                    }`}
                   />
                 ) : (
                   <Menu
-                    className={`w-5 h-5 sm:w-6 sm:h-6 ${isScrolled ? "text-gray-900 dark:text-gray-100" : "text-gray-800 dark:text-gray-200"
-                      }`}
+                    className={`w-5 h-5 sm:w-6 sm:h-6 ${
+                      isScrolled ? "text-gray-900 dark:text-gray-100" : "text-gray-800 dark:text-gray-200"
+                    }`}
                   />
                 )}
               </button>
@@ -222,10 +222,11 @@ const Header: React.FC = () => {
             <nav className="flex flex-col p-4 space-y-2">
               <Link
                 to="/about"
-                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${isActive("/about")
-                  ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
-                  : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
-                  }`}
+                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${
+                  isActive("/about")
+                    ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
+                    : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
+                }`}
                 onClick={closeMobileMenu}
               >
                 {t("nav.about")}
@@ -233,10 +234,11 @@ const Header: React.FC = () => {
 
               <Link
                 to="/products"
-                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${isActive("/products")
-                  ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
-                  : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
-                  }`}
+                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${
+                  isActive("/products")
+                    ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
+                    : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
+                }`}
                 onClick={closeMobileMenu}
               >
                 {t("nav.products")}
@@ -244,37 +246,38 @@ const Header: React.FC = () => {
 
               <Link
                 to="/innovation"
-                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${isActive("/innovation")
-                  ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
-                  : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
-                  }`}
+                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${
+                  isActive("/innovation")
+                    ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
+                    : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
+                }`}
                 onClick={closeMobileMenu}
               >
-                Innovation
+                {t("nav.innovation")}
               </Link>
 
               <Link
-  to="/ourimpact"
-  className={`font-medium py-3 px-4 rounded-lg transition-colors hover:scale-105 transform duration-200 ${
-    isActive("/ourimpact")
-      ? "text-blue-600 dark:text-blue-400"
-      : isScrolled
-        ? "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-        : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
-  }`}
->
-  Our Impact
-</Link>
+                to="/ourimpact"
+                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${
+                  isActive("/ourimpact")
+                    ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
+                    : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
+                }`}
+                onClick={closeMobileMenu}
+              >
+                {t("nav.ourimpact")}
+              </Link>
 
               <Link
                 to="/events"
-                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${isActive("/events")
-                  ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
-                  : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
-                  }`}
+                className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 ${
+                  isActive("/events")
+                    ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 shadow-sm"
+                    : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700"
+                }`}
                 onClick={closeMobileMenu}
               >
-                Events
+                {t("nav.events")}
               </Link>
             </nav>
 
