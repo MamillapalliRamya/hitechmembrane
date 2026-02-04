@@ -1,9 +1,40 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { useTranslateContent } from "../../hooks/useTranslateContent";
+
 
 const AboutUsSection = () => {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.5 });
+
+  // -------- TRANSLATABLE TEXT --------
+const aboutTitle = "About Us";
+const aboutPara1 = `Hi-Tech Membranes is a trusted RO membrane element manufacturer with over 30+ years of experience in reverse osmosis technology. 
+We supply high-quality membranes designed for industrial, commercial, and municipal applications worldwide.`;
+
+const aboutPara2 = `Our RO membranes are built for stable performance, 
+efficient operation, and long-term reliability, helping 
+customers achieve clean water production while 
+optimizing operating costs.`;
+
+const aboutButton = "Learn More About Us";
+const aboutexp1="Years of";
+const aboutexp2="Experience";
+const aboutcl1="Clients";
+const aboutcl2="Worldwide";
+
+
+// Hooks for translation
+const { translatedText: tTitle } = useTranslateContent(aboutTitle);
+const { translatedText: tPara1 } = useTranslateContent(aboutPara1);
+const { translatedText: tPara2 } = useTranslateContent(aboutPara2);
+const { translatedText: tButton } = useTranslateContent(aboutButton);
+const { translatedText: texp1 } = useTranslateContent(aboutexp1);
+const { translatedText: texp2 } = useTranslateContent(aboutexp2);
+const { translatedText: tCl1 } = useTranslateContent(aboutcl1);
+const { translatedText: tCl2 } = useTranslateContent(aboutcl2);
+// -----------------------------------
+
 
   return (
     <section
@@ -40,8 +71,8 @@ const AboutUsSection = () => {
                 text-start rounded-lg w-[160px] sm:w-[180px] xl:w-[216px] 3xl:w-[240px] h-[177px]"
                 style={{ fontFamily: "Diodrum Cyrillic, sans-serif", flexDirection: "column" }}
               >
-                <div className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#3E4095]">Clients</div>
-                <div className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#3E4095]">Worldwide</div>
+                <div className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#3E4095]">{tCl1}</div>
+                <div className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#3E4095]">{tCl2}</div>
                 <div className="text-[#A8CF45] text-[40px] sm:text-[50px] lg:text-[60px]">200+</div>
               </motion.div>
             </div>
@@ -57,8 +88,8 @@ const AboutUsSection = () => {
                 text-start rounded-lg w-[150px] sm:w-[160px] xl:w-[169px] 3xl:w-[200px]"
                 style={{ fontFamily: "Diodrum Cyrillic, sans-serif" }}
               >
-                <div className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#3E4095]">Years of</div>
-                <div className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#3E4095]">Experience</div>
+                <div className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#3E4095]">{texp1}</div>
+                <div className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#3E4095]">{texp2}</div>
                 <div className="text-[#A8CF45] text-[38px] sm:text-[50px] lg:text-[60px]">30+</div>
               </motion.div>
 
@@ -81,21 +112,18 @@ const AboutUsSection = () => {
             className="flex-1 space-y-6 text-center lg:text-left flex flex-col justify-center"
           >
             <h2 className="text-2xl sm:text-3xl lg:text-5xl 2xl:text-[58px] 3xl:text-[64px] text-[#10111A] leading-tight">
-              About Us
+              {tTitle}
             </h2>
 
             <p className="text-gray-600 text-sm sm:text-base lg:text-lg 2xl:text-[20px] 
               3xl:text-[20px] leading-relaxed max-w-2xl lg:mx-0">
-              Hi-Tech Membranes is a trusted RO membrane element manufacturer with over 30+ years of experience in reverse osmosis technology. 
-              We supply high-quality membranes designed for industrial, commercial, and municipal applications worldwide.
+              {tPara1}
             </p>
             <p className="text-gray-600 text-sm sm:text-base lg:text-lg 2xl:text-[20px] 
               3xl:text-[20px] leading-relaxed max-w-2xl lg:mx-0">
-              Our RO membranes are built for stable performance, 
-              efficient operation, and long-term reliability, helping 
-              customers achieve clean water production while 
-              optimizing operating costs.
+              {tPara2}
             </p>
+              
 
             <button
               className="bg-[#A8CF45] text-[#3E4095] rounded-lg font-medium text-sm sm:text-base 
@@ -106,7 +134,7 @@ const AboutUsSection = () => {
     hover:bg-[#98C135] h-[45px] sm:h-[53px] w-[225px] 2xl:w-[240px] 3xl:w-[255px] 
               mx-auto lg:mx-0"
             >
-              Learn More About Us
+              {tButton}
             </button>
           </motion.div>
         </div>

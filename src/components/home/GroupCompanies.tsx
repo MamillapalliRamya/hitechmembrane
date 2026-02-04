@@ -1,7 +1,13 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useTranslateContent } from "../../hooks/useTranslateContent";
 
 const GroupCompanies = () => {
+  const { translatedText: tHeading } = useTranslateContent(
+    "Need help choosing the right membrane?"
+  );
+  const { translatedText: tButton } = useTranslateContent("Let's Talk");
+
   return (
     <section className="relative w-full overflow-hidden py-10 sm:py-12 lg:py-16">
       {/* Background Image */}
@@ -26,7 +32,7 @@ const GroupCompanies = () => {
                        font-medium leading-snug sm:leading-normal xl:leading-[45px]
                        max-w-[900px] flex-nowrap"
           >
-            Need help choosing the right membrane?
+            {tHeading}
           </h1>
 
           {/* Button */}
@@ -42,9 +48,9 @@ const GroupCompanies = () => {
                        hover:scale-105
                        hover:bg-[#98C135]"
           >
-            <Link
-              to="/contact">
-              <span className="relative z-10">Let's Talk</span></Link>
+            <Link to="/contact">
+              <span className="relative z-10">{tButton}</span>
+            </Link>
           </button>
         </div>
       </div>
