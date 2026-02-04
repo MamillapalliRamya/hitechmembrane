@@ -1,6 +1,7 @@
 import { Download, ChevronDown } from 'lucide-react';
 import React from 'react';
 import GroupCompanies from '../components/home/GroupCompanies';
+import { useTranslateContent } from "../hooks/useTranslateContent";
 
 const SlidingImages = ({ images }: { images: string[] }) => {
   const [current, setCurrent] = React.useState(0);
@@ -20,9 +21,7 @@ const SlidingImages = ({ images }: { images: string[] }) => {
           src={img}
           alt=""
           className={`absolute w-full h-full object-cover transition-all duration-500 ${
-            index === current
-              ? "opacity-100 translate-x-0"
-              : "opacity-0 translate-x-full"
+            index === current ? "opacity-100 translate-x-0" : "opacity-0 translate-x-full"
           }`}
         />
       ))}
@@ -30,18 +29,26 @@ const SlidingImages = ({ images }: { images: string[] }) => {
   );
 };
 
-
 const ProductPage: React.FC = () => {
+  /* -------------------------- TRANSLATIONS -------------------------- */
+  const { translatedText: tMainTitle } = useTranslateContent(
+    "Reverse Osmosis Membrane Elements for Every Water Challenge"
+  );
+  const { translatedText: tDownloadBrochure } = useTranslateContent(
+    "Download Hi-Tech RO Brochure"
+  );
+
+  // PRODUCT CATEGORIES
   const categories = [
     {
       id: 1,
       title: "Residential",
       subtitle: "RO Membranes",
       images: [
-      "/assets/images/residential_image1.png",
-      "/assets/images/residential_image2.jpg",
-      "/assets/images/residential_image3.jpeg",
-    ],
+        "/assets/images/residential_image1.png",
+        "/assets/images/residential_image2.jpg",
+        "/assets/images/residential_image3.jpeg",
+      ],
       alt: "Water tap with clean water flowing"
     },
     {
@@ -79,6 +86,60 @@ const ProductPage: React.FC = () => {
     }
   ];
 
+  // Translate categories
+  const translatedCategories = categories.map(cat => ({
+    ...cat,
+    title: useTranslateContent(cat.title).translatedText,
+    subtitle: useTranslateContent(cat.subtitle).translatedText,
+  }));
+
+  // SECTION TITLES AND DESCRIPTIONS
+  const { translatedText: tResidentialTitle } = useTranslateContent("Residential RO Membranes");
+  const { translatedText: tResidentialDesc1 } = useTranslateContent(
+    "Hi-Tech Residential RO membranes are designed to deliver safe, clean drinking water through efficient removal of dissolved salts, heavy metals, and contaminants."
+  );
+  const { translatedText: tResidentialDesc2 } = useTranslateContent(
+    "Our RE and ES series membranes offer high rejection rates of 97-98%, ensuring optimal performance for household water purification systems."
+  );
+
+  const { translatedText: tIndustrialTitle } = useTranslateContent("Industrial RO Membranes");
+  const { translatedText: tIndustrialDesc1 } = useTranslateContent(
+    "Hi-Tech Industrial RO membranes are designed for high-capacity water treatment systems operating under demanding conditions."
+  );
+  const { translatedText: tIndustrialDesc2 } = useTranslateContent(
+    "These membranes are used in industries such as power generation, pharmaceuticals, food & beverage, textiles, and manufacturing—where consistent water quality and operational reliability are critical."
+  );
+
+  const { translatedText: tCommercialTitle } = useTranslateContent("Commercial RO Membranes");
+  const { translatedText: tCommercialDesc1 } = useTranslateContent(
+    "Hi-Tech Commercial RO membrane elements are engineered for continuous operation in commercial water treatment systems."
+  );
+  const { translatedText: tCommercialDesc2 } = useTranslateContent(
+    "Suitable for hotels, restaurants, hospitals, office buildings, and packaged RO plants, these membranes provide reliable performance, reduced fouling tendencies, and consistent permeate quality."
+  );
+
+  const { translatedText: tSeaWaterTitle } = useTranslateContent("Sea Water RO Membranes");
+  const { translatedText: tSeaWaterDesc1 } = useTranslateContent(
+    "Hi-Tech Seawater RO membranes are specifically engineered to treat high-salinity seawater and brackish sources."
+  );
+  const { translatedText: tSeaWaterDesc2 } = useTranslateContent(
+    "Designed for desalination plants, coastal facilities, and offshore applications, these membranes deliver high rejection performance while maintaining operational efficiency under extreme conditions."
+  );
+
+  const { translatedText: tCustomNote } = useTranslateContent(
+    "Custom specifications and private-label options available \nfor OEM partners."
+  );
+
+  const { translatedText: tDownloadBtn } = useTranslateContent("Download");
+  const { translatedText: tModels } = useTranslateContent("Models");
+  const { translatedText: tMeasurement } = useTranslateContent("Measurement L (ID) inch");
+  const { translatedText: tActiveArea } = useTranslateContent("Active Area (FT/M)");
+  const { translatedText: tFlow } = useTranslateContent("Permeate Flow GPD (M3D)");
+  const { translatedText: tRejection } = useTranslateContent("Salt Rejection (%)");
+  const { translatedText: tLayer } = useTranslateContent("Layer");
+  const { translatedText: tDataSheet } = useTranslateContent("Data Sheet");
+
+  /* -------------------------- DOWNLOAD FUNCTION -------------------------- */
   const handleProductDownload = (productModel: string) => {
     const link = document.createElement('a');
     link.href = '/assets/pdf/sample.pdf';
@@ -86,15 +147,41 @@ const ProductPage: React.FC = () => {
     link.click();
   };
 
+  /* -------------------------- PRODUCT TABLE ROWS -------------------------- */
+  const residentialRows = [
+    { model: 'RE 1812-50', measurement: '12 (1.8)', activeArea: '97-98', flow: '50 (75)', rejection: '97-98', layer: '50' },
+    { model: 'RE 1812-75', measurement: '12 (1.8)', activeArea: '97-98', flow: '75 (75)', rejection: '97-98', layer: '75' },
+    { model: 'TFC 2012-80', measurement: '12 (2)', activeArea: '97-98', flow: '80 (75)', rejection: '97-98', layer: '80' },
+    { model: 'RE 2012-100', measurement: '12 (2)', activeArea: '97-98', flow: '100 (75)', rejection: '97-98', layer: '100' },
+  ];
+
+  const residentialESRows = [
+    { model: 'ES 1812-75', measurement: '12 (1.8)', activeArea: '97-98', flow: '50 (75)', rejection: '97-98', layer: '50' },
+    { model: 'ES 2012-80', measurement: '12 (2)', activeArea: '97-98', flow: '80 (75)', rejection: '97-98', layer: '75' },
+    { model: 'ES 2012-100', measurement: '12 (2)', activeArea: '97-98', flow: '100 (75)', rejection: '97-98', layer: '80' },
+    { model: 'ES 2012-150', measurement: '12 (2)', activeArea: '97-98', flow: '150 (75)', rejection: '97-98', layer: '100' },
+  ];
+
+  const industrialRows = [
+    { model: 'RE 1812-50', measurement: '1.8', activeArea: '97-98', flow: '50', rejection: '97-98' },
+    { model: 'RE 1812-75', measurement: '1.8', activeArea: '97-98', flow: '75', rejection: '97-98' },
+    { model: 'TFC 2012-80', measurement: '2', activeArea: '97-98', flow: '80', rejection: '97-98' },
+    { model: 'RE 2012-100', measurement: '2', activeArea: '97-98', flow: '100', rejection: '97-98' },
+  ];
+
+  const commercialRows = industrialRows;
+  const seaWaterRows = industrialRows;
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="mx-[20px] lg:mx-[40px] xl:mx-[60px] 2xl:mx-[90px] pt-10">
+
+        {/* Main Title */}
         <div className="text-center font-semibold mb-10 pt-14 text-[#3D3B8E] text-lg sm:text-xl lg:text-2xl xl:text-[30px] 2xl:text-[40px] mt-10">
-
-          Reverse Osmosis Membrane Elements for Every Water Challenge
-
+          {tMainTitle}
         </div>
-       
+
+        {/* Download Brochure */}
         <div className="text-end mb-3 pt-14">
           <a
             href="/assets/pdf/sample.pdf"
@@ -102,24 +189,21 @@ const ProductPage: React.FC = () => {
             rel="noopener noreferrer"
             className="text-[#A8CF45] underline text-lg sm:text-xl lg:text-2xl inline-flex items-center gap-2 flex-wrap justify-center"
           >
-            Download Hi-Tech RO Brochure
+            {tDownloadBrochure}
             <Download className="w-5 h-5 sm:w-6 sm:h-6" />
           </a>
         </div>
 
         {/* Product Categories Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 lg:gap-8 mb-10">
-          {categories.map((category) => (
+          {translatedCategories.map((category) => (
             <div
               key={category.id}
               className="relative h-[230px] sm:h-[260px] lg:h-[300px] overflow-hidden rounded-xl shadow-lg group"
             >
-              {/* Background */}
-              {/* Background Slider */}
-<div className="absolute inset-0">
-  <SlidingImages images={category.images} />
-</div>
-
+              <div className="absolute inset-0">
+                <SlidingImages images={category.images} />
+              </div>
 
               {/* Blue overlay */}
               <div
@@ -148,85 +232,41 @@ const ProductPage: React.FC = () => {
           ))}
         </div>
 
-        {/* RESIDENTIAL SECTION */}
-        <SectionTitle text="Residential RO Membranes" />
-        <SectionDescription text="Hi-Tech Residential RO membranes are designed to deliver safe, clean drinking water through efficient removal of dissolved salts, heavy metals, and contaminants." />
-        <SectionDescription text="Our RE and ES series membranes offer high rejection rates of 97-98%, ensuring optimal performance for household water purification systems." />
+        {/* ---------------- SECTIONS ---------------- */}
+        <SectionTitle text={tResidentialTitle} />
+        <SectionDescription text={tResidentialDesc1} />
+        <SectionDescription text={tResidentialDesc2} />
+        <ProductTable title="RE Series" rows={residentialRows} onDownload={handleProductDownload} />
+        <ProductTable title="ES Series" rows={residentialESRows} onDownload={handleProductDownload} />
 
-        <ProductTable
-          title="RE Series"
-          rows={[
-            { model: 'RE 1812-50', measurement: '12 (1.8)', activeArea: '97-98', flow: '50 (75)', rejection: '97-98', layer: '50' },
-            { model: 'RE 1812-75', measurement: '12 (1.8)', activeArea: '97-98', flow: '75 (75)', rejection: '97-98', layer: '75' },
-            { model: 'TFC 2012-80', measurement: '12 (2)', activeArea: '97-98', flow: '80 (75)', rejection: '97-98', layer: '80' },
-            { model: 'RE 2012-100', measurement: '12 (2)', activeArea: '97-98', flow: '100 (75)', rejection: '97-98', layer: '100' },
-          ]}
-          onDownload={handleProductDownload}
-        />
+        <SectionTitle text={tIndustrialTitle} />
+        <SectionDescription text={tIndustrialDesc1} />
+        <SectionDescription text={tIndustrialDesc2} />
+        <ProductTable title="" rows={industrialRows} onDownload={handleProductDownload} />
 
-        <ProductTable
-          title="ES Series"
-          rows={[
-            { model: 'ES 1812-75', measurement: '12 (1.8)', activeArea: '97-98', flow: '50 (75)', rejection: '97-98', layer: '50' },
-            { model: 'ES 2012-80', measurement: '12 (2)', activeArea: '97-98', flow: '80 (75)', rejection: '97-98', layer: '75' },
-            { model: 'ES 2012-100', measurement: '12 (2)', activeArea: '97-98', flow: '100 (75)', rejection: '97-98', layer: '80' },
-            { model: 'ES 2012-150', measurement: '12 (2)', activeArea: '97-98', flow: '150 (75)', rejection: '97-98', layer: '100' },
-          ]}
-          onDownload={handleProductDownload}
-        />
+        <SectionTitle text={tCommercialTitle} />
+        <SectionDescription text={tCommercialDesc1} />
+        <SectionDescription text={tCommercialDesc2} />
+        <ProductTable title="" rows={commercialRows} onDownload={handleProductDownload} />
 
-        {/* INDUSTRIAL */}
-        <SectionTitle text="Industrial RO Membranes" />
-        <SectionDescription text="Hi-Tech Industrial RO membranes are designed for high-capacity water treatment systems operating under demanding conditions." />
-        <SectionDescription text="These membranes are used in industries such as power generation, pharmaceuticals, food & beverage, textiles, and manufacturing—where consistent water quality and operational reliability are critical." />
+        <SectionTitle text={tSeaWaterTitle} />
+        <SectionDescription text={tSeaWaterDesc1} />
+        <SectionDescription text={tSeaWaterDesc2} />
+        <ProductTable title="" rows={seaWaterRows} onDownload={handleProductDownload} />
 
-        <ProductTable
-          title=""
-          rows={[
-            { model: 'RE 1812-50', measurement: '97-98', activeArea: '97-98', flow: '1.8', rejection: '50' },
-            { model: 'RE 1812-75', measurement: '97-98', activeArea: '97-98', flow: '1.8', rejection: '75' },
-            { model: 'TFC 2012-80', measurement: '97-98', activeArea: '97-98', flow: '2', rejection: '80' },
-            { model: 'RE 2012-100', measurement: '97-98', activeArea: '97-98', flow: '2', rejection: '100' },
-          ]}
-          onDownload={handleProductDownload}
-        />
-
-        {/* COMMERCIAL SECTION */}
-        <SectionTitle text="Commercial RO Membranes" />
-        <SectionDescription text="Hi-Tech Commercial RO membrane elements are engineered for continuous operation in commercial water treatment systems." />
-        <SectionDescription text="Suitable for hotels, restaurants, hospitals, office buildings, and packaged RO plants, these membranes provide reliable performance, reduced fouling tendencies, and consistent permeate quality." />
-
-        <ProductTable
-          title=""
-          rows={[
-            { model: 'RE 1812-50', measurement: '97-98', activeArea: '97-98', flow: '1.8', rejection: '50' },
-            { model: 'RE 1812-75', measurement: '97-98', activeArea: '97-98', flow: '1.8', rejection: '75' },
-            { model: 'TFC 2012-80', measurement: '97-98', activeArea: '97-98', flow: '2', rejection: '80' },
-            { model: 'RE 2012-100', measurement: '97-98', activeArea: '97-98', flow: '2', rejection: '100' },
-          ]}
-          onDownload={handleProductDownload}
-        />
-
-        {/* SEA WATER SECTION*/}
-        <SectionTitle text="Sea Water RO Membranes" />
-        <SectionDescription text="Hi-Tech Seawater RO membranes are specifically engineered to treat high-salinity seawater and brackish sources." />
-        <SectionDescription text="Designed for desalination plants, coastal facilities, and offshore applications, these membranes deliver high rejection performance while maintaining operational efficiency under extreme conditions." />
-
-        <ProductTable
-          title=""
-          rows={[
-            { model: 'RE 1812-50', measurement: '97-98', activeArea: '97-98', flow: '1.8', rejection: '50' },
-            { model: 'RE 1812-70', measurement: '97-98', activeArea: '97-98', flow: '1.8', rejection: '75' },
-            { model: 'TFC 2012-80', measurement: '97-98', activeArea: '97-98', flow: '2', rejection: '80' },
-            { model: 'RE 2012-100', measurement: '97-98', activeArea: '97-98', flow: '2', rejection: '100' },
-          ]}
-          onDownload={handleProductDownload}
-        />
+        {/* Custom Note */}
         <div>
           <h1 className='text-center font-semibold mb-6 lg:mb-10 lg:text-[30px] xl:text-[35px] 2xl:text-[40px]'>
-            Custom specifications and private-label options available <br></br>for OEM partners.</h1>
+            {tCustomNote.split("\n").map((line, idx) => (
+              <span key={idx}>
+                {line}
+                <br />
+              </span>
+            ))}
+          </h1>
         </div>
       </div>
+
       <GroupCompanies />
     </div>
   );
@@ -234,9 +274,7 @@ const ProductPage: React.FC = () => {
 
 export default ProductPage;
 
-
 /* ------------------------------ UTIL COMPONENTS ------------------------------ */
-
 const SectionTitle = ({ text }: { text: string }) => (
   <h2 className="font-semibold text-3xl sm:text-4xl lg:text-5xl text-[#3E4095] mt-14 mb-4">
     {text}
@@ -249,37 +287,35 @@ const SectionDescription = ({ text }: { text: string }) => (
   </p>
 );
 
-/* ------------------------------ PRODUCT TABLE (DYNAMIC HEADERS) ------------------------------ */
-
+/* ------------------------------ PRODUCT TABLE ------------------------------ */
 const ProductTable = ({ title, rows, onDownload }: any) => {
   const showLayer = title === "RE Series" || title === "ES Series";
 
-  const measurementLabel = showLayer
-    ? "Measurement L (ID) inch"
-    : "Measurement";
+  const { translatedText: tModels } = useTranslateContent("Models");
+  const { translatedText: tMeasurement } = useTranslateContent(showLayer ? "Measurement L (ID) inch" : "Measurement");
+  const { translatedText: tActiveArea } = useTranslateContent("Active Area (FT/M)");
+  const { translatedText: tFlow } = useTranslateContent("Permeate Flow GPD (M3D)");
+  const { translatedText: tRejection } = useTranslateContent("Salt Rejection (%)");
+  const { translatedText: tLayer } = useTranslateContent("Layer");
+  const { translatedText: tDataSheet } = useTranslateContent("Data Sheet");
+  const { translatedText: tDownloadBtn } = useTranslateContent("Download");
 
   return (
     <div className="mb-14">
       {title && <h3 className="font-semibold text-2xl sm:text-3xl mb-4">{title}</h3>}
-
       <div className="overflow-x-auto">
         <table className="w-full min-w-[800px] bg-white shadow-lg border border-gray-300 rounded-lg">
           <thead className="bg-[#E8E9FA]">
             <tr>
-              <th className="px-4 py-3 text-center text-[#3E4095] border">Models</th>
-              <th className="px-4 py-3 text-center text-[#3E4095] border">{measurementLabel}</th>
-              <th className="px-4 py-3 text-center text-[#3E4095] border">Active Area (FT/M)</th>
-              <th className="px-4 py-3 text-center text-[#3E4095] border">Permeate Flow GPD (M3D)</th>
-              <th className="px-4 py-3 text-center text-[#3E4095] border">Salt Rejection (%)</th>
-
-              {showLayer && (
-                <th className="px-4 py-3 text-center text-[#3E4095] border">Layer</th>
-              )}
-
-              <th className="px-4 py-3 text-center text-[#3E4095] border">Data Sheet</th>
+              <th className="px-4 py-3 text-center border">{tModels}</th>
+              <th className="px-4 py-3 text-center border">{tMeasurement}</th>
+              <th className="px-4 py-3 text-center border">{tActiveArea}</th>
+              <th className="px-4 py-3 text-center border">{tFlow}</th>
+              <th className="px-4 py-3 text-center border">{tRejection}</th>
+              {showLayer && <th className="px-4 py-3 text-center border">{tLayer}</th>}
+              <th className="px-4 py-3 text-center border">{tDataSheet}</th>
             </tr>
           </thead>
-
           <tbody>
             {rows.map((row: any, idx: number) => (
               <tr key={idx} className={idx % 2 ? "bg-white" : "bg-gray-50"}>
@@ -288,17 +324,13 @@ const ProductTable = ({ title, rows, onDownload }: any) => {
                 <td className="px-4 py-3 text-center border text-black">{row.activeArea}</td>
                 <td className="px-4 py-3 text-center border text-black">{row.flow}</td>
                 <td className="px-4 py-3 text-center border text-black">{row.rejection}</td>
-
-                {showLayer && (
-                  <td className="px-4 py-3 text-center border">{row.layer}</td>
-                )}
-
+                {showLayer && <td className="px-4 py-3 text-center border">{row.layer}</td>}
                 <td className="px-4 py-3 text-center border">
                   <button
                     onClick={() => onDownload(row.model)}
                     className="bg-[#A8CF45] text-[#3D3E96] px-4 py-2 rounded-md flex items-center gap-2 mx-auto"
                   >
-                    Download <Download className="w-4 h-4" />
+                    {tDownloadBtn} <Download className="w-4 h-4" />
                   </button>
                 </td>
               </tr>
