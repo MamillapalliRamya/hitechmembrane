@@ -1,16 +1,27 @@
 import React from 'react';
+import { useTranslateContent } from '../../hooks/useTranslateContent';
 
 const AboutOurClients: React.FC = () => {
+  // Text content
+  const headingText = "OUR CLIENTS / PARTNERS";
+  const subHeadingText = "Trusted by Water Treatment Professionals Worldwide";
+  const descriptionText = "Our membranes are used by OEMs, distributors, and system integrators across multiple industries—supporting long-term projects and sustainable water solutions.";
+
+  // Translation hooks
+  const { translatedText: translatedHeading } = useTranslateContent(headingText);
+  const { translatedText: translatedSubHeading } = useTranslateContent(subHeadingText);
+  const { translatedText: translatedDescription } = useTranslateContent(descriptionText);
+
   return (
     <section className="w-full  py-12 md:py-14 lg:py-16 xl:py-18 bg-[#F5F5F5]">
       <div className="">
         {/* Heading */}
         <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-[3.5rem] font-semibold text-[#3E4095] text-center">
-          OUR CLIENTS / PARTNERS
+          {translatedHeading}
         </h2>
 
         <h4 className="text-center text-[#58585B] max-w-3xl mx-auto text-[24px] leading-relaxed font-medium mt-5">
-          Trusted by Water Treatment Professionals Worldwide
+          {translatedSubHeading}
         </h4>
 
         
@@ -85,7 +96,7 @@ const AboutOurClients: React.FC = () => {
 
         </div>
         <p className="text-center text-gray-600 max-w-3xl mx-auto text-[20px] leading-relaxed font-medium mt-8">
-          Our membranes are used by OEMs, distributors, and system integrators across multiple industries—supporting long-term projects and sustainable water solutions.
+          {translatedDescription}
         </p>
       </div>
 

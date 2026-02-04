@@ -1,16 +1,33 @@
 import React from 'react';
+import { useTranslateContent } from '../../hooks/useTranslateContent';
 
 const AboutExploreProducts: React.FC = () => {
+  // Text content
+  const headingText = "Explore Our Product Portfolio";
+  const descriptionText = "RO membrane elements engineered for residential, commercial, industrial, and seawater applications.";
+  const product1Title = "Residential Membranes";
+  const product2Title = "Industrial Membranes";
+  const product3Title = "Commercial Membranes";
+  const buttonText = "Explore Our RO Elements";
+
+  // Translation hooks
+  const { translatedText: translatedHeading } = useTranslateContent(headingText);
+  const { translatedText: translatedDescription } = useTranslateContent(descriptionText);
+  const { translatedText: translatedProduct1 } = useTranslateContent(product1Title);
+  const { translatedText: translatedProduct2 } = useTranslateContent(product2Title);
+  const { translatedText: translatedProduct3 } = useTranslateContent(product3Title);
+  const { translatedText: translatedButton } = useTranslateContent(buttonText);
+
   return (
     <section className="w-full px-4 md:px-8 lg:px-16 xl:px-24 2xl:px-32 pb-16 bg-white">
       <div className="max-w-[1440px] mx-auto">
         {/* Heading */}
-       <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-[3.5rem] font-semibold text-[#3E4095] text-center mb-6 md:mb-8 lg:mb-10">
-          Explore Our Product Portfolio
+        <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-[3.5rem] font-semibold text-[#3E4095] text-center mb-6 md:mb-8 lg:mb-10">
+          {translatedHeading}
         </h2>
 
         <p className="text-center text-[#58585B] max-w-3xl mx-auto text-[22px] leading-relaxed font-medium mb-12 md:mb-16 lg:mb-20">
-          RO membrane elements engineered for residential, commercial, industrial, and seawater applications.
+          {translatedDescription}
         </p>
 
         {/* Products Grid - 3 columns */}
@@ -34,7 +51,7 @@ const AboutExploreProducts: React.FC = () => {
             </div>
             {/* Product Title */}
             <h3 className="text-xl md:text-2xl lg:text-3xl font-semibold text-[#323232]">
-              Residential Membranes
+              {translatedProduct1}
             </h3>
           </div>
 
@@ -57,7 +74,7 @@ const AboutExploreProducts: React.FC = () => {
             </div>
             {/* Product Title */}
             <h3 className="text-xl md:text-2xl lg:text-3xl font-semibold text-[#323232]">
-              Industrial Membranes
+              {translatedProduct2}
             </h3>
           </div>
 
@@ -80,11 +97,11 @@ const AboutExploreProducts: React.FC = () => {
             </div>
             {/* Product Title */}
             <h3 className="text-xl md:text-2xl lg:text-3xl font-semibold text-[#323232]">
-              Commercial Membranes
+              {translatedProduct3}
             </h3>
           </div>
           <button className="col-span-1 md:col-span-3 justify-self-center bg-[#A8CF45] hover:bg-[#98C135] text-indigo-900 font-bold text-lg px-8 py-3 sm:px-10 sm:py-4 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
-            Explore Our RO Elements
+            {translatedButton}
           </button>
 
         </div>

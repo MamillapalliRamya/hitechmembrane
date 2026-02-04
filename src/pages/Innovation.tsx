@@ -1,6 +1,6 @@
-
-// import React from 'react';
 import React, { useState } from "react";
+import { Cloud } from "lucide-react";
+import { useTranslateContent } from '../hooks/useTranslateContent';
 import icon1 from "../assets/images/wetransfer_hitech/Icon1.svg"
 import icon2 from "../assets/images/wetransfer_hitech/Icon2.svg"
 import icon3 from "../assets/images/wetransfer_hitech/Icon3.svg"
@@ -107,13 +107,159 @@ const innovationData = {
     { value: "5", label: "Continents",country: "Worldwide presence" }
   ]
 };
+
 const portfolioImages = [
   Portfolio1,
   Portfolio2,
   Portfolio3,
   Portfolio4,
 ];
+
 const Innovation: React.FC = () => {
+  // Translation content
+  const heroTitle = innovationData.hero.title;
+  const heroDescription = innovationData.hero.description;
+  const heroButtonText = innovationData.hero.buttonText;
+  
+  // Stats labels
+  const stat1Label = innovationData.stats[0].label;
+  const stat2Label = innovationData.stats[1].label;
+  const stat3Label = innovationData.stats[2].label;
+  
+  // Quote section
+  const quoteText = innovationData.quote.text;
+  const quoteAuthor = innovationData.quote.author;
+  
+  // Innovation Pillars
+  const pillarsHeading = "Our Innovation Pillars";
+  const pillarsSubtext = "Three core principles guide our commitment to advancing water purification technology";
+  const pillar1Title = innovationData.pillars[0].title;
+  const pillar1Description = innovationData.pillars[0].description;
+  const pillar1MetricLabel = innovationData.pillars[0].metricLabel;
+  const pillar2Title = innovationData.pillars[1].title;
+  const pillar2Description = innovationData.pillars[1].description;
+  const pillar2MetricLabel = innovationData.pillars[1].metricLabel;
+  const pillar3Title = innovationData.pillars[2].title;
+  const pillar3Description = innovationData.pillars[2].description;
+  const pillar3MetricLabel = innovationData.pillars[2].metricLabel;
+  
+  // Timeline
+  const timelineHeading = "Our Innovation Journey";
+  const timelineSubtext = "Three decades of continuous advancement in water purification technology";
+  
+  // Team section
+  const teamHeading = "The Minds Behind Innovation";
+  const teamSubtext = "Meet our team of engineers, scientists, and water treatment experts";
+  const team1Label = innovationData.team[0].label;
+  const team2Label = innovationData.team[1].label;
+  const team3Label = innovationData.team[2].label;
+  
+  // Portfolio
+  const portfolioHeading = "Our Innovation Portfolio";
+  const portfolioSubtext = "Cutting-edge membrane technology designed for every water treatment need";
+  const learnMoreText = "Learn More";
+  
+  // Global Presence
+  const globalHeading = "Innovation Hubs Worldwide";
+  const globalSubtext = "Our global network of research and development centers";
+  const mapInfo1 = "Multiple Export Markets Served";
+  const mapInfo2 = "30+ Years of Manufacturing Experience";
+  const mapInfo3 = "OEM & Private Label Partners Worldwide";
+  const mapInfo4 = "200+ Global Customers";
+  const clickToKnowMore = "Click to know more";
+  const reviewsHeading = "Reviews";
+  const warehouseText = "Warehouse";
+  const siteText = "Site";
+  
+  // Translation hooks - Hero Section
+  const { translatedText: translatedHeroTitle } = useTranslateContent(heroTitle);
+  const { translatedText: translatedHeroDescription } = useTranslateContent(heroDescription);
+  const { translatedText: translatedHeroButtonText } = useTranslateContent(heroButtonText);
+  
+  // Translation hooks - Stats
+  const { translatedText: translatedStat1Label } = useTranslateContent(stat1Label);
+  const { translatedText: translatedStat2Label } = useTranslateContent(stat2Label);
+  const { translatedText: translatedStat3Label } = useTranslateContent(stat3Label);
+  
+  // Translation hooks - Quote
+  const { translatedText: translatedQuoteText } = useTranslateContent(quoteText);
+  const { translatedText: translatedQuoteAuthor } = useTranslateContent(quoteAuthor);
+  
+  // Translation hooks - Pillars
+  const { translatedText: translatedPillarsHeading } = useTranslateContent(pillarsHeading);
+  const { translatedText: translatedPillarsSubtext } = useTranslateContent(pillarsSubtext);
+  const { translatedText: translatedPillar1Title } = useTranslateContent(pillar1Title);
+  const { translatedText: translatedPillar1Description } = useTranslateContent(pillar1Description);
+  const { translatedText: translatedPillar1MetricLabel } = useTranslateContent(pillar1MetricLabel);
+  const { translatedText: translatedPillar2Title } = useTranslateContent(pillar2Title);
+  const { translatedText: translatedPillar2Description } = useTranslateContent(pillar2Description);
+  const { translatedText: translatedPillar2MetricLabel } = useTranslateContent(pillar2MetricLabel);
+  const { translatedText: translatedPillar3Title } = useTranslateContent(pillar3Title);
+  const { translatedText: translatedPillar3Description } = useTranslateContent(pillar3Description);
+  const { translatedText: translatedPillar3MetricLabel } = useTranslateContent(pillar3MetricLabel);
+  
+  // Translation hooks - Timeline
+  const { translatedText: translatedTimelineHeading } = useTranslateContent(timelineHeading);
+  const { translatedText: translatedTimelineSubtext } = useTranslateContent(timelineSubtext);
+  
+  // Translate timeline items
+  const translatedTimeline1Title = useTranslateContent(innovationData.timeline[0].title).translatedText;
+  const translatedTimeline1Desc = useTranslateContent(innovationData.timeline[0].description).translatedText;
+  const translatedTimeline2Title = useTranslateContent(innovationData.timeline[1].title).translatedText;
+  const translatedTimeline2Desc = useTranslateContent(innovationData.timeline[1].description).translatedText;
+  const translatedTimeline3Title = useTranslateContent(innovationData.timeline[2].title).translatedText;
+  const translatedTimeline3Desc = useTranslateContent(innovationData.timeline[2].description).translatedText;
+  const translatedTimeline4Title = useTranslateContent(innovationData.timeline[3].title).translatedText;
+  const translatedTimeline4Desc = useTranslateContent(innovationData.timeline[3].description).translatedText;
+  const translatedTimeline5Title = useTranslateContent(innovationData.timeline[4].title).translatedText;
+  const translatedTimeline5Desc = useTranslateContent(innovationData.timeline[4].description).translatedText;
+  const translatedTimeline6Title = useTranslateContent(innovationData.timeline[5].title).translatedText;
+  const translatedTimeline6Desc = useTranslateContent(innovationData.timeline[5].description).translatedText;
+  const translatedTimeline7Title = useTranslateContent(innovationData.timeline[6].title).translatedText;
+  const translatedTimeline7Desc = useTranslateContent(innovationData.timeline[6].description).translatedText;
+  
+  // Translation hooks - Team
+  const { translatedText: translatedTeamHeading } = useTranslateContent(teamHeading);
+  const { translatedText: translatedTeamSubtext } = useTranslateContent(teamSubtext);
+  const { translatedText: translatedTeam1Label } = useTranslateContent(team1Label);
+  const { translatedText: translatedTeam2Label } = useTranslateContent(team2Label);
+  const { translatedText: translatedTeam3Label } = useTranslateContent(team3Label);
+  
+  // Translation hooks - Portfolio
+  const { translatedText: translatedPortfolioHeading } = useTranslateContent(portfolioHeading);
+  const { translatedText: translatedPortfolioSubtext } = useTranslateContent(portfolioSubtext);
+  const { translatedText: translatedLearnMoreText } = useTranslateContent(learnMoreText);
+  
+  // Translate portfolio items
+  const translatedPortfolio1Title = useTranslateContent(innovationData.portfolio[0].title).translatedText;
+  const translatedPortfolio1Desc = useTranslateContent(innovationData.portfolio[0].description).translatedText;
+  const translatedPortfolio2Title = useTranslateContent(innovationData.portfolio[1].title).translatedText;
+  const translatedPortfolio2Desc = useTranslateContent(innovationData.portfolio[1].description).translatedText;
+  const translatedPortfolio3Title = useTranslateContent(innovationData.portfolio[2].title).translatedText;
+  const translatedPortfolio3Desc = useTranslateContent(innovationData.portfolio[2].description).translatedText;
+  const translatedPortfolio4Title = useTranslateContent(innovationData.portfolio[3].title).translatedText;
+  const translatedPortfolio4Desc = useTranslateContent(innovationData.portfolio[3].description).translatedText;
+  
+  // Translation hooks - Global Presence
+  const { translatedText: translatedGlobalHeading } = useTranslateContent(globalHeading);
+  const { translatedText: translatedGlobalSubtext } = useTranslateContent(globalSubtext);
+  const { translatedText: translatedMapInfo1 } = useTranslateContent(mapInfo1);
+  const { translatedText: translatedMapInfo2 } = useTranslateContent(mapInfo2);
+  const { translatedText: translatedMapInfo3 } = useTranslateContent(mapInfo3);
+  const { translatedText: translatedMapInfo4 } = useTranslateContent(mapInfo4);
+  const { translatedText: translatedClickToKnowMore } = useTranslateContent(clickToKnowMore);
+  const { translatedText: translatedReviewsHeading } = useTranslateContent(reviewsHeading);
+  const { translatedText: translatedWarehouseText } = useTranslateContent(warehouseText);
+  const { translatedText: translatedSiteText } = useTranslateContent(siteText);
+  
+  // Translate global presence items
+  const translatedGlobal1Label = useTranslateContent(innovationData.globalPresence[0].label).translatedText;
+  const translatedGlobal1Country = useTranslateContent(innovationData.globalPresence[0].country).translatedText;
+  const translatedGlobal2Label = useTranslateContent(innovationData.globalPresence[1].label).translatedText;
+  const translatedGlobal2Country = useTranslateContent(innovationData.globalPresence[1].country).translatedText;
+  const translatedGlobal3Label = useTranslateContent(innovationData.globalPresence[2].label).translatedText;
+  const translatedGlobal3Country = useTranslateContent(innovationData.globalPresence[2].country).translatedText;
+
   /* ---------- Map States ---------- */
   const [hoveredLocation, setHoveredLocation] = useState<Location | null>(null);
   const [selectedLocation, setSelectedLocation] =
@@ -507,15 +653,34 @@ const Innovation: React.FC = () => {
       />
     ));
 
+  // Prepare translated timeline array
+  const translatedTimelineData = [
+    { year: "1995", title: translatedTimeline1Title, description: translatedTimeline1Desc },
+    { year: "2000", title: translatedTimeline2Title, description: translatedTimeline2Desc },
+    { year: "2005", title: translatedTimeline3Title, description: translatedTimeline3Desc },
+    { year: "2010", title: translatedTimeline4Title, description: translatedTimeline4Desc },
+    { year: "2015", title: translatedTimeline5Title, description: translatedTimeline5Desc },
+    { year: "2020", title: translatedTimeline6Title, description: translatedTimeline6Desc },
+    { year: "2025", title: translatedTimeline7Title, description: translatedTimeline7Desc }
+  ];
+
+  // Prepare translated portfolio array
+  const translatedPortfolioData = [
+    { title: translatedPortfolio1Title, description: translatedPortfolio1Desc },
+    { title: translatedPortfolio2Title, description: translatedPortfolio2Desc },
+    { title: translatedPortfolio3Title, description: translatedPortfolio3Desc },
+    { title: translatedPortfolio4Title, description: translatedPortfolio4Desc }
+  ];
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-r from-indigo-900 to-indigo-700 text-white py-20 px-4 overflow-hidden h-[637px]">
         {/* Background Image Overlay */}
         <div
-  className="absolute inset-0 bg-cover bg-center opacity-30"
-  style={{ backgroundImage: `url(${heroBg})` }}
-></div>
+          className="absolute inset-0 bg-cover bg-center opacity-30"
+          style={{ backgroundImage: `url(${heroBg})` }}
+        ></div>
 
         
         {/* Content */}
@@ -537,7 +702,7 @@ const Innovation: React.FC = () => {
                 mt-16
             "
             >
-            {innovationData.hero.title}
+            {translatedHeroTitle}
             </h1>
 
 
@@ -560,7 +725,7 @@ const Innovation: React.FC = () => {
                 mb-8
             "
             >
-        {innovationData.hero.description}
+        {translatedHeroDescription}
         </p>
 
         <button
@@ -583,7 +748,7 @@ const Innovation: React.FC = () => {
             hover:bg-[#98C135]
                 "
         >
-        {innovationData.hero.buttonText}
+        {translatedHeroButtonText}
         </button>
         </div>
       </section>
@@ -616,7 +781,7 @@ const Innovation: React.FC = () => {
                 text-indigo-900
                 "
             >
-               "{innovationData.quote.text}"
+               "{translatedQuoteText}"
             </p>
 
             <p
@@ -631,7 +796,7 @@ const Innovation: React.FC = () => {
                 mt-6
                 "
             >
-                — {innovationData.quote.author}
+                — {translatedQuoteAuthor}
             </p>
             </div>
 
@@ -647,24 +812,35 @@ const Innovation: React.FC = () => {
                 lg:ml-auto
             "
             >
-            {innovationData.stats.map((stat, index) => (
-                <div
-                key={index}
-                className="
-                    bg-white rounded-xl shadow-lg
-                    px-6 py-5
-                    sm:px-8 sm:py-6
-                    flex flex-col justify-center
-                "
-                >
+              {/* Stat 1 */}
+              <div className="bg-white rounded-xl shadow-lg px-6 py-5 sm:px-8 sm:py-6 flex flex-col justify-center">
                 <div className="text-[#B8D332] text-4xl sm:text-5xl font-bold mb-2">
-                    {stat.value}
+                  {innovationData.stats[0].value}
                 </div>
                 <div className="text-[#3D3B8E] font-bold font-['Diodrum Cyrillic']">
-                    {stat.label}
+                  {translatedStat1Label}
                 </div>
+              </div>
+              
+              {/* Stat 2 */}
+              <div className="bg-white rounded-xl shadow-lg px-6 py-5 sm:px-8 sm:py-6 flex flex-col justify-center">
+                <div className="text-[#B8D332] text-4xl sm:text-5xl font-bold mb-2">
+                  {innovationData.stats[1].value}
                 </div>
-            ))}
+                <div className="text-[#3D3B8E] font-bold font-['Diodrum Cyrillic']">
+                  {translatedStat2Label}
+                </div>
+              </div>
+              
+              {/* Stat 3 */}
+              <div className="bg-white rounded-xl shadow-lg px-6 py-5 sm:px-8 sm:py-6 flex flex-col justify-center">
+                <div className="text-[#B8D332] text-4xl sm:text-5xl font-bold mb-2">
+                  {innovationData.stats[2].value}
+                </div>
+                <div className="text-[#3D3B8E] font-bold font-['Diodrum Cyrillic']">
+                  {translatedStat3Label}
+                </div>
+              </div>
             </div>
 
         </div>
@@ -678,28 +854,16 @@ const Innovation: React.FC = () => {
           <h2
             className=" font-['Diodrum_Cyrillic'] font-bold text-center text-[#3D3B8E] tracking-[0px] leading-[60.05px] text-[32px] sm:text-[40px] sm:leading-[44px] md:text-[48px] md:leading-[52px] lg:text-[50.05px] lg:leading-[60.05px] mb-4"
             >
-            Our Innovation Pillars
+            {translatedPillarsHeading}
             </h2>
 
           <p className="text-center text-[#4A5565] mb-12 max-w-3xl mx-auto text-[22.02px]">
-            Three core principles guide our commitment to advancing water purification technology          
+            {translatedPillarsSubtext}
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 xl:gap-20">
-            {innovationData.pillars.map((pillar, index) => (
-            <div
-                key={index}
-                className="
-                    bg-white
-                   
-                    rounded-lg
-                    p-8
-                    transition
-                    shadow-[0px_0px_6px_-1px_rgba(0,0,0,0.08),0px_0px_12px_-2px_rgba(0,0,0,0.12)]
-                    hover:shadow-xl
-                "
-                >
-
+            {/* Pillar 1 */}
+            <div className="bg-white rounded-lg p-8 transition shadow-[0px_0px_6px_-1px_rgba(0,0,0,0.08),0px_0px_12px_-2px_rgba(0,0,0,0.12)] hover:shadow-xl">
               <div
                 className="flex items-center justify-center mb-5 bg-[#B8D3321A]"
                 style={{
@@ -711,19 +875,70 @@ const Innovation: React.FC = () => {
                 }}
                 >
                 <img
-                    src={pillar.icon}
+                    src={innovationData.pillars[0].icon}
                     alt=""
                     className="w-9 h-9 object-contain"
                 />
                 </div>
 
-                <h3 className="text-[25.03px] font-bold text-[#3D3B8E] mb-3 font-['Diodrum Cyrillic]">{pillar.title}</h3>
-                <p className="text-[#4A5565] mb-6 text-[18.02px]">{pillar.description}</p>
+                <h3 className="text-[25.03px] font-bold text-[#3D3B8E] mb-3 font-['Diodrum Cyrillic]">{translatedPillar1Title}</h3>
+                <p className="text-[#4A5565] mb-6 text-[18.02px]">{translatedPillar1Description}</p>
                 <div className=' border border-gray-100'> </div>
-                <div className="text-[40.05px] font-bold text-[#B8D332] mb-2">{pillar.metric}</div>
-                <div className="text-gray-600 text-[17.52px]">{pillar.metricLabel}</div>
+                <div className="text-[40.05px] font-bold text-[#B8D332] mb-2">{innovationData.pillars[0].metric}</div>
+                <div className="text-gray-600 text-[17.52px]">{translatedPillar1MetricLabel}</div>
               </div>
-            ))}
+
+            {/* Pillar 2 */}
+            <div className="bg-white rounded-lg p-8 transition shadow-[0px_0px_6px_-1px_rgba(0,0,0,0.08),0px_0px_12px_-2px_rgba(0,0,0,0.12)] hover:shadow-xl">
+              <div
+                className="flex items-center justify-center mb-5 bg-[#B8D3321A]"
+                style={{
+                    width: "60.0869px",
+                    height: "60.0869px",
+                    padding: "5px",
+                    opacity: 1,
+                    borderRadius: "9999px",
+                }}
+                >
+                <img
+                    src={innovationData.pillars[1].icon}
+                    alt=""
+                    className="w-9 h-9 object-contain"
+                />
+                </div>
+
+                <h3 className="text-[25.03px] font-bold text-[#3D3B8E] mb-3 font-['Diodrum Cyrillic]">{translatedPillar2Title}</h3>
+                <p className="text-[#4A5565] mb-6 text-[18.02px]">{translatedPillar2Description}</p>
+                <div className=' border border-gray-100'> </div>
+                <div className="text-[40.05px] font-bold text-[#B8D332] mb-2">{innovationData.pillars[1].metric}</div>
+                <div className="text-gray-600 text-[17.52px]">{translatedPillar2MetricLabel}</div>
+              </div>
+
+            {/* Pillar 3 */}
+            <div className="bg-white rounded-lg p-8 transition shadow-[0px_0px_6px_-1px_rgba(0,0,0,0.08),0px_0px_12px_-2px_rgba(0,0,0,0.12)] hover:shadow-xl">
+              <div
+                className="flex items-center justify-center mb-5 bg-[#B8D3321A]"
+                style={{
+                    width: "60.0869px",
+                    height: "60.0869px",
+                    padding: "5px",
+                    opacity: 1,
+                    borderRadius: "9999px",
+                }}
+                >
+                <img
+                    src={innovationData.pillars[2].icon}
+                    alt=""
+                    className="w-9 h-9 object-contain"
+                />
+                </div>
+
+                <h3 className="text-[25.03px] font-bold text-[#3D3B8E] mb-3 font-['Diodrum Cyrillic]">{translatedPillar3Title}</h3>
+                <p className="text-[#4A5565] mb-6 text-[18.02px]">{translatedPillar3Description}</p>
+                <div className=' border border-gray-100'> </div>
+                <div className="text-[40.05px] font-bold text-[#B8D332] mb-2">{innovationData.pillars[2].metric}</div>
+                <div className="text-gray-600 text-[17.52px]">{translatedPillar3MetricLabel}</div>
+              </div>
           </div>
         </div>
       </section>
@@ -733,17 +948,17 @@ const Innovation: React.FC = () => {
         <div className="max-w-4xl mx-auto">
             <h2  className=" font-['Diodrum_Cyrillic'] font-bold text-center text-[#3D3B8E] tracking-[0px] leading-[60.05px] text-[32px] sm:text-[40px] sm:leading-[44px] md:text-[48px] md:leading-[52px] lg:text-[50.05px] lg:leading-[60.05px] mb-4"
 >
-            Our Innovation Journey
+            {translatedTimelineHeading}
             </h2>
             <p className="text-center text-[#4A5565] mb-12 max-w-3xl mx-auto text-[22.02px]">
-            Three decades of continuous advancement in water purification technology
+            {translatedTimelineSubtext}
             </p>
 
             <div className="relative ">
             {/* Center Vertical Line */}
             <div className="absolute left-1/2 -translate-x-1/2 h-full w-1 bg-[#B8D332] hidden md:block"></div>
 
-            {innovationData.timeline.map((item, index) => (
+            {translatedTimelineData.map((item, index) => (
                 <div
                 key={index}
                 className={`relative mb-12 flex  ${
@@ -792,23 +1007,42 @@ const Innovation: React.FC = () => {
 
             <div className="relative lg:mx-[40px] xl:mx-[60px] 2xl:mx-[90px] text-center flex flex-col items-center">
                 <h2 className="text-3xl md:text-[45px] font-bold text-[#3D3B8E] mb-8">
-                The Minds Behind Innovation
+                {translatedTeamHeading}
                 </h2>
                 <p className="text-center text-[#4A5565] lg:mb-12 max-w-3xl mx-auto text-[24.02px]">
-                Meet our team of engineers, scientists, and water treatment experts
+                {translatedTeamSubtext}
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 w-full mt-10">
-                {innovationData.team.map((item, index) => (
-                    <div key={index} className="text-center">
+                  {/* Team Item 1 */}
+                  <div className="text-center">
                     <div className="text-[60px] xl:text-[75px] 2xl:text-[80px] font-bold text-[#FFFFFF] mb-2">
-                        {item.value}
+                      {innovationData.team[0].value}
                     </div>
                     <div className="text-[#3D3B8E] font-semibold text-[20px] xl:text-[22.02px] 2xl:text-[24.02px]">
-                        {item.label}
+                      {translatedTeam1Label}
                     </div>
+                  </div>
+                  
+                  {/* Team Item 2 */}
+                  <div className="text-center">
+                    <div className="text-[60px] xl:text-[75px] 2xl:text-[80px] font-bold text-[#FFFFFF] mb-2">
+                      {innovationData.team[1].value}
                     </div>
-                ))}
+                    <div className="text-[#3D3B8E] font-semibold text-[20px] xl:text-[22.02px] 2xl:text-[24.02px]">
+                      {translatedTeam2Label}
+                    </div>
+                  </div>
+                  
+                  {/* Team Item 3 */}
+                  <div className="text-center">
+                    <div className="text-[60px] xl:text-[75px] 2xl:text-[80px] font-bold text-[#FFFFFF] mb-2">
+                      {innovationData.team[2].value}
+                    </div>
+                    <div className="text-[#3D3B8E] font-semibold text-[20px] xl:text-[22.02px] 2xl:text-[24.02px]">
+                      {translatedTeam3Label}
+                    </div>
+                  </div>
                 </div>
             </div>
         </section>
@@ -818,14 +1052,14 @@ const Innovation: React.FC = () => {
       <section className="py-16 px-4 bg-[#3D3B8E] text-white">
         <div className="mx-[20px] lg:mx-[40px] 2xl:mx-[90px]">
           <h2 className="text-3xl md:text-[45px] font-bold text-center mb-4">
-            Our Innovation Portfolio
+            {translatedPortfolioHeading}
           </h2>
           <p className="text-center opacity-90 mb-12 max-w-3xl mx-auto text-[22px] mt-5">
-            Cutting-edge membrane technology designed for every water treatment need
+            {translatedPortfolioSubtext}
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {innovationData.portfolio.map((product, index) => (
+            {translatedPortfolioData.map((product, index) => (
               <div key={index} className="bg-white text-gray-800 rounded-[17.52px] overflow-hidden shadow-lg">
                  <div className=" w-full overflow-hidden">
                     <img
@@ -839,7 +1073,7 @@ const Innovation: React.FC = () => {
                   <p className="text-gray-600 text-[17px]">{product.description}</p>
                 </div>
                 <button className=" p-6 group inline-flex items-center gap-2 text-[#B8D332] font-semibold text-[20.02px] ">
-                Learn More
+                {translatedLearnMoreText}
                 <span className="transition-transform duration-300 group-hover:translate-x-1">
                     <ChevronRight className='mt-[4px] mr-3'/>
                 </span>
@@ -854,10 +1088,10 @@ const Innovation: React.FC = () => {
       <section className="py-16 px-4 bg-white">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-3xl md:text-[45px] font-bold text-[#3D3B8E]">
-            Innovation Hubs Worldwide
+            {translatedGlobalHeading}
           </h2>
           <p className="text-[#4A5565] text-[22px] mt-4 mb-10">
-            Our global network of research and development centers
+            {translatedGlobalSubtext}
           </p>
 
           <div className="relative mb-12 overflow-hidden rounded-lg" >
@@ -895,7 +1129,7 @@ const Innovation: React.FC = () => {
                     transform: 'translateY(-50%)'
                   }}
                 >
-                  Multiple Export Markets Served
+                  {translatedMapInfo1}
                 </div>
 
                 {/* 30+ Years of Manufacturing Experience - Top Right */}
@@ -907,7 +1141,7 @@ const Innovation: React.FC = () => {
                     transform: 'translateY(-50%)'
                   }}
                 >
-                  30+ Years of Manufacturing Experience
+                  {translatedMapInfo2}
                 </div>
 
                 {/* OEM & Private Label Partners Worldwide - Right Side */}
@@ -919,7 +1153,7 @@ const Innovation: React.FC = () => {
                     transform: 'translateY(-50%)'
                   }}
                 >
-                  OEM & Private Label Partners Worldwide
+                  {translatedMapInfo3}
                 </div>
 
                 {/* 200+ Global Customers - Bottom Left */}
@@ -930,7 +1164,7 @@ const Innovation: React.FC = () => {
                     bottom: '18%',
                   }}
                 >
-                  200+ Global Customers
+                  {translatedMapInfo4}
                 </div>
               </div>
 
@@ -1023,7 +1257,7 @@ const Innovation: React.FC = () => {
                       transform: 'translate(-50%, 10px)', // below marker
                     }}
                   >
-                    Click to know more
+                    {translatedClickToKnowMore}
                   </div>
                 </>
               )}
@@ -1057,7 +1291,7 @@ const Innovation: React.FC = () => {
                     </div>
 
                     <span className="text-sm font-semibold text-gray-800">
-                      {hoveredLocation.type === 'warehouse' ? 'Warehouse' : 'Site'}
+                      {hoveredLocation.type === 'warehouse' ? translatedWarehouseText : translatedSiteText}
                     </span>
                   </div>
 
@@ -1071,16 +1305,16 @@ const Innovation: React.FC = () => {
                     {/* Mobile text blocks - below map */}
 <div className="sm:hidden mt-6 space-y-3 text-center px-4">
   <div className="bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
-    Multiple Export Markets Served
+    {translatedMapInfo1}
   </div>
   <div className="bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
-    30+ Years of Manufacturing Experience
+    {translatedMapInfo2}
   </div>
   <div className="bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
-    OEM & Private Label Partners Worldwide
+    {translatedMapInfo3}
   </div>
   <div className="bg-[#a8d96e] text-gray-800 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
-    200+ Global Customers
+    {translatedMapInfo4}
   </div>
 </div>
 
@@ -1146,7 +1380,7 @@ const Innovation: React.FC = () => {
             {/* Reviews Section */}
             <div className="px-2 py-2 sm:px-3 sm:py-3">
             <h4 className="text-[10px] sm:text-xs font-semibold text-gray-800 mb-2 sm:mb-3 uppercase tracking-wide">
-                Reviews
+                {translatedReviewsHeading}
             </h4>
 
             <div className="space-y-2 max-h-[170px] md:max-h-[] sm:max-h-[340px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300">
@@ -1190,32 +1424,44 @@ const Innovation: React.FC = () => {
         )} 
         </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8" >
-            {innovationData.globalPresence.map((item, i) => (
-              <div
-            key={i}
-            className="
-                bg-[#F8F8F8]
-                rounded-[20px]
-                flex
-                flex-col
-                items-center
-                justify-center
-                text-center
-                px-2
-                py-5
-            "
-            >
-        <div className="text-5xl font-bold text-[#B8D332] mb-2 " >
-            {item.value} 
-        </div>
-        <div className="text-[#3D3B8E] font-bold text-xl mb-2">
-            {item.label} 
-        </div> 
-        <div className="text-gray-600">
-         {item.country}
-        </div>
-        </div>
-            ))}
+            {/* Global Presence Item 1 */}
+            <div className="bg-[#F8F8F8] rounded-[20px] flex flex-col items-center justify-center text-center px-2 py-5">
+              <div className="text-5xl font-bold text-[#B8D332] mb-2 " >
+                {innovationData.globalPresence[0].value} 
+              </div>
+              <div className="text-[#3D3B8E] font-bold text-xl mb-2">
+                {translatedGlobal1Label} 
+              </div> 
+              <div className="text-gray-600">
+               {translatedGlobal1Country}
+              </div>
+            </div>
+            
+            {/* Global Presence Item 2 */}
+            <div className="bg-[#F8F8F8] rounded-[20px] flex flex-col items-center justify-center text-center px-2 py-5">
+              <div className="text-5xl font-bold text-[#B8D332] mb-2 " >
+                {innovationData.globalPresence[1].value} 
+              </div>
+              <div className="text-[#3D3B8E] font-bold text-xl mb-2">
+                {translatedGlobal2Label} 
+              </div> 
+              <div className="text-gray-600">
+               {translatedGlobal2Country}
+              </div>
+            </div>
+            
+            {/* Global Presence Item 3 */}
+            <div className="bg-[#F8F8F8] rounded-[20px] flex flex-col items-center justify-center text-center px-2 py-5">
+              <div className="text-5xl font-bold text-[#B8D332] mb-2 " >
+                {innovationData.globalPresence[2].value} 
+              </div>
+              <div className="text-[#3D3B8E] font-bold text-xl mb-2">
+                {translatedGlobal3Label} 
+              </div> 
+              <div className="text-gray-600">
+               {translatedGlobal3Country}
+              </div>
+            </div>
             </div>
         </div>
       </section>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import {Cloud } from "lucide-react";
+import { Cloud } from "lucide-react";
+import { useTranslateContent } from '../hooks/useTranslateContent';
 import image1 from '../assets/images/wetransfer_hitech/contactus_worldmap.png';
 import image2 from '../assets/images/wetransfer_hitech/wtsapp_QR.png';
 import image3 from '../assets/images/wetransfer_hitech/message_QR.png';
@@ -21,7 +22,116 @@ interface ContactFormData {
   file: File | null;
 }
 
+const API_BASE_URL = "http://65.0.77.32:8000";
+
 const ContactPage: React.FC = () => {
+  // Text content for translation
+  const pageTitle = "Let's Talk Water Solutions";
+  const subHeading = "Connect with our team to discuss RO membrane solutions, OEM requirements, or technical support.";
+  const formIntro = "Whether you are looking for reverse osmosis membrane solutions, OEM manufacturing support, or technical guidance, our team is here to help. Please share your requirements and we'll connect you with the right specialist.";
+  
+  // Form labels
+  const nameLabel = "Name*";
+  const companyLabel = "Company";
+  const emailLabel = "Email*";
+  const phoneLabel = "Phone";
+  const categoryLabel = "Category";
+  const countryLabel = "Country*";
+  const subjectLabel = "Subject";
+  const productTypeLabel = "Product Type*";
+  const messageLabel = "Message*";
+  const fileUploadLabel = "File Upload";
+  
+  // Form placeholders
+  const firstNamePlaceholder = "First Name";
+  const companyPlaceholder = "Enter Company";
+  const emailPlaceholder = "Enter Email";
+  const phonePlaceholder = "Enter Phone number";
+  const subjectPlaceholder = "Enter Subject";
+  const messagePlaceholder = "Enter Message";
+  
+  // File upload text
+  const fileUploadText = "Choose a file or drag & drop it here";
+  const fileUploadSubtext = "JPEG, PNG & PDF files up to 10MB";
+  const browseFileText = "Browse File";
+  
+  // Button text
+  const submitButtonText = "Submit Enquiry";
+  const submittingText = "Submitting...";
+  const uploadingText = "Uploading File...";
+  
+  // Support section
+  const connectInstantlyHeading = "CONNECT INSTANTLY";
+  const connectInstantlySubtext = "For urgent inquiries or regional assistance, reach us via WhatsApp, WeChat or Line.";
+  const saveButtonText = "Save";
+  
+  // Company info
+  const companyName = "Hi-Tech Membranes";
+  const companyDescription = "Global RO membrane manufacturer supporting customers across industrial, commercial, and municipal water treatment sectors.";
+  
+  // Links section
+  const linksHeading = "Links";
+  const faqsText = "FAQs";
+  const brochuresText = "Product Brochures";
+  const catalogueText = "Our Catalogue";
+  
+  // Address section
+  const addressHeading = "Factory & Office Address";
+  const addressText = "Hi-Tech Membranes Co., Ltd. 700/273 Amata City Chonburi Industrial Estate Moo 1, Tambon Ban Kao, Amphur Phan Thong, Chonburi 20160 (THAILAND)";
+  const addressSubtext = "Manufacturing and quality control conducted under strict process and compliance standards.";
+  
+  // Footer
+  const footerText = "All Rights Reserved. Copyright ©2022 HiTechMembrane Co.Ltd.";
+
+  // Translation hooks
+  const { translatedText: translatedPageTitle } = useTranslateContent(pageTitle);
+  const { translatedText: translatedSubHeading } = useTranslateContent(subHeading);
+  const { translatedText: translatedFormIntro } = useTranslateContent(formIntro);
+  
+  const { translatedText: translatedNameLabel } = useTranslateContent(nameLabel);
+  const { translatedText: translatedCompanyLabel } = useTranslateContent(companyLabel);
+  const { translatedText: translatedEmailLabel } = useTranslateContent(emailLabel);
+  const { translatedText: translatedPhoneLabel } = useTranslateContent(phoneLabel);
+  const { translatedText: translatedCategoryLabel } = useTranslateContent(categoryLabel);
+  const { translatedText: translatedCountryLabel } = useTranslateContent(countryLabel);
+  const { translatedText: translatedSubjectLabel } = useTranslateContent(subjectLabel);
+  const { translatedText: translatedProductTypeLabel } = useTranslateContent(productTypeLabel);
+  const { translatedText: translatedMessageLabel } = useTranslateContent(messageLabel);
+  const { translatedText: translatedFileUploadLabel } = useTranslateContent(fileUploadLabel);
+  
+  const { translatedText: translatedFirstNamePlaceholder } = useTranslateContent(firstNamePlaceholder);
+  const { translatedText: translatedCompanyPlaceholder } = useTranslateContent(companyPlaceholder);
+  const { translatedText: translatedEmailPlaceholder } = useTranslateContent(emailPlaceholder);
+  const { translatedText: translatedPhonePlaceholder } = useTranslateContent(phonePlaceholder);
+  const { translatedText: translatedSubjectPlaceholder } = useTranslateContent(subjectPlaceholder);
+  const { translatedText: translatedMessagePlaceholder } = useTranslateContent(messagePlaceholder);
+  
+  const { translatedText: translatedFileUploadText } = useTranslateContent(fileUploadText);
+  const { translatedText: translatedFileUploadSubtext } = useTranslateContent(fileUploadSubtext);
+  const { translatedText: translatedBrowseFileText } = useTranslateContent(browseFileText);
+  
+  const { translatedText: translatedSubmitButtonText } = useTranslateContent(submitButtonText);
+  const { translatedText: translatedSubmittingText } = useTranslateContent(submittingText);
+  const { translatedText: translatedUploadingText } = useTranslateContent(uploadingText);
+  
+  const { translatedText: translatedConnectInstantlyHeading } = useTranslateContent(connectInstantlyHeading);
+  const { translatedText: translatedConnectInstantlySubtext } = useTranslateContent(connectInstantlySubtext);
+  const { translatedText: translatedSaveButtonText } = useTranslateContent(saveButtonText);
+  
+  const { translatedText: translatedCompanyName } = useTranslateContent(companyName);
+  const { translatedText: translatedCompanyDescription } = useTranslateContent(companyDescription);
+  
+  const { translatedText: translatedLinksHeading } = useTranslateContent(linksHeading);
+  const { translatedText: translatedFaqsText } = useTranslateContent(faqsText);
+  const { translatedText: translatedBrochuresText } = useTranslateContent(brochuresText);
+  const { translatedText: translatedCatalogueText } = useTranslateContent(catalogueText);
+  
+  const { translatedText: translatedAddressHeading } = useTranslateContent(addressHeading);
+  const { translatedText: translatedAddressText } = useTranslateContent(addressText);
+  const { translatedText: translatedAddressSubtext } = useTranslateContent(addressSubtext);
+  
+  const { translatedText: translatedFooterText } = useTranslateContent(footerText);
+
   const [formData, setFormData] = useState<ContactFormData>({
     firstName: "",
     company: "",
@@ -34,6 +144,13 @@ const ContactPage: React.FC = () => {
     message: "",
     file: null
   });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isUploadingFile, setIsUploadingFile] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: 'success' | 'error' | null;
+    message: string;
+  }>({ type: null, message: '' });
 
   const countries = [
     "Select Country",
@@ -51,20 +168,30 @@ const ContactPage: React.FC = () => {
 
   const categories = [
     "Select Category",
-    "General Inquiry",
-    "Technical Support",
-    "Sales",
-    "Partnership",
-    "Others"
+    "Residential",
+    "Commercial",
+    "Industrial",
+    "Municipal",
+    "Healthcare",
+    "Hospitality",
+    "Food & Beverage",
+    "Pharmaceutical",
+    "Power & Energy",
+    "Agriculture",
+    "OEM / Integrator"
   ];
 
   const productTypes = [
     "Select the membrane type for use",
-    "RO Membranes",
-    "UF Membranes",
-    "NF Membranes",
-    "MBR Systems",
-    "Custom Solutions"
+    "Reverse Osmosis (RO) Membrane",
+    "Ultrafiltration (UF) Membrane",
+    "Nanofiltration (NF) Membrane",
+    "Microfiltration (MF) Membrane",
+    "Seawater Desalination Membrane",
+    "Industrial Water Treatment System",
+    "Wastewater Treatment Solution",
+    "Drinking Water Purification System",
+    "Custom Engineered Solution"
   ];
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -77,15 +204,189 @@ const ContactPage: React.FC = () => {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0] ? e.target.files[0] : null;
+    
+    if (file) {
+      // Validate file size (10MB max)
+      const maxSize = 10 * 1024 * 1024; // 10MB in bytes
+      if (file.size > maxSize) {
+        setSubmitStatus({
+          type: 'error',
+          message: 'File size exceeds 10MB limit. Please choose a smaller file.'
+        });
+        return;
+      }
+
+      // Validate file type
+      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'];
+      if (!allowedTypes.includes(file.type)) {
+        setSubmitStatus({
+          type: 'error',
+          message: 'Invalid file type. Only JPEG, PNG, and PDF files are allowed.'
+        });
+        return;
+      }
+    }
+
     setFormData(prev => ({
       ...prev,
       file: file
     }));
+    
+    // Clear any previous error messages
+    if (submitStatus.type === 'error') {
+      setSubmitStatus({ type: null, message: '' });
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  /**
+   * Upload file to S3 using presigned URL returned from backend
+   */
+  const uploadFileToS3 = async (presignedUrl: string, file: File): Promise<boolean> => {
+    try {
+      setIsUploadingFile(true);
+
+      const uploadResponse = await fetch(presignedUrl, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': file.type,
+        },
+        body: file
+      });
+
+      if (!uploadResponse.ok) {
+        throw new Error('Failed to upload file to S3');
+      }
+
+      console.log('File uploaded successfully to S3');
+      return true;
+
+    } catch (error) {
+      console.error('File upload error:', error);
+      throw new Error('Failed to upload file. Please try again.');
+    } finally {
+      setIsUploadingFile(false);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: '' });
+
+    try {
+      // Prepare payload according to backend schema
+      const payload: any = {
+        name: formData.firstName.trim(),
+        email: formData.email.trim(),
+        country: formData.country,
+        product_type: formData.productType,
+        message: formData.message.trim(),
+        category: formData.category || null,
+        company: formData.company.trim() || null,
+        phone: formData.phone.trim() || null,
+        subject: formData.subject.trim() || null,
+      };
+
+      // Add file_name if file exists
+      if (formData.file) {
+        payload.file_name = formData.file.name;
+      }
+
+      console.log('Submitting payload:', payload);
+
+      // Step 1: Submit form data to backend (backend will generate presigned URL)
+      const response = await fetch(`${API_BASE_URL}/contact-us`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload)
+      });
+
+      // Parse response
+      const data = await response.json();
+      console.log('API Response:', data);
+
+      if (response.ok) {
+        // Step 2: If file exists and presigned URL is returned, upload to S3
+        if (formData.file && data.upload_url) {
+          try {
+            await uploadFileToS3(data.upload_url, formData.file);
+          } catch (uploadError) {
+            console.error('File upload failed:', uploadError);
+            // Form is submitted but file upload failed
+            setSubmitStatus({
+              type: 'error',
+              message: `Form submitted (ID: ${data.id}), but file upload failed. Please contact support with your reference ID.`
+            });
+            setIsSubmitting(false);
+            return;
+          }
+        }
+
+        // Success - both form submission and file upload (if any) succeeded
+        setSubmitStatus({
+          type: 'success',
+          message: `Thank you for contacting us! Your enquiry has been submitted successfully. Reference ID: ${data.id}`
+        });
+
+        // Reset form
+        setFormData({
+          firstName: "",
+          company: "",
+          email: "",
+          phone: "",
+          category: "",
+          country: "",
+          subject: "",
+          productType: "",
+          message: "",
+          file: null
+        });
+
+        // Clear file input
+        const fileInput = document.getElementById('fileUpload') as HTMLInputElement;
+        if (fileInput) fileInput.value = '';
+
+        // Scroll to top to show success message
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Auto-hide success message after 8 seconds
+        setTimeout(() => {
+          setSubmitStatus({ type: null, message: '' });
+        }, 8000);
+
+      } else {
+        // Handle error response
+        const errorMessage = data.detail 
+          ? (typeof data.detail === 'string' ? data.detail : JSON.stringify(data.detail))
+          : 'Failed to submit form. Please try again.';
+        
+        throw new Error(errorMessage);
+      }
+
+    } catch (error) {
+      console.error('Form submission error:', error);
+      
+      let errorMessage = 'An unexpected error occurred. Please try again.';
+      
+      if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
+        errorMessage = 'Network error: Unable to connect to the server. Please check your internet connection and try again.';
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+
+      setSubmitStatus({
+        type: 'error',
+        message: errorMessage
+      });
+
+      // Scroll to top to show error message
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const downloadQRImage = (imageUrl: string, filename: string): void => {
@@ -110,46 +411,88 @@ const ContactPage: React.FC = () => {
 
         {/* Page Title */}
         <div className="mb-1 sm:mb-2">
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#3E4095]">Let's Talk Water Solutions</h1>
-
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#3E4095]">{translatedPageTitle}</h1>
         </div>
+
+        {/* Success/Error Message - Positioned at top */}
+        {submitStatus.type && (
+          <div className={`mb-6 p-4 rounded-lg border ${
+            submitStatus.type === 'success' 
+              ? 'bg-green-50 border-green-200' 
+              : 'bg-red-50 border-red-200'
+          }`}>
+            <div className="flex items-start">
+              <div className="flex-shrink-0">
+                {submitStatus.type === 'success' ? (
+                  <svg className="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                ) : (
+                  <svg className="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                  </svg>
+                )}
+              </div>
+              <div className="ml-3 flex-1">
+                <p className={`text-sm font-medium ${
+                  submitStatus.type === 'success' ? 'text-green-800' : 'text-red-800'
+                }`}>
+                  {submitStatus.message}
+                </p>
+              </div>
+              <button
+                onClick={() => setSubmitStatus({ type: null, message: '' })}
+                className="ml-3 flex-shrink-0"
+              >
+                <svg className={`h-5 w-5 ${
+                  submitStatus.type === 'success' ? 'text-green-400' : 'text-red-400'
+                }`} viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Main Grid Layout */}
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 lg:gap-8">
 
           {/* Left Column - Contact Form */}
           <div className="space-y-4">
-            <h4 className="font-medium text-lg mt-1">Connect with our team to discuss RO membrane solutions, OEM requirements, or technical support.</h4>
+            <h4 className="font-medium text-lg mt-1">{translatedSubHeading}</h4>
+
             {/* Main Contact Form */}
             <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6">
-              <p className="mb-4">Whether you are looking for reverse osmosis membrane solutions, OEM manufacturing support, or technical guidance, our team is here to help.
-                Please share your requirements and we'll connect you with the right specialist.</p>
+              <p className="mb-4">{translatedFormIntro}</p>
+              
               <form onSubmit={handleSubmit}>
                 <div className="space-y-4">
 
                   {/* Name and Company Row */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-600 mb-1">Name*</label>
+                      <label className="block text-sm font-medium text-gray-600 mb-1">{translatedNameLabel}</label>
                       <input
                         type="text"
                         name="firstName"
-                        placeholder="First Name"
+                        placeholder={translatedFirstNamePlaceholder}
                         value={formData.firstName}
                         onChange={handleInputChange}
                         className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
                         required
+                        disabled={isSubmitting || isUploadingFile}
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-600 mb-1">Company</label>
+                      <label className="block text-sm font-medium text-gray-600 mb-1">{translatedCompanyLabel}</label>
                       <input
                         type="text"
                         name="company"
-                        placeholder="Enter Company"
+                        placeholder={translatedCompanyPlaceholder}
                         value={formData.company}
                         onChange={handleInputChange}
                         className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
+                        disabled={isSubmitting || isUploadingFile}
                       />
                     </div>
                   </div>
@@ -157,26 +500,28 @@ const ContactPage: React.FC = () => {
                   {/* Email and Phone Row */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-600 mb-1">Email*</label>
+                      <label className="block text-sm font-medium text-gray-600 mb-1">{translatedEmailLabel}</label>
                       <input
                         type="email"
                         name="email"
-                        placeholder="Enter Email"
+                        placeholder={translatedEmailPlaceholder}
                         value={formData.email}
                         onChange={handleInputChange}
                         className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
                         required
+                        disabled={isSubmitting || isUploadingFile}
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-600 mb-1">Phone</label>
+                      <label className="block text-sm font-medium text-gray-600 mb-1">{translatedPhoneLabel}</label>
                       <input
                         type="tel"
                         name="phone"
-                        placeholder="Enter Phone number"
+                        placeholder={translatedPhonePlaceholder}
                         value={formData.phone}
                         onChange={handleInputChange}
                         className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
+                        disabled={isSubmitting || isUploadingFile}
                       />
                     </div>
                   </div>
@@ -184,12 +529,13 @@ const ContactPage: React.FC = () => {
                   {/* Category and Country Row */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-600 mb-1">Category</label>
+                      <label className="block text-sm font-medium text-gray-600 mb-1">{translatedCategoryLabel}</label>
                       <select
                         name="category"
                         value={formData.category}
                         onChange={handleInputChange}
                         className="w-full px-3 py-2 bg-gray-100 text-black border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
+                        disabled={isSubmitting || isUploadingFile}
                       >
                         {categories.map((category, index) => (
                           <option key={index} value={index === 0 ? "" : category} disabled={index === 0}>
@@ -199,13 +545,14 @@ const ContactPage: React.FC = () => {
                       </select>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-600 mb-1">Country*</label>
+                      <label className="block text-sm font-medium text-gray-600 mb-1">{translatedCountryLabel}</label>
                       <select
                         name="country"
                         value={formData.country}
                         onChange={handleInputChange}
                         className="w-full px-3 py-2 bg-gray-100 border text-black border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
                         required
+                        disabled={isSubmitting || isUploadingFile}
                       >
                         {countries.map((country, index) => (
                           <option key={index} value={index === 0 ? "" : country} disabled={index === 0}>
@@ -219,24 +566,26 @@ const ContactPage: React.FC = () => {
                   {/* Subject and Product Type Row */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-600 mb-1">Subject</label>
+                      <label className="block text-sm font-medium text-gray-600 mb-1">{translatedSubjectLabel}</label>
                       <input
                         type="text"
                         name="subject"
-                        placeholder="Enter Subject"
+                        placeholder={translatedSubjectPlaceholder}
                         value={formData.subject}
                         onChange={handleInputChange}
                         className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
+                        disabled={isSubmitting || isUploadingFile}
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-600 mb-1">Product Type*</label>
+                      <label className="block text-sm font-medium text-gray-600 mb-1">{translatedProductTypeLabel}</label>
                       <select
                         name="productType"
                         value={formData.productType}
                         onChange={handleInputChange}
                         className="w-full px-3 py-2 text-black bg-gray-100 border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
                         required
+                        disabled={isSubmitting || isUploadingFile}
                       >
                         {productTypes.map((type, index) => (
                           <option key={index} value={index === 0 ? "" : type} disabled={index === 0}>
@@ -250,38 +599,40 @@ const ContactPage: React.FC = () => {
                   {/* Message and File Upload Row */}
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-600 mb-1">Message*</label>
+                      <label className="block text-sm font-medium text-gray-600 mb-1">{translatedMessageLabel}</label>
                       <textarea
                         name="message"
-                        placeholder="Enter Message"
+                        placeholder={translatedMessagePlaceholder}
                         value={formData.message}
                         onChange={handleInputChange}
                         rows={5}
                         className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm resize-none"
                         required
+                        disabled={isSubmitting || isUploadingFile}
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-600 mb-1">File Upload</label>
+                      <label className="block text-sm font-medium text-gray-600 mb-1">{translatedFileUploadLabel}</label>
                       <div className="border-2 border-dashed border-gray-300 rounded p-3 text-center bg-gray-50 h-full min-h-[120px] flex flex-col justify-center" style={{ height: "82%" }}>
                         <Cloud className="w-5 h-5 text-gray-400 mx-auto mb-2" />
-                        <p className="text-xs text-gray-600 mb-1">Choose a file or drag & drop it here</p>
-                        <p className="text-xs text-gray-400 mb-2">JPEG, PNG & PDF files up to 10MB</p>
+                        <p className="text-xs text-gray-600 mb-1">{translatedFileUploadText}</p>
+                        <p className="text-xs text-gray-400 mb-2">{translatedFileUploadSubtext}</p>
                         <input
                           type="file"
                           accept=".jpeg,.jpg,.png,.pdf"
                           className="hidden"
                           id="fileUpload"
                           onChange={handleFileChange}
+                          disabled={isSubmitting || isUploadingFile}
                         />
                         <label
                           htmlFor="fileUpload"
-                          className=" text-gray-700 hover:bg-gray-50 cursor-pointer text-xs"
+                          className={`text-gray-700 hover:bg-gray-50 cursor-pointer text-xs ${(isSubmitting || isUploadingFile) ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
-                          Browse File
+                          {translatedBrowseFileText}
                         </label>
                         {formData.file && (
-                          <p className="mt-2 text-xs text-green-600">{formData.file.name}</p>
+                          <p className="mt-2 text-xs text-green-600 truncate px-2">{formData.file.name}</p>
                         )}
                       </div>
                     </div>
@@ -291,14 +642,16 @@ const ContactPage: React.FC = () => {
                   <div className="pt-4 flex justify-center">
                     <button
                       type="submit"
-                      className="w-full sm:w-auto bg-green-500 shadow-lg cursor-pointer
+                      disabled={isSubmitting || isUploadingFile}
+                      className={`w-full sm:w-auto bg-green-500 shadow-lg cursor-pointer
                                 transform
                                 transition-all duration-300 ease-in-out
                                 hover:scale-105
-                                hover:bg-[#98C135] text-blue-900 font-medium py-3 px-8 rounded"
-                      style={{ backgroundColor: '#A8CF45' }}
+                                hover:bg-[#98C135] text-blue-900 font-medium py-3 px-8 rounded
+                                ${(isSubmitting || isUploadingFile) ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      style={{ backgroundColor: (isSubmitting || isUploadingFile) ? '#94A3B8' : '#A8CF45' }}
                     >
-                      Submit Enquiry
+                      {isUploadingFile ? translatedUploadingText : isSubmitting ? translatedSubmittingText : translatedSubmitButtonText}
                     </button>
                   </div>
                 </div>
@@ -308,11 +661,11 @@ const ContactPage: React.FC = () => {
             {/* Support Section */}
             <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-5">
               <h3 className="text-center text-[#3E4095] font-medium mb-1 text-sm sm:text-base">
-                CONNECT INSTANTLY
+                {translatedConnectInstantlyHeading}
               </h3>
 
               <h6 className="text-center text-[#090B21]  mb-6 text-sm sm:text-base">
-                For urgent inquiries or regional assistance, reach us via WhatsApp, WeChat or Line.
+                {translatedConnectInstantlySubtext}
               </h6>
               <div className="grid grid-cols-3 gap-4">
 
@@ -334,7 +687,7 @@ const ContactPage: React.FC = () => {
                     onClick={() => downloadQRImage(image2, 'whatsapp-qr-code.png')}
                     className="bg-[#7A7CE7] text-white text-xs px-3 py-1 rounded flex items-center gap-1 mt-2 hover:bg-blue-600 transition-colors"
                   >
-                    Save
+                    {translatedSaveButtonText}
                     <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 16l-6-6h4V4h4v6h4l-6 6zM4 20v-2h16v2H4z" />
                     </svg>
@@ -360,7 +713,7 @@ const ContactPage: React.FC = () => {
                     onClick={() => downloadQRImage(image3, 'wechat-qr-code.png')}
                     className="bg-[#7A7CE7] text-white text-xs px-3 py-1 rounded flex items-center gap-1 mt-2 hover:bg-blue-600 transition-colors"
                   >
-                    Save
+                    {translatedSaveButtonText}
                     <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 16l-6-6h4V4h4v6h4l-6 6zM4 20v-2h16v2H4z" />
                     </svg>
@@ -385,7 +738,7 @@ const ContactPage: React.FC = () => {
                     onClick={() => downloadQRImage(image4, 'line-qr-code.png')}
                     className="bg-[#7A7CE7] text-white text-xs px-3 py-1 rounded flex items-center gap-1 mt-2 hover:bg-blue-600 transition-colors"
                   >
-                    Save
+                    {translatedSaveButtonText}
                     <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 16l-6-6h4V4h4v6h4l-6 6zM4 20v-2h16v2H4z" />
                     </svg>
@@ -402,8 +755,8 @@ const ContactPage: React.FC = () => {
             <div className=" p-4 sm:p-6 xl:flex-grow">
               {/* Company Info */}
               <div className="text-center mb-6 mt-12">
-                <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-700 mb-3">Hi-Tech Membranes</h2>
-                <p className="mb-6 font-medium">Global RO membrane manufacturer supporting customers across industrial, commercial, and municipal water treatment sectors.</p>
+                <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-700 mb-3">{translatedCompanyName}</h2>
+                <p className="mb-6 font-medium">{translatedCompanyDescription}</p>
                 <div className="space-y-2">
                   <a href="mailto:sales@hitechmembranes.com" className="block font-bold text-[#3E4095] underline text-sm sm:text-base">
                     sales@hitechmembranes.com
@@ -473,33 +826,28 @@ const ContactPage: React.FC = () => {
                     <span className="text-xs font-medium text-gray-700">Thailand</span>
                   </div>
                 </div>
-
-                {/* Map Size Indicator */}
-                {/* <div className="absolute bottom-2 right-2 bg-blue-400 text-white text-xs px-2 py-1 rounded">
-                  660 × 376.79
-                </div> */}
               </div>
             </div>
 
             {/* Links Section */}
             <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6" style={{ marginTop: '0px' }}>
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">Links</h3>
+              <h3 className="text-lg font-semibold text-gray-800 mb-4">{translatedLinksHeading}</h3>
               <div className="flex flex-col sm:flex-row justify-between gap-2 sm:gap-4">
                 <a href="#" className="block text-[#3E4095] underline font-medium text-sm sm:text-base">
-                  FAQs
+                  {translatedFaqsText}
                 </a>
                 <a href="#" className="block text-[#3E4095] underline font-medium text-sm sm:text-base text-underline">
-                  Product Brochures
+                  {translatedBrochuresText}
                 </a>
                 <a href="#" className="block text-[#3E4095] underline font-medium text-sm sm:text-base">
-                  Our Catalogue
+                  {translatedCatalogueText}
                 </a>
               </div>
             </div>
 
             {/* Factory & Office Address Section */}
             <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">Factory & Office Address</h3>
+              <h3 className="text-lg font-semibold text-gray-800 mb-4">{translatedAddressHeading}</h3>
               <div className="flex gap-4 mb-3">
                 {/* Map Thumbnail */}
                 <div className="w-30 h-24 flex-shrink-0 rounded overflow-hidden  border-gray-200">
@@ -517,12 +865,11 @@ const ContactPage: React.FC = () => {
                     className="text-xs sm:text-sm text-gray-700 leading-relaxed underline hover:text-blue-900 cursor-pointer"
                     onClick={handleAddressClick}
                   >
-                    Hi-Tech Membranes Co., Ltd. 700/273 Amata City Chonburi Industrial Estate Moo 1,
-                    Tambon Ban Kao, Amphur Phan Thong, Chonburi 20160 (THAILAND)
+                    {translatedAddressText}
                   </p>
                 </div>
               </div>
-              <p className="text-xs sm:text-sm text-gray-600">Manufacturing and quality control conducted under strict process and compliance standards.</p>
+              <p className="text-xs sm:text-sm text-gray-600">{translatedAddressSubtext}</p>
             </div>
           </div>
         </div>
@@ -532,7 +879,7 @@ const ContactPage: React.FC = () => {
       <footer className="">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 text-center">
           <p className="text-xs sm:text-sm text-gray-600">
-            All Rights Reserved. Copyright ©2022 HiTechMembrane Co.Ltd.
+            {translatedFooterText}
           </p>
         </div>
       </footer>

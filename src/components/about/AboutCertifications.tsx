@@ -1,12 +1,17 @@
 import React from 'react';
+import { useTranslateContent } from '../../hooks/useTranslateContent';
 
 const AboutCertifications: React.FC = () => {
+  const headingText = "Certifications";
+  const imageTag="CE Marking"
+  const { translatedText: translatedHeading } = useTranslateContent(headingText);
+  const { translatedText: translatedImagetag } = useTranslateContent(imageTag);
   return (
     <section className="w-full px-4 md:px-8 lg:px-16 xl:px-24 2xl:px-32 py-8 md:py-10 lg:py-12 bg-white">
       <div className="max-w-[1440px] mx-auto">
         {/* Heading */}
         <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-[3.5rem] font-semibold text-[#3E4095] text-center mb-8 md:mb-10 lg:mb-12">
-          Certifications
+         {translatedHeading}
         </h2>
 
         {/* Certifications Grid - 5 certificates in a row */}
@@ -22,7 +27,7 @@ const AboutCertifications: React.FC = () => {
             </div>
             {/* Overlay text */}
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3 md:p-4">
-              <p className="text-white text-sm md:text-base font-semibold">CE Marking</p>
+              <p className="text-white text-sm md:text-base font-semibold">{translatedImagetag}</p>
             </div>
           </div>
 
@@ -37,7 +42,7 @@ const AboutCertifications: React.FC = () => {
             </div>
             {/* Overlay text */}
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3 md:p-4">
-              <p className="text-white text-sm md:text-base font-semibold">CE Marking</p>
+              <p className="text-white text-sm md:text-base font-semibold">{translatedImagetag}</p>
             </div>
           </div>
 
@@ -52,7 +57,7 @@ const AboutCertifications: React.FC = () => {
             </div>
             {/* Overlay text */}
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3 md:p-4">
-              <p className="text-white text-sm md:text-base font-semibold">CE Marking</p>
+              <p className="text-white text-sm md:text-base font-semibold">{translatedImagetag}</p>
             </div>
           </div>
 
@@ -67,7 +72,7 @@ const AboutCertifications: React.FC = () => {
             </div>
             {/* Overlay text */}
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3 md:p-4">
-              <p className="text-white text-sm md:text-base font-semibold">CE Marking</p>
+              <p className="text-white text-sm md:text-base font-semibold">{translatedImagetag}g</p>
             </div>
           </div>
 
@@ -82,7 +87,7 @@ const AboutCertifications: React.FC = () => {
             </div>
             {/* Overlay text */}
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3 md:p-4">
-              <p className="text-white text-sm md:text-base font-semibold">CE Marking</p>
+              <p className="text-white text-sm md:text-base font-semibold">{translatedImagetag}</p>
             </div>
           </div>
         </div>
