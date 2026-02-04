@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {Cloud } from "lucide-react";
+import { Cloud } from "lucide-react";
 import image1 from '../assets/images/wetransfer_hitech/contactus_worldmap.png';
 import image2 from '../assets/images/wetransfer_hitech/wtsapp_QR.png';
 import image3 from '../assets/images/wetransfer_hitech/message_QR.png';
@@ -21,6 +21,8 @@ interface ContactFormData {
   file: File | null;
 }
 
+const API_BASE_URL = "http://65.0.77.32:8000";
+
 const ContactPage: React.FC = () => {
   const [formData, setFormData] = useState<ContactFormData>({
     firstName: "",
@@ -34,6 +36,13 @@ const ContactPage: React.FC = () => {
     message: "",
     file: null
   });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isUploadingFile, setIsUploadingFile] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: 'success' | 'error' | null;
+    message: string;
+  }>({ type: null, message: '' });
 
   const countries = [
     "Select Country",
@@ -51,20 +60,30 @@ const ContactPage: React.FC = () => {
 
   const categories = [
     "Select Category",
-    "General Inquiry",
-    "Technical Support",
-    "Sales",
-    "Partnership",
-    "Others"
+    "Residential",
+    "Commercial",
+    "Industrial",
+    "Municipal",
+    "Healthcare",
+    "Hospitality",
+    "Food & Beverage",
+    "Pharmaceutical",
+    "Power & Energy",
+    "Agriculture",
+    "OEM / Integrator"
   ];
 
   const productTypes = [
     "Select the membrane type for use",
-    "RO Membranes",
-    "UF Membranes",
-    "NF Membranes",
-    "MBR Systems",
-    "Custom Solutions"
+    "Reverse Osmosis (RO) Membrane",
+    "Ultrafiltration (UF) Membrane",
+    "Nanofiltration (NF) Membrane",
+    "Microfiltration (MF) Membrane",
+    "Seawater Desalination Membrane",
+    "Industrial Water Treatment System",
+    "Wastewater Treatment Solution",
+    "Drinking Water Purification System",
+    "Custom Engineered Solution"
   ];
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -77,15 +96,189 @@ const ContactPage: React.FC = () => {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0] ? e.target.files[0] : null;
+    
+    if (file) {
+      // Validate file size (10MB max)
+      const maxSize = 10 * 1024 * 1024; // 10MB in bytes
+      if (file.size > maxSize) {
+        setSubmitStatus({
+          type: 'error',
+          message: 'File size exceeds 10MB limit. Please choose a smaller file.'
+        });
+        return;
+      }
+
+      // Validate file type
+      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'];
+      if (!allowedTypes.includes(file.type)) {
+        setSubmitStatus({
+          type: 'error',
+          message: 'Invalid file type. Only JPEG, PNG, and PDF files are allowed.'
+        });
+        return;
+      }
+    }
+
     setFormData(prev => ({
       ...prev,
       file: file
     }));
+    
+    // Clear any previous error messages
+    if (submitStatus.type === 'error') {
+      setSubmitStatus({ type: null, message: '' });
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  /**
+   * Upload file to S3 using presigned URL returned from backend
+   */
+  const uploadFileToS3 = async (presignedUrl: string, file: File): Promise<boolean> => {
+    try {
+      setIsUploadingFile(true);
+
+      const uploadResponse = await fetch(presignedUrl, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': file.type,
+        },
+        body: file
+      });
+
+      if (!uploadResponse.ok) {
+        throw new Error('Failed to upload file to S3');
+      }
+
+      console.log('File uploaded successfully to S3');
+      return true;
+
+    } catch (error) {
+      console.error('File upload error:', error);
+      throw new Error('Failed to upload file. Please try again.');
+    } finally {
+      setIsUploadingFile(false);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: '' });
+
+    try {
+      // Prepare payload according to backend schema
+      const payload: any = {
+        name: formData.firstName.trim(),
+        email: formData.email.trim(),
+        country: formData.country,
+        product_type: formData.productType,
+        message: formData.message.trim(),
+        category: formData.category || null,
+        company: formData.company.trim() || null,
+        phone: formData.phone.trim() || null,
+        subject: formData.subject.trim() || null,
+      };
+
+      // Add file_name if file exists
+      if (formData.file) {
+        payload.file_name = formData.file.name;
+      }
+
+      console.log('Submitting payload:', payload);
+
+      // Step 1: Submit form data to backend (backend will generate presigned URL)
+      const response = await fetch(`${API_BASE_URL}/contact-us`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload)
+      });
+
+      // Parse response
+      const data = await response.json();
+      console.log('API Response:', data);
+
+      if (response.ok) {
+        // Step 2: If file exists and presigned URL is returned, upload to S3
+        if (formData.file && data.upload_url) {
+          try {
+            await uploadFileToS3(data.upload_url, formData.file);
+          } catch (uploadError) {
+            console.error('File upload failed:', uploadError);
+            // Form is submitted but file upload failed
+            setSubmitStatus({
+              type: 'error',
+              message: `Form submitted (ID: ${data.id}), but file upload failed. Please contact support with your reference ID.`
+            });
+            setIsSubmitting(false);
+            return;
+          }
+        }
+
+        // Success - both form submission and file upload (if any) succeeded
+        setSubmitStatus({
+          type: 'success',
+          message: `Thank you for contacting us! Your enquiry has been submitted successfully. Reference ID: ${data.id}`
+        });
+
+        // Reset form
+        setFormData({
+          firstName: "",
+          company: "",
+          email: "",
+          phone: "",
+          category: "",
+          country: "",
+          subject: "",
+          productType: "",
+          message: "",
+          file: null
+        });
+
+        // Clear file input
+        const fileInput = document.getElementById('fileUpload') as HTMLInputElement;
+        if (fileInput) fileInput.value = '';
+
+        // Scroll to top to show success message
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Auto-hide success message after 8 seconds
+        setTimeout(() => {
+          setSubmitStatus({ type: null, message: '' });
+        }, 8000);
+
+      } else {
+        // Handle error response
+        const errorMessage = data.detail 
+          ? (typeof data.detail === 'string' ? data.detail : JSON.stringify(data.detail))
+          : 'Failed to submit form. Please try again.';
+        
+        throw new Error(errorMessage);
+      }
+
+    } catch (error) {
+      console.error('Form submission error:', error);
+      
+      let errorMessage = 'An unexpected error occurred. Please try again.';
+      
+      if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
+        errorMessage = 'Network error: Unable to connect to the server. Please check your internet connection and try again.';
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+
+      setSubmitStatus({
+        type: 'error',
+        message: errorMessage
+      });
+
+      // Scroll to top to show error message
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const downloadQRImage = (imageUrl: string, filename: string): void => {
@@ -111,8 +304,47 @@ const ContactPage: React.FC = () => {
         {/* Page Title */}
         <div className="mb-1 sm:mb-2">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#3E4095]">Let's Talk Water Solutions</h1>
-
         </div>
+
+        {/* Success/Error Message - Positioned at top */}
+        {submitStatus.type && (
+          <div className={`mb-6 p-4 rounded-lg border ${
+            submitStatus.type === 'success' 
+              ? 'bg-green-50 border-green-200' 
+              : 'bg-red-50 border-red-200'
+          }`}>
+            <div className="flex items-start">
+              <div className="flex-shrink-0">
+                {submitStatus.type === 'success' ? (
+                  <svg className="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                ) : (
+                  <svg className="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                  </svg>
+                )}
+              </div>
+              <div className="ml-3 flex-1">
+                <p className={`text-sm font-medium ${
+                  submitStatus.type === 'success' ? 'text-green-800' : 'text-red-800'
+                }`}>
+                  {submitStatus.message}
+                </p>
+              </div>
+              <button
+                onClick={() => setSubmitStatus({ type: null, message: '' })}
+                className="ml-3 flex-shrink-0"
+              >
+                <svg className={`h-5 w-5 ${
+                  submitStatus.type === 'success' ? 'text-green-400' : 'text-red-400'
+                }`} viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Main Grid Layout */}
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 lg:gap-8">
@@ -120,10 +352,12 @@ const ContactPage: React.FC = () => {
           {/* Left Column - Contact Form */}
           <div className="space-y-4">
             <h4 className="font-medium text-lg mt-1">Connect with our team to discuss RO membrane solutions, OEM requirements, or technical support.</h4>
+
             {/* Main Contact Form */}
             <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6">
               <p className="mb-4">Whether you are looking for reverse osmosis membrane solutions, OEM manufacturing support, or technical guidance, our team is here to help.
                 Please share your requirements and we'll connect you with the right specialist.</p>
+              
               <form onSubmit={handleSubmit}>
                 <div className="space-y-4">
 
@@ -139,6 +373,7 @@ const ContactPage: React.FC = () => {
                         onChange={handleInputChange}
                         className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
                         required
+                        disabled={isSubmitting || isUploadingFile}
                       />
                     </div>
                     <div>
@@ -150,6 +385,7 @@ const ContactPage: React.FC = () => {
                         value={formData.company}
                         onChange={handleInputChange}
                         className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
+                        disabled={isSubmitting || isUploadingFile}
                       />
                     </div>
                   </div>
@@ -166,6 +402,7 @@ const ContactPage: React.FC = () => {
                         onChange={handleInputChange}
                         className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
                         required
+                        disabled={isSubmitting || isUploadingFile}
                       />
                     </div>
                     <div>
@@ -177,6 +414,7 @@ const ContactPage: React.FC = () => {
                         value={formData.phone}
                         onChange={handleInputChange}
                         className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
+                        disabled={isSubmitting || isUploadingFile}
                       />
                     </div>
                   </div>
@@ -190,6 +428,7 @@ const ContactPage: React.FC = () => {
                         value={formData.category}
                         onChange={handleInputChange}
                         className="w-full px-3 py-2 bg-gray-100 text-black border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
+                        disabled={isSubmitting || isUploadingFile}
                       >
                         {categories.map((category, index) => (
                           <option key={index} value={index === 0 ? "" : category} disabled={index === 0}>
@@ -206,6 +445,7 @@ const ContactPage: React.FC = () => {
                         onChange={handleInputChange}
                         className="w-full px-3 py-2 bg-gray-100 border text-black border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
                         required
+                        disabled={isSubmitting || isUploadingFile}
                       >
                         {countries.map((country, index) => (
                           <option key={index} value={index === 0 ? "" : country} disabled={index === 0}>
@@ -227,6 +467,7 @@ const ContactPage: React.FC = () => {
                         value={formData.subject}
                         onChange={handleInputChange}
                         className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
+                        disabled={isSubmitting || isUploadingFile}
                       />
                     </div>
                     <div>
@@ -237,6 +478,7 @@ const ContactPage: React.FC = () => {
                         onChange={handleInputChange}
                         className="w-full px-3 py-2 text-black bg-gray-100 border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
                         required
+                        disabled={isSubmitting || isUploadingFile}
                       >
                         {productTypes.map((type, index) => (
                           <option key={index} value={index === 0 ? "" : type} disabled={index === 0}>
@@ -259,6 +501,7 @@ const ContactPage: React.FC = () => {
                         rows={5}
                         className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm resize-none"
                         required
+                        disabled={isSubmitting || isUploadingFile}
                       />
                     </div>
                     <div>
@@ -273,15 +516,16 @@ const ContactPage: React.FC = () => {
                           className="hidden"
                           id="fileUpload"
                           onChange={handleFileChange}
+                          disabled={isSubmitting || isUploadingFile}
                         />
                         <label
                           htmlFor="fileUpload"
-                          className=" text-gray-700 hover:bg-gray-50 cursor-pointer text-xs"
+                          className={`text-gray-700 hover:bg-gray-50 cursor-pointer text-xs ${(isSubmitting || isUploadingFile) ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
                           Browse File
                         </label>
                         {formData.file && (
-                          <p className="mt-2 text-xs text-green-600">{formData.file.name}</p>
+                          <p className="mt-2 text-xs text-green-600 truncate px-2">{formData.file.name}</p>
                         )}
                       </div>
                     </div>
@@ -291,14 +535,16 @@ const ContactPage: React.FC = () => {
                   <div className="pt-4 flex justify-center">
                     <button
                       type="submit"
-                      className="w-full sm:w-auto bg-green-500 shadow-lg cursor-pointer
+                      disabled={isSubmitting || isUploadingFile}
+                      className={`w-full sm:w-auto bg-green-500 shadow-lg cursor-pointer
                                 transform
                                 transition-all duration-300 ease-in-out
                                 hover:scale-105
-                                hover:bg-[#98C135] text-blue-900 font-medium py-3 px-8 rounded"
-                      style={{ backgroundColor: '#A8CF45' }}
+                                hover:bg-[#98C135] text-blue-900 font-medium py-3 px-8 rounded
+                                ${(isSubmitting || isUploadingFile) ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      style={{ backgroundColor: (isSubmitting || isUploadingFile) ? '#94A3B8' : '#A8CF45' }}
                     >
-                      Submit Enquiry
+                      {isUploadingFile ? 'Uploading File...' : isSubmitting ? 'Submitting...' : 'Submit Enquiry'}
                     </button>
                   </div>
                 </div>
@@ -473,11 +719,6 @@ const ContactPage: React.FC = () => {
                     <span className="text-xs font-medium text-gray-700">Thailand</span>
                   </div>
                 </div>
-
-                {/* Map Size Indicator */}
-                {/* <div className="absolute bottom-2 right-2 bg-blue-400 text-white text-xs px-2 py-1 rounded">
-                  660 × 376.79
-                </div> */}
               </div>
             </div>
 
