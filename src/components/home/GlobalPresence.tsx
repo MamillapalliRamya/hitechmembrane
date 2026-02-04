@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X, Star } from 'lucide-react';
+import { useTranslateContent } from '../../hooks/useTranslateContent';
 import image1 from "../../../src/assets/images/wetransfer_hitech/logo-1.png";
 
 interface Location {
@@ -10,7 +11,7 @@ interface Location {
   countryCode: string;
   type: 'main' | 'warehouse' | 'site';
   reviews?: Review[];
-  pinColor?: '#3394FF' | '#B8D332'; // Added pin color property
+  pinColor?: '#3394FF' | '#B8D332';
 }
 
 interface Review {
@@ -23,7 +24,59 @@ interface GlobalPresenceSectionProps {
   title?: string;
 }
 
+// Component to handle individual review translation
+const TranslatedReview: React.FC<{ review: Review; index: number }> = ({ review, index }) => {
+  const { translatedText: translatedReviewText } = useTranslateContent(review.text);
 
+  return (
+    <div
+      key={index}
+      className="
+        bg-gray-50 rounded-lg md:rounded-xl 
+        p-1.5 md:p-3 
+        hover:bg-gray-100 transition-colors duration-200
+      "
+    >
+      <div className="flex gap-1.5 md:gap-3">
+        {/* Avatar */}
+        <div className="w-7 h-7 md:w-10 md:h-10 rounded-full overflow-hidden flex-shrink-0 ring-1 ring-white shadow-md">
+          <div className="w-full h-full bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 flex items-center justify-center">
+            <span className="text-[9px] md:text-xs text-white font-bold">
+              {review.name.split(" ").map((n) => n[0]).join("")}
+            </span>
+          </div>
+        </div>
+
+        {/* Review Content */}
+        <div className="flex-1 min-w-0" style={{ fontFamily: "Diodrum Cyrillic" }}>
+          <div className="flex items-start md:items-center justify-between mb-0.5 md:mb-1 gap-1">
+            <h5 className="font-semibold text-gray-900 text-[10px] md:text-sm truncate flex-1">
+              {review.name}
+            </h5>
+            <div className="flex space-x-0.5 flex-shrink-0">
+              {[...Array(5)].map((_, starIndex) => (
+                <Star
+                  key={starIndex}
+                  className={`w-2.5 h-2.5 md:w-4 md:h-4 ${starIndex < review.rating
+                      ? 'text-yellow-400 fill-current'
+                      : 'text-gray-300'
+                    }`}
+                />
+              ))}
+            </div>
+          </div>
+
+          <p
+            className="text-gray-700 text-[9px] md:text-xs leading-snug line-clamp-2 md:line-clamp-none"
+            style={{ fontFamily: "Diodrum Cyrillic" }}
+          >
+            {translatedReviewText}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
   title = "Our Global Presence" }) => {
@@ -31,6 +84,36 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
   const [imageLoadFailed, setImageLoadFailed] = useState<{ [key: number]: boolean }>({});
   const [mapTransform, setMapTransform] = useState('translate(0, 0) scale(1)');
+
+  // Text content for translation
+  const titleText = "Our Global Presence";
+  const exportMarketsText = "Multiple Export Markets Served";
+  const manufacturingExpText = "30+ Years of Manufacturing Experience";
+  const oemPartnersText = "OEM & Private Label Partners Worldwide";
+  const oemPartnersShortText = "OEM Partners Worldwide";
+  const oemPartnersMobileText = "OEM Partners";
+  const globalCustomersText = "200+ Global Customers";
+  const globalCustomersShortText = "200+ Customers";
+  const warehouseText = "Warehouse";
+  const siteText = "Site";
+  const clickToKnowText = "Click to know more";
+  const reviewsHeadingText = "Reviews";
+  const descriptionText = "Hi-Tech has successfully maintained its global presence thanks to a robust network of skilled associates. By prioritizing customer interests, the company continually adapts its work methodology to achieve outstanding results. With competitive pricing, efficient resource management, and a commitment to fulfilling promises, Hi-Tech has garnered accolades not just from clients but also from esteemed authorities across the nation.";
+
+  // Translation hooks
+  const { translatedText: translatedTitle } = useTranslateContent(titleText);
+  const { translatedText: translatedExportMarkets } = useTranslateContent(exportMarketsText);
+  const { translatedText: translatedManufacturingExp } = useTranslateContent(manufacturingExpText);
+  const { translatedText: translatedOemPartners } = useTranslateContent(oemPartnersText);
+  const { translatedText: translatedOemPartnersShort } = useTranslateContent(oemPartnersShortText);
+  const { translatedText: translatedOemPartnersMobile } = useTranslateContent(oemPartnersMobileText);
+  const { translatedText: translatedGlobalCustomers } = useTranslateContent(globalCustomersText);
+  const { translatedText: translatedGlobalCustomersShort } = useTranslateContent(globalCustomersShortText);
+  const { translatedText: translatedWarehouse } = useTranslateContent(warehouseText);
+  const { translatedText: translatedSite } = useTranslateContent(siteText);
+  const { translatedText: translatedClickToKnow } = useTranslateContent(clickToKnowText);
+  const { translatedText: translatedReviewsHeading } = useTranslateContent(reviewsHeadingText);
+  const { translatedText: translatedDescription } = useTranslateContent(descriptionText);
 
   const locations: Location[] = [
     // Original locations
@@ -41,7 +124,7 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
       y: 22,
       countryCode: 'in',
       type: 'main',
-      pinColor: '#B8D332', // Green pin for India
+      pinColor: '#B8D332',
       reviews: [
         {
           name: 'Raj Patel',
@@ -62,7 +145,7 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
       y: 21,
       countryCode: 'th',
       type: 'main',
-      pinColor: '#B8D332', // Green pin for Thailand
+      pinColor: '#B8D332',
       reviews: [
         {
           name: 'Alex Johnson',
@@ -126,7 +209,6 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
         }
       ]
     },
-    // New locations
     {
       id: 8,
       country: 'Egypt',
@@ -354,7 +436,7 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
       y: 18,
       countryCode: 'us',
       type: 'main',
-      pinColor: '#B8D332', // Green pin for USA
+      pinColor: '#B8D332',
       reviews: [
         {
           name: 'Robert Johnson',
@@ -423,7 +505,7 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
       <div className="mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-6 md:mb-12">
           <h2 className="text-xl sm:text-2xl md:text-5xl text-gray-700 mb-6 md:mb-20">
-            {title}
+            {translatedTitle}
           </h2>
         </div>
 
@@ -461,8 +543,8 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
                     transform: 'translateY(-50%)'
                   }}
                 >
-                  <span className="hidden sm:inline">Multiple Export Markets Served</span>
-                  <span className="sm:hidden">Export Markets</span>
+                  <span className="hidden sm:inline">{translatedExportMarkets}</span>
+                  <span className="sm:hidden">{translatedExportMarkets}</span>
                 </div>
 
                 {/* 30+ Years of Manufacturing Experience - Top Right */}
@@ -474,8 +556,8 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
                     transform: 'translateY(-50%)'
                   }}
                 >
-                  <span className="hidden sm:inline">30+ Years of Manufacturing Experience</span>
-                  <span className="sm:hidden">30+ Years</span>
+                  <span className="hidden sm:inline">{translatedManufacturingExp}</span>
+                  <span className="sm:hidden">{translatedManufacturingExp}</span>
                 </div>
 
                 {/* OEM & Private Label Partners Worldwide - Right Side */}
@@ -487,9 +569,9 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
                     transform: 'translateY(-50%)'
                   }}
                 >
-                  <span className="hidden md:inline">OEM & Private Label Partners Worldwide</span>
-                  <span className="hidden sm:inline md:hidden">OEM Partners Worldwide</span>
-                  <span className="sm:hidden">OEM Partners</span>
+                  <span className="hidden md:inline">{translatedOemPartners}</span>
+                  <span className="hidden sm:inline md:hidden">{translatedOemPartnersShort}</span>
+                  <span className="sm:hidden">{translatedOemPartnersMobile}</span>
                 </div>
 
                 {/* 200+ Global Customers - Bottom Left */}
@@ -500,8 +582,8 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
                     bottom: '18%',
                   }}
                 >
-                  <span className="hidden sm:inline">200+ Global Customers</span>
-                  <span className="sm:hidden">200+ Customers</span>
+                  <span className="hidden sm:inline">{translatedGlobalCustomers}</span>
+                  <span className="sm:hidden">{translatedGlobalCustomersShort}</span>
                 </div>
               </div>
 
@@ -594,7 +676,7 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
                       transform: 'translate(-50%, 10px)',
                     }}
                   >
-                    Click to know more
+                    {translatedClickToKnow}
                   </div>
                 </>
               )}
@@ -628,7 +710,7 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
                     </div>
 
                     <span className="text-xs md:text-sm font-semibold text-gray-800">
-                      {hoveredLocation.type === 'warehouse' ? 'Warehouse' : 'Site'}
+                      {hoveredLocation.type === 'warehouse' ? translatedWarehouse : translatedSite}
                     </span>
                   </div>
 
@@ -642,16 +724,16 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
           {/* Mobile text blocks - below map */}
           <div className="sm:hidden mt-6 space-y-3 text-center px-4">
             <div className="bg-[#B8D332] text-[#3E4095] px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
-              Multiple Export Markets Served
+              {translatedExportMarkets}
             </div>
             <div className="bg-[#B8D332] text-[#3E4095] px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
-              30+ Years of Manufacturing Experience
+              {translatedManufacturingExp}
             </div>
             <div className="bg-[#B8D332] text-[#3E4095] px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
-              OEM & Private Label Partners Worldwide
+              {translatedOemPartners}
             </div>
             <div className="bg-[#B8D332] text-[#3E4095] px-4 py-2 rounded-lg shadow-lg font-semibold text-sm">
-              200+ Global Customers
+              {translatedGlobalCustomers}
             </div>
           </div>
 
@@ -721,57 +803,12 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
               {/* Reviews Section */}
               <div className="px-2 md:px-3 py-1.5 md:py-3">
                 <h4 className="text-[9px] md:text-xs font-semibold text-gray-800 mb-1.5 md:mb-3 uppercase tracking-wide">
-                  Reviews
+                  {translatedReviewsHeading}
                 </h4>
 
                 <div className="space-y-1.5 md:space-y-2 max-h-[150px] sm:max-h-[200px] md:max-h-[340px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
                   {selectedLocation.reviews?.map((review, index) => (
-                    <div
-                      key={index}
-                      className="
-                        bg-gray-50 rounded-lg md:rounded-xl 
-                        p-1.5 md:p-3 
-                        hover:bg-gray-100 transition-colors duration-200
-                      "
-                    >
-                      <div className="flex gap-1.5 md:gap-3">
-                        {/* Avatar */}
-                        <div className="w-7 h-7 md:w-10 md:h-10 rounded-full overflow-hidden flex-shrink-0 ring-1 ring-white shadow-md">
-                          <div className="w-full h-full bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 flex items-center justify-center">
-                            <span className="text-[9px] md:text-xs text-white font-bold">
-                              {review.name.split(" ").map((n) => n[0]).join("")}
-                            </span>
-                          </div>
-                        </div>
-
-                        {/* Review Content */}
-                        <div className="flex-1 min-w-0" style={{ fontFamily: "Diodrum Cyrillic" }}>
-                          <div className="flex items-start md:items-center justify-between mb-0.5 md:mb-1 gap-1">
-                            <h5 className="font-semibold text-gray-900 text-[10px] md:text-sm truncate flex-1">
-                              {review.name}
-                            </h5>
-                            <div className="flex space-x-0.5 flex-shrink-0">
-                              {[...Array(5)].map((_, starIndex) => (
-                                <Star
-                                  key={starIndex}
-                                  className={`w-2.5 h-2.5 md:w-4 md:h-4 ${starIndex < review.rating
-                                      ? 'text-yellow-400 fill-current'
-                                      : 'text-gray-300'
-                                    }`}
-                                />
-                              ))}
-                            </div>
-                          </div>
-
-                          <p
-                            className="text-gray-700 text-[9px] md:text-xs leading-snug line-clamp-2 md:line-clamp-none"
-                            style={{ fontFamily: "Diodrum Cyrillic" }}
-                          >
-                            {review.text}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
+                    <TranslatedReview key={index} review={review} index={index} />
                   ))}
                 </div>
               </div>
@@ -781,11 +818,7 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
 
         <div className="max-w-4xl mx-auto text-center px-4">
           <p className="text-sm sm:text-base md:text-lg text-gray-600 leading-relaxed font-regular">
-            Hi-Tech has successfully maintained its global presence thanks to a robust network of skilled
-            associates. By prioritizing customer interests, the company continually adapts its work
-            methodology to achieve outstanding results. With competitive pricing, efficient resource
-            management, and a commitment to fulfilling promises, Hi-Tech has garnered accolades not
-            just from clients but also from esteemed authorities across the nation.
+            {translatedDescription}
           </p>
         </div>
       </div>
