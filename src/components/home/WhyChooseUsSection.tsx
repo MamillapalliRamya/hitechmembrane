@@ -7,7 +7,7 @@ import {
     DollarSign,
     Headphones
 } from 'lucide-react';
-
+import { useTranslateContent } from '../../hooks/useTranslateContent'; // make sure this path is correct
 
 interface Feature {
     icon: React.ReactNode;
@@ -49,17 +49,16 @@ const WhyChoose: React.FC = () => {
         }
     ];
 
-
     return (
         <section className="relative overflow-hidden bg-[#403E91] py-20 lg:py-11 2xl:py-20">
             <div className="relative mx-[40px] xl:mx-[80px] 2xl:mx-[112px]">
                 {/* Section Header */}
                 <div className="mb-12 text-center lg:mb-14">
                     <h2 className="mb-7 text-4xl font-bold tracking-tight text-white lg:text-[38px] xl:text-[48px] 2xl:text-[52px]">
-                        Why Choose Hi-Tech Membranes
+                        {useTranslateContent('Why Choose Hi-Tech Membranes').translatedText}
                     </h2>
                     <p className="mx-auto max-w-4xl text-lg text-white/90 lg:text-[20px] xl:text-[20px] 2xl:text-[21px]">
-                        A trusted RO membrane manufacturer delivering performance, reliability and long term value.
+                        {useTranslateContent('A trusted RO membrane manufacturer delivering performance, reliability and long term value.').translatedText}
                     </p>
                 </div>
 
@@ -71,7 +70,6 @@ const WhyChoose: React.FC = () => {
                             className="group relative flex flex-col items-start gap-6 overflow-hidden rounded-2xl border border-white/20
                                        bg-white/10 p-8 backdrop-blur-sm xl:flex-row xl:items-start"
                         >
-
                             {/* Icon */}
                             <div className="flex shrink-0 items-center justify-center rounded-xl bg-[#9EE872]
                                             h-16 w-16 lg:h-12 lg:w-12 xl:h-14 xl:w-14 2xl:h-16 2xl:w-16">
@@ -81,15 +79,14 @@ const WhyChoose: React.FC = () => {
                             {/* Text Content */}
                             <div className="flex flex-col">
                                 <h3 className="mb-2 text-xl font-bold leading-tight text-white lg:text-[21px] xl:text-[23px] 2xl:text-[28px]">
-                                    {feature.title}
+                                    {useTranslateContent(feature.title).translatedText}
                                 </h3>
 
                                 <p className="leading-relaxed text-white/80 lg:text-[15px] xl:text-[15px] 2xl:text-[19px]">
-                                    {feature.description}
+                                    {useTranslateContent(feature.description).translatedText}
                                 </p>
                             </div>
                         </div>
-
                     ))}
                 </div>
             </div>
