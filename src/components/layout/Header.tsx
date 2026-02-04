@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Phone } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useTranslateContent } from "../../hooks/useTranslateContent";
 import LanguageSelector from "../common/LanguageSelector";
 
 const Header: React.FC = () => {
@@ -9,6 +10,24 @@ const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
   const { t } = useTranslation();
+
+  // Text content for translation
+  const aboutText = "About";
+  const productsText = "Products";
+  const innovationText = "Innovation";
+  const ourImpactText = "Our Impact";
+  const eventsText = "Events";
+  const requestQuoteText = "Request a Quote";
+  const quoteShortText = "Quote";
+
+  // Translation hooks
+  const { translatedText: translatedAboutText } = useTranslateContent(aboutText);
+  const { translatedText: translatedProductsText } = useTranslateContent(productsText);
+  const { translatedText: translatedInnovationText } = useTranslateContent(innovationText);
+  const { translatedText: translatedOurImpactText } = useTranslateContent(ourImpactText);
+  const { translatedText: translatedEventsText } = useTranslateContent(eventsText);
+  const { translatedText: translatedRequestQuoteText } = useTranslateContent(requestQuoteText);
+  const { translatedText: translatedQuoteShortText } = useTranslateContent(quoteShortText);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -83,7 +102,7 @@ const Header: React.FC = () => {
                     : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
                 }`}
               >
-                {t("nav.about")}
+                {translatedAboutText}
               </Link>
 
               <Link
@@ -96,7 +115,7 @@ const Header: React.FC = () => {
                     : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
                 }`}
               >
-                {t("nav.products")}
+                {translatedProductsText}
               </Link>
 
               <Link
@@ -109,7 +128,7 @@ const Header: React.FC = () => {
                     : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
                 }`}
               >
-                {t("nav.innovation")}
+                {translatedInnovationText}
               </Link>
 
               <Link
@@ -122,7 +141,7 @@ const Header: React.FC = () => {
                     : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
                 }`}
               >
-                {t("nav.ourimpact")}
+                {translatedOurImpactText}
               </Link>
 
               <Link
@@ -135,7 +154,7 @@ const Header: React.FC = () => {
                     : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
                 }`}
               >
-                {t("nav.events")}
+                {translatedEventsText}
               </Link>
             </nav>
 
@@ -162,8 +181,8 @@ const Header: React.FC = () => {
                   hover:scale-110
                 "
               >
-                <span className="hidden lg:inline">{t("cta.requestQuote")}</span>
-                <span className="lg:hidden">Quote</span>
+                <span className="hidden lg:inline">{translatedRequestQuoteText}</span>
+                <span className="lg:hidden">{translatedQuoteShortText}</span>
               </Link>
 
               {/* Mobile Menu Button */}
@@ -229,7 +248,7 @@ const Header: React.FC = () => {
                 }`}
                 onClick={closeMobileMenu}
               >
-                {t("nav.about")}
+                {translatedAboutText}
               </Link>
 
               <Link
@@ -241,7 +260,7 @@ const Header: React.FC = () => {
                 }`}
                 onClick={closeMobileMenu}
               >
-                {t("nav.products")}
+                {translatedProductsText}
               </Link>
 
               <Link
@@ -253,7 +272,7 @@ const Header: React.FC = () => {
                 }`}
                 onClick={closeMobileMenu}
               >
-                {t("nav.innovation")}
+                {translatedInnovationText}
               </Link>
 
               <Link
@@ -265,7 +284,7 @@ const Header: React.FC = () => {
                 }`}
                 onClick={closeMobileMenu}
               >
-                {t("nav.ourimpact")}
+                {translatedOurImpactText}
               </Link>
 
               <Link
@@ -277,7 +296,7 @@ const Header: React.FC = () => {
                 }`}
                 onClick={closeMobileMenu}
               >
-                {t("nav.events")}
+                {translatedEventsText}
               </Link>
             </nav>
 
@@ -304,7 +323,7 @@ const Header: React.FC = () => {
                 className="block w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-center font-medium rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
                 onClick={closeMobileMenu}
               >
-                {t("cta.requestQuote")}
+                {translatedRequestQuoteText}
               </Link>
             </div>
           </div>
