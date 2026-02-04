@@ -1,12 +1,15 @@
 import React from "react";
+import { useTranslateContent } from '../../hooks/useTranslateContent';
 
 const AboutAwards: React.FC = () => {
+   const headingText = " Awards";
+   const { translatedText: translatedHeading } = useTranslateContent(headingText);
   return (
     <section className="pb-8">
       <div className="max-w-[1440px] mx-auto px-6 md:px-10">
 
         <h2 className="text-[32px] md:text-[40px] lg:text-[48px] font-semibold text-[#3E4095] text-center mb-12">
-          Awards
+         {translatedHeading}
         </h2>
 
         {/* Awards Grid */}

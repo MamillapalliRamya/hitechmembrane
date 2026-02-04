@@ -1,10 +1,33 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslateContent } from '../../hooks/useTranslateContent';
 import image1 from '../../assets/images/wetransfer_hitech/wtsapp_QR.png';
 import image2 from '../../assets/images/wetransfer_hitech/message_QR.png';
 import image3 from '../../assets/images/wetransfer_hitech/Line_QR.png';
 
 const Footer = () => {
+  // Text content for translation
+  const productsText = "Products";
+  const aboutText = "About";
+  const eventsText = "Events";
+  const contactUsText = "Contact Us";
+  const chatWithUsText = "CHAT WITH US";
+  const contactHeading = "CONTACT";
+  const locationHeading = "LOCATION";
+  const addressText = "Hi-Tech Membranes Co., Ltd. 700/273 Amata City Chonburi Industrial Estate Moo 1, Tambon Ban Kao, Amphur Phan Thong, Chonburi 20160 (THAILAND)";
+  const copyrightText = "All Rights Reserved. Copyright ©2022 Hitechmembrane.Co.Ltd.";
+
+  // Translation hooks
+  const { translatedText: translatedProductsText } = useTranslateContent(productsText);
+  const { translatedText: translatedAboutText } = useTranslateContent(aboutText);
+  const { translatedText: translatedEventsText } = useTranslateContent(eventsText);
+  const { translatedText: translatedContactUsText } = useTranslateContent(contactUsText);
+  const { translatedText: translatedChatWithUsText } = useTranslateContent(chatWithUsText);
+  const { translatedText: translatedContactHeading } = useTranslateContent(contactHeading);
+  const { translatedText: translatedLocationHeading } = useTranslateContent(locationHeading);
+  const { translatedText: translatedAddressText } = useTranslateContent(addressText);
+  const { translatedText: translatedCopyrightText } = useTranslateContent(copyrightText);
+
   const [activeQR, setActiveQR] = useState<string | null>(null);
   const qrRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
@@ -90,10 +113,10 @@ const Footer = () => {
   ];
 
   const navigationLinks = [
-    { title: 'Products', href: '/products' },
-    { title: 'About', href: '/about' },
-    { title: 'Events', href: '/events' },
-    { title: 'Contact Us', href: '/contact' }
+    { title: translatedProductsText, href: '/products' },
+    { title: translatedAboutText, href: '/about' },
+    { title: translatedEventsText, href: '/events' },
+    { title: translatedContactUsText, href: '/contact' }
   ];
 
   const ContactIcon = () => (
@@ -171,7 +194,7 @@ const Footer = () => {
             {/* Chat With Us Section */}
             <div className="mt-6 md:mt-8">
               <h3 className="text-sm font-semibold mb-4 uppercase tracking-wider text-[#A8CF45]">
-                CHAT WITH US
+                {translatedChatWithUsText}
               </h3>
               <div className="flex space-x-4 items-center">
                 {chatPlatforms.map((platform) => (
@@ -216,7 +239,7 @@ const Footer = () => {
             {/* Contact Section */}
             <div className="mb-6">
               <h3 className="text-sm font-semibold mb-4 text-[#A8CF45] uppercase tracking-wider">
-                CONTACT
+                {translatedContactHeading}
               </h3>
               
               {/* Phone */}
@@ -245,7 +268,7 @@ const Footer = () => {
             {/* Location Section */}
             <div>
               <h3 className="text-sm font-semibold mb-4 text-[#A8CF45] uppercase tracking-wider">
-                LOCATION
+                {translatedLocationHeading}
               </h3>
               <div 
                 className="flex items-start cursor-pointer hover:opacity-80 transition-opacity"
@@ -255,8 +278,7 @@ const Footer = () => {
                   <LocationIcon />
                 </div>
                 <p className="text-sm text-white leading-relaxed">
-                  Hi-Tech Membranes Co., Ltd. 700/273 Amata City Chonburi Industrial Estate Moo 1,
-                  Tambon Ban Kao, Amphur Phan Thong, Chonburi 20160 (THAILAND)
+                  {translatedAddressText}
                 </p>
               </div>
             </div>
@@ -272,21 +294,21 @@ const Footer = () => {
                 className="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6 lg:gap-8 rounded-xl px-4 sm:px-6 md:px-8 py-2 sm:py-3" 
                 style={{ background: "#1A1C51" }}
               >
-              {socialPlatforms.map((platform) => (
-                <a
-                  key={platform.name}
-                  href={platform.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center transition-colors ${platform.bgColor}`}
-                  aria-label={platform.name}
-                >
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                    {platform.icon}
-                  </svg>
-                </a>
-              ))}
-            </div>
+                {socialPlatforms.map((platform) => (
+                  <a
+                    key={platform.name}
+                    href={platform.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center transition-colors ${platform.bgColor}`}
+                    aria-label={platform.name}
+                  >
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      {platform.icon}
+                    </svg>
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
           
@@ -295,7 +317,7 @@ const Footer = () => {
             className="flex justify-center md:justify-end text-gray-400 pt-2" 
             style={{ fontSize: '10px' }}
           >
-            All Rights Reserved. Copyright ©2022 Hitechmembrane.Co.Ltd.
+            {translatedCopyrightText}
           </div>
         </div>
       </div>
