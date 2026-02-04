@@ -16,11 +16,16 @@ const Applications = () => {
     { id: 6, image: "/assets/images/Hitech-Viet-2016.png", title: "HITECH VIET 2021" },
   ];
 
+  // ✅ Call hooks at the top level
+  const translatedTitle = useTranslateContent("Events");
+  const translatedEvents = events.map(event => useTranslateContent(event.title));
+
+  // Responsive itemsPerView logic
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
       if (width < 640) setItemsPerView(1);
-      else if (width >= 640 && width < 1024) setItemsPerView(2);
+      else if (width < 1024) setItemsPerView(2);
       else setItemsPerView(3);
     };
     handleResize();
@@ -29,8 +34,8 @@ const Applications = () => {
   }, []);
 
   const maxIndex = Math.max(0, events.length - itemsPerView);
-  const handlePrevious = () => setCurrentIndex((prev) => Math.max(0, prev - 1));
-  const handleNext = () => setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
+  const handlePrevious = () => setCurrentIndex(prev => Math.max(0, prev - 1));
+  const handleNext = () => setCurrentIndex(prev => Math.min(maxIndex, prev + 1));
   const visibleEvents = events.slice(currentIndex, currentIndex + itemsPerView);
 
   return (
@@ -45,7 +50,7 @@ const Applications = () => {
           className="text-[40px] md:pt-16 sm:text-4xl lg:text-[48px] 2xl:text-[60px] text-[#333333] text-center md:mb-12 2xl:mb-16"
           style={{ fontFamily: "Diodrum Cyrillic, sans-serif" }}
         >
-          {useTranslateContent("Events").translatedText}
+          {translatedTitle.translatedText}
         </motion.h2>
 
         {/* Events Slider */}
@@ -58,23 +63,26 @@ const Applications = () => {
             itemsPerView === 1 ? "justify-center" : itemsPerView === 2 ? "justify-center" : "justify-between"
           }`}
         >
-          {visibleEvents.map((event) => (
-            <div
-              key={event.id}
-              className="relative flex items-center justify-center h-[250px] sm:h-[380px] lg:h-auto 3xl:h-[553px] 
-                          sm:w-[300px] lg:w-auto 3xl:w-[516px]
-                          overflow-hidden rounded-lg shadow-md 2xl:w-auto 2xl:h-auto"
-            >
-              <img src={event.image} alt={event.title} className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+          {visibleEvents.map((event) => {
+            const index = events.indexOf(event); // get index in translatedEvents
+            return (
               <div
-                className="absolute bottom-4 text-[20px] lg:text-[24px] xl:text-[30px] 2xl:text-[36px] left-5 text-white drop-shadow-lg"
-                style={{ fontFamily: "Diodrum Cyrillic, sans-serif", fontWeight: "700" }}
+                key={event.id}
+                className="relative flex items-center justify-center h-[250px] sm:h-[380px] lg:h-auto 3xl:h-[553px] 
+                            sm:w-[300px] lg:w-auto 3xl:w-[516px]
+                            overflow-hidden rounded-lg shadow-md 2xl:w-auto 2xl:h-auto"
               >
-                {useTranslateContent(event.title).translatedText}
+                <img src={event.image} alt={event.title} className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                <div
+                  className="absolute bottom-4 text-[20px] lg:text-[24px] xl:text-[30px] 2xl:text-[36px] left-5 text-white drop-shadow-lg"
+                  style={{ fontFamily: "Diodrum Cyrillic, sans-serif", fontWeight: "700" }}
+                >
+                  {translatedEvents[index].translatedText} {/* ✅ use precomputed value */}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </motion.div>
 
         {/* Navigation Buttons */}

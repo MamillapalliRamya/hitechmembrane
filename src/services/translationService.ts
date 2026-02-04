@@ -1,7 +1,7 @@
 // src/services/translationService.ts
 import axios from 'axios';
 
-const API_BASE_URL = 'http://65.0.77.32:8000';
+const API_BASE_URL = 'http://65.0.77.32:8000/api';
 
 // Language code mapping (i18n code -> API code)
 const LANG_CODE_MAP: Record<string, string> = {
