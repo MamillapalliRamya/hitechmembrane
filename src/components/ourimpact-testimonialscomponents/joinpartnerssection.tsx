@@ -1,6 +1,15 @@
 import React from 'react';
+import { useTranslateContent } from '../../hooks/useTranslateContent';
 
 const JoinPartnersSection: React.FC = () => {
+    // Text content for translation
+    const headingText = "Join our global partners who trust Hi-Tech Membranes for their water treatment needs.";
+    const buttonText = "Contact Us";
+
+    // Translation hooks
+    const { translatedText: translatedHeading } = useTranslateContent(headingText);
+    const { translatedText: translatedButton } = useTranslateContent(buttonText);
+
     return (
         <section className="py-10 sm:py-14 lg:py-16 bg-gray-50">
             <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 2xl:px-34  relative z-10">
@@ -12,9 +21,7 @@ const JoinPartnersSection: React.FC = () => {
                     <div className="relative z-10 text-center">
                         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl 
                                        font-bold text-white mb-4 2xl:leading-[60px]">
-                            Join our global partners who trust Hi-Tech
-                            <br className="hidden sm:block" />
-                            Membranes for their water treatment needs.
+                            {translatedHeading}
                         </h2>
                         <a href='/contact'>
                             <button className="mt-6 sm:mt-8 px-6 sm:px-7 py-2 w-[150px]
@@ -24,7 +31,7 @@ const JoinPartnersSection: React.FC = () => {
                                            transition-all duration-300 ease-in-out
                                            hover:scale-105
                                            hover:bg-[#98C135]">
-                                Contact Us
+                                {translatedButton}
                             </button>
                         </a>
                     </div>
