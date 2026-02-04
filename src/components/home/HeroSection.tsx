@@ -1,14 +1,20 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslateContent } from '../../hooks/useTranslateContent';
+
 
 const HeroSection: React.FC = () => {
-  const { t } = useTranslation();
   const [videoPlaying, setVideoPlaying] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [imageLoadError, setImageLoadError] = useState<{ [key: string]: boolean }>({});
   const [isSwapped, setIsSwapped] = useState(false);
   const [animateText, setAnimateText] = useState(false);
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1024);
+
+  const heroTitle = "Advanced RO Membrane Solutions for a Thirsty World";
+  const heroDesc = "High-performance reverse osmosis membranes engineered for industrial, commercial, and municipal water treatment applications worldwide.";
+
+  const { translatedText: translatedTitle } = useTranslateContent(heroTitle);
+  const { translatedText: translatedDesc } = useTranslateContent(heroDesc);
 
   // Handle window resize
   useEffect(() => {
@@ -184,7 +190,7 @@ const HeroSection: React.FC = () => {
           windowWidth >= 768 ? 'text-2xl sm:text-3xl' : 
           'text-xl sm:text-2xl'
         }`}>
-          {t('hero.title')}
+          {translatedTitle}
         </h1>
 
         <p className={`text-gray-100 mb-4 sm:mb-6 leading-relaxed ${
@@ -196,7 +202,7 @@ const HeroSection: React.FC = () => {
           windowWidth >= 768 ? 'text-sm sm:text-base max-w-[480px]' :
           'text-sm max-w-full pr-4'
         }`}>
-          {t('hero.subtitle')}
+          {translatedDesc}
         </p>
         <a href="/contact">
         <button

@@ -1,0 +1,25 @@
+{
+  "nav": {
+    "about": "About",
+    "products": "Products",
+    "innovation": "Innovation",
+    "ourimpact": "Our Impact",
+    "events": "Events"
+  },
+  "cta": {
+    "requestQuote": "Request a Quote",
+    "contactUs": "Contact Us",
+    "learnMore": "Learn More"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Success",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "close": "Close"
+  },
+  "header": {
+    "phone": "1-800-123-4567"
+  }
+}
