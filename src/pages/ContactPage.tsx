@@ -22,7 +22,7 @@ interface ContactFormData {
   file: File | null;
 }
 
-const API_BASE_URL = "http://65.0.77.32:8000";
+const API_BASE_URL = "http://65.0.77.32:8000/api";
 
 const ContactPage: React.FC = () => {
   // Text content for translation
