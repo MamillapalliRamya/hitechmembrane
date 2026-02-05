@@ -20,8 +20,18 @@ interface Review {
   rating: number;
   text: string;
 }
+
+interface Card {
+  value: string;
+  label: string;
+  country?: string;
+}
+
 interface GlobalPresenceSectionProps {
   title?: string;
+  showDescription?: boolean;
+  showCards?: boolean;
+  cards?: Card[];
 }
 
 // Component to handle individual review translation
@@ -79,14 +89,18 @@ const TranslatedReview: React.FC<{ review: Review; index: number }> = ({ review,
 };
 
 const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
-  title = "Our Global Presence" }) => {
+  title = "Our Global Presence",
+  showDescription = true,
+  showCards = false,
+  cards = []
+}) => {
   const [hoveredLocation, setHoveredLocation] = useState<Location | null>(null);
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
   const [imageLoadFailed, setImageLoadFailed] = useState<{ [key: number]: boolean }>({});
   const [mapTransform, setMapTransform] = useState('translate(0, 0) scale(1)');
 
   // Text content for translation
-  const titleText = "Our Global Presence";
+  const titleText = title;
   const exportMarketsText = "Multiple Export Markets Served";
   const manufacturingExpText = "30+ Years of Manufacturing Experience";
   const oemPartnersText = "OEM & Private Label Partners Worldwide";
@@ -115,12 +129,18 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
   const { translatedText: translatedReviewsHeading } = useTranslateContent(reviewsHeadingText);
   const { translatedText: translatedDescription } = useTranslateContent(descriptionText);
 
+  // Translate cards if they exist
+  const translatedCards = cards.map(card => ({
+    value: card.value,
+    label: useTranslateContent(card.label).translatedText,
+    country: card.country ? useTranslateContent(card.country).translatedText : undefined
+  }));
+
   const locations: Location[] = [
-    // Original locations
     {
       id: 1,
       country: 'India',
-      x: 66,
+      x: 67,
       y: 22,
       countryCode: 'in',
       type: 'main',
@@ -491,17 +511,16 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
     setMapTransform('translate(0, 0) scale(1)');
   };
 
-  const renderStars = (rating: number) => {
-    return [...Array(5)].map((_, index) => (
-      <Star
-        key={index}
-        className={`w-4 h-4 ${index < rating ? 'text-yellow-400 fill-current' : 'text-gray-300'}`}
-      />
-    ));
+  // Check if we're on mobile/tablet
+  const isMobileView = () => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth < 768; // md breakpoint
+    }
+    return false;
   };
 
   return (
-    <section className="py-8 md:py-16 bg-gray-50 relative overflow-hidden">
+    <section className="py-8 md:py-16  relative overflow-hidden">
       <div className="mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-6 md:mb-12">
           <h2 className="text-xl sm:text-2xl md:text-5xl text-gray-700 mb-6 md:mb-20">
@@ -509,7 +528,7 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
           </h2>
         </div>
 
-        <div className="relative mb-12 overflow-hidden rounded-lg " >
+        <div className="relative mb-12 overflow-hidden rounded-lg">
           <div className="relative w-full max-w-6xl mx-auto">
             {/* World Map Container with smooth transitions */}
             <div
@@ -532,8 +551,9 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
                   }
                 }}
               />
+              
               {/* Info Boxes on Map */}
-              <div className=" hidden sm:block absolute inset-0 pointer-events-none">
+              <div className="hidden sm:block absolute inset-0 pointer-events-none">
                 {/* Multiple Export Markets Served - Top Left */}
                 <div
                   className="absolute bg-[#B8D332] text-[#3E4095] px-2 py-1 md:px-4 md:py-2 rounded-md md:rounded-lg shadow-lg font-semibold text-[8px] sm:text-xs md:text-sm whitespace-nowrap"
@@ -594,40 +614,45 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
                   className="w-full h-full"
                   style={{ position: 'absolute', top: 0, left: 0 }}
                 >
-                  {locations.map((location) => (
-                    <g key={location.id}>
-                      {/* Map pin marker image for main offices */}
-                      {location.type === 'main' && !imageLoadFailed[location.id] && (
-                        <foreignObject
-                          x={location.x * 10 - (location.pinColor === '#B8D332' ? 25 : 20)}
-                          y={location.y * 10 - (location.pinColor === '#B8D332' ? 45 : 35)}
-                          width={location.pinColor === '#B8D332' ? '55' : '40'}
-                          height={location.pinColor === '#B8D332' ? '65' : '48'}
-                          onMouseEnter={() => setHoveredLocation(location)}
-                          onMouseLeave={() => setHoveredLocation(null)}
-                          onClick={() => handleLocationClick(location)}
-                          style={{ cursor: 'pointer', overflow: 'visible' }}
-                        >
-                          <img
-                            src={location.pinColor === '#B8D332'
-                              ? "assets/images/green-pin-marker.png"
-                              : "assets/images/blue-pin-marker.png"}
-                            alt="Location marker"
-                            className="transition-transform duration-200"
-                            style={{
-                              filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
-                              pointerEvents: 'none',
-                              transform: hoveredLocation?.id === location.id ? 'scale(1.4)' : 'scale(1)',
-                              transformOrigin: 'center center',
-                              width: location.pinColor === '#B8D332' ? '25px' : '20px',
-                              height: location.pinColor === '#B8D332' ? '35px' : '24px'
-                            }}
-                            onError={() => handleImageError(location.id)}
-                          />
-                        </foreignObject>
-                      )}
-                    </g>
-                  ))}
+                  {locations.map((location) => {
+                    // Hide Pakistan (id: 10) and Nepal (id: 18) on mobile
+                    const hideOnMobile = (location.id === 10 || location.id === 18);
+                    
+                    return (
+                      <g key={location.id} className={hideOnMobile ? 'hidden md:block' : ''}>
+                        {/* Map pin marker image for main offices */}
+                        {location.type === 'main' && !imageLoadFailed[location.id] && (
+                          <foreignObject
+                            x={location.x * 10 - (location.pinColor === '#B8D332' ? 25 : 20)}
+                            y={location.y * 10 - (location.pinColor === '#B8D332' ? 45 : 35)}
+                            width={location.pinColor === '#B8D332' ? '55' : '40'}
+                            height={location.pinColor === '#B8D332' ? '65' : '48'}
+                            onMouseEnter={() => setHoveredLocation(location)}
+                            onMouseLeave={() => setHoveredLocation(null)}
+                            onClick={() => handleLocationClick(location)}
+                            style={{ cursor: 'pointer', overflow: 'visible' }}
+                          >
+                            <img
+                              src={location.pinColor === '#B8D332'
+                                ? "assets/images/green-pin-marker.png"
+                                : "assets/images/blue-pin-marker.png"}
+                              alt="Location marker"
+                              className="transition-transform duration-200"
+                              style={{
+                                filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
+                                pointerEvents: 'none',
+                                transform: hoveredLocation?.id === location.id ? 'scale(1.4)' : 'scale(1)',
+                                transformOrigin: 'center center',
+                                width: location.pinColor === '#B8D332' ? '25px' : '20px',
+                                height: location.pinColor === '#B8D332' ? '35px' : '24px'
+                              }}
+                              onError={() => handleImageError(location.id)}
+                            />
+                          </foreignObject>
+                        )}
+                      </g>
+                    );
+                  })}
                 </svg>
               </div>
 
@@ -667,17 +692,19 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
                     </span>
                   </div>
 
-                  {/* Click to know more (below marker) */}
-                  <div
-                    className="absolute z-20 bg-yellow-200 text-gray-800 px-2 py-1 md:px-3 rounded-md shadow border border-green-300 pointer-events-none text-[9px] md:text-xs font-medium"
-                    style={{
-                      left: `${(hoveredLocation.x * 10) * (100 / 1000)}%`,
-                      top: `${(hoveredLocation.y * 10) * (100 / 500)}%`,
-                      transform: 'translate(-50%, 10px)',
-                    }}
-                  >
-                    {translatedClickToKnow}
-                  </div>
+                  {/* Click to know more (below marker) - Only show on desktop OR for green pins */}
+                  {(hoveredLocation.pinColor === '#B8D332' || window.innerWidth >= 768) && (
+                    <div
+                      className="absolute z-20 bg-yellow-200 text-gray-800 px-2 py-1 md:px-3 rounded-md shadow border border-green-300 pointer-events-none text-[9px] md:text-xs font-medium"
+                      style={{
+                        left: `${(hoveredLocation.x * 10) * (100 / 1000)}%`,
+                        top: `${(hoveredLocation.y * 10) * (100 / 500)}%`,
+                        transform: 'translate(-50%, 10px)',
+                      }}
+                    >
+                      {translatedClickToKnow}
+                    </div>
+                  )}
                 </>
               )}
 
@@ -816,11 +843,34 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
           )}
         </div>
 
-        <div className="max-w-4xl mx-auto text-center px-4">
-          <p className="text-sm sm:text-base md:text-lg text-gray-600 leading-relaxed font-regular">
-            {translatedDescription}
-          </p>
-        </div>
+        {/* Conditional rendering: Description OR Cards */}
+        {showDescription && !showCards && (
+          <div className="max-w-4xl mx-auto text-center px-4">
+            <p className="text-sm sm:text-base md:text-lg text-gray-600 leading-relaxed font-regular">
+              {translatedDescription}
+            </p>
+          </div>
+        )}
+
+        {showCards && cards.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mx-[20px] sm:mx-[100px] md:mx-[150px] lg:mx-[100px] xl:mx-[200px] ">
+            {translatedCards.map((card, index) => (
+              <div key={index} className="bg-[#F8F8F8] rounded-[20px] flex flex-col items-center justify-center text-center px-2 py-5">
+                <div className="text-5xl font-bold text-[#B8D332] mb-2 ">
+                  {card.value}
+                </div>
+                <div className="text-[#3D3B8E] font-bold text-xl mb-2">
+                  {card.label}
+                </div>
+                {card.country && (
+                  <div className="text-gray-600">
+                    {card.country}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
