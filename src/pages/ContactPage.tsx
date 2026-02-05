@@ -404,6 +404,15 @@ const ContactPage: React.FC = () => {
     window.open(`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`, '_blank');
   };
 
+  const getMobileMapPosition = (desktopLeft: string) => {
+  if (window.innerWidth < 768) {
+    if (desktopLeft === '57%') return '52%'; 
+    if (desktopLeft === '73%') return '63%'; 
+  }
+  return desktopLeft;
+};
+
+
   return (
     <div className="bg-gray-100 min-h-screen">
       {/* Main Container with Responsive Padding */}
@@ -797,7 +806,8 @@ const ContactPage: React.FC = () => {
                 </div>
 
                 {/* India Marker */}
-                <div className="absolute" style={{ left: '57%', top: '38%' }}>
+                <div className="absolute" style={{ left: getMobileMapPosition('57%'), top: window.innerWidth < 768 ? '40%' : '38%' }}>
+
                   <div className="flex items-center gap-2 bg-white px-2 py-2 rounded-lg  shadow-md">
                     <div className="w-6 h-6 rounded-full overflow-hidden flex items-center justify-center">
                       <svg className="w-6 h-6" viewBox="0 0 24 24">
@@ -812,7 +822,8 @@ const ContactPage: React.FC = () => {
                 </div>
 
                 {/* Thailand Marker */}
-                <div className="absolute" style={{ left: '73%', top: '38%' }}>
+                <div className="absolute" style={{ left: getMobileMapPosition('73%'), top: window.innerWidth < 768 ? '60%' : '38%'}}>
+
                   <div className="flex items-center  gap-2 bg-white px-2 py-2 rounded-lg  shadow-md">
                     <div className="w-6 h-6 rounded-full overflow-hidden flex items-center justify-center">
                       <svg className="w-6 h-6" viewBox="0 0 24 24">
