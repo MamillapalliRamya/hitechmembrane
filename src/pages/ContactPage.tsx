@@ -327,7 +327,7 @@ const ContactPage: React.FC = () => {
         // Success - both form submission and file upload (if any) succeeded
         setSubmitStatus({
           type: 'success',
-          message: `Thank you for contacting us! Your enquiry has been submitted successfully. Reference ID: ${data.id}`
+          message: `Thank you for contacting us! Your enquiry has been submitted successfully.`
         });
 
         // Reset form
