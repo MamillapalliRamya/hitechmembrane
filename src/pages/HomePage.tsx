@@ -50,7 +50,7 @@ const HomePage: React.FC = () => {
       )}
 
       {introDone && (
-        <div className="w-full pt-16">
+        <div className="w-full">
           {sections.map((Section, i) => (
             <motion.section
               key={i}
