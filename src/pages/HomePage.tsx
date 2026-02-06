@@ -12,16 +12,38 @@ import GlobalPresenceSection from "../components/home/GlobalPresence";
 
 const HomePage: React.FC = () => {
   useEffect(() => {
-  const handleBeforeUnload = () => {
-    sessionStorage.removeItem("introPlayed"); // clear ONLY on real refresh/close
-  };
+    const handleBeforeUnload = () => {
+      sessionStorage.removeItem("introPlayed"); // clear ONLY on real refresh/close
+    };
 
-  window.addEventListener("beforeunload", handleBeforeUnload);
+    window.addEventListener("beforeunload", handleBeforeUnload);
 
-  return () => {
-    window.removeEventListener("beforeunload", handleBeforeUnload);
-  };
-}, []);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
+
+  const [homepageData, setHomepageData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCMS = async () => {
+      try {
+        const res = await fetch("http://65.0.77.32:8000/api/homepage/");
+        const data = await res.json();
+        console.log("Homepage CMS:", data);
+
+        setHomepageData(data.homepage);
+      } catch (error) {
+        console.error("CMS Error:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCMS();
+  }, []);
+
 
 
   const [introDone, setIntroDone] = useState(
@@ -36,11 +58,11 @@ const HomePage: React.FC = () => {
   const sections = [
     <HeroSection />,
     <AboutUsSection />,
-    <EventsSection />,
-    <WhyChooseUs />,
+    <EventsSection homepage={homepageData} />,
+    <WhyChooseUs homepage={homepageData} />,
     <Applications />,
     <AwardsSection />,
-    <GlobalPresenceSection />,
+    <GlobalPresenceSection homepage={homepageData} />,
   ];
 
   return (
@@ -49,7 +71,7 @@ const HomePage: React.FC = () => {
         <WaterDropSection onComplete={handleIntroComplete} />
       )}
 
-      {introDone && (
+      {introDone && !loading && (
         <div className="w-full">
           {sections.map((Section, i) => (
             <motion.section

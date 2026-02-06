@@ -1,40 +1,85 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { useTranslateContent } from "../../hooks/useTranslateContent";
 
+interface AboutCMSData {
+  about_title: string;
+  about_para_1: string;
+  about_para_2: string;
+  about_button_text: string;
+}
 
 const AboutUsSection = () => {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.5 });
 
-  // -------- TRANSLATABLE TEXT --------
-const aboutTitle = "About Us";
-const aboutPara1 = `Hi-Tech Membranes is a trusted RO membrane element manufacturer with over 30+ years of experience in reverse osmosis technology. 
-We supply high-quality membranes designed for industrial, commercial, and municipal applications worldwide.`;
+  // CMS State
+  const [cmsData, setCmsData] = useState<AboutCMSData | null>(null);
+  const [loading, setLoading] = useState(true);
 
-const aboutPara2 = `Our RO membranes are built for stable performance, 
-efficient operation, and long-term reliability, helping 
-customers achieve clean water production while 
-optimizing operating costs.`;
+  // Fallback content
+  const fallbackData = {
+    about_title: "About Us",
+    about_para_1: `Hi-Tech Membranes is a trusted RO membrane element manufacturer with over 30+ years of experience in reverse osmosis technology. We supply high-quality membranes designed for industrial, commercial, and municipal applications worldwide.`,
+    about_para_2: `Our RO membranes are built for stable performance, efficient operation, and long-term reliability, helping customers achieve clean water production while optimizing operating costs.`,
+    about_button_text: "Learn More About Us"
+  };
 
-const aboutButton = "Learn More About Us";
-const aboutexp1="Years of";
-const aboutexp2="Experience";
-const aboutcl1="Clients";
-const aboutcl2="Worldwide";
+  // Static translatable text (not from CMS)
+  const aboutexp1 = "Years of";
+  const aboutexp2 = "Experience";
+  const aboutcl1 = "Clients";
+  const aboutcl2 = "Worldwide";
 
+  // Fetch CMS Data
+  useEffect(() => {
+    const fetchCMSData = async () => {
+      try {
+        const response = await fetch('http://65.0.77.32:8000/api/homepage/');
+        if (!response.ok) {
+          throw new Error('Failed to fetch CMS data');
+        }
+        const data = await response.json();
 
-// Hooks for translation
-const { translatedText: tTitle } = useTranslateContent(aboutTitle);
-const { translatedText: tPara1 } = useTranslateContent(aboutPara1);
-const { translatedText: tPara2 } = useTranslateContent(aboutPara2);
-const { translatedText: tButton } = useTranslateContent(aboutButton);
-const { translatedText: texp1 } = useTranslateContent(aboutexp1);
-const { translatedText: texp2 } = useTranslateContent(aboutexp2);
-const { translatedText: tCl1 } = useTranslateContent(aboutcl1);
-const { translatedText: tCl2 } = useTranslateContent(aboutcl2);
-// -----------------------------------
+        console.log('About CMS Data received:', data);
 
+        const homepage = data.homepage || {};
+
+        setCmsData({
+          about_title: homepage.about_title || fallbackData.about_title,
+          about_para_1: homepage.about_para_1 || fallbackData.about_para_1,
+          about_para_2: homepage.about_para_2 || fallbackData.about_para_2,
+          about_button_text: homepage.about_button_text || fallbackData.about_button_text,
+        });
+
+      } catch (error) {
+        console.error('Error fetching About CMS data:', error);
+        setCmsData(fallbackData);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCMSData();
+  }, []);
+
+  // Use CMS data or fallback
+  const aboutTitle = cmsData?.about_title || fallbackData.about_title;
+  const aboutPara1 = cmsData?.about_para_1 || fallbackData.about_para_1;
+  const aboutPara2 = cmsData?.about_para_2 || fallbackData.about_para_2;
+  const aboutButton = cmsData?.about_button_text || fallbackData.about_button_text;
+
+  // Hooks for translation
+  const { translatedText: tTitle } = useTranslateContent(aboutTitle);
+  const { translatedText: tPara1 } = useTranslateContent(aboutPara1);
+  const { translatedText: tPara2 } = useTranslateContent(aboutPara2);
+  const { translatedText: tButton } = useTranslateContent(aboutButton);
+  const { translatedText: texp1 } = useTranslateContent(aboutexp1);
+  const { translatedText: texp2 } = useTranslateContent(aboutexp2);
+  const { translatedText: tCl1 } = useTranslateContent(aboutcl1);
+  const { translatedText: tCl2 } = useTranslateContent(aboutcl2);
+
+  
 
   return (
     <section
@@ -116,22 +161,21 @@ const { translatedText: tCl2 } = useTranslateContent(aboutcl2);
             </h2>
 
             <p className="text-gray-600 text-sm sm:text-base lg:text-lg 2xl:text-[20px] 
-              3xl:text-[20px] leading-relaxed max-w-2xl lg:mx-0">
+              3xl:text-[20px] leading-relaxed max-w-2xl lg:mx-0 whitespace-normal break-words">
               {tPara1}
             </p>
             <p className="text-gray-600 text-sm sm:text-base lg:text-lg 2xl:text-[20px] 
-              3xl:text-[20px] leading-relaxed max-w-2xl lg:mx-0">
+              3xl:text-[20px] leading-relaxed max-w-2xl lg:mx-0 whitespace-normal break-words">
               {tPara2}
             </p>
-              
 
             <button
               className="bg-[#A8CF45] text-[#3E4095] rounded-lg font-medium text-sm sm:text-base 
               lg:text-lg 2xl:text-[20px] 3xl:text-[22px] shadow-lg cursor-pointer
-    transform
-    transition-all duration-300 ease-in-out
-    hover:scale-105
-    hover:bg-[#98C135] h-[45px] sm:h-[53px] w-[225px] 2xl:w-[240px] 3xl:w-[255px] 
+              transform
+              transition-all duration-300 ease-in-out
+              hover:scale-105
+              hover:bg-[#98C135] h-[45px] sm:h-[53px] w-[225px] 2xl:w-[240px] 3xl:w-[255px] 
               mx-auto lg:mx-0"
             >
               {tButton}
@@ -140,46 +184,45 @@ const { translatedText: tCl2 } = useTranslateContent(aboutcl2);
         </div>
       </div>
 
-      {/* ISOMETRIC IMAGE WITH DIAGONAL ↘ ENTRY + DELAYED MICRO BOUNCE */}
-<motion.img
-  src="/assets/images/isometrics/isometric_1.svg"
-  alt="decor"
-  initial={{
-    opacity: 0,
-    x: -380, // start off-screen
-    y: -380,
-    scale: 0.92,
-  }}
-  animate={
-    isInView
-      ? {
-          opacity: 1,
-          x: 0,
-          y: 0,
-          scale: [1, 1.03, 0.99, 1], // slow, subtle bounce
+      {/* ISOMETRIC IMAGE */}
+      <motion.img
+        src="/assets/images/isometrics/isometric_1.svg"
+        alt="decor"
+        initial={{
+          opacity: 0,
+          x: -380,
+          y: -380,
+          scale: 0.92,
+        }}
+        animate={
+          isInView
+            ? {
+              opacity: 1,
+              x: 0,
+              y: 0,
+              scale: [1, 1.03, 0.99, 1],
+            }
+            : {}
         }
-      : {}
-  }
-  transition={{
-    duration: 1.6, // total time for entry
-    delay: 0.8, // **delay start until left/right animations finish**
-    // ease: [0.16, 1, 0.3, 1], // smooth ease
-    scale: {
-      duration: 1.0, // slow bounce
-      delay: 1.0, // delay bounce slightly after movement
-      ease: [0.22, 1, 0.36, 1], // soft, smooth
-    },
-  }}
-  className=" hidden lg:block
-    absolute 
-    opacity-90
-    w-[300px] sm:w-[450px] md:w-[600px] xl:w-[700px] 2xl:w-[780px] 3xl:w-[812px]
-    lg:left-[-105px] xl:top-[-28px] lg:top-[23px] 3xl:left-[-47px] 3xl:top-[-30px]
-  "
-/>
-
+        transition={{
+          duration: 1.6,
+          delay: 0.8,
+          scale: {
+            duration: 1.0,
+            delay: 1.0,
+            ease: [0.22, 1, 0.36, 1],
+          },
+        }}
+        className="hidden lg:block
+          absolute 
+          opacity-90
+          w-[300px] sm:w-[450px] md:w-[600px] xl:w-[700px] 2xl:w-[780px] 3xl:w-[812px]
+          lg:left-[-105px] xl:top-[-28px] lg:top-[23px] 3xl:left-[-47px] 3xl:top-[-30px]"
+      />
     </section>
   );
 };
+
+
 
 export default AboutUsSection;

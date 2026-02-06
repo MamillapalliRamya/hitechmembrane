@@ -28,6 +28,7 @@ interface Card {
 }
 
 interface GlobalPresenceSectionProps {
+  homepage?: any;
   title?: string;
   showDescription?: boolean;
   showCards?: boolean;
@@ -42,8 +43,8 @@ const TranslatedReview: React.FC<{ review: Review; index: number }> = ({ review,
     <div
       key={index}
       className="
-        bg-gray-50 rounded-lg md:rounded-xl 
-        p-1.5 md:p-3 
+        bg-gray-50 rounded-lg md:rounded-xl
+        p-1.5 md:p-3
         hover:bg-gray-100 transition-colors duration-200
       "
     >
@@ -89,7 +90,8 @@ const TranslatedReview: React.FC<{ review: Review; index: number }> = ({ review,
 };
 
 const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
-  title = "Our Global Presence",
+  homepage,
+  title = "Global Presence",
   showDescription = true,
   showCards = false,
   cards = []
@@ -99,20 +101,35 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
   const [imageLoadFailed, setImageLoadFailed] = useState<{ [key: number]: boolean }>({});
   const [mapTransform, setMapTransform] = useState('translate(0, 0) scale(1)');
 
-  // Text content for translation
-  const titleText = title;
-  const exportMarketsText = "Multiple Export Markets Served";
-  const manufacturingExpText = "30+ Years of Manufacturing Experience";
-  const oemPartnersText = "OEM & Private Label Partners Worldwide";
-  const oemPartnersShortText = "OEM Partners Worldwide";
-  const oemPartnersMobileText = "OEM Partners";
-  const globalCustomersText = "200+ Global Customers";
-  const globalCustomersShortText = "200+ Customers";
+  // Determine what to display based on homepage prop
+  const shouldShowDescription = homepage?.cards && homepage.cards.length > 0 ? false : showDescription;
+  const shouldShowCards = homepage?.cards && homepage.cards.length > 0 ? true : showCards;
+  const cardsToDisplay: Card[] = homepage?.cards || cards;
+
+  // ======= CMS + FALLBACK TEXTS =======
+  const titleText = homepage?.title || title || "Our Global Presence";
+
+  const exportMarketsText = homepage?.export_markets || "Multiple Export Markets Served";
+
+  const manufacturingExpText = homepage?.manufacturing_experience || "30+ Years of Manufacturing Experience";
+
+  const oemPartnersText = homepage?.oem_partners || "OEM & Private Label Partners Worldwide";
+
+  const oemPartnersShortText = homepage?.oem_partners_short || "OEM Partners Worldwide";
+
+  const oemPartnersMobileText = homepage?.oem_partners_mobile || "OEM Partners";
+
+  const globalCustomersText = homepage?.global_customers || "200+ Global Customers";
+
+  const globalCustomersShortText = homepage?.global_customers_short || "200+ Customers";
+
+  const descriptionText = homepage?.description ||
+    "Hi-Tech has successfully maintained its global presence thanks to a robust network of skilled associates. By prioritizing customer interests, the company continually adapts its work methodology to achieve outstanding results. With competitive pricing, efficient resource management, and a commitment to fulfilling promises, Hi-Tech has garnered accolades not just from clients but also from esteemed authorities across the nation.";
+
   const warehouseText = "Warehouse";
   const siteText = "Site";
   const clickToKnowText = "Click to know more";
-  const reviewsHeadingText = "Reviews";
-  const descriptionText = "Hi-Tech has successfully maintained its global presence thanks to a robust network of skilled associates. By prioritizing customer interests, the company continually adapts its work methodology to achieve outstanding results. With competitive pricing, efficient resource management, and a commitment to fulfilling promises, Hi-Tech has garnered accolades not just from clients but also from esteemed authorities across the nation.";
+  const reviewsHeadingText = "Customer Reviews";
 
   // Translation hooks
   const { translatedText: translatedTitle } = useTranslateContent(titleText);
@@ -130,7 +147,7 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
   const { translatedText: translatedDescription } = useTranslateContent(descriptionText);
 
   // Translate cards if they exist
-  const translatedCards = cards.map(card => ({
+  const translatedCards = cardsToDisplay.map(card => ({
     value: card.value,
     label: useTranslateContent(card.label).translatedText,
     country: card.country ? useTranslateContent(card.country).translatedText : undefined
@@ -511,14 +528,6 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
     setMapTransform('translate(0, 0) scale(1)');
   };
 
-  // Check if we're on mobile/tablet
-  const isMobileView = () => {
-    if (typeof window !== 'undefined') {
-      return window.innerWidth < 768; // md breakpoint
-    }
-    return false;
-  };
-
   return (
     <section className="py-8 md:py-16  relative overflow-hidden">
       <div className="mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
@@ -768,9 +777,9 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
           {selectedLocation && (
             <div
               className="
-                absolute 
-                top-2 md:top-3 
-                right-1 md:right-0 
+                absolute
+                top-2 md:top-3
+                right-1 md:right-0
                 w-[calc(100%-8px)] sm:w-[280px] md:w-[360px] lg:w-[420px] xl:w-[460px]
                 bg-white rounded-lg md:rounded-2xl shadow-2xl border border-blue-900 z-30
                 max-h-[220px] sm:max-h-[280px] md:max-h-[450px]
@@ -781,7 +790,7 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
               <div
                 className="
                   flex items-center justify-between
-                  px-2 md:px-3 
+                  px-2 md:px-3
                   py-1.5 md:py-3
                   border-b border-blue-900
                   bg-gradient-to-r from-blue-50 to-purple-50
@@ -816,7 +825,7 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
                 <button
                   onClick={closePanel}
                   className="
-                    p-1 md:p-2 rounded-full 
+                    p-1 md:p-2 rounded-full
                     hover:bg-white hover:bg-opacity-50
                     transition-all duration-200
                     flex-shrink-0
@@ -844,7 +853,7 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
         </div>
 
         {/* Conditional rendering: Description OR Cards */}
-        {showDescription && !showCards && (
+        {shouldShowDescription && !shouldShowCards && (
           <div className="max-w-4xl mx-auto text-center px-4">
             <p className="text-sm sm:text-base md:text-lg text-gray-600 leading-relaxed font-regular">
               {translatedDescription}
@@ -852,7 +861,7 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
           </div>
         )}
 
-        {showCards && cards.length > 0 && (
+        {shouldShowCards && cardsToDisplay.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mx-[20px] sm:mx-[100px] md:mx-[150px] lg:mx-[100px] xl:mx-[200px] ">
             {translatedCards.map((card, index) => (
               <div key={index} className="bg-[#F8F8F8] rounded-[20px] flex flex-col items-center justify-center text-center px-2 py-5">
