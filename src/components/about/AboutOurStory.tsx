@@ -16,10 +16,10 @@ const AboutOurStory: React.FC = () => {
 
   return (
     <section className="relative w-full bg-white overflow-hidden py-6 md:py-8">
-      <div className=" relative">
+      <div className="relative">
 
         {/* Green Vector Line */}
-        <div className="absolute left-0 right-0  pointer-events-none z-0">
+        <div className="absolute left-0 right-0 pointer-events-none z-0">
           <img
             src="/assets/images/about/GreenVectorLine.svg"
             alt=""
@@ -32,12 +32,12 @@ const AboutOurStory: React.FC = () => {
           {/* Heading Wrapper */}
           <div className="relative max-w-[1100px]">
 
-            {/* Green Quote – aligned with heading start */}
-            <div className="absolute -left-10 top-[10px]">
+            {/* Green Quote – aligned with heading start - Responsive */}
+            <div className="absolute left-0 top-[10px] sm:top-[8px] md:top-[10px]">
               <img
                 src="/assets/images/about/GreenQuotes.svg"
                 alt=""
-                className="w-[44px]"
+                className="w-[28px] sm:w-[36px] md:w-[44px] lg:w-[50px]"
               />
             </div>
 
@@ -48,12 +48,12 @@ const AboutOurStory: React.FC = () => {
               {translatedSubHeading}
             </p>
 
-            {/* Blue Quote – aligned with heading end */}
-            <div className="absolute -right-20 top-[82px]">
+            {/* Blue Quote – aligned with heading end - Responsive */}
+            <div className="absolute -right-4 top-[120px] sm:-right-8 sm:top-[55px] md:-right-12 md:top-[70px] lg:-right-20 lg:top-[82px]">
               <img
                 src="/assets/images/about/BlueQuotes.svg"
                 alt=""
-                className="w-[168px] rotate-[180] opacity-60"
+                className="w-[80px] sm:w-[110px] md:w-[140px] lg:w-[168px] rotate-[180deg] opacity-60"
               />
             </div>
           </div>
@@ -68,7 +68,7 @@ const AboutOurStory: React.FC = () => {
           </div>
 
           {/* Text */}
-          <div className="max-w-[900px] space-y-6 text-center">
+          <div className="max-w-[900px] space-y-6 text-center px-4">
             <p className="text-[20px] md:text-[18px] font-medium text-[#58585B] leading-relaxed">
               {translatedParagraph1}
             </p>

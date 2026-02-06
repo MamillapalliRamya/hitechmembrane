@@ -307,7 +307,7 @@ const ProductTable = ({ title, rows, onDownload }: any) => {
         <table className="w-full min-w-[800px] bg-white shadow-lg border border-gray-300 rounded-lg">
           <thead className="bg-[#E8E9FA]">
             <tr>
-              <th className="px-4 py-3 text-center border">{tModels}</th>
+              <th className="px-10 py-3 text-center border">{tModels}</th>
               <th className="px-4 py-3 text-center border">{tMeasurement}</th>
               <th className="px-4 py-3 text-center border">{tActiveArea}</th>
               <th className="px-4 py-3 text-center border">{tFlow}</th>

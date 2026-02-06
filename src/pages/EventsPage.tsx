@@ -49,7 +49,7 @@ const EventsPage: React.FC = () => {
     const { translatedText: tCTADesc } = useTranslateContent(
         "Contact our team at sales@hitechmembranes.com to schedule a meeting."
     );
-    const { translatedText: tCTAButton } = useTranslateContent("Contact Us");
+    const { translatedText: tCTAButton } = useTranslateContent("Let's Talk");
 
     const filters = ['All Articles', 'Innovation', 'Research', 'Sustainability'].map(f => useTranslateContent(f).translatedText);
     const years = ['2025', '2024', '2023'];
@@ -401,21 +401,22 @@ const EventsPage: React.FC = () => {
                             <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-6 leading-tight">
                                 {tCTAMain}
                             </h2>
-                            <p className="text-lg sm:text-xl lg:text-2xl text-white mb-8 max-w-4xl mx-auto">
-                                {tCTADesc.split('sales@hitechmembranes.com').map((part, idx) => (
-                                    <React.Fragment key={idx}>
-                                        {part}
-                                        {idx < 1 && (
-                                            <a
-                                                href="mailto:sales@hitechmembranes.com"
-                                                className="underline hover:text-lime-300 transition-colors font-medium"
-                                            >
-                                                sales@hitechmembranes.com
-                                            </a>
-                                        )}
-                                    </React.Fragment>
-                                ))}
-                            </p>
+                            <p className="text-lg sm:text-xl lg:text-2xl text-white mb-8 max-w-4xl mx-auto text-center sm:text-left">
+  {tCTADesc.split('sales@hitechmembranes.com').map((part, idx) => (
+    <React.Fragment key={idx}>
+      {part}
+      {idx < 1 && (
+        <a
+          href="mailto:sales@hitechmembranes.com"
+          className="block sm:inline mt-2 sm:mt-0 font-bold underline text-center hover:text-lime-300 transition-colors"
+        >
+          sales@hitechmembranes.com
+        </a>
+      )}
+    </React.Fragment>
+  ))}
+</p>
+
                             <a href="/contact">
                                 <button className="bg-lime-400 hover:bg-lime-500 text-indigo-900 font-bold text-lg px-8 py-3 sm:px-10 sm:py-4 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
                                     {tCTAButton}

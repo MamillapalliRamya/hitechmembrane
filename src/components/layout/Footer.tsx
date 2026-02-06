@@ -161,19 +161,138 @@ const Footer = () => {
       className="text-white pt-6 px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20" 
       style={{ background: 'linear-gradient(5.56deg, #25275A 4.66%, #4145A1 95.85%)' }}
     >
-      <div className="max-w-8xl mx-[40px] ">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-16 items-start">
+      <div className="max-w-8xl mx-[20px]">
+        {/* Mobile Layout */}
+        <div className="block lg:hidden">
+          {/* Logo and Navigation Links Side by Side */}
+          <div className="grid grid-cols-2 gap-4 mb-6">
+            {/* Logo Section */}
+            <div className="flex justify-start items-start">
+              <a href="/">
+                <img
+                  src="/logo-1 (1).png"
+                  alt="Hi-Tech Logo"
+                  className="h-16 sm:h-20 w-auto"
+                />
+              </a>
+            </div>
+
+            {/* Navigation Links - 2 columns */}
+            <div className="grid grid-cols-2 gap-2">
+              {navigationLinks.map((link) => (
+                <Link key={link.title} to={link.href}>
+                  <h3 className="text-sm font-normal text-white hover:text-[#A8CF45] transition-colors">
+                    {link.title}
+                  </h3>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Chat With Us and Contact Side by Side */}
+          <div className="grid grid-cols-2 gap-4 mb-6">
+            {/* Chat With Us Section */}
+            <div>
+              <h3 className="text-xs font-semibold mb-3 uppercase tracking-wider text-[#A8CF45]">
+                {translatedChatWithUsText}
+              </h3>
+              <div className="flex space-x-2 items-center">
+                {chatPlatforms.map((platform) => (
+                  <div key={platform.name} className="relative">
+                    <button
+                      onClick={() => handleChatClick(platform)}
+                      className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors ${platform.bgColor}`}
+                      aria-label={`Chat on ${platform.name}`}
+                    >
+                      {platform.isCustom ? (
+                        <div className="w-5 h-5 bg-white rounded-full flex items-center justify-center">
+                          <span className="text-green-600 font-bold text-[10px]">Line</span>
+                        </div>
+                      ) : (
+                        <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                          {platform.icon}
+                        </svg>
+                      )}
+                    </button>
+                    
+                    {/* QR Code Popup */}
+                    {activeQR === platform.name && (
+                      <div 
+                        ref={(el) => (qrRefs.current[platform.name] = el)}
+                        className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 bg-white p-2 rounded-lg shadow-xl z-50"
+                      >
+                        <div className="w-20 h-20 bg-gray-200 flex items-center justify-center">
+                          <img src={platform.qrCode} alt={`${platform.name} QR Code`} className="w-20 h-20 mx-auto object-cover" />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Contact Section */}
+            <div>
+              <h3 className="text-xs font-semibold mb-3 text-[#A8CF45] uppercase tracking-wider">
+                {translatedContactHeading}
+              </h3>
+              
+              {/* Phone */}
+              <div 
+                className="flex items-center mb-2 cursor-pointer hover:opacity-80 transition-opacity"
+                onClick={handlePhoneClick}
+              >
+                <div className="w-6 h-6 rounded-full border-2 border-[#A8CF45] flex items-center justify-center mr-2 flex-shrink-0">
+                  <ContactIcon />
+                </div>
+                <span className="text-xs text-white break-all">+91-80-12345678</span>
+              </div>
+              
+              {/* Email */}
+              <div 
+                className="flex items-center cursor-pointer hover:opacity-80 transition-opacity"
+                onClick={handleEmailClick}
+              >
+                <div className="w-6 h-6 rounded-full border-2 border-[#A8CF45] flex items-center justify-center mr-2 flex-shrink-0">
+                  <EmailIcon />
+                </div>
+                <span className="text-xs text-white break-all">sales@hitechmembranes.com</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Location Section - Full Width */}
+          <div className="mb-6">
+            <h3 className="text-xs font-semibold mb-3 text-[#A8CF45] uppercase tracking-wider">
+              {translatedLocationHeading}
+            </h3>
+            <div 
+              className="flex items-start cursor-pointer hover:opacity-80 transition-opacity"
+              onClick={handleLocationClick}
+            >
+              <div className="w-6 h-6 rounded-full border-2 border-[#A8CF45] flex items-center justify-center mr-2 mt-1 flex-shrink-0">
+                <LocationIcon />
+              </div>
+              <p className="text-xs text-white leading-relaxed">
+                {translatedAddressText}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop/Tablet Layout */}
+        <div className="hidden lg:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-16 items-start">
           
           {/* Logo Section */}
           <div className="lg:col-span-3 flex justify-center md:justify-start">
             <a href="/">
-            <div className="mb-4">
-              <img
-                src="/logo-1 (1).png"
-                alt="Hi-Tech Logo"
-                className="h-20 sm:h-24 md:h-28 lg:h-29 w-auto"
-              />
-            </div>
+              <div className="mb-4">
+                <img
+                  src="/logo-1 (1).png"
+                  alt="Hi-Tech Logo"
+                  className="h-20 sm:h-24 md:h-28 lg:h-29 w-auto"
+                />
+              </div>
             </a>
           </div>
 
@@ -222,9 +341,7 @@ const Footer = () => {
                         className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 bg-white p-2 rounded-lg shadow-xl z-50"
                       >
                         <div className="w-20 h-20 bg-gray-200 flex items-center justify-center">
-                          <div className="text-center">
-                            <img src={platform.qrCode} alt={`${platform.name} QR Code`} className="w-20 h-20 mx-auto object-cover" />
-                          </div>
+                          <img src={platform.qrCode} alt={`${platform.name} QR Code`} className="w-20 h-20 mx-auto object-cover" />
                         </div>
                       </div>
                     )}

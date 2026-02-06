@@ -7,7 +7,7 @@ const AboutWaterPowers: React.FC = () => {
   const paragraph1Text = "Clean and reliable water is essential across industries—from drinking water production to complex industrial processes.";
   const paragraph2Text = "Our reverse osmosis membranes are designed to perform consistently across a wide range of applications, supporting sustainable operations and efficient water management worldwide.";
   const impactHeadingText = "Our Global Impact";
-  
+
   const bottomQuoteText = "More than 10% of RO membrane OEMs worldwide rely on Hi-Tech Membranes directly or indirectly as a trusted manufacturing partner.";
 
   // Translation hooks - Main content
@@ -37,14 +37,14 @@ const AboutWaterPowers: React.FC = () => {
       <div className=" mx-[40px] xl:mx-[60px] 2xl:mx-[90px]">
 
         {/* ================= TOP HEADING ================= */}
-       
+
         <div className="mb-14">
 
           {/* Title - Left */}
           <div>
             <h2
               className="text-[30px] md:text-[48px] lg:text-[60px] font-semibold text-[#3E4095] leading-snug text-center md:text-left">
-              {translatedMainHeading}
+              " {translatedMainHeading} "
             </h2>
           </div>
 
@@ -75,7 +75,7 @@ const AboutWaterPowers: React.FC = () => {
               <div
                 className="bg-white rounded-[48px]
                 shadow-[0_2px_30px_rgba(0,0,0,0.1)] px-6 py-10 text-center w-full">
-                
+
                 <div className="text-[74px] md:text-[82px] lg:text-[90px] font-bold text-[#A8CF45] leading-none mb-3">
                   {impactData[0].value}
                 </div>
@@ -95,7 +95,7 @@ const AboutWaterPowers: React.FC = () => {
               <div
                 className="bg-white rounded-[48px]
                 shadow-[0_2px_30px_rgba(0,0,0,0.1)] px-6 py-10 text-center w-full">
-                
+
                 <div className="text-[74px] md:text-[82px] lg:text-[90px] font-bold text-[#A8CF45] leading-none mb-3">
                   {impactData[1].value}
                 </div>
@@ -115,7 +115,7 @@ const AboutWaterPowers: React.FC = () => {
               <div
                 className="bg-white rounded-[48px]
                 shadow-[0_2px_30px_rgba(0,0,0,0.1)] px-6 py-10 text-center w-full">
-                
+
                 <div className="text-[74px] md:text-[82px] lg:text-[90px] font-bold text-[#A8CF45] leading-none mb-3">
                   {impactData[2].value}
                 </div>
@@ -134,18 +134,26 @@ const AboutWaterPowers: React.FC = () => {
 
         {/* ================= BOTTOM QUOTE ================= */}
         <div className="relative max-w-[980px] mx-auto text-center py-10">
-          <span
-            className="absolute -left-8 top-0 text-[80px] md:text-[100px] lg:text-[150px] font-bold text-[#A8CF45] leading-none">
-            "
-          </span>
+          {/* Green Quote – aligned with heading start */}
+          <div className="absolute -left-1 sm:-left-5 md:-left-5">
+            <img
+              src="/assets/images/about/GreenQuotes.svg"
+              alt=""
+              className="w-[28px] sm:w-[36px] md:w-[44px] lg:w-[50px]"
+            />
+          </div>
           <h3
             className="text-[18px] md:text-[22px] lg:text-[36px] font-semibold text-[#3D3E96] leading-relaxed px-10">
             {translatedBottomQuote}
           </h3>
-          <span
-            className="mt-8 mr-28 absolute -right-8 top-10 text-[120px] md:text-[140px] lg:text-[350px] font-bold text-[#3D3E96] opacity-10 leading-none">
-            "
-          </span>
+          {/* Blue Quote – aligned with heading end */}
+          <div className="absolute -right-2 top-[145px]">
+            <img
+              src="/assets/images/about/BlueQuotes.svg"
+              alt=""
+             className="w-[80px] sm:w-[110px] md:w-[140px] lg:w-[168px] rotate-[180deg] opacity-60"
+            />
+          </div>
         </div>
       </div>
     </section>

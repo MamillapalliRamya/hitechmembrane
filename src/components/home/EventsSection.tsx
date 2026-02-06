@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Droplets, Factory, Recycle, Waves, Coffee, Building2 } from 'lucide-react';
+import { Droplets, Factory, Recycle, Waves, Coffee, Building2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTranslateContent } from "../../hooks/useTranslateContent";
 
 interface EventsSectiondata {
@@ -27,8 +27,9 @@ const TranslatedText = ({ text }: { text: string }) => {
 };
 
 const EventsSection = ({ homepage, products = [] }: EventsSectiondata) => {
-  const [currentSlide, setCurrentSlide] = useState(0);
   const [productsData, setProductsData] = useState<any[]>([]);
+  // Separate state for each product's image carousel
+  const [imageIndices, setImageIndices] = useState<{ [key: number]: number }>({});
 
   /* ---------------- TRANSLATABLE TEXTS ---------------- */
   const waterSolutionsTitle = homepage?.water_solutions_title || "Our Water Solutions";
@@ -45,12 +46,16 @@ const EventsSection = ({ homepage, products = [] }: EventsSectiondata) => {
   const { translatedText: tAppDesc } = useTranslateContent(applicationsDesc);
   const { translatedText: tExploreBtn } = useTranslateContent(exploreButton);
 
-  // Fallback products
+  // Fallback products with multiple images
   const fallbackProducts = [
     {
       id: 1,
       name: "Residential Membranes",
-      image: "/assets/images/MembraneTube3.png",
+      images: [
+        "/assets/images/MembraneTube3.png",
+        "/assets/images/MembraneTube1.png",
+        "/assets/images/MembraneTube2.png"
+      ],
       features: [
         "Stable rejection performance",
         "Long membrane life",
@@ -59,47 +64,83 @@ const EventsSection = ({ homepage, products = [] }: EventsSectiondata) => {
     },
     {
       id: 2,
-      name: "Commercial Membranes",
-      image: "/assets/images/MembraneTube2.png",
+      name: "Industrial Membranes",
+      images: [
+        "/assets/images/MembraneTube2.png",
+        "/assets/images/MembraneTube1.png",
+        "/assets/images/MembraneTube3.png"
+      ],
       features: [
-        "High rejection rate",
-        "Energy efficient design",
-        "Durable and reliable",
+        "High salt rejection",
+        "Consistent flux under variable conditions",
+        "Optimized for continuous operation",
       ],
     },
     {
       id: 3,
-      name: "Industrial Membranes",
-      image: "/assets/images/MembraneTube1.png",
+      name: "Sea Water Membranes",
+      images: [
+        "/assets/images/MembraneTube1.png",
+        "/assets/images/MembraneTube2.png",
+        "/assets/images/MembraneTube3.png"
+      ],
       features: [
-        "Designed for heavy duty use",
-        "Long operational life",
-        "Cost effective performance",
+        "Excellent salt rejection",
+        "Energy-efficient performance",
+        "Suitable for large-scale desalination plants",
       ],
     },
   ];
 
   // Set products data once
   useEffect(() => {
+    let mappedProducts;
+    
     if (products && products.length > 0) {
-      const mapped = products.map((p) => ({
-        id: p.id,
-        name: p.name,
-        image: p.image
+      // Map CMS products - convert single image to array
+      mappedProducts = products.map((p) => {
+        const imageUrl = p.image
           ? p.image.startsWith("http")
             ? p.image
             : `http://65.0.77.32:8000${p.image}`
-          : "/assets/images/MembraneTube3.png",
-        features: p.features || [],
-      }));
-      setProductsData(mapped);
+          : "/assets/images/MembraneTube3.png";
+        
+        return {
+          id: p.id,
+          name: p.name,
+          images: [imageUrl], // Convert single image to array
+          features: p.features || [],
+        };
+      });
     } else {
-      setProductsData(fallbackProducts);
+      mappedProducts = fallbackProducts;
     }
-  }, [products.length]); // Only re-run if products length changes
+    
+    setProductsData(mappedProducts);
+    
+    // Initialize image indices for all products
+    const initialIndices: { [key: number]: number } = {};
+    mappedProducts.forEach(product => {
+      initialIndices[product.id] = 0;
+    });
+    setImageIndices(initialIndices);
+  }, [products.length]);
 
-  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % productsData.length);
-  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + productsData.length) % productsData.length);
+  // Handle previous image
+  const handlePrevImage = (productId: number, imagesLength: number) => {
+    setImageIndices(prev => ({
+      ...prev,
+      [productId]: (prev[productId] - 1 + imagesLength) % imagesLength
+    }));
+  };
+
+  // Handle next image
+  const handleNextImage = (productId: number, imagesLength: number) => {
+    setImageIndices(prev => ({
+      ...prev,
+      [productId]: (prev[productId] + 1) % imagesLength
+    }));
+  };
 
   /* ---------------- APPLICATIONS DATA ---------------- */
   const ICON_PROPS = { size: 32, color: '#9EE872', strokeWidth: 2 };
@@ -168,44 +209,51 @@ const EventsSection = ({ homepage, products = [] }: EventsSectiondata) => {
           viewport={{ once: true, amount: 0.3 }}
           className="relative px-4 sm:px-6 lg:px-12 mt-12 2xl:mt-[90px] mx-[40px]"
         >
-          {productsData.length > 3 && (
-            <>
-              <button onClick={prevSlide} className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 z-20">
-                <img src="/assets/images/arrowLeft.png" alt="Previous" className="h-[40px] sm:h-[54px] w-auto" />
-              </button>
-
-              <button onClick={nextSlide} className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 z-20">
-                <img src="/assets/images/arrowRight.png" alt="Next" className="h-[40px] sm:h-[54px] w-auto" />
-              </button>
-            </>
-          )}
-
           <div className="flex justify-center items-center flex-wrap sm:flex-nowrap gap-8 sm:gap-12 lg:gap-24 3xl:gap-[230px] py-8">
-            {productsData.map((product, index) => {
-              let scale = "";
-              let opacity = "";
-
-              if (index === currentSlide) {
-                scale = "scale-110";
-                opacity = "opacity-100";
-              } else if (
-                index === (currentSlide - 1 + productsData.length) % productsData.length ||
-                index === (currentSlide + 1) % productsData.length
-              ) {
-                scale = "scale-100";
-                opacity = "opacity-80";
-              } else {
-                scale = "scale-90";
-                opacity = "opacity-40";
-              }
+            {productsData.map((product) => {
+              const currentIndex = imageIndices[product.id] || 0;
+              const hasMultipleImages = product.images && product.images.length > 1;
 
               return (
-                <div key={product.id} className={`flex flex-col items-center gap-6 sm:gap-[45px] 2xl:gap-[60px] min-w-[150px] sm:min-w-[200px] lg:min-w-[280px] xl:min-w-[320px]`}>
-                  <div className="relative mb-6 flex items-center justify-center">
+                <div 
+                  key={product.id} 
+                  className="flex flex-col items-center gap-6 sm:gap-[45px] 2xl:gap-[60px] min-w-[150px] sm:min-w-[200px] lg:min-w-[280px] xl:min-w-[320px]"
+                >
+                  {/* Image carousel for each product */}
+                  <div className="relative mb-6 flex items-center justify-center group">
                     <div className="bg-[#A8CF45] w-[160px] h-[140px] rounded-bl-[25%] rounded-br-[121%] rounded-tl-[121%] rounded-tr-[25%] opacity-20 2xl:w-[301px] 2xl:h-[226px] 2xl:rounded-br-[147%] 2xl:rounded-tl-[147%] 2xl:rotate-[-5deg]"></div>
+                   
+                    {/* Left Arrow - only show if multiple images */}
+                    {hasMultipleImages && (
+                      <button
+                        onClick={() => handlePrevImage(product.id, product.images.length)}
+                        className="absolute left-[-20px] sm:left-[-30px] top-1/2 transform -translate-y-1/2 z-30 bg-white/90 hover:bg-white rounded-full p-2 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        aria-label="Previous image"
+                      >
+                        <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-[#3E4095]" />
+                      </button>
+                    )}
+
+                    {/* Image */}
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <img src={product.image} alt={product.name} className="object-contain w-[120px] sm:w-[160px] lg:w-[195px] 2xl:w-[237px]" />
+                      <img
+                        src={product.images[currentIndex]}
+                        alt={`${product.name} - Image ${currentIndex + 1}`}
+                        className="object-contain w-[120px] sm:w-[160px] lg:w-[195px] 2xl:w-[237px] transition-opacity duration-300"
+                      />
                     </div>
+
+                    {/* Right Arrow - only show if multiple images */}
+                    {hasMultipleImages && (
+                      <button
+                        onClick={() => handleNextImage(product.id, product.images.length)}
+                        className="absolute right-[-20px] sm:right-[-30px] top-1/2 transform -translate-y-1/2 z-30 bg-white/90 hover:bg-white rounded-full p-2 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        aria-label="Next image"
+                      >
+                        <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-[#3E4095]" />
+                      </button>
+                    )}
+
                   </div>
 
                   <h3 className="text-base sm:text-lg lg:text-[20px] 2xl:text-[24px] font-semibold text-[#323232] text-center whitespace-nowrap">
