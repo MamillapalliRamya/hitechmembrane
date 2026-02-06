@@ -515,22 +515,58 @@ const Innovation: React.FC = () => {
 
           <div className="relative ">
             {/* Center Vertical Line */}
-            <div className="absolute left-1/2 -translate-x-1/2 h-full w-1 bg-[#B8D332] hidden md:block"></div>
+            <div
+              className="
+    absolute
+    left-6
+    md:left-1/2 md:-translate-x-1/2
+    top-0
+    h-full
+    w-1
+    bg-[#B8D332]
+  "
+            ></div>
 
             {translatedTimelineData.map((item, index) => (
               <div
                 key={index}
-                className={`relative mb-12 flex  ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                  } flex-col items-center `}
+                className={`relative mb-12 flex
+  flex-col
+  md:flex-row
+  ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}
+`}
+
               >
                 {/* Content */}
                 <div
-                  className={`w-full md:w-5/12  ${index % 2 === 0 ? 'md:text-right md:pr-8' : 'md:text-left md:pl-8'
-                    } text-center    bg-white
-                   shadow-[0px_0px_6px_-1px_rgba(0,0,0,0.08),0px_0px_12px_-2px_rgba(0,0,0,0.12)]
+                  className={`
+    w-[85%]
+    sm:w-[90%]
+    md:w-5/12
 
-                    rounded-[12.51px] p-[20px] `}
+    ml-14
+    sm:ml-16
+    md:ml-0
+
+    ${index % 2 === 0
+                      ? 'md:text-right md:pr-8'
+                      : 'md:text-left md:pl-8'
+                    }
+
+    text-left
+    md:text-center
+
+    bg-white
+    shadow-[0px_0px_6px_-1px_rgba(0,0,0,0.08),0px_0px_12px_-2px_rgba(0,0,0,0.12)]
+    rounded-[14px]
+
+    px-4 py-4
+    sm:px-5 sm:py-5
+    md:p-[20px]
+  `}
                 >
+
+
                   <div className="text-4xl font-bold text-[#B8D332] mb-2">
                     {item.year}
                   </div>
@@ -541,7 +577,20 @@ const Innovation: React.FC = () => {
                 </div>
 
                 {/* ✅ PERFECTLY CENTERED DOT */}
-                <div className="absolute left-1/2 -translate-x-1/2 w-6 h-6 bg-[#B8D332] rounded-full border-4 border-white shadow-lg z-10"></div>
+                <div
+                  className="
+    absolute
+    left-[16px]
+    md:left-1/2 md:-translate-x-1/2
+    w-5 h-5
+    bg-[#B8D332]
+    rounded-full
+    border-4 border-white
+    shadow-lg
+    z-10
+    top-6
+  "
+                ></div>
 
                 {/* Spacer */}
                 <div className="w-full md:w-5/12"></div>
@@ -637,7 +686,7 @@ const Innovation: React.FC = () => {
       </section>
 
       {/* Global Presence Section - Using the common component */}
-      <GlobalPresenceSection 
+      <GlobalPresenceSection
         title={translatedGlobalHeading}
         showDescription={false}
         showCards={true}

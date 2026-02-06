@@ -4,7 +4,7 @@ import { useTranslateContent } from '../../hooks/useTranslateContent';
 const JoinPartnersSection: React.FC = () => {
     // Text content for translation
     const headingText = "Join our global partners who trust Hi-Tech Membranes for their water treatment needs.";
-    const buttonText = "Contact Us";
+    const buttonText = "Let's Talk";
 
     // Translation hooks
     const { translatedText: translatedHeading } = useTranslateContent(headingText);

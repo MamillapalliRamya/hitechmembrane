@@ -121,8 +121,8 @@ const HeroSection: React.FC = () => {
     } else { // Mobile
       return {
         mobile: {
-          width: 130,
-          height: 170,
+          width: 160,
+          height: 190,
           borderRadius: 16,
           border: 3,
           bottomMargin: windowWidth >= 480 ? 120 : 100
