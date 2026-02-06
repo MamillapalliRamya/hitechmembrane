@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useTranslateContent } from "../../hooks/useTranslateContent";
 import LanguageSelector from "../common/LanguageSelector";
@@ -9,7 +9,7 @@ const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   // Text content for translation
   const aboutText = "About";
@@ -17,8 +17,8 @@ const Header: React.FC = () => {
   const innovationText = "Innovation";
   const ourImpactText = "Our Impact";
   const eventsText = "Events";
-  const requestQuoteText = "Request a Quote";
-  const quoteShortText = "Quote";
+  const requestQuoteText = "Let's Talk";
+  const quoteShortText = "Let's Talk";
 
   // Translation hooks
   const { translatedText: translatedAboutText } = useTranslateContent(aboutText);
@@ -61,6 +61,92 @@ const Header: React.FC = () => {
     setMobileMenuOpen(false);
   };
 
+  // Compact Language Selector Component for Mobile
+  const CompactLanguageSelector = () => {
+    const [isOpen, setIsOpen] = useState(false);
+    const currentLang = i18n.language;
+
+    // Language configuration - adjust these to match your actual supported languages
+    const languages = [
+      { code: 'en', label: 'EN', name: 'English' },
+      { code: 'es', label: 'ES', name: 'Español' },
+      { code: 'fr', label: 'FR', name: 'Français' },
+      { code: 'de', label: 'DE', name: 'Deutsch' },
+      { code: 'it', label: 'IT', name: 'Italiano' },
+      { code: 'pt', label: 'PT', name: 'Português' },
+      { code: 'nl', label: 'NL', name: 'Nederlands' },
+      { code: 'pl', label: 'PL', name: 'Polski' },
+      { code: 'ru', label: 'RU', name: 'Русский' },
+      { code: 'zh', label: 'ZH', name: '中文' },
+      { code: 'ja', label: 'JA', name: '日本語' },
+      { code: 'ko', label: 'KO', name: '한국어' },
+      { code: 'ar', label: 'AR', name: 'العربية' },
+      { code: 'hi', label: 'HI', name: 'हिन्दी' },
+      { code: 'tr', label: 'TR', name: 'Türkçe' },
+    ];
+
+    const currentLanguage = languages.find(lang => lang.code === currentLang) || languages[0];
+
+    const changeLanguage = (langCode: string) => {
+      i18n.changeLanguage(langCode);
+      setIsOpen(false);
+    };
+
+    useEffect(() => {
+      const handleClickOutside = () => {
+        if (isOpen) setIsOpen(false);
+      };
+
+      if (isOpen) {
+        document.addEventListener('click', handleClickOutside);
+      }
+
+      return () => {
+        document.removeEventListener('click', handleClickOutside);
+      };
+    }, [isOpen]);
+
+    return (
+      <div className="relative">
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsOpen(!isOpen);
+          }}
+          className="flex items-center gap-1 px-2 py-1.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors border border-gray-300 dark:border-gray-600"
+          aria-label="Select language"
+        >
+          <span className="text-xs font-bold text-gray-700 dark:text-gray-300">
+            {currentLanguage.label}
+          </span>
+          <ChevronDown className="w-3 h-3 text-gray-500" />
+        </button>
+
+        {isOpen && (
+          <div 
+            className="absolute right-0 mt-2 py-2 w-36 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 z-50 max-h-64 overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {languages.map((lang) => (
+              <button
+                key={lang.code}
+                onClick={() => changeLanguage(lang.code)}
+                className={`w-full flex items-center justify-between px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${
+                  currentLang === lang.code
+                    ? 'bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400'
+                    : 'text-gray-700 dark:text-gray-300'
+                }`}
+              >
+                <span className="font-medium">{lang.name}</span>
+                <span className="text-xs font-bold">{lang.label}</span>
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
     <>
       <header
@@ -72,7 +158,7 @@ const Header: React.FC = () => {
         }`}
       >
         <div className="w-full">
-          <div className="flex justify-between items-center mx-[40px] lg:mx-[80px] 2xl:mx-[112px]">
+          <div className="flex justify-between items-center mx-[20px] lg:mx-[80px] 2xl:mx-[112px]">
             {/* Logo */}
             <Link to="/" className="flex items-center flex-shrink-0">
               <img
@@ -160,18 +246,23 @@ const Header: React.FC = () => {
 
             {/* Right side controls */}
             <div className="flex items-center gap-2 sm:gap-3 lg:gap-4">
-              {/* Language Selector - Hidden on small screens */}
+              {/* Desktop Language Selector */}
               <div className="hidden sm:block">
                 <LanguageSelector />
               </div>
 
+              {/* Mobile Compact Language Selector */}
+              <div className="sm:hidden">
+                <CompactLanguageSelector />
+              </div>
+
+              {/* Let's Talk Button */}
               <Link
                 to="/contact"
                 className="
-                  hidden sm:block
-                  px-3 py-1.5 sm:px-4 sm:py-2 lg:px-5 lg:py-2
+                  px-2 py-1.5 sm:px-4 sm:py-2 lg:px-5 lg:py-2
                   rounded-md font-medium
-                  text-sm lg:text-base
+                  text-[10px] sm:text-sm lg:text-base
                   bg-[#A8CF45] text-[#3D3E96]
                   shadow-lg
                   cursor-pointer
@@ -179,10 +270,11 @@ const Header: React.FC = () => {
                   transform-gpu
                   transition-transform duration-300 ease-out
                   hover:scale-110
+                  whitespace-nowrap
                 "
               >
-                <span className="hidden lg:inline">{translatedRequestQuoteText}</span>
-                <span className="lg:hidden">{translatedQuoteShortText}</span>
+                <span className="hidden sm:inline">{translatedRequestQuoteText}</span>
+                <span className="sm:hidden">{translatedQuoteShortText}</span>
               </Link>
 
               {/* Mobile Menu Button */}
@@ -306,16 +398,6 @@ const Header: React.FC = () => {
               <div className="mb-4">
                 <LanguageSelector />
               </div>
-
-              {/* Phone Number */}
-              <a
-                href="tel:+18001234567"
-                className="flex items-center mb-4 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors py-2"
-                onClick={closeMobileMenu}
-              >
-                <Phone className="w-5 h-5 mr-3 text-blue-600 dark:text-blue-400" />
-                <span className="font-medium">1-800-123-4567</span>
-              </a>
 
               {/* CTA Button */}
               <Link

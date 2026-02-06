@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Droplets, Factory, Recycle, Waves, Coffee, Building2 } from 'lucide-react';
+import { Droplets, Factory, Recycle, Waves, Coffee, Building2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTranslateContent } from "../../hooks/useTranslateContent";
 
 const EventsSection = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  // Separate state for each product's image carousel
+  const [residentialIndex, setResidentialIndex] = useState(0);
+  const [industrialIndex, setIndustrialIndex] = useState(0);
+  const [seaWaterIndex, setSeaWaterIndex] = useState(0);
 
   /* ---------------- TRANSLATABLE TEXTS ---------------- */
   const waterSolutionsTitle = "Our Water Solutions";
@@ -55,14 +58,55 @@ const EventsSection = () => {
   const tSeaFeatures = seaWaterFeatures.map(f => useTranslateContent(f).translatedText);
   /* --------------------------------------------------- */
 
+  // Multiple images for each product
   const products = [
-    { id: 1, name: tResidential, image: "/assets/images/MembraneTube3.png", features: tResFeatures },
-    { id: 2, name: tIndustrial, image: "/assets/images/MembraneTube2.png", features: tIndFeatures },
-    { id: 3, name: tSeaWater, image: "/assets/images/MembraneTube1.png", features: tSeaFeatures },
+    { 
+      id: 1, 
+      name: tResidential, 
+      images: [
+        "/assets/images/MembraneTube3.png",
+        "/assets/images/MembraneTube2.png", // Add your additional images
+        "/assets/images/MembraneTube1.png",
+      ],
+      features: tResFeatures,
+      currentIndex: residentialIndex,
+      setIndex: setResidentialIndex
+    },
+    { 
+      id: 2, 
+      name: tIndustrial, 
+      images: [
+        "/assets/images/MembraneTube2.png",
+        "/assets/images/MembraneTube1.png", // Add your additional images
+        "/assets/images/MembraneTube3.png",
+      ],
+      features: tIndFeatures,
+      currentIndex: industrialIndex,
+      setIndex: setIndustrialIndex
+    },
+    { 
+      id: 3, 
+      name: tSeaWater, 
+      images: [
+        "/assets/images/MembraneTube1.png",
+        "/assets/images/MembraneTube2.png", // Add your additional images
+        "/assets/images/MembraneTube3.png",
+      ],
+      features: tSeaFeatures,
+      currentIndex: seaWaterIndex,
+      setIndex: setSeaWaterIndex
+    },
   ];
 
-  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % products.length);
-  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + products.length) % products.length);
+  const handlePrevImage = (product: { id?: number; name?: string; images: any; features?: string[]; currentIndex: any; setIndex: any; }) => {
+    const newIndex = (product.currentIndex - 1 + product.images.length) % product.images.length;
+    product.setIndex(newIndex);
+  };
+
+  const handleNextImage = (product: { id?: number; name?: string; images: any; features?: string[]; currentIndex: any; setIndex: any; }) => {
+    const newIndex = (product.currentIndex + 1) % product.images.length;
+    product.setIndex(newIndex);
+  };
 
   /* ---------------- APPLICATIONS DATA ---------------- */
   const ICON_PROPS = { size: 32, color: '#9EE872', strokeWidth: 2 };
@@ -106,12 +150,11 @@ const EventsSection = () => {
   ];
 
   // Translate application titles and descriptions
-const translatedApplications = applications.map(app => ({
-  ...app,
-  title: useTranslateContent(app.title).translatedText,
-  description: useTranslateContent(app.description).translatedText
-}));
-
+  const translatedApplications = applications.map(app => ({
+    ...app,
+    title: useTranslateContent(app.title).translatedText,
+    description: useTranslateContent(app.description).translatedText
+  }));
 
   return (
     <section className="bg-white w-full overflow-hidden">
@@ -146,44 +189,59 @@ const translatedApplications = applications.map(app => ({
           viewport={{ once: true, amount: 0.3 }}
           className="relative px-4 sm:px-6 lg:px-12 mt-12 2xl:mt-[90px] mx-[40px]"
         >
-          {products.length > 3 && (
-            <>
-              <button onClick={prevSlide} className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 z-20">
-                <img src="/assets/images/arrowLeft.png" alt="Previous" className="h-[40px] sm:h-[54px] w-auto" />
-              </button>
-
-              <button onClick={nextSlide} className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 z-20">
-                <img src="/assets/images/arrowRight.png" alt="Next" className="h-[40px] sm:h-[54px] w-auto" />
-              </button>
-            </>
-          )}
-
           <div className="flex justify-center items-center flex-wrap sm:flex-nowrap gap-8 sm:gap-12 lg:gap-24 3xl:gap-[230px] py-8">
-            {products.map((product, index) => {
-              let scale = "";
-              let opacity = "";
-
-              if (index === currentSlide) {
-                scale = "scale-110";
-                opacity = "opacity-100";
-              } else if (
-                index === (currentSlide - 1 + products.length) % products.length ||
-                index === (currentSlide + 1) % products.length
-              ) {
-                scale = "scale-100";
-                opacity = "opacity-80";
-              } else {
-                scale = "scale-90";
-                opacity = "opacity-40";
-              }
-
+            {products.map((product) => {
               return (
-                <div key={product.id} className={`flex flex-col items-center gap-6 sm:gap-[45px] 2xl:gap-[60px] min-w-[150px] sm:min-w-[200px] lg:min-w-[280px] xl:min-w-[320px]`}>
-                  <div className="relative mb-6 flex items-center justify-center">
+                <div 
+                  key={product.id} 
+                  className="flex flex-col items-center gap-6 sm:gap-[45px] 2xl:gap-[60px] min-w-[150px] sm:min-w-[200px] lg:min-w-[280px] xl:min-w-[320px]"
+                >
+                  {/* Image carousel for each product */}
+                  <div className="relative mb-6 flex items-center justify-center group">
                     <div className="bg-[#A8CF45] w-[160px] h-[140px] rounded-bl-[25%] rounded-br-[121%] rounded-tl-[121%] rounded-tr-[25%] opacity-20 2xl:w-[301px] 2xl:h-[226px] 2xl:rounded-br-[147%] 2xl:rounded-tl-[147%] 2xl:rotate-[-5deg]"></div>
+                    
+                    {/* Left Arrow for each image */}
+                    <button
+                      onClick={() => handlePrevImage(product)}
+                      className="absolute left-[-20px] sm:left-[-30px] top-1/2 transform -translate-y-1/2 z-30 bg-white/90 hover:bg-white rounded-full p-2 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      aria-label="Previous image"
+                    >
+                      <ChevronLeft className="w-6 h-6 sm:w-6 sm:h-6 text-[#3E4095]" />
+                    </button>
+
+                    {/* Image */}
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <img src={product.image} alt={product.name} className="object-contain w-[120px] sm:w-[160px] lg:w-[195px] 2xl:w-[237px]" />
+                      <img 
+                        src={product.images[product.currentIndex]} 
+                        alt={`${product.name} - Image ${product.currentIndex + 1}`} 
+                        className="object-contain w-[120px] sm:w-[160px] lg:w-[195px] 2xl:w-[237px] transition-opacity duration-300" 
+                      />
                     </div>
+
+                    {/* Right Arrow for each image */}
+                    <button
+                      onClick={() => handleNextImage(product)}
+                      className="absolute right-[-20px] sm:right-[-30px] top-1/2 transform -translate-y-1/2 z-30 bg-white/90 hover:bg-white rounded-full p-2 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      aria-label="Next image"
+                    >
+                      <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-[#3E4095]" />
+                    </button>
+
+                    {/* Image indicator dots */}
+                    {/* <div className="absolute bottom-[-15px] left-1/2 transform -translate-x-1/2 flex gap-2 z-30">
+                      {product.images.map((_, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => product.setIndex(idx)}
+                          className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                            idx === product.currentIndex 
+                              ? 'bg-[#3E4095] w-6' 
+                              : 'bg-gray-300 hover:bg-gray-400'
+                          }`}
+                          aria-label={`Go to image ${idx + 1}`}
+                        />
+                      ))}
+                    </div> */}
                   </div>
 
                   <h3 className="text-base sm:text-lg lg:text-[20px] 2xl:text-[24px] font-semibold text-[#323232] text-center whitespace-nowrap">
@@ -230,14 +288,13 @@ const translatedApplications = applications.map(app => ({
                   <div className="mb-4 xl:mb-6 flex h-16 w-16 items-center justify-center rounded-xl bg-[#3d4a9d]">{app.icon}</div>
                   <h3 className="mb-4 xl:mb-6 text-xl font-bold leading-tight text-[#161616] lg:text-[22px] xl:text-[24px] 2xl:text-[35px]">{app.title}</h3>
                   <p className="leading-relaxed text-[#454545] lg:text-[16px] 2xl:text-[22px]">
-  {app.description.split("\n").map((line, idx) => (
-    <span key={idx}>
-      {line}
-      <br />
-    </span>
-  ))}
-</p>
-
+                    {app.description.split("\n").map((line, idx) => (
+                      <span key={idx}>
+                        {line}
+                        <br />
+                      </span>
+                    ))}
+                  </p>
                 </div>
               </div>
             ))}

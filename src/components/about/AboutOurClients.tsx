@@ -102,21 +102,34 @@ const AboutOurClients: React.FC = () => {
 
       <style>{`
   @keyframes scroll-left {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
+  0% {
+    transform: translateX(0);
   }
+  100% {
+    transform: translateX(-50%);
+  }
+}
 
+/* Desktop default */
+.animate-scroll {
+  animation: scroll-left 20s linear infinite;
+}
+
+.animate-scroll-fast {
+  animation: scroll-left 10s linear infinite;
+}
+
+/* 📱 Mobile & Tablet - slower */
+@media (max-width: 768px) {
   .animate-scroll {
-    animation: scroll-left 20s linear infinite;
+    animation-duration: 35s;
   }
 
   .animate-scroll-fast {
-    animation: scroll-left 10s linear infinite;
+    animation-duration: 25s;
   }
+}
+
 `}</style>
 
 

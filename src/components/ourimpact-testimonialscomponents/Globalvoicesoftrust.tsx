@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Star} from 'lucide-react';
+import { Star } from 'lucide-react';
 import { useTranslateContent } from '../../hooks/useTranslateContent';
 
 export interface Review {
@@ -226,56 +226,33 @@ export const countriesData: Country[] = [
     }
   ];
 
-// Component to handle individual review translation
 const TranslatedReview: React.FC<{ review: Review; countryCode: string }> = ({ review, countryCode }) => {
   const { translatedText: translatedReviewText } = useTranslateContent(review.text);
   const { translatedText: translatedCompany } = useTranslateContent(review.company);
 
-  const renderStars = (rating: number) => {
-    return [...Array(5)].map((_, index) => (
-      <Star key={index}
-                      className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6"
-                      fill={index < rating ? "#FF8800" : "none"}
-                      stroke={index < rating ? "#FF8800" : "#D1D5DB"}
-                      strokeWidth="2"
-                      viewBox="0 0 24 24" />
-    ));
-  };
-
   return (
-    <div className="bg-white rounded-lg sm:rounded-xl border-2 border-gray-200 p-4 sm:p-5 md:p-6 lg:p-7 hover:shadow-lg transition-shadow">
-      {/* Country Flag */}
-      <div className="flex justify-between items-start mb-3 sm:mb-4 md:mb-5">
-        <div className="flex space-x-0.5 sm:space-x-1">
-          {renderStars(review.rating)}
+    <div className="bg-white rounded-xl border-2 border-gray-200 p-5 hover:shadow-lg transition-shadow">
+      <div className="flex justify-between mb-4">
+        <div className="flex">
+          {[...Array(5)].map((_, i) => (
+            <Star key={i} className="w-4 h-4" fill="#FF8800" stroke="#FF8800" />
+          ))}
         </div>
-        <div className="w-7 h-5 sm:w-8 sm:h-6 md:w-9 md:h-7 rounded-sm overflow-hidden flex-shrink-0">
-          <img
-            src={`https://flagcdn.com/w80/${countryCode}.png`}
-            alt="Country flag"
-            className="w-full h-full object-cover"
-            onError={(e) => {
-              e.currentTarget.style.display = 'none';
-            }}
-          />
-        </div>
+        <img
+          src={`https://flagcdn.com/w80/${countryCode}.png`}
+          className="w-8 h-6 object-cover rounded-sm"
+        />
       </div>
 
-      {/* Review Text */}
-      <p className="text-gray-900 text-sm sm:text-base md:text-md lg:text-md xl:text-lg  mb-4 sm:mb-5 md:mb-6 leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
-        {translatedReviewText}
-      </p>
+      <p className="text-gray-800 text-sm mb-4">{translatedReviewText}</p>
 
-      {/* User Info */}
-      <div className="flex items-center space-x-2 sm:space-x-3 ">
-        <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 lg:w-12 lg:h-12 rounded-full overflow-hidden bg-gradient-to-br from-lime-400 to-green-500 flex items-center justify-center flex-shrink-0">
-          <span className="text-white font-bold text-xs sm:text-sm md:text-base">
-            {review.name.charAt(0)}
-          </span>
+      <div className="flex items-center gap-3">
+        <div className="w-9 h-9 rounded-full bg-lime-500 flex items-center justify-center text-white font-bold">
+          {review.name.charAt(0)}
         </div>
-        <div className="min-w-0">
-          <p className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base truncate">{translatedCompany}</p>
-          <p className="text-gray-600 text-xs sm:text-sm truncate">{review.name}</p>
+        <div>
+          <p className="font-semibold text-sm">{translatedCompany}</p>
+          <p className="text-xs text-gray-500">{review.name}</p>
         </div>
       </div>
     </div>
@@ -285,80 +262,100 @@ const TranslatedReview: React.FC<{ review: Review; countryCode: string }> = ({ r
 const GlobalVoicesOfTrust: React.FC = () => {
   const [selectedCountry, setSelectedCountry] = useState('Thailand');
 
-  // Text content for translation
-  const headingText = "Global Voices of Trust";
-  const showingText = "Showing";
-  const outOfText = "out of";
-  const reviewsText = "reviews";
-
-  // Translation hooks
-  const { translatedText: translatedHeading } = useTranslateContent(headingText);
-  const { translatedText: translatedShowing } = useTranslateContent(showingText);
-  const { translatedText: translatedOutOf } = useTranslateContent(outOfText);
-  const { translatedText: translatedReviews } = useTranslateContent(reviewsText);
+  const { translatedText: translatedHeading } = useTranslateContent('Global Voices of Trust');
+  const { translatedText: translatedShowing } = useTranslateContent('Showing');
+  const { translatedText: translatedOutOf } = useTranslateContent('out of');
+  const { translatedText: translatedReviews } = useTranslateContent('reviews');
 
   const selectedCountryData = countriesData.find(c => c.name === selectedCountry);
   const displayReviews = selectedCountryData?.reviews.slice(0, 6) || [];
 
   return (
-    <section className=" relative overflow-hidden bg-white">
-      <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 2xl:px-34  relative z-10">
-        {/* Section Title */}
-        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-[#3E4095] text-center mb-6 sm:mb-8 md:mb-10 lg:mb-12">
+    <section className="bg-white py-12">
+      <div className="max-w-7xl mx-auto px-4">
+
+        <h2 className="text-3xl font-semibold text-[#3E4095] text-center mb-8">
           {translatedHeading}
         </h2>
 
-        {/* Country Tabs - First Row */}
-        <div className="flex flex-wrap justify-center gap-2 sm:gap-2 md:gap-3 lg:gap-6 xl:gap-8 2xl:gap-10 3xl:gap-20 mb-2 sm:mb-3 md:mb-4">
-          {countriesData.slice(0, 9).map((country) => (
+        {/* 🔹 MOBILE – Single combined list */}
+        <div className="flex flex-wrap justify-center gap-2 mb-6 md:hidden">
+          {countriesData.map(country => (
             <button
               key={country.name}
               onClick={() => setSelectedCountry(country.name)}
-              className={`px-1 sm:px-1.5 md:px-2 py-1 sm:py-1.5 md:py-2 text-sm sm:text-base md:text-xl lg:text-xl xl:text-2xl 2xl:text-2xl 3xl:text-3xl font-semibold transition-all whitespace-nowrap ${
+              className={`px-1 py-1 text-xs font-semibold whitespace-nowrap ${
                 selectedCountry === country.name
-                  ? 'text-blue-900 border-b-2 sm:border-b-3 md:border-b-4 border-lime-400'
-                  : 'text-gray-600 hover:text-blue-900'
+                  ? 'text-blue-900 border-b-2 border-lime-400'
+                  : 'text-gray-600'
               }`}
-              style={{ fontFamily: 'Diodrum Cyrillic, sans-serif' }}
             >
               {country.name}
             </button>
           ))}
         </div>
 
-        {/* Country Tabs - Second Row */}
-        <div className="flex flex-wrap justify-center gap-2 sm:gap-2 md:gap-3 lg:gap-6 xl:gap-8 2xl:gap-10 3xl:gap-20 mb-6 sm:mb-8 md:mb-10 lg:mb-12">
-          {countriesData.slice(9).map((country) => (
+        {/* 🔹 DESKTOP – Row 1 */}
+        <div className="hidden md:flex flex-wrap justify-center gap-6 mb-4">
+          {countriesData.slice(0, 9).map(country => (
             <button
               key={country.name}
               onClick={() => setSelectedCountry(country.name)}
-              className={`px-1 sm:px-1.5 md:px-2 py-1 sm:py-1.5 md:py-2 text-sm sm:text-base md:text-xl lg:text-xl xl:text-2xl 2xl:text-2xl 3xl:text-3xl font-semibold transition-all whitespace-nowrap ${
+              className={`text-xl font-semibold whitespace-nowrap ${
                 selectedCountry === country.name
-                  ? 'text-blue-900 border-b-2 sm:border-b-3 md:border-b-4 border-lime-400'
-                  : 'text-gray-600 hover:text-blue-900'
+                  ? 'text-blue-900 border-b-4 border-lime-400'
+                  : 'text-gray-600'
               }`}
-              style={{ fontFamily: 'Diodrum Cyrillic, sans-serif' }}
             >
               {country.name}
             </button>
           ))}
         </div>
 
-        {/* Review Count */}
-        <p className="text-gray-600 text-sm sm:text-base md:text-lg lg:text-xl mb-4 sm:mb-6 md:mb-8">
+        {/* 🔹 DESKTOP – Row 2 */}
+        <div className="hidden md:flex flex-wrap justify-center gap-6 mb-10">
+          {countriesData.slice(9).map(country => (
+            <button
+              key={country.name}
+              onClick={() => setSelectedCountry(country.name)}
+              className={`text-xl font-semibold whitespace-nowrap ${
+                selectedCountry === country.name
+                  ? 'text-blue-900 border-b-4 border-lime-400'
+                  : 'text-gray-600'
+              }`}
+            >
+              {country.name}
+            </button>
+          ))}
+        </div>
+
+        <p className="text-gray-600 mb-6">
           {translatedShowing} {displayReviews.length} {translatedOutOf} {selectedCountryData?.reviews.length || 0} {translatedReviews}
         </p>
 
-        {/* Reviews Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-8">
-          {displayReviews.map((review) => (
-            <TranslatedReview 
-              key={review.id} 
-              review={review} 
-              countryCode={selectedCountryData?.code || ''} 
-            />
-          ))}
-        </div>
+       {/* 📱 MOBILE – show 2 reviews with vertical scroll */}
+<div className="sm:hidden max-h-[420px] overflow-y-auto space-y-4 pr-1">
+  {displayReviews.slice(0).map(review => (
+    <TranslatedReview
+      key={review.id}
+      review={review}
+      countryCode={selectedCountryData?.code || ''}
+    />
+  ))}
+</div>
+
+{/* 💻 TABLET & DESKTOP – normal grid */}
+<div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  {displayReviews.map(review => (
+    <TranslatedReview
+      key={review.id}
+      review={review}
+      countryCode={selectedCountryData?.code || ''}
+    />
+  ))}
+</div>
+
+
       </div>
     </section>
   );

@@ -68,8 +68,8 @@ const TranslatedReview: React.FC<{ review: Review; index: number }> = ({ review,
                 <Star
                   key={starIndex}
                   className={`w-2.5 h-2.5 md:w-4 md:h-4 ${starIndex < review.rating
-                      ? 'text-yellow-400 fill-current'
-                      : 'text-gray-300'
+                    ? 'text-yellow-400 fill-current'
+                    : 'text-gray-300'
                     }`}
                 />
               ))}
@@ -551,7 +551,7 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
                   }
                 }}
               />
-              
+
               {/* Info Boxes on Map */}
               <div className="hidden sm:block absolute inset-0 pointer-events-none">
                 {/* Multiple Export Markets Served - Top Left */}
@@ -617,7 +617,7 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
                   {locations.map((location) => {
                     // Hide Pakistan (id: 10) and Nepal (id: 18) on mobile
                     const hideOnMobile = (location.id === 10 || location.id === 18);
-                    
+
                     return (
                       <g key={location.id} className={hideOnMobile ? 'hidden md:block' : ''}>
                         {/* Map pin marker image for main offices */}
