@@ -1,6 +1,16 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslateContent } from '../../hooks/useTranslateContent';
 
+interface CMSData {
+  hero_title: string;
+  hero_description: string;
+  hero_button_text: string;
+  hero_button_link: string;
+  hero_background_video: string | null;
+  hero_fallback_image: string[];
+}
+const BACKEND_URL = "http://65.0.77.32:8000";
+
 
 const HeroSection: React.FC = () => {
   const [videoPlaying, setVideoPlaying] = useState(false);
@@ -10,12 +20,92 @@ const HeroSection: React.FC = () => {
   const [animateText, setAnimateText] = useState(false);
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1024);
 
-  const heroTitle = "Advanced RO Membrane Solutions for a Thirsty World";
-  const heroDesc = "High-performance reverse osmosis membranes engineered for industrial, commercial, and municipal water treatment applications worldwide.";
-  const herobutton = "Talk to Our Experts"
+  // CMS State
+  const [cmsData, setCmsData] = useState<CMSData | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  // Fallback content - ensure full text is visible
+  const fallbackData = {
+    hero_title: "Advanced RO Membrane Solutions for a Thirsty World",
+    hero_description: "High-performance reverse osmosis membranes engineered for industrial, commercial, and municipal water treatment applications worldwide.",
+    hero_button_text: "Talk to Our Experts",
+    hero_button_link: "/contact",
+    hero_background_video: "/assets/videos/Homepage_BackgroundRO.mp4",
+    hero_fallback_image: [
+      "/assets/images/HeroSecimg3.png",
+      "/assets/images/HeroSecimg4.jpg",
+      "/assets/images/HeroSecimg5.png",
+    ]
+  };
+
+  // Fetch CMS Data
+  useEffect(() => {
+    const fetchCMSData = async () => {
+      try {
+        const response = await fetch('http://65.0.77.32:8000/api/homepage/');
+        if (!response.ok) {
+          throw new Error('Failed to fetch CMS data');
+        }
+        const data = await response.json();
+
+        // Debug logging
+        console.log('CMS Data received:', data);
+
+        // ✅ NEW: extract homepage object (because backend is nested now)
+        const homepage = data.homepage || {};
+
+        // ✅ NEW: get images from correct key (array from backend)
+        const apiImages: string[] = Array.isArray(data.hero_fallback_images)
+          ? data.hero_fallback_images.map((img: string) =>
+            img.startsWith("http") ? img : `${BACKEND_URL}${img}`
+          )
+          : [];
+
+
+        // Use CMS images if available, otherwise fallback
+        const formattedImages =
+          apiImages.length > 0 ? apiImages : fallbackData.hero_fallback_image;
+
+        console.log("Final images used:", formattedImages);
+
+        setCmsData({
+          hero_title: homepage.hero_title || fallbackData.hero_title,
+          hero_description: homepage.hero_description || fallbackData.hero_description,
+          hero_button_text: homepage.hero_button_text || fallbackData.hero_button_text,
+          hero_button_link: homepage.hero_button_link || fallbackData.hero_button_link,
+          hero_background_video: homepage.hero_background_video
+            ? homepage.hero_background_video.startsWith("http")
+              ? homepage.hero_background_video
+              : `${BACKEND_URL}${homepage.hero_background_video}`
+            : fallbackData.hero_background_video,
+
+          hero_fallback_image: formattedImages,
+        });
+
+      } catch (error) {
+        console.error('Error fetching CMS data:', error);
+        // Use fallback data on error
+        setCmsData(fallbackData);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCMSData();
+  }, []);
+
+  // Use CMS data or fallback
+  const heroTitle = cmsData?.hero_title || fallbackData.hero_title;
+  const heroDesc = cmsData?.hero_description || fallbackData.hero_description;
+  const heroButton = cmsData?.hero_button_text || fallbackData.hero_button_text;
+  const heroButtonLink = cmsData?.hero_button_link || fallbackData.hero_button_link;
+  const heroVideo = cmsData?.hero_background_video || fallbackData.hero_background_video;
+  const heroFallbackImages = cmsData?.hero_fallback_image || fallbackData.hero_fallback_image;
+
   const { translatedText: translatedTitle } = useTranslateContent(heroTitle);
   const { translatedText: translatedDesc } = useTranslateContent(heroDesc);
-  const { translatedText: translatedButton } = useTranslateContent(herobutton);
+  const { translatedText: translatedButton } = useTranslateContent(heroButton);
+
   // Handle window resize
   useEffect(() => {
     const handleResize = () => {
@@ -30,14 +120,14 @@ const HeroSection: React.FC = () => {
   const imageBlocks = [
     {
       id: 1,
-      images: [
-        "/assets/images/HeroSecimg3.png",
-        "/assets/images/HeroSecimg4.jpg",
-        "/assets/images/HeroSecimg5.png",
-      ],
+      images:
+        heroFallbackImages && heroFallbackImages.length > 0
+          ? heroFallbackImages
+          : fallbackData.hero_fallback_image,
       title: "Water Purification Systems"
     }
   ];
+
 
   // Image cycling effect with block swapping
   useEffect(() => {
@@ -59,7 +149,6 @@ const HeroSection: React.FC = () => {
     }, 300);
     return () => clearTimeout(timer);
   }, []);
-
 
   // Handle image load errors
   const handleImageError = useCallback((imagePath: string) => {
@@ -133,6 +222,18 @@ const HeroSection: React.FC = () => {
 
   const dimensions = getImageBlockDimensions();
 
+  // Show loading state
+  if (loading) {
+    return (
+      <section
+        className="relative overflow-hidden bg-[#06368F] flex items-center justify-center"
+        style={{ height: windowWidth < 768 ? '80vh' : '100vh' }}
+      >
+        <div className="text-white text-xl">Loading...</div>
+      </section>
+    );
+  }
+
   return (
     <section
       className="relative overflow-hidden bg-[#06368F]"
@@ -150,12 +251,12 @@ const HeroSection: React.FC = () => {
               muted
               loop
               playsInline
+              src={cmsData?.hero_background_video || fallbackData.hero_background_video}
               onError={(e) => {
                 console.error('Video failed to load:', e);
                 setVideoPlaying(false);
               }}
             >
-              <source src="/assets/videos/Homepage_BackgroundRO.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </div>
@@ -185,7 +286,6 @@ const HeroSection: React.FC = () => {
                 windowWidth >= 1024 ? "580px" :
                   windowWidth >= 768 ? "520px" :
                     "100%",
-          // paddingRight: windowWidth >= 768 ? "40px" : "0px"
         }}
       >
         <h1 className={`font-semibold leading-tight mb-3 sm:mb-4 text-white ${windowWidth >= 1920 ? 'text-6xl xl:text-7xl' :
@@ -199,7 +299,7 @@ const HeroSection: React.FC = () => {
           {translatedTitle}
         </h1>
 
-        <p className={`text-gray-100 mb-4 sm:mb-6 leading-relaxed ${windowWidth >= 1920 ? 'text-xl lg:text-2xl max-w-[700px]' :
+        <p className={`text-gray-100 mb-4 sm:mb-6 leading-relaxed whitespace-normal break-words ${windowWidth >= 1920 ? 'text-xl lg:text-2xl max-w-[700px]' :
           windowWidth >= 1440 ? 'text-xl lg:text-2xl max-w-[650px]' :
             windowWidth >= 1280 ? 'text-lg lg:text-[22px] max-w-[600px]' :
               windowWidth >= 1100 ? 'text-base md:text-[19.2px] max-w-[520px] ml-[40px]' :
@@ -210,7 +310,7 @@ const HeroSection: React.FC = () => {
           {translatedDesc}
         </p>
         {windowWidth >= 768 && (
-          <a href="/contact">
+          <a href={heroButtonLink}>
             <button
               className="
         bg-[#A8CF45] text-[#3E4095]
@@ -423,7 +523,7 @@ const HeroSection: React.FC = () => {
 
               </div>
               {/* Mobile Button (NOW BELOW IMAGES) */}
-              <a href="/contact" className="mt-4">
+              <a href={heroButtonLink} className="mt-4">
                 <button
                   className="
       bg-[#A8CF45] text-[#3E4095]

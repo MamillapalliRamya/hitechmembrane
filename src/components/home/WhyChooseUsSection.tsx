@@ -7,7 +7,7 @@ import {
     DollarSign,
     Headphones
 } from 'lucide-react';
-import { useTranslateContent } from '../../hooks/useTranslateContent'; // make sure this path is correct
+import { useTranslateContent } from '../../hooks/useTranslateContent';
 
 interface Feature {
     icon: React.ReactNode;
@@ -15,7 +15,22 @@ interface Feature {
     description: string;
 }
 
-const WhyChoose: React.FC = () => {
+interface Props {
+    homepage?: any;
+}
+
+const WhyChoose: React.FC<Props> = ({ homepage }) => {
+
+    // ======= CMS + FALLBACK TEXTS =======
+    const sectionTitle =
+        homepage?.why_choose_title ||
+        'Why Choose Hi-Tech Membranes';
+
+    const sectionSubtitle =
+        homepage?.why_choose_subtitle ||
+        'A trusted RO membrane manufacturer delivering performance, reliability and long term value.';
+    // ====================================
+
     const features: Feature[] = [
         {
             icon: <Award size={32} color="#3d4a9d" strokeWidth={2} />,
@@ -55,10 +70,10 @@ const WhyChoose: React.FC = () => {
                 {/* Section Header */}
                 <div className="mb-12 text-center lg:mb-14">
                     <h2 className="mb-7 text-4xl font-bold tracking-tight text-white lg:text-[38px] xl:text-[48px] 2xl:text-[52px]">
-                        {useTranslateContent('Why Choose Hi-Tech Membranes').translatedText}
+                        {useTranslateContent(sectionTitle).translatedText}
                     </h2>
                     <p className="mx-auto max-w-4xl text-lg text-white/90 lg:text-[20px] xl:text-[20px] 2xl:text-[21px]">
-                        {useTranslateContent('A trusted RO membrane manufacturer delivering performance, reliability and long term value.').translatedText}
+                        {useTranslateContent(sectionSubtitle).translatedText}
                     </p>
                 </div>
 

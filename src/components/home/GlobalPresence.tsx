@@ -21,8 +21,9 @@ interface Review {
   text: string;
 }
 interface GlobalPresenceSectionProps {
-  title?: string;
+  homepage?: any;
 }
+
 
 // Component to handle individual review translation
 const TranslatedReview: React.FC<{ review: Review; index: number }> = ({ review, index }) => {
@@ -78,27 +79,50 @@ const TranslatedReview: React.FC<{ review: Review; index: number }> = ({ review,
   );
 };
 
-const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
-  title = "Our Global Presence" }) => {
+const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({ homepage }) => {
+
   const [hoveredLocation, setHoveredLocation] = useState<Location | null>(null);
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
   const [imageLoadFailed, setImageLoadFailed] = useState<{ [key: number]: boolean }>({});
   const [mapTransform, setMapTransform] = useState('translate(0, 0) scale(1)');
 
   // Text content for translation
-  const titleText = "Our Global Presence";
-  const exportMarketsText = "Multiple Export Markets Served";
-  const manufacturingExpText = "30+ Years of Manufacturing Experience";
-  const oemPartnersText = "OEM & Private Label Partners Worldwide";
-  const oemPartnersShortText = "OEM Partners Worldwide";
-  const oemPartnersMobileText = "OEM Partners";
-  const globalCustomersText = "200+ Global Customers";
-  const globalCustomersShortText = "200+ Customers";
+    // ======= CMS + FALLBACK TEXTS =======
+  const titleText =
+    homepage?.title || "Our Global Presence";
+
+  const globalPresenceText =
+    homepage?.global_presence_texts || "Delivering high-performance RO membranes to customers across continents.";
+
+  const exportMarketsText =
+    homepage?.export_markets || "Multiple Export Markets Served";
+
+  const manufacturingExpText =
+    homepage?.manufacturing_experience || "30+ Years of Manufacturing Experience";
+
+  const oemPartnersText =
+    homepage?.oem_partners || "OEM & Private Label Partners Worldwide";
+
+  const oemPartnersShortText =
+    homepage?.oem_partners_short || "OEM Partners Worldwide";
+
+  const oemPartnersMobileText =
+    homepage?.oem_partners_mobile || "OEM Partners";
+
+  const globalCustomersText =
+    homepage?.global_customers || "200+ Global Customers";
+
+  const globalCustomersShortText =
+    homepage?.global_customers || "200+ Customers";
+
+  const descriptionText =
+    homepage?.description ||
+    "Hi-Tech has successfully maintained its global presence thanks to a robust network of skilled associates. By prioritizing customer interests, the company continually adapts its work methodology to achieve outstanding results. With competitive pricing, efficient resource management, and a commitment to fulfilling promises, Hi-Tech has garnered accolades not just from clients but also from esteemed authorities across the nation.";
+
   const warehouseText = "Warehouse";
   const siteText = "Site";
   const clickToKnowText = "Click to know more";
-  const reviewsHeadingText = "Reviews";
-  const descriptionText = "Hi-Tech has successfully maintained its global presence thanks to a robust network of skilled associates. By prioritizing customer interests, the company continually adapts its work methodology to achieve outstanding results. With competitive pricing, efficient resource management, and a commitment to fulfilling promises, Hi-Tech has garnered accolades not just from clients but also from esteemed authorities across the nation.";
+  const reviewsHeadingText = "Customer Reviews";
 
   // Translation hooks
   const { translatedText: translatedTitle } = useTranslateContent(titleText);
