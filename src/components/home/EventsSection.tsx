@@ -227,21 +227,7 @@ const EventsSection = () => {
                       <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-[#3E4095]" />
                     </button>
 
-                    {/* Image indicator dots */}
-                    {/* <div className="absolute bottom-[-15px] left-1/2 transform -translate-x-1/2 flex gap-2 z-30">
-                      {product.images.map((_, idx) => (
-                        <button
-                          key={idx}
-                          onClick={() => product.setIndex(idx)}
-                          className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                            idx === product.currentIndex 
-                              ? 'bg-[#3E4095] w-6' 
-                              : 'bg-gray-300 hover:bg-gray-400'
-                          }`}
-                          aria-label={`Go to image ${idx + 1}`}
-                        />
-                      ))}
-                    </div> */}
+                  
                   </div>
 
                   <h3 className="text-base sm:text-lg lg:text-[20px] 2xl:text-[24px] font-semibold text-[#323232] text-center whitespace-nowrap">
