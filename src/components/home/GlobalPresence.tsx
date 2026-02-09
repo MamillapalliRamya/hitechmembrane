@@ -157,8 +157,8 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
     {
       id: 1,
       country: 'India',
-      x: 67,
-      y: 22,
+      x: 66,
+      y: 21,
       countryCode: 'in',
       type: 'main',
       pinColor: '#B8D332',
@@ -178,8 +178,8 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
     {
       id: 2,
       country: 'Thailand',
-      x: 72,
-      y: 21,
+      x: 71,
+      y: 20,
       countryCode: 'th',
       type: 'main',
       pinColor: '#B8D332',
@@ -470,7 +470,7 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
       id: 19,
       country: 'United States',
       x: 16,
-      y: 18,
+      y: 17,
       countryCode: 'us',
       type: 'main',
       pinColor: '#B8D332',
@@ -631,33 +631,25 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
                       <g key={location.id} className={hideOnMobile ? 'hidden md:block' : ''}>
                         {/* Map pin marker image for main offices */}
                         {location.type === 'main' && !imageLoadFailed[location.id] && (
-                          <foreignObject
-                            x={location.x * 10 - (location.pinColor === '#B8D332' ? 25 : 20)}
-                            y={location.y * 10 - (location.pinColor === '#B8D332' ? 45 : 35)}
-                            width={location.pinColor === '#B8D332' ? '55' : '40'}
-                            height={location.pinColor === '#B8D332' ? '65' : '48'}
-                            onMouseEnter={() => setHoveredLocation(location)}
-                            onMouseLeave={() => setHoveredLocation(null)}
-                            onClick={() => handleLocationClick(location)}
-                            style={{ cursor: 'pointer', overflow: 'visible' }}
-                          >
-                            <img
-                              src={location.pinColor === '#B8D332'
-                                ? "assets/images/green-pin-marker.png"
-                                : "assets/images/blue-pin-marker.png"}
-                              alt="Location marker"
-                              className="transition-transform duration-200"
-                              style={{
-                                filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
-                                pointerEvents: 'none',
-                                transform: hoveredLocation?.id === location.id ? 'scale(1.4)' : 'scale(1)',
-                                transformOrigin: 'center center',
-                                width: location.pinColor === '#B8D332' ? '25px' : '20px',
-                                height: location.pinColor === '#B8D332' ? '35px' : '24px'
-                              }}
-                              onError={() => handleImageError(location.id)}
-                            />
-                          </foreignObject>
+                          <image
+  href={
+    location.pinColor === '#B8D332'
+      ? "assets/images/green-pin-marker.png"
+      : "assets/images/blue-pin-marker.png"
+  }
+  x={location.x * 10 - (location.pinColor === '#B8D332' ? 12 : 10)}
+  y={location.y * 10 - (location.pinColor === '#B8D332' ? 30 : 24)}
+  width={location.pinColor === '#B8D332' ? 25 : 20}
+  height={location.pinColor === '#B8D332' ? 35 : 24}
+  style={{
+    cursor: 'pointer',
+    filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
+  }}
+  onMouseEnter={() => setHoveredLocation(location)}
+  onMouseLeave={() => setHoveredLocation(null)}
+  onClick={() => handleLocationClick(location)}
+/>
+
                         )}
                       </g>
                     );
