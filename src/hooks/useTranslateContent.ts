@@ -7,17 +7,23 @@ import translationService from '../services/translationService';
  * Custom hook to translate dynamic content that comes from API or database
  * Use this for content that's not in your i18n translation files
  */
-export const useTranslateContent = (originalText: string, sourceLang: string = 'en') => {
+export const useTranslateContent = (
+  originalText: string | null | undefined,
+  sourceLang: string = 'en'
+) => {
   const { i18n } = useTranslation();
-  const [translatedText, setTranslatedText] = useState(originalText);
+
+  // Normalize input ONCE (prevents crashes)
+  const safeText = typeof originalText === "string" ? originalText : "";
+
+  const [translatedText, setTranslatedText] = useState(safeText);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     const translateText = async () => {
-      // If current language is same as source language, no translation needed
-      if (i18n.language === sourceLang || !originalText) {
-        setTranslatedText(originalText);
+      if (!safeText || i18n.language === sourceLang) {
+        setTranslatedText(safeText);
         return;
       }
 
@@ -26,21 +32,21 @@ export const useTranslateContent = (originalText: string, sourceLang: string = '
 
       try {
         const result = await translationService.translateText(
-          originalText,
+          safeText,
           i18n.language,
           sourceLang
         );
         setTranslatedText(result);
       } catch (err) {
-        setError(err instanceof Error ? err : new Error('Translation failed'));
-        setTranslatedText(originalText); // Fallback to original text
+        setError(err instanceof Error ? err : new Error("Translation failed"));
+        setTranslatedText(safeText); // fallback
       } finally {
         setIsLoading(false);
       }
     };
 
     translateText();
-  }, [originalText, i18n.language, sourceLang]);
+  }, [safeText, i18n.language, sourceLang]);
 
   return { translatedText, isLoading, error };
 };
