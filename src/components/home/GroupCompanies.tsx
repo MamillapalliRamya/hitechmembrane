@@ -1,22 +1,34 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useTranslateContent } from "../../hooks/useTranslateContent";
+const BACKEND_URL = "http://65.0.77.32:8000";
+const GroupCompanies = ({ cta }: { cta?: any }) => {
 
-const GroupCompanies = () => {
-  const { translatedText: tHeading } = useTranslateContent(
-    "Need help choosing the right membrane?"
-  );
-  const { translatedText: tButton } = useTranslateContent("Let's Talk");
+  const headingText =
+  cta?.heading || "Need help choosing the right membrane?";
+const buttonText =
+  cta?.button_text || "Let's Talk";
+  const { translatedText: tHeading } = useTranslateContent(headingText);
+const { translatedText: tButton } = useTranslateContent(buttonText);
+
+
 
   return (
     <section className="relative w-full overflow-hidden py-10 sm:py-12 lg:py-16">
       {/* Background Image */}
       <div className="absolute inset-0 w-full h-full">
         <img
-          src="/assets/images/waterflow_image.png"
-          alt="waterflow"
-          className="w-full h-full object-cover"
-        />
+  src={
+    cta?.background_image
+      ? cta.background_image.startsWith("http")
+        ? cta.background_image
+        : `${BACKEND_URL}${cta.background_image}`
+      : "/assets/images/waterflow_image.png"
+  }
+  alt="waterflow"
+  className="w-full h-full object-cover"
+/>
+
       </div>
 
       {/* Content */}
@@ -48,7 +60,8 @@ const GroupCompanies = () => {
                        hover:scale-105
                        hover:bg-[#98C135]"
           >
-            <Link to="/contact">
+            <Link to={cta?.button_link || "/contact"}>
+
               <span className="relative z-10">{tButton}</span>
             </Link>
           </button>
