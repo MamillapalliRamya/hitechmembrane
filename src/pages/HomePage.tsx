@@ -33,7 +33,8 @@ const HomePage: React.FC = () => {
         const data = await res.json();
         console.log("Homepage CMS:", data);
 
-        setHomepageData(data.homepage);
+        // Store the entire response, not just data.homepage
+        setHomepageData(data);
       } catch (error) {
         console.error("CMS Error:", error);
       } finally {
@@ -58,11 +59,15 @@ const HomePage: React.FC = () => {
   const sections = [
     <HeroSection />,
     <AboutUsSection />,
-    <EventsSection homepage={homepageData} />,
-    <WhyChooseUs homepage={homepageData} />,
+    <EventsSection homepage={homepageData?.homepage} />,
+    <WhyChooseUs homepage={homepageData?.homepage} why_choose_us={homepageData?.why_choose_us} />,
     <Applications />,
-    <AwardsSection />,
-    <GlobalPresenceSection homepage={homepageData} />,
+    <AwardsSection 
+      homepage={homepageData?.homepage} 
+      awards={homepageData?.awards} 
+      certificates={homepageData?.certificates} 
+    />,
+    <GlobalPresenceSection homepage={homepageData?.homepage} />,
   ];
 
   return (
