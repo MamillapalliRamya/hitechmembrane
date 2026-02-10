@@ -265,6 +265,37 @@ export interface InnovationPageData {
   }>;
 }
 
+export interface OurImpactPageData {
+  testimonials_hero: {
+    heading: string;
+    sub_heading: string;
+  };
+
+  global_voices_of_trust: {
+    section_heading: string;
+    countries: Array<{
+      name: string;
+      code: string;
+      review_count: number;
+      reviews: Array<{
+        id: number;
+        rating: number;
+        text: string;
+        company: string;
+        name: string;
+      }>;
+    }>;
+  };
+
+  join_partners_section: {
+    heading: string;
+    button_text: string;
+    button_link: string;
+    logo: string | null;
+  };
+}
+
+
 class APIService {
   private baseURL: string;
 
@@ -275,11 +306,11 @@ class APIService {
   async getHomePageData(): Promise<HomePageData> {
     try {
       const response = await fetch(`${this.baseURL}/api/homepage/`);
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
+
       const data = await response.json();
       return data;
     } catch (error) {
@@ -291,11 +322,11 @@ class APIService {
   async getAboutPageData(): Promise<AboutPageData> {
     try {
       const response = await fetch(`${this.baseURL}/api/about-page/`);
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
+
       const data = await response.json();
       return data;
     } catch (error) {
@@ -308,11 +339,11 @@ class APIService {
     // Future implementation
     try {
       const response = await fetch(`${this.baseURL}/api/products/`);
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
+
       const data = await response.json();
       return data;
     } catch (error) {
@@ -324,11 +355,11 @@ class APIService {
   async getInnovationPageData(): Promise<InnovationPageData> {
     try {
       const response = await fetch(`${this.baseURL}/api/innovation-page/`);
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
+
       const data = await response.json();
       return data;
     } catch (error) {
@@ -336,6 +367,23 @@ class APIService {
       throw error;
     }
   }
+
+  async getOurImpactPageData(): Promise<OurImpactPageData> {
+    try {
+      const response = await fetch(`${this.baseURL}/api/our-impact-page/`);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error fetching our impact page data:', error);
+      throw error;
+    }
+  }
+
 }
 
 export const apiService = new APIService();
