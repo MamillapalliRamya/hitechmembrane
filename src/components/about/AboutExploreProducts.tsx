@@ -1,77 +1,110 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTranslateContent } from '../../hooks/useTranslateContent';
 
-const AboutExploreProducts: React.FC = () => {
-  // Separate state for each product's image carousel
-  const [residentialIndex, setResidentialIndex] = useState(0);
-  const [industrialIndex, setIndustrialIndex] = useState(0);
-  const [commercialIndex, setCommercialIndex] = useState(0);
+interface AboutExploreProductsProps {
+  explore_products_section?: {
+    id: number;
+    about_page_id: number;
+    heading: string;
+    description: string;
+    button_text: string;
+  }[];
+  explore_products?: {
+    id: number;
+    explore_section_id: number;
+    title: string;
+    images: string[];
+  }[];
+}
 
-  // Text content
-  const headingText = "Explore Our Product Portfolio";
-  const descriptionText = "RO membrane elements engineered for residential, commercial, industrial, and seawater applications.";
-  const product1Title = "Residential Membranes";
-  const product2Title = "Industrial Membranes";
-  const product3Title = "Commercial Membranes";
-  const buttonText = "Explore Our RO Elements";
+const AboutExploreProducts: React.FC<AboutExploreProductsProps> = ({ 
+  explore_products_section, 
+  explore_products 
+}) => {
+  // State for each product's current image index
+  const [imageIndices, setImageIndices] = useState<{ [key: number]: number }>({});
+
+  // Get section data from CMS or use fallback
+  const sectionData = explore_products_section && explore_products_section.length > 0 
+    ? explore_products_section[0] 
+    : null;
+
+  // Text content from CMS or fallback
+  const headingText = sectionData?.heading || "Explore Our Product Portfolio";
+  const descriptionText = sectionData?.description || "RO membrane elements engineered for residential, commercial, industrial, and seawater applications.";
+  const buttonText = sectionData?.button_text || "Explore Our RO Elements";
 
   // Translation hooks
   const { translatedText: translatedHeading } = useTranslateContent(headingText);
   const { translatedText: translatedDescription } = useTranslateContent(descriptionText);
-  const { translatedText: translatedProduct1 } = useTranslateContent(product1Title);
-  const { translatedText: translatedProduct2 } = useTranslateContent(product2Title);
-  const { translatedText: translatedProduct3 } = useTranslateContent(product3Title);
   const { translatedText: translatedButton } = useTranslateContent(buttonText);
 
-  // Products with multiple images
-  const products = [
+  // Fallback products with multiple images
+  const fallbackProducts = [
     {
       id: 1,
-      title: translatedProduct1,
+      title: "Residential Membranes",
       images: [
         "/assets/images/MembraneTube1.png",
-        "/assets/images/MembraneTube2.png", // Add your additional images
+        "/assets/images/MembraneTube2.png",
         "/assets/images/MembraneTube3.png",
       ],
-      alt: "Residential Membrane",
-      currentIndex: residentialIndex,
-      setIndex: setResidentialIndex
     },
     {
       id: 2,
-      title: translatedProduct2,
+      title: "Industrial Membranes",
       images: [
         "/assets/images/MembraneTube2.png",
-        "/assets/images/MembraneTube1.png", // Add your additional images
+        "/assets/images/MembraneTube1.png",
         "/assets/images/MembraneTube3.png",
       ],
-      alt: "Industrial Membrane",
-      currentIndex: industrialIndex,
-      setIndex: setIndustrialIndex
     },
     {
       id: 3,
-      title: translatedProduct3,
+      title: "Commercial Membranes",
       images: [
         "/assets/images/MembraneTube3.png",
-        "/assets/images/MembraneTube2.png", // Add your additional images
+        "/assets/images/MembraneTube2.png",
         "/assets/images/MembraneTube1.png",
       ],
-      alt: "Commercial Membrane",
-      currentIndex: commercialIndex,
-      setIndex: setCommercialIndex
     }
   ];
 
-  const handlePrevImage = (product: typeof products[0]) => {
-    const newIndex = (product.currentIndex - 1 + product.images.length) % product.images.length;
-    product.setIndex(newIndex);
+  // Process CMS products or use fallback
+  const processedProducts = explore_products && explore_products.length > 0
+    ? explore_products.map(product => ({
+        id: product.id,
+        title: product.title,
+        images: product.images && product.images.length > 0
+          ? product.images.map((img: string) => 
+              img.startsWith('http') ? img : `http://65.0.77.32:8000${img}`
+            )
+          : ["/assets/images/MembraneTube1.png"], // Fallback if no images
+      }))
+    : fallbackProducts;
+
+  // Initialize image indices when products change
+  useEffect(() => {
+    const initialIndices: { [key: number]: number } = {};
+    processedProducts.forEach(product => {
+      initialIndices[product.id] = 0;
+    });
+    setImageIndices(initialIndices);
+  }, [explore_products]);
+
+  const handlePrevImage = (productId: number, imagesLength: number) => {
+    setImageIndices(prev => ({
+      ...prev,
+      [productId]: (prev[productId] - 1 + imagesLength) % imagesLength
+    }));
   };
 
-  const handleNextImage = (product: typeof products[0]) => {
-    const newIndex = (product.currentIndex + 1) % product.images.length;
-    product.setIndex(newIndex);
+  const handleNextImage = (productId: number, imagesLength: number) => {
+    setImageIndices(prev => ({
+      ...prev,
+      [productId]: (prev[productId] + 1) % imagesLength
+    }));
   };
 
   return (
@@ -88,65 +121,59 @@ const AboutExploreProducts: React.FC = () => {
 
         {/* Products Grid - 3 columns */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 lg:gap-12 xl:gap-16">
-          {products.map((product) => (
-            <div key={product.id} className="flex flex-col items-center text-center">
-              {/* Image with Ellipse Background and Carousel */}
-              <div className="relative w-full max-w-[280px] md:max-w-[300px] lg:max-w-[320px] aspect-square mb-6 md:mb-8 group">
-                {/* Rugby Ball Shaped Ellipse Background - Rotated */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-[45%] h-[80%] bg-[#E8F5E0] rounded-[50%] opacity-80 transform rotate-45"></div>
-                </div>
+          {processedProducts.map((product) => {
+            const { translatedText: translatedTitle } = useTranslateContent(product.title);
+            const currentIndex = imageIndices[product.id] || 0;
+            const hasMultipleImages = product.images && product.images.length > 1;
 
-                {/* Left Arrow */}
-                <button
-                  onClick={() => handlePrevImage(product)}
-                  className="absolute left-[-10px] md:left-[-15px] top-1/2 transform -translate-y-1/2 z-30 bg-white/90 hover:bg-white rounded-full p-1.5 md:p-2 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  aria-label="Previous image"
-                >
-                  <ChevronLeft className="w-4 h-4 md:w-5 md:h-5 text-[#3E4095]" />
-                </button>
+            return (
+              <div key={product.id} className="flex flex-col items-center text-center">
+                {/* Image with Ellipse Background and Carousel */}
+                <div className="relative w-full max-w-[280px] md:max-w-[300px] lg:max-w-[320px] aspect-square mb-6 md:mb-8 group">
+                  {/* Rugby Ball Shaped Ellipse Background - Rotated */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-[45%] h-[80%] bg-[#E8F5E0] rounded-[50%] opacity-80 transform rotate-45"></div>
+                  </div>
 
-                {/* Product Image */}
-                <div className="relative z-10 w-full h-full flex items-center justify-center">
-                  <img
-                    src={product.images[product.currentIndex]}
-                    alt={`${product.alt} - Image ${product.currentIndex + 1}`}
-                    className="w-auto h-[85%] object-contain transform rotate-35 transition-opacity duration-300"
-                  />
-                </div>
-
-                {/* Right Arrow */}
-                <button
-                  onClick={() => handleNextImage(product)}
-                  className="absolute right-[-10px] md:right-[-15px] top-1/2 transform -translate-y-1/2 z-30 bg-white/90 hover:bg-white rounded-full p-1.5 md:p-2 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  aria-label="Next image"
-                >
-                  <ChevronRight className="w-4 h-4 md:w-5 md:h-5 text-[#3E4095]" />
-                </button>
-
-                {/* Image Indicator Dots */}
-                {/* <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex gap-1.5 md:gap-2 z-30">
-                  {product.images.map((_, idx) => (
+                  {/* Left Arrow - only show if multiple images */}
+                  {hasMultipleImages && (
                     <button
-                      key={idx}
-                      onClick={() => product.setIndex(idx)}
-                      className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-full transition-all duration-300 ${
-                        idx === product.currentIndex 
-                          ? 'bg-[#3E4095] w-4 md:w-6' 
-                          : 'bg-gray-300 hover:bg-gray-400'
-                      }`}
-                      aria-label={`Go to image ${idx + 1}`}
-                    />
-                  ))}
-                </div> */}
-              </div>
+                      onClick={() => handlePrevImage(product.id, product.images.length)}
+                      className="absolute left-[-10px] md:left-[-15px] top-1/2 transform -translate-y-1/2 z-30 bg-white/90 hover:bg-white rounded-full p-1.5 md:p-2 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      aria-label="Previous image"
+                    >
+                      <ChevronLeft className="w-4 h-4 md:w-5 md:h-5 text-[#3E4095]" />
+                    </button>
+                  )}
 
-              {/* Product Title */}
-              <h3 className="text-xl md:text-2xl lg:text-3xl font-semibold text-[#323232]">
-                {product.title}
-              </h3>
-            </div>
-          ))}
+                  {/* Product Image */}
+                  <div className="relative z-10 w-full h-full flex items-center justify-center">
+                    <img
+                      src={product.images[currentIndex]}
+                      alt={`${product.title} - Image ${currentIndex + 1}`}
+                      className="w-auto h-[85%] object-contain transform rotate-35 transition-opacity duration-300"
+                    />
+                  </div>
+
+                  {/* Right Arrow - only show if multiple images */}
+                  {hasMultipleImages && (
+                    <button
+                      onClick={() => handleNextImage(product.id, product.images.length)}
+                      className="absolute right-[-10px] md:right-[-15px] top-1/2 transform -translate-y-1/2 z-30 bg-white/90 hover:bg-white rounded-full p-1.5 md:p-2 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      aria-label="Next image"
+                    >
+                      <ChevronRight className="w-4 h-4 md:w-5 md:h-5 text-[#3E4095]" />
+                    </button>
+                  )}
+                </div>
+
+                {/* Product Title */}
+                <h3 className="text-xl md:text-2xl lg:text-3xl font-semibold text-[#323232]">
+                  {translatedTitle}
+                </h3>
+              </div>
+            );
+          })}
 
           {/* Explore Button */}
           <button className="col-span-1 md:col-span-3 justify-self-center bg-[#A8CF45] hover:bg-[#98C135] text-indigo-900 font-bold text-lg px-8 py-3 sm:px-10 sm:py-4 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">

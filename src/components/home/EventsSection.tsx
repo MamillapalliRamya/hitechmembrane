@@ -15,8 +15,15 @@ interface EventsSectiondata {
   products?: {
     id: number;
     name: string;
-    image: string | null;
+    images: string[];
     features: string[];
+    order: number;
+  }[];
+  applications?: {
+    id: number;
+    title: string;
+    description: string;
+    icon?: string;
   }[];
 }
 
@@ -26,8 +33,9 @@ const TranslatedText = ({ text }: { text: string }) => {
   return <>{translatedText}</>;
 };
 
-const EventsSection = ({ homepage, products = [] }: EventsSectiondata) => {
+const EventsSection = ({ homepage, products = [], applications = [] }: EventsSectiondata) => {
   const [productsData, setProductsData] = useState<any[]>([]);
+  const [applicationsData, setApplicationsData] = useState<any[]>([]);
   // Separate state for each product's image carousel
   const [imageIndices, setImageIndices] = useState<{ [key: number]: number }>({});
 
@@ -92,30 +100,87 @@ const EventsSection = ({ homepage, products = [] }: EventsSectiondata) => {
     },
   ];
 
+  // Fallback applications
+  const ICON_PROPS = { size: 32, color: '#9EE872', strokeWidth: 2 };
+  const fallbackApplications = [
+    {
+      id: 1,
+      icon: <Droplets {...ICON_PROPS} />,
+      title: "Residential Water Treatment",
+      description: "Reliable RO membranes for drinking water production and large-scale municipal systems."
+    },
+    {
+      id: 2,
+      icon: <Factory {...ICON_PROPS} />,
+      title: "Industrial Process Water",
+      description: "High-performance RO membranes for manufacturing, power plants, and industrial operations."
+    },
+    {
+      id: 3,
+      icon: <Recycle {...ICON_PROPS} />,
+      title: "Wastewater Reuse & Recycling",
+      description: "Advanced membrane solutions enabling safe water reuse and sustainable resource management."
+    },
+    {
+      id: 4,
+      icon: <Waves {...ICON_PROPS} />,
+      title: "Seawater Desalination",
+      description: "RO membranes engineered for high-pressure seawater desalination applications."
+    },
+    {
+      id: 5,
+      icon: <Coffee {...ICON_PROPS} />,
+      title: "Food & Beverage Processing",
+      description: "Consistent water quality solutions meeting hygiene and production standards."
+    },
+    {
+      id: 6,
+      icon: <Building2 {...ICON_PROPS} />,
+      title: "Commercial & Infrastructure",
+      description: "RO membranes for hotels, hospitals, commercial buildings, and infrastructure projects."
+    }
+  ];
+
   // Set products data once
   useEffect(() => {
+    console.log("CMS Products received:", products);
+    
     let mappedProducts;
     
     if (products && products.length > 0) {
-      // Map CMS products - convert single image to array
+      // Map CMS products with multiple images
       mappedProducts = products.map((p) => {
-        const imageUrl = p.image
-          ? p.image.startsWith("http")
-            ? p.image
-            : `http://65.0.77.32:8000${p.image}`
-          : "/assets/images/MembraneTube3.png";
+        console.log("Processing product:", p);
+        
+        // Handle multiple images from CMS
+        const productImages = p.images && p.images.length > 0
+          ? p.images.map((img: string) => 
+              img.startsWith("http") ? img : `http://65.0.77.32:8000${img}`
+            )
+          : ["/assets/images/MembraneTube3.png"]; // Fallback if no images
+        
+        console.log("Product images:", productImages);
+        
+        // Handle features - ensure it's always an array
+        const productFeatures = Array.isArray(p.features) 
+          ? p.features.filter(f => f && f.trim()) // Remove empty/null features
+          : [];
+        
+        console.log("Product features:", productFeatures);
         
         return {
           id: p.id,
-          name: p.name,
-          images: [imageUrl], // Convert single image to array
-          features: p.features || [],
+          name: p.name || "Product",
+          images: productImages,
+          features: productFeatures,
         };
       });
     } else {
+      console.log("No CMS products, using fallback");
       mappedProducts = fallbackProducts;
     }
     
+    console.log("Final mapped products:", mappedProducts);
     setProductsData(mappedProducts);
     
     // Initialize image indices for all products
@@ -124,7 +189,37 @@ const EventsSection = ({ homepage, products = [] }: EventsSectiondata) => {
       initialIndices[product.id] = 0;
     });
     setImageIndices(initialIndices);
-  }, [products.length]);
+  }, [products]);
+
+  // Set applications data
+  useEffect(() => {
+    let mappedApplications;
+    
+    if (applications && applications.length > 0) {
+      // Map CMS applications
+      mappedApplications = applications.map((app) => {
+        // If CMS provides an icon URL, use it; otherwise use fallback icon component
+        const fallbackIcon = fallbackApplications.find((_, idx) => idx === (app.id - 1) % 6)?.icon || <Droplets {...ICON_PROPS} />;
+        
+        return {
+          id: app.id,
+          icon: app.icon ? (
+            <img 
+              src={app.icon.startsWith("http") ? app.icon : `http://65.0.77.32:8000${app.icon}`} 
+              alt={app.title}
+              className="w-8 h-8"
+            />
+          ) : fallbackIcon,
+          title: app.title,
+          description: app.description,
+        };
+      });
+    } else {
+      mappedApplications = fallbackApplications;
+    }
+    
+    setApplicationsData(mappedApplications);
+  }, [applications]);
 
   // Handle previous image
   const handlePrevImage = (productId: number, imagesLength: number) => {
@@ -141,41 +236,6 @@ const EventsSection = ({ homepage, products = [] }: EventsSectiondata) => {
       [productId]: (prev[productId] + 1) % imagesLength
     }));
   };
-
-  /* ---------------- APPLICATIONS DATA ---------------- */
-  const ICON_PROPS = { size: 32, color: '#9EE872', strokeWidth: 2 };
-  const applications = [
-    {
-      icon: <Droplets {...ICON_PROPS} />,
-      title: "Residential Water Treatment",
-      description: "Reliable RO membranes for drinking water production and large-scale municipal systems."
-    },
-    {
-      icon: <Factory {...ICON_PROPS} />,
-      title: "Industrial Process Water",
-      description: "High-performance RO membranes for manufacturing, power plants, and industrial operations."
-    },
-    {
-      icon: <Recycle {...ICON_PROPS} />,
-      title: "Wastewater Reuse & Recycling",
-      description: "Advanced membrane solutions enabling safe water reuse and sustainable resource management."
-    },
-    {
-      icon: <Waves {...ICON_PROPS} />,
-      title: "Seawater Desalination",
-      description: "RO membranes engineered for high-pressure seawater desalination applications."
-    },
-    {
-      icon: <Coffee {...ICON_PROPS} />,
-      title: "Food & Beverage Processing",
-      description: "Consistent water quality solutions meeting hygiene and production standards."
-    },
-    {
-      icon: <Building2 {...ICON_PROPS} />,
-      title: "Commercial & Infrastructure",
-      description: "RO membranes for hotels, hospitals, commercial buildings, and infrastructure projects."
-    }
-  ];
 
   return (
     <section className="bg-white w-full overflow-hidden">
@@ -261,11 +321,15 @@ const EventsSection = ({ homepage, products = [] }: EventsSectiondata) => {
                   </h3>
 
                   <div className="flex flex-col gap-3 w-full max-w-[320px]">
-                    {product.features.map((feature: string, idx: number) => (
-                      <div key={idx} className="bg-[#F6F6F6] font-semibold rounded-lg px-4 py-3 text-center text-sm sm:text-base xl:text-[18px] 2xl:text-[21px] text-[#58585B] shadow-[1px_4px_4px_0px_#00000026]">
-                        <TranslatedText text={feature} />
-                      </div>
-                    ))}
+                    {product.features.map((feature: string, idx: number) => {
+                      // Clean up feature text - remove trailing commas and extra spaces
+                      const cleanedFeature = feature.trim().replace(/,\s*$/, '');
+                      return (
+                        <div key={idx} className="bg-[#F6F6F6] font-semibold rounded-lg px-4 py-3 text-center text-sm sm:text-base xl:text-[18px] 2xl:text-[21px] text-[#58585B] shadow-[1px_4px_4px_0px_#00000026]">
+                          <TranslatedText text={cleanedFeature} />
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               );
@@ -301,8 +365,8 @@ const EventsSection = ({ homepage, products = [] }: EventsSectiondata) => {
           </div>
 
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {applications.map((app, index) => (
-              <div key={index} className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-8">
+            {applicationsData.map((app, index) => (
+              <div key={app.id || index} className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-8">
                 <div className="absolute inset-0" />
                 <div className="relative">
                   <div className="mb-4 xl:mb-6 flex h-16 w-16 items-center justify-center rounded-xl bg-[#3d4a9d]">
