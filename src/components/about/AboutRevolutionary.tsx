@@ -1,12 +1,26 @@
 import React from 'react';
 import { useTranslateContent } from '../../hooks/useTranslateContent';
 
-const AboutRevolutionary: React.FC = () => {
-  // Text content
-  const mainHeadingText = "Revolutionary Start to Worldwide Impact";
-  const subHeadingText = "From Engineering Roots to Global Impact";
-  const paragraph1Text = "Hi-Tech Membranes was established with a clear objective—to develop dependable reverse osmosis membrane technology that addresses real-world water challenges.";
-  const paragraph2Text = "From our manufacturing base in Asia, we have grown into a global supplier, supporting OEM partners, system integrators, and water treatment professionals across multiple regions. Our focus remains on process consistency, product reliability, and long-term partnerships.";
+interface AboutRevolutionaryProps {
+  revolutionary?: {
+    id: number;
+    about_page_id: number;
+    main_heading: string;
+    sub_heading: string;
+    paragraph_1: string;
+    paragraph_2: string;
+  }[];
+}
+
+const AboutRevolutionary: React.FC<AboutRevolutionaryProps> = ({ revolutionary }) => {
+  // Get CMS data or use fallback
+  const revData = revolutionary && revolutionary.length > 0 ? revolutionary[0] : null;
+
+  // Text content from CMS or fallback
+  const mainHeadingText = revData?.main_heading || "Revolutionary Start to Worldwide Impact";
+  const subHeadingText = revData?.sub_heading || "From Engineering Roots to Global Impact";
+  const paragraph1Text = revData?.paragraph_1 || "Hi-Tech Membranes was established with a clear objective—to develop dependable reverse osmosis membrane technology that addresses real-world water challenges.";
+  const paragraph2Text = revData?.paragraph_2 || "From our manufacturing base in Asia, we have grown into a global supplier, supporting OEM partners, system integrators, and water treatment professionals across multiple regions. Our focus remains on process consistency, product reliability, and long-term partnerships.";
 
   // Translation hooks
   const { translatedText: translatedMainHeading } = useTranslateContent(mainHeadingText);

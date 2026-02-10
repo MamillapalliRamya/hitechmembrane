@@ -1,10 +1,23 @@
 import React, { useEffect, useState } from 'react';
 
-const FIRST_BATCH = [ 3, 11, 5, 6, 7];   
-const SECOND_BATCH = [1, 2, 4, 9, 10, 12, 13, 14];
+const FIRST_BATCH = [ 3, 11, 5, 6, 7,];   
+const SECOND_BATCH = [1, 2, 4,8, 9, 10, 12, 13, 14];
 
-const AboutHeroSection: React.FC = () => {
+interface AboutHeroSectionProps {
+  about_hero?: {
+    id: number;
+    about_page_id: number;
+    logo: string;
+  }[];
+  about_hero_images?: {
+    id: number;
+    hero_id: number;
+    image: string;
+    alt: string | null;
+  }[];
+}
 
+const AboutHeroSection: React.FC<AboutHeroSectionProps> = ({ about_hero, about_hero_images }) => {
   const [showLogo, setShowLogo] = useState(false);
   const [visibleImages, setVisibleImages] = useState<number[]>([]);
 
@@ -28,21 +41,44 @@ const AboutHeroSection: React.FC = () => {
     };
   }, []);
 
+  // Get logo from CMS or use fallback
+  const logoUrl = about_hero && about_hero.length > 0 && about_hero[0].logo
+    ? (about_hero[0].logo.startsWith('http') ? about_hero[0].logo : `http://65.0.77.32:8000${about_hero[0].logo}`)
+    : '/assets/images/about/AboutLogo.svg';
+
+  // Map CMS images to numbered positions or use fallback
+  const getImageUrl = (imageNumber: number): string => {
+    // If we have CMS images, try to map them
+    if (about_hero_images && about_hero_images.length > 0) {
+      // Use modulo to cycle through available CMS images
+      const index = (imageNumber - 1) % about_hero_images.length;
+      const cmsImage = about_hero_images[index];
+      if (cmsImage && cmsImage.image) {
+        return cmsImage.image.startsWith('http') 
+          ? cmsImage.image 
+          : `http://65.0.77.32:8000${cmsImage.image}`;
+      }
+    }
+    // Fallback to default images
+    return `/assets/images/about/AboutHero_${imageNumber}.svg`;
+  };
+
   const images = {
-    1: '/assets/images/about/AboutHero_1.svg',
-    2: '/assets/images/about/AboutHero_2.svg',
-    3: '/assets/images/about/AboutHero_3.svg',
-    4: '/assets/images/about/AboutHero_4.svg',
-    5: '/assets/images/about/AboutHero_5.svg',
-    6: '/assets/images/about/AboutHero_6.svg',
-    7: '/assets/images/about/AboutHero_7.svg',
-    9: '/assets/images/about/AboutHero_9.svg',
-    10: '/assets/images/about/AboutHero_10.svg',
-    11: '/assets/images/about/AboutHero_11.svg',
-    12: '/assets/images/about/AboutHero_12.svg',
-    13: '/assets/images/about/AboutHero_13.svg',
-    14: '/assets/images/about/AboutHero_14.svg',
-    logo: '/assets/images/about/AboutLogo.svg',
+    1: getImageUrl(1),
+    2: getImageUrl(2),
+    3: getImageUrl(3),
+    4: getImageUrl(4),
+    5: getImageUrl(5),
+    6: getImageUrl(6),
+    7: getImageUrl(7),
+    8: getImageUrl(8),
+    9: getImageUrl(9),
+    10: getImageUrl(10),
+    11: getImageUrl(11),
+    12: getImageUrl(12),
+    13: getImageUrl(13),
+    14: getImageUrl(14),
+    logo: logoUrl,
   };
 
   return (
@@ -94,7 +130,7 @@ const AboutHeroSection: React.FC = () => {
                 { id: 5, left: '27.5%', top: '44%', width: '14%', height: '20%' },
                 { id: 6, left: '26.5%', top: '68%', width: '14%', height: '14%' },
                 { id: 7, left: '40.5%', top: '10%', width: '15.5%', height: '14%' },
-                { id: 9, left: '42.5%', top: '58%', width: '11.5%', height: '20%' },
+                { id: 8, left: '42.5%', top: '58%', width: '11.5%', height: '20%' },
                 { id: 9, left: '56.5%', top: '10%', width: '15.5%', height: '30%' },
                 { id: 10, left: '54.5%', top: '44%', width: '14%', height: '20%' },
                 { id: 11, left: '54.5%', top: '68%', width: '14%', height: '14%' },

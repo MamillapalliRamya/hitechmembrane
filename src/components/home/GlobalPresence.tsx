@@ -35,6 +35,27 @@ interface GlobalPresenceSectionProps {
   cards?: Card[];
 }
 
+const TranslatedCard: React.FC<{ card: Card }> = ({ card }) => {
+  const { translatedText: translatedLabel } = useTranslateContent(card.label);
+  const { translatedText: translatedCountry } = useTranslateContent(card.country || "");
+
+  return (
+    <div className="bg-[#F8F8F8] rounded-[20px] flex flex-col items-center justify-center text-center px-2 py-5">
+      <div className="text-5xl font-bold text-[#B8D332] mb-2 ">
+        {card.value}
+      </div>
+      <div className="text-[#3D3B8E] font-bold text-xl mb-2">
+        {translatedLabel}
+      </div>
+      {card.country && (
+        <div className="text-gray-600">
+          {translatedCountry}
+        </div>
+      )}
+    </div>
+  );
+};
+
 // Component to handle individual review translation
 const TranslatedReview: React.FC<{ review: Review; index: number }> = ({ review, index }) => {
   const { translatedText: translatedReviewText } = useTranslateContent(review.text);
@@ -146,12 +167,7 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
   const { translatedText: translatedReviewsHeading } = useTranslateContent(reviewsHeadingText);
   const { translatedText: translatedDescription } = useTranslateContent(descriptionText);
 
-  // Translate cards if they exist
-  const translatedCards = cardsToDisplay.map(card => ({
-    value: card.value,
-    label: useTranslateContent(card.label).translatedText,
-    country: card.country ? useTranslateContent(card.country).translatedText : undefined
-  }));
+  
 
   const locations: Location[] = [
     {
@@ -854,24 +870,13 @@ const GlobalPresenceSection: React.FC<GlobalPresenceSectionProps> = ({
         )}
 
         {shouldShowCards && cardsToDisplay.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mx-[20px] sm:mx-[100px] md:mx-[150px] lg:mx-[100px] xl:mx-[200px] ">
-            {translatedCards.map((card, index) => (
-              <div key={index} className="bg-[#F8F8F8] rounded-[20px] flex flex-col items-center justify-center text-center px-2 py-5">
-                <div className="text-5xl font-bold text-[#B8D332] mb-2 ">
-                  {card.value}
-                </div>
-                <div className="text-[#3D3B8E] font-bold text-xl mb-2">
-                  {card.label}
-                </div>
-                {card.country && (
-                  <div className="text-gray-600">
-                    {card.country}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mx-[20px] sm:mx-[100px] md:mx-[150px] lg:mx-[100px] xl:mx-[200px] ">
+    {cardsToDisplay.map((card, index) => (
+      <TranslatedCard key={index} card={card} />
+    ))}
+  </div>
+)}
+
       </div>
     </section>
   );

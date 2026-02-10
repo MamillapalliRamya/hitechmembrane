@@ -46,20 +46,15 @@ export interface HomePageData {
   products: Array<{
     id: number;
     name: string;
-    image: string | null;
+    features: string[];
+    images: string[];
     order: number;
-  }>;
-
-  product_features: Array<{
-    id: number;
-    text: string;
   }>;
 
   events: Array<{
     id: number;
     title: string;
-    image: string | null;
-    years: string;
+    years: number | null;
   }>;
 
   why_choose_us: Array<{
@@ -79,16 +74,196 @@ export interface HomePageData {
   awards: Array<{
     id: number;
     image: string | null;
-    alt: string;
   }>;
 
   certificates: Array<{
     id: number;
     image: string | null;
-    alt: string;
   }>;
 }
 
+export interface AboutPageData {
+  about_page: Array<{
+    id: number;
+    bottom_quote: string;
+    updated_at: string;
+  }>;
+
+  about_hero: Array<{
+    id: number;
+    about_page_id: number;
+    logo: string;
+  }>;
+
+  about_hero_images: Array<{
+    id: number;
+    hero_id: number;
+    image: string;
+    alt: string | null;
+  }>;
+
+  our_story: Array<{
+    id: number;
+    about_page_id: number;
+    heading: string;
+    sub_heading: string;
+    logo: string;
+    paragraph_1: string;
+    paragraph_2: string;
+  }>;
+
+  revolutionary: Array<{
+    id: number;
+    about_page_id: number;
+    main_heading: string;
+    sub_heading: string;
+    paragraph_1: string;
+    paragraph_2: string;
+  }>;
+
+  water_powers: Array<{
+    id: number;
+    about_page_id: number;
+    main_heading: string;
+    paragraph_1: string;
+    paragraph_2: string;
+    impact_heading: string;
+    bottom_quote: string;
+  }>;
+
+  water_impact_cards: Array<{
+    id: number;
+    water_power_id: number;
+    value: string;
+    label: string;
+    description: string;
+  }>;
+
+  awards_section: Array<{
+    id: number;
+    about_page_id: number;
+    heading: string;
+  }>;
+
+  awards: Array<{
+    id: number;
+    awards_id: number;
+    image: string;
+    alt_text: string | null;
+  }>;
+
+  certifications_section: Array<{
+    id: number;
+    about_page_id: number;
+    heading: string;
+  }>;
+
+  certificates: Array<{
+    id: number;
+    certifications_id: number;
+    image: string;
+    tag: string;
+  }>;
+
+  explore_products_section: Array<{
+    id: number;
+    about_page_id: number;
+    heading: string;
+    description: string;
+    button_text: string;
+  }>;
+
+  explore_products: Array<{
+    id: number;
+    explore_section_id: number;
+    title: string;
+    images: string[];
+  }>;
+
+  our_clients: Array<{
+    id: number;
+    about_page_id: number;
+    heading: string;
+    sub_heading: string;
+    description: string;
+  }>;
+
+  client_logos: Array<{
+    id: number;
+    clients_id: number;
+    row_number: number;
+    image: string;
+    alt_text: string | null;
+  }>;
+}
+
+export interface InnovationPageData {
+  hero: {
+    title: string;
+    description: string;
+    button_text: string;
+    background_image: string;
+  };
+
+  stats: {
+    background_image: string;
+    quote_text: string;
+    quote_author: string;
+    items: Array<{
+      value: string;
+      label: string;
+    }>;
+  };
+
+  pillars: {
+    heading: string;
+    subtext: string;
+    items: Array<{
+      icon: string;
+      title: string;
+      description: string;
+      metric: string;
+      metric_label: string;
+    }>;
+  };
+
+  timeline: {
+    heading: string;
+    subtext: string;
+    events: Array<{
+      year: string;
+      title: string;
+      description: string;
+    }>;
+  };
+
+  team: {
+    heading: string;
+    subtext: string;
+    background_image: string;
+    stats: Array<{
+      value: string;
+      label: string;
+    }>;
+  };
+
+  portfolio: {
+    heading: string;
+    subtext: string;
+    learn_more_text: string;
+    items: Array<{
+      title: string;
+      description: string;
+      image: string;
+    }>;
+  };
+
+  globalPresence: Array<{
+    value: string;
+    label: string;
+    country: string;
+  }>;
+}
 
 class APIService {
   private baseURL: string;
@@ -113,13 +288,53 @@ class APIService {
     }
   }
 
-  // Add more API methods as needed
-  async getAboutPageData() {
-    // Future implementation
+  async getAboutPageData(): Promise<AboutPageData> {
+    try {
+      const response = await fetch(`${this.baseURL}/api/about-page/`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error fetching about page data:', error);
+      throw error;
+    }
   }
 
   async getProductsData() {
     // Future implementation
+    try {
+      const response = await fetch(`${this.baseURL}/api/products/`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error fetching products data:', error);
+      throw error;
+    }
+  }
+
+  async getInnovationPageData(): Promise<InnovationPageData> {
+    try {
+      const response = await fetch(`${this.baseURL}/api/innovation-page/`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error fetching innovation page data:', error);
+      throw error;
+    }
   }
 }
 

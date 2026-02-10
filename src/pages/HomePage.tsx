@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-
 import WaterDropSection from "../components/home/WaterDropsSection";
 import HeroSection from "../components/home/HeroSection";
 import AboutUsSection from "../components/home/BrandSection";
@@ -13,7 +12,7 @@ import GlobalPresenceSection from "../components/home/GlobalPresence";
 const HomePage: React.FC = () => {
   useEffect(() => {
     const handleBeforeUnload = () => {
-      sessionStorage.removeItem("introPlayed"); // clear ONLY on real refresh/close
+      sessionStorage.removeItem("introPlayed"); 
     };
 
     window.addEventListener("beforeunload", handleBeforeUnload);
@@ -33,7 +32,6 @@ const HomePage: React.FC = () => {
         const data = await res.json();
         console.log("Homepage CMS:", data);
 
-        // Store the entire response, not just data.homepage
         setHomepageData(data);
       } catch (error) {
         console.error("CMS Error:", error);
@@ -58,8 +56,15 @@ const HomePage: React.FC = () => {
 
   const sections = [
     <HeroSection />,
-    <AboutUsSection />,
-    <EventsSection homepage={homepageData?.homepage} />,
+    <AboutUsSection 
+      cmsData={homepageData} 
+      about_us_images={homepageData?.about_us_images} 
+    />,
+    <EventsSection 
+      homepage={homepageData?.homepage} 
+      products={homepageData?.products} 
+      applications={homepageData?.applications} 
+    />,
     <WhyChooseUs homepage={homepageData?.homepage} why_choose_us={homepageData?.why_choose_us} />,
     <Applications />,
     <AwardsSection 

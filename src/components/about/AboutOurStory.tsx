@@ -1,12 +1,31 @@
 import React from "react";
 import { useTranslateContent } from '../../hooks/useTranslateContent';
 
-const AboutOurStory: React.FC = () => {
-  // Text content
-  const headingText = "Access to clean water is a human right, and technology can make it possible for everyone.";
-  const subHeadingText = "Advancing water purification through membrane technology.";
-  const paragraph1Text = "Hi-Tech Membranes is a dedicated reverse osmosis membrane manufacturer focused on delivering reliable water purification solutions for diverse applications worldwide.";
-  const paragraph2Text = "With decades of experience in membrane manufacturing, we support customers across residential, commercial, industrial, and desalination sectors through consistent performance, controlled processes, and application-driven design.";
+interface AboutOurStoryProps {
+  our_story?: {
+    id: number;
+    about_page_id: number;
+    heading: string;
+    sub_heading: string;
+    logo: string;
+    paragraph_1: string;
+    paragraph_2: string;
+  }[];
+}
+
+const AboutOurStory: React.FC<AboutOurStoryProps> = ({ our_story }) => {
+  // Get CMS data or use fallback
+  const storyData = our_story && our_story.length > 0 ? our_story[0] : null;
+
+  // Text content from CMS or fallback
+  const headingText = storyData?.heading || "Access to clean water is a human right, and technology can make it possible for everyone.";
+  const subHeadingText = storyData?.sub_heading || "Advancing water purification through membrane technology.";
+  const paragraph1Text = storyData?.paragraph_1 || "Hi-Tech Membranes is a dedicated reverse osmosis membrane manufacturer focused on delivering reliable water purification solutions for diverse applications worldwide.";
+  const paragraph2Text = storyData?.paragraph_2 || "With decades of experience in membrane manufacturing, we support customers across residential, commercial, industrial, and desalination sectors through consistent performance, controlled processes, and application-driven design.";
+  
+  const logoUrl = storyData?.logo 
+    ? (storyData.logo.startsWith('http') ? storyData.logo : `http://65.0.77.32:8000${storyData.logo}`)
+    : '/assets/images/about/AboutLogo.svg';
 
   // Translation hooks
   const { translatedText: translatedHeading } = useTranslateContent(headingText);
@@ -61,7 +80,7 @@ const AboutOurStory: React.FC = () => {
           {/* Logo */}
           <div className="mt-10 mb-6 w-[200px] md:w-[240px]">
             <img
-              src="/assets/images/about/AboutLogo.svg"
+              src={logoUrl}
               alt="Hi-Tech Logo"
               className="w-full object-contain"
             />

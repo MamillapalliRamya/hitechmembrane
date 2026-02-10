@@ -60,21 +60,51 @@ const AwardsSection: React.FC<Props> = ({ homepage, awards, certificates }) => {
   ];
   // ============================
 
-  // ======= FINAL DATA (CMS OR FALLBACK) =======
-  const finalAwards = (awards && awards.length > 0) ? awards : fallbackAwards;
-  const finalCertificates = (certificates && certificates.length > 0) ? certificates : fallbackCertificates;
+  // ======= VALIDATE CMS DATA =======
+  // Filter out invalid awards/certificates (those with null/empty images AND alt)
+  const validAwards = awards?.filter(
+    (award) => award.image && award.image.trim() !== ""
+  ) || [];
 
-  // Function to get correct image URL
+  const validCertificates = certificates?.filter(
+    (cert) => cert.image && cert.image.trim() !== ""
+  ) || [];
+  // =================================
+
+  // ======= FINAL DATA (CMS OR FALLBACK) =======
+  // Show fallback if NO valid CMS data exists
+  const finalAwards = validAwards.length > 0 ? validAwards : fallbackAwards;
+  const finalCertificates = validCertificates.length > 0 ? validCertificates : fallbackCertificates;
+  // ============================================
+
+  // ======= IMAGE URL HANDLER =======
   const getImageUrl = (img: string | null, type: "award" | "certificate") => {
-    if (!img) {
+    if (!img || img.trim() === "") {
+      // Use first fallback image if CMS image is missing
       return type === "award"
-        ? "/assets/images/placeholder-award.png"
-        : "/assets/images/placeholder-certificate.png";
+        ? fallbackAwards[0].image!
+        : fallbackCertificates[0].image!;
     }
-    if (img.startsWith("http")) return img;
-    if (img.startsWith("/")) return img; // public folder assets
-    return `${BASE_URL}${img}`; // CMS backend images
+
+    // If it's already an absolute URL (http/https)
+    if (img.startsWith("http://") || img.startsWith("https://")) {
+      return img;
+    }
+
+    // If it starts with /media (CMS uploaded image)
+    if (img.startsWith("/media/")) {
+      return `${BASE_URL}${img}`;
+    }
+
+    // If it starts with / (public folder asset)
+    if (img.startsWith("/")) {
+      return img;
+    }
+
+    // Otherwise, assume it's a CMS path and prepend BASE_URL
+    return `${BASE_URL}${img}`;
   };
+  // ========================================
 
   return (
     <section id="awards-section" className="py-16 bg-white overflow-hidden relative">

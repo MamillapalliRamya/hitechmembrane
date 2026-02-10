@@ -317,7 +317,7 @@ const HeroSection: React.FC = () => {
         rounded-lg font-medium
         text-sm sm:text-base lg:text-lg 2xl:text-[20px] 3xl:text-[22px]
         px-6 py-3 sm:px-8 sm:py-4
-        w-max ml-[40px] lg:mx-0
+        w-max lg:ml-[40px] xl:mx-0
         shadow-lg cursor-pointer
         transform
         transition-all duration-300 ease-in-out
