@@ -37,15 +37,18 @@ const ProductPage: React.FC = () => {
   const [cmsData, setCmsData] = React.useState<CMSResponse | null>(null);
 
   /* -------------------------- DOWNLOAD FUNCTION -------------------------- */
-  const handleProductDownload = (productModel: string) => {
+  const handleProductDownload = (productModel: string, dataSheet?: string | null) => {
     const link = document.createElement('a');
-    link.href = '/assets/pdf/sample.pdf';
+    // Use CMS data_sheet URL if available, otherwise fall back to sample PDF
+    link.href = dataSheet
+      ? (dataSheet.startsWith('http') ? dataSheet : `${BACKEND_URL}${dataSheet}`)
+      : '/assets/pdf/sample.pdf';
     link.download = `${productModel}-DataSheet.pdf`;
     link.click();
   };
 
-  /* -------------------------- PRODUCT TABLE ROWS -------------------------- */
-  const residentialRows = [
+  /* -------------------------- STATIC FALLBACK TABLE ROWS -------------------------- */
+  const residentialRERows = [
     { model: 'RE 1812-50', measurement: '12 (1.8)', activeArea: '97-98', flow: '50 (75)', rejection: '97-98', layer: '50' },
     { model: 'RE 1812-75', measurement: '12 (1.8)', activeArea: '97-98', flow: '75 (75)', rejection: '97-98', layer: '75' },
     { model: 'TFC 2012-80', measurement: '12 (2)', activeArea: '97-98', flow: '80 (75)', rejection: '97-98', layer: '80' },
@@ -66,8 +69,19 @@ const ProductPage: React.FC = () => {
     { model: 'RE 2012-100', measurement: '2', activeArea: '97-98', flow: '100', rejection: '97-98' },
   ];
 
-  const commercialRows = industrialRows;
-  const seaWaterRows = industrialRows;
+  const commercialRows = [
+    { model: 'RE 1812-50', measurement: '1.8', activeArea: '97-98', flow: '50', rejection: '97-98' },
+    { model: 'RE 1812-75', measurement: '1.8', activeArea: '97-98', flow: '75', rejection: '97-98' },
+    { model: 'TFC 2012-80', measurement: '2', activeArea: '97-98', flow: '80', rejection: '97-98' },
+    { model: 'RE 2012-100', measurement: '2', activeArea: '97-98', flow: '100', rejection: '97-98' },
+  ];
+
+  const seaWaterRows = [
+    { model: 'RE 1812-50', measurement: '1.8', activeArea: '97-98', flow: '50', rejection: '97-98' },
+    { model: 'RE 1812-75', measurement: '1.8', activeArea: '97-98', flow: '75', rejection: '97-98' },
+    { model: 'TFC 2012-80', measurement: '2', activeArea: '97-98', flow: '80', rejection: '97-98' },
+    { model: 'RE 2012-100', measurement: '2', activeArea: '97-98', flow: '100', rejection: '97-98' },
+  ];
 
   /* -------------------------- FETCH CMS DATA -------------------------- */
   React.useEffect(() => {
@@ -83,88 +97,98 @@ const ProductPage: React.FC = () => {
       });
   }, []);
 
-  // Get category data with proper fallbacks
-  const getCategory = (index: number) => {
-    const fallbacks = [
-      {
-        title: "Residential",
-        subtitle: "RO Membranes",
-        images: ["/assets/images/residential_image1.png", "/assets/images/residential_image2.jpg", "/assets/images/residential_image3.jpeg"],
-      },
-      {
-        title: "Industrial",
-        subtitle: "RO Membranes",
-        images: ["/assets/images/industrial_image1.jpg", "/assets/images/industrial_image2.jpg", "/assets/images/industrial_image3.jpg"],
-      },
-      {
-        title: "Commercial",
-        subtitle: "RO Membranes",
-        images: ["/assets/images/commercial_image1.jpg", "/assets/images/commercial_image2.jpg", "/assets/images/commercial_image3.jpg"],
-      },
-      {
-        title: "Sea Water",
-        subtitle: "RO Membranes",
-        images: ["/assets/images/Seawater_image1.png", "/assets/images/Seawater_image2.jpg", "/assets/images/Seawater_image3.png"],
-      }
-    ];
-
-    const cmsCategories = cmsData?.categories || [];
-    const cmsCat = cmsCategories[index];
-    const fallback = fallbacks[index];
-
-    // Get images for this category
-    const categoryImages = cmsData?.category_images?.filter((img: any) => img.category_id === cmsCat?.id) || [];
-    const images = categoryImages.length > 0
-  ? categoryImages.map((img: any) =>
-      img.image.startsWith("http")
-        ? img.image
-        : `${BACKEND_URL}${img.image}`
-    )
-  : fallback.images;
-
-
+  /* -------------------------- TABLE LABELS FROM CMS -------------------------- */
+  // Returns CMS table_labels with safe fallbacks for every field
+  const getTableLabels = () => {
+    const cms = cmsData?.table_labels;
     return {
-      title: cmsCat?.title || fallback.title,
-      subtitle: fallback.subtitle,
-      images: images,
+      models:        cms?.models_label        || "Models",
+      measurementReEs: cms?.measurement_re_es || "Measurement L (ID) inch",
+      measurementOther: cms?.measurement_other || "Measurement",
+      activeArea:    cms?.active_area          || "Active Area (FT/M)",
+      flow:          cms?.flow                 || "Permeate Flow GPD (M3D)",
+      rejection:     cms?.rejection            || "Salt Rejection (%)",
+      layer:         cms?.layer                || "Layer",
+      dataSheet:     cms?.data_sheet           || "Data Sheet",
+      downloadBtn:   cms?.download_btn         || "Download",
     };
   };
 
-  // Get section data with proper fallbacks
-  const getSection = (index: number) => {
-    const fallbacks = [
-      {
-        title: "Residential RO Membranes",
-        desc1: "Hi-Tech Residential RO membranes are designed to deliver safe, clean drinking water through efficient removal of dissolved salts, heavy metals, and contaminants.",
-        desc2: "Our RE and ES series membranes offer high rejection rates of 97-98%, ensuring optimal performance for household water purification systems.",
-      },
-      {
-        title: "Industrial RO Membranes",
-        desc1: "Hi-Tech Industrial RO membranes are designed for high-capacity water treatment systems operating under demanding conditions.",
-        desc2: "These membranes are used in industries such as power generation, pharmaceuticals, food & beverage, textiles, and manufacturing—where consistent water quality and operational reliability are critical.",
-      },
-      {
-        title: "Commercial RO Membranes",
-        desc1: "Hi-Tech Commercial RO membrane elements are engineered for continuous operation in commercial water treatment systems.",
-        desc2: "Suitable for hotels, restaurants, hospitals, office buildings, and packaged RO plants, these membranes provide reliable performance, reduced fouling tendencies, and consistent permeate quality.",
-      },
-      {
-        title: "Sea Water RO Membranes",
-        desc1: "Hi-Tech Seawater RO membranes are specifically engineered to treat high-salinity seawater and brackish sources.",
-        desc2: "Designed for desalination plants, coastal facilities, and offshore applications, these membranes deliver high rejection performance while maintaining operational efficiency under extreme conditions.",
-      },
-    ];
+  /* ---- find a category by title (case-insensitive) ---------------------- */
+  // The API's `key` field is unreliable (can be null, "", or an arbitrary string).
+  // Matching by title is the stable identifier across all known payloads.
+  const findCmsCat = (titleMatch: string) =>
+    (cmsData?.categories as any[] | undefined)?.find(
+      (c: any) => (c.title ?? '').toLowerCase().trim() === titleMatch.toLowerCase().trim()
+    ) ?? null;
 
-    const cmsSections = cmsData?.category_sections || [];
-    const cmsSection = cmsSections[index];
-    const fallback = fallbacks[index];
+  /* -------------------------- GET CATEGORY (by title) -------------------- */
+  const getCategory = (
+    titleMatch: string,
+    fallback: { title: string; subtitle: string; images: string[] }
+  ) => {
+    const cmsCat = findCmsCat(titleMatch);
+
+    // images live directly on the category object as a string[]
+    const cmsImages: string[] = cmsCat?.images ?? [];
+    const images = cmsImages.length > 0
+      ? cmsImages.map((img: string) =>
+          img.startsWith("http") ? img : `${BACKEND_URL}${img}`
+        )
+      : fallback.images;
 
     return {
-      title: cmsSection?.title || fallback.title,
+      title:    cmsCat?.title    || fallback.title,
+      subtitle: cmsCat?.subtitle || fallback.subtitle,
+      images,
+    };
+  };
+
+  /* -------------------------- GET SECTION (by title) --------------------- */
+  const getSection = (
+    titleMatch: string,
+    fallback: { title: string; desc1: string; desc2: string }
+  ) => {
+    const cmsSection = findCmsCat(titleMatch)?.section;
+    return {
+      title: cmsSection?.title  || fallback.title,
       desc1: cmsSection?.desc_1 || fallback.desc1,
       desc2: cmsSection?.desc_2 || fallback.desc2,
     };
   };
+
+  /* ---------- MAP CMS PRODUCTS to table row shape ------------------------ */
+  const mapProducts = (products: any[]) =>
+    products.map((p: any) => ({
+      model:       p.model       ?? '',
+      measurement: p.measurement ?? '',
+      activeArea:  p.active_area ?? '',
+      flow:        p.flow        ?? '',
+      rejection:   p.rejection   ?? '',
+      layer:       p.layer       ?? '',
+      dataSheet:   p.data_sheet  ?? null,
+    }));
+
+  /* ---------- GET ROWS FOR A TYPED SERIES (residential RE / ES) ---------- */
+  // Finds the category by title → finds the type by name (case-insensitive,
+  // since key is null/unreliable) → appends its products after staticRows.
+  const getTypeRows = (categoryTitle: string, typeName: string, staticRows: any[]) => {
+    const cmsCat  = findCmsCat(categoryTitle);
+    const cmsType = (cmsCat?.types as any[] | undefined)?.find(
+      (t: any) => (t.name ?? '').toLowerCase().trim() === typeName.toLowerCase().trim()
+    );
+    const cmsProducts: any[] = cmsType?.products ?? [];
+    return [...staticRows, ...mapProducts(cmsProducts)];
+  };
+
+  /* ---------- GET ROWS FOR FLAT CATEGORIES (industrial / commercial / seawater) */
+  const getCmsRows = (categoryTitle: string, staticRows: any[]) => {
+    const cmsCat     = findCmsCat(categoryTitle);
+    const cmsProducts: any[] = cmsCat?.products ?? [];
+    return [...staticRows, ...mapProducts(cmsProducts)];
+  };
+
+  const tableLabels = getTableLabels();
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -177,70 +201,109 @@ const ProductPage: React.FC = () => {
         <DownloadBrochure text={cmsData?.product_page?.download_brochure_text || "Download Hi-Tech RO Brochure"} />
 
         {/* Product Categories Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 lg:gap-8 mb-10">
-          {[0, 1, 2, 3].map((index) => {
-            const cat = getCategory(index);
-            return (
-              <div
-                key={index}
-                className="relative h-[230px] sm:h-[260px] lg:h-[300px] overflow-hidden rounded-xl shadow-lg group"
-              >
-                <div className="absolute inset-0">
-                  <SlidingImages images={cat.images} />
-                </div>
+        {(() => {
+          const catFallbacks = [
+            { key: "Residential", title: "Residential", subtitle: "RO Membranes", images: ["/assets/images/residential_image1.png", "/assets/images/residential_image2.jpg", "/assets/images/residential_image3.jpeg"] },
+            { key: "Industrial",  title: "Industrial",  subtitle: "RO Membranes", images: ["/assets/images/industrial_image1.jpg",  "/assets/images/industrial_image2.jpg",  "/assets/images/industrial_image3.jpg"]  },
+            { key: "Commercial",  title: "Commercial",  subtitle: "RO Membranes", images: ["/assets/images/commercial_image1.jpg",  "/assets/images/commercial_image2.jpg",  "/assets/images/commercial_image3.jpg"]  },
+            { key: "Sea Water",   title: "Sea Water",   subtitle: "RO Membranes", images: ["/assets/images/Seawater_image1.png",    "/assets/images/Seawater_image2.jpg",    "/assets/images/Seawater_image3.png"]    },
+          ];
+          return (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 lg:gap-8 mb-10">
+              {catFallbacks.map((fb) => {
+                const cat = getCategory(fb.key, fb);
+                return (
+                  <div
+                    key={fb.key}
+                    className="relative h-[230px] sm:h-[260px] lg:h-[300px] overflow-hidden rounded-xl shadow-lg group"
+                  >
+                    <div className="absolute inset-0">
+                      <SlidingImages images={cat.images} />
+                    </div>
 
-                <div
-                  className="absolute inset-0 bg-[#3E4095] transition-all duration-500 ease-in-out group-hover:w-full w-[140px] xl:w-[180px] 2xl:w-[260px]"
-                  style={{ transformOrigin: "left" }}
-                />
+                    <div
+                      className="absolute inset-0 bg-[#3E4095] transition-all duration-500 ease-in-out group-hover:w-full w-[140px] xl:w-[180px] 2xl:w-[260px]"
+                      style={{ transformOrigin: "left" }}
+                    />
 
-                <div className="absolute inset-0 z-20 flex flex-col justify-center pl-6">
-                  <CategoryText title={cat.title} subtitle={cat.subtitle} />
-                </div>
+                    <div className="absolute inset-0 z-20 flex flex-col justify-center pl-6">
+                      <CategoryText title={cat.title} subtitle={cat.subtitle} />
+                    </div>
 
-                <div className="absolute bottom-4 right-4 opacity-0 translate-x-[-40px] group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 hidden sm:block">
-                  <div className="flex items-center gap-2 text-[#A8CF45]">
-                    <span className="text-xl lg:text-2xl">Click for more</span>
-                    <ChevronDown className="w-6 h-6" />
+                    <div className="absolute bottom-4 right-4 opacity-0 translate-x-[-40px] group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 hidden sm:block">
+                      <div className="flex items-center gap-2 text-[#A8CF45]">
+                        <span className="text-xl lg:text-2xl">Click for more</span>
+                        <ChevronDown className="w-6 h-6" />
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+                );
+              })}
+            </div>
+          );
+        })()}
 
-        {/* Residential */}
-        <SectionContent 
-          title={getSection(0).title}
-          desc1={getSection(0).desc1}
-          desc2={getSection(0).desc2}
+        {/* ── Residential ─────────────────────────────────────────────────── */}
+        <SectionContent {...getSection("Residential", {
+          title: "Residential RO Membranes",
+          desc1: "Hi-Tech Residential RO membranes are designed to deliver safe, clean drinking water through efficient removal of dissolved salts, heavy metals, and contaminants.",
+          desc2: "Our RE and ES series membranes offer high rejection rates of 97-98%, ensuring optimal performance for household water purification systems.",
+        })} />
+        {/*
+          Matches type by name "RE Series" / "ES Series" (case-insensitive).
+          Static rows come first; CMS products from the matching type are appended.
+        */}
+        <ProductTable
+          title="RE Series"
+          rows={getTypeRows("Residential", "RE Series", residentialRERows)}
+          onDownload={handleProductDownload}
+          tableLabels={tableLabels}
         />
-        <ProductTable title="RE Series" rows={residentialRows} onDownload={handleProductDownload} />
-        <ProductTable title="ES Series" rows={residentialESRows} onDownload={handleProductDownload} />
+        <ProductTable
+          title="ES Series"
+          rows={getTypeRows("Residential", "ES Series", residentialESRows)}
+          onDownload={handleProductDownload}
+          tableLabels={tableLabels}
+        />
 
-        {/* Industrial */}
-        <SectionContent 
-          title={getSection(1).title}
-          desc1={getSection(1).desc1}
-          desc2={getSection(1).desc2}
+        {/* ── Industrial ──────────────────────────────────────────────────── */}
+        <SectionContent {...getSection("Industrial", {
+          title: "Industrial RO Membranes",
+          desc1: "Hi-Tech Industrial RO membranes are designed for high-capacity water treatment systems operating under demanding conditions.",
+          desc2: "These membranes are used in industries such as power generation, pharmaceuticals, food & beverage, textiles, and manufacturing—where consistent water quality and operational reliability are critical.",
+        })} />
+        <ProductTable
+          title=""
+          rows={getCmsRows("Industrial", industrialRows)}
+          onDownload={handleProductDownload}
+          tableLabels={tableLabels}
         />
-        <ProductTable title="" rows={industrialRows} onDownload={handleProductDownload} />
 
-        {/* Commercial */}
-        <SectionContent 
-          title={getSection(2).title}
-          desc1={getSection(2).desc1}
-          desc2={getSection(2).desc2}
+        {/* ── Commercial ──────────────────────────────────────────────────── */}
+        <SectionContent {...getSection("Commercial", {
+          title: "Commercial RO Membranes",
+          desc1: "Hi-Tech Commercial RO membrane elements are engineered for continuous operation in commercial water treatment systems.",
+          desc2: "Suitable for hotels, restaurants, hospitals, office buildings, and packaged RO plants, these membranes provide reliable performance, reduced fouling tendencies, and consistent permeate quality.",
+        })} />
+        <ProductTable
+          title=""
+          rows={getCmsRows("Commercial", commercialRows)}
+          onDownload={handleProductDownload}
+          tableLabels={tableLabels}
         />
-        <ProductTable title="" rows={commercialRows} onDownload={handleProductDownload} />
 
-        {/* Sea Water */}
-        <SectionContent 
-          title={getSection(3).title}
-          desc1={getSection(3).desc1}
-          desc2={getSection(3).desc2}
+        {/* ── Sea Water ───────────────────────────────────────────────────── */}
+        <SectionContent {...getSection("Sea Water", {
+          title: "Sea Water RO Membranes",
+          desc1: "Hi-Tech Seawater RO membranes are specifically engineered to treat high-salinity seawater and brackish sources.",
+          desc2: "Designed for desalination plants, coastal facilities, and offshore applications, these membranes deliver high rejection performance while maintaining operational efficiency under extreme conditions.",
+        })} />
+        <ProductTable
+          title=""
+          rows={getCmsRows("Sea Water", seaWaterRows)}
+          onDownload={handleProductDownload}
+          tableLabels={tableLabels}
         />
-        <ProductTable title="" rows={seaWaterRows} onDownload={handleProductDownload} />
 
         {/* Custom Note */}
         <CustomNote text={cmsData?.product_page?.custom_note || "Custom specifications and private-label options available \nfor OEM partners."} />
@@ -335,17 +398,43 @@ const CustomNote = ({ text }: { text: string }) => {
 };
 
 /* ------------------------------ PRODUCT TABLE ------------------------------ */
-const ProductTable = ({ title, rows, onDownload }: any) => {
+
+interface TableLabels {
+  models: string;
+  measurementReEs: string;
+  measurementOther: string;
+  activeArea: string;
+  flow: string;
+  rejection: string;
+  layer: string;
+  dataSheet: string;
+  downloadBtn: string;
+}
+
+const ProductTable = ({
+  title,
+  rows,
+  onDownload,
+  tableLabels,
+}: {
+  title: string;
+  rows: any[];
+  onDownload: (model: string, dataSheet?: string | null) => void;
+  tableLabels: TableLabels;
+}) => {
   const showLayer = title === "RE Series" || title === "ES Series";
 
-  const { translatedText: tModels } = useTranslateContent("Models");
-  const { translatedText: tMeasurement } = useTranslateContent(showLayer ? "Measurement L (ID) inch" : "Measurement");
-  const { translatedText: tActiveArea } = useTranslateContent("Active Area (FT/M)");
-  const { translatedText: tFlow } = useTranslateContent("Permeate Flow GPD (M3D)");
-  const { translatedText: tRejection } = useTranslateContent("Salt Rejection (%)");
-  const { translatedText: tLayer } = useTranslateContent("Layer");
-  const { translatedText: tDataSheet } = useTranslateContent("Data Sheet");
-  const { translatedText: tDownloadBtn } = useTranslateContent("Download");
+  // Use CMS labels (already resolved with fallbacks in getTableLabels()) and translate them
+  const { translatedText: tModels }      = useTranslateContent(tableLabels.models);
+  const { translatedText: tMeasurement } = useTranslateContent(
+    showLayer ? tableLabels.measurementReEs : tableLabels.measurementOther
+  );
+  const { translatedText: tActiveArea }  = useTranslateContent(tableLabels.activeArea);
+  const { translatedText: tFlow }        = useTranslateContent(tableLabels.flow);
+  const { translatedText: tRejection }   = useTranslateContent(tableLabels.rejection);
+  const { translatedText: tLayer }       = useTranslateContent(tableLabels.layer);
+  const { translatedText: tDataSheet }   = useTranslateContent(tableLabels.dataSheet);
+  const { translatedText: tDownloadBtn } = useTranslateContent(tableLabels.downloadBtn);
 
   return (
     <div className="mb-14">
@@ -374,7 +463,7 @@ const ProductTable = ({ title, rows, onDownload }: any) => {
                 {showLayer && <td className="px-4 py-3 text-center border">{row.layer}</td>}
                 <td className="px-4 py-3 text-center border">
                   <button
-                    onClick={() => onDownload(row.model)}
+                    onClick={() => onDownload(row.model, row.dataSheet)}
                     className="bg-[#A8CF45] text-[#3D3E96] px-4 py-2 rounded-md flex items-center gap-2 mx-auto"
                   >
                     {tDownloadBtn} <Download className="w-4 h-4" />
