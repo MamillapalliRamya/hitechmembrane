@@ -295,6 +295,71 @@ export interface OurImpactPageData {
   };
 }
 
+export interface EventsPageData {
+  events_page: {
+    hero: {
+      background_image: string[];
+      text: string;
+    };
+    news_articles_section: {
+      header: string;
+      description: string;
+      labels: {
+        featured: string;
+        read_more: string;
+      };
+      filters: string[];
+    };
+    featured_article: {
+      id: number;
+      title: string;
+      date: string;
+      description: string;
+      category: string;
+      image: string | null;
+    };
+    articles: Array<{
+      id: number;
+      title: string;
+      date: string;
+      description: string;
+      category: string;
+      image: string | null;
+    }>;
+    upcoming_events_section: {
+      title: string;
+      events: Array<{
+        id: number;
+        location: string;
+        title: string;
+        date: string;
+        description: string;
+        image: string | null;
+        booth?: string;
+      }>;
+    };
+    past_highlights_section: {
+      title: string;
+      months_filter: string[];
+      events: Array<{
+        id: number;
+        month: string;
+        location: string;
+        title: string;
+        description: string;
+        image: string | null;
+      }>;
+    };
+    cta_section: {
+      main_text: string;
+      description: string;
+      button_text: string;
+      button_link: string;
+      logo: string | null;
+    };
+  };
+}
+
 
 class APIService {
   private baseURL: string;
@@ -380,6 +445,22 @@ class APIService {
       return data;
     } catch (error) {
       console.error('Error fetching our impact page data:', error);
+      throw error;
+    }
+  }
+
+  async getEventsPageData(): Promise<EventsPageData> {
+    try {
+      const response = await fetch(`${this.baseURL}/api/events-page/`);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error fetching events page data:', error);
       throw error;
     }
   }
