@@ -450,20 +450,35 @@ class APIService {
   }
 
   async getEventsPageData(): Promise<EventsPageData> {
-    try {
-      const response = await fetch(`${this.baseURL}/api/events-page/`);
+  try {
+    const response = await fetch(`${this.baseURL}/api/events-page/`);
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error('Error fetching events page data:', error);
-      throw error;
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const data = await response.json();
+
+    // ✅ DEBUG LOGS
+    console.log("FEATURED IMAGE RAW:", data.events_page.featured_article.image);
+
+    // ✅ FIX FEATURED IMAGE URL (important)
+    const img = data.events_page.featured_article.image;
+
+    if (img && !img.startsWith("http")) {
+      data.events_page.featured_article.image = `${this.baseURL}${img}`;
+    }
+
+    console.log("FEATURED IMAGE FINAL:", data.events_page.featured_article.image);
+
+    return data;
+
+  } catch (error) {
+    console.error('Error fetching events page data:', error);
+    throw error;
   }
+}
+
 
 }
 

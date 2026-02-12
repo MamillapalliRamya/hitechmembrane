@@ -23,7 +23,7 @@ interface ContactFormData {
 type CMSResponse = any;
 
 const API_BASE_URL = "http://65.0.77.32:8000/api";
-const BACKEND_URL  = "http://65.0.77.32:8000";
+const BACKEND_URL = "http://65.0.77.32:8000";
 
 /* ── helper: resolve a media URL (relative → absolute) ─────────────────── */
 const resolveUrl = (path: string | null | undefined): string | null => {
@@ -32,19 +32,19 @@ const resolveUrl = (path: string | null | undefined): string | null => {
 };
 
 /* ── static fallbacks ──────────────────────────────────────────────────── */
-const FALLBACK_COUNTRIES    = ["Thailand","USA","UAE","China","Myanmar","India","Germany","Brazil","Canada","Others"];
-const FALLBACK_CATEGORIES   = ["Residential","Commercial","Industrial","Municipal","Healthcare","Hospitality","Food & Beverage","Pharmaceutical","Power & Energy","Agriculture","OEM / Integrator"];
+const FALLBACK_COUNTRIES = ["Thailand", "USA", "UAE", "China", "Myanmar", "India", "Germany", "Brazil", "Canada", "Others"];
+const FALLBACK_CATEGORIES = ["Residential", "Commercial", "Industrial", "Municipal", "Healthcare", "Hospitality", "Food & Beverage", "Pharmaceutical", "Power & Energy", "Agriculture", "OEM / Integrator"];
 const FALLBACK_PRODUCT_TYPES = [
-  "Reverse Osmosis (RO) Membrane","Ultrafiltration (UF) Membrane","Nanofiltration (NF) Membrane",
-  "Microfiltration (MF) Membrane","Seawater Desalination Membrane","Industrial Water Treatment System",
-  "Wastewater Treatment Solution","Drinking Water Purification System","Custom Engineered Solution",
+  "Reverse Osmosis (RO) Membrane", "Ultrafiltration (UF) Membrane", "Nanofiltration (NF) Membrane",
+  "Microfiltration (MF) Membrane", "Seawater Desalination Membrane", "Industrial Water Treatment System",
+  "Wastewater Treatment Solution", "Drinking Water Purification System", "Custom Engineered Solution",
 ];
 
 /* ── static platform fallbacks (whatsapp / wechat / line) ──────────────── */
 const FALLBACK_PLATFORMS = [
   { id: "whatsapp", name: "whatsapp", qr_image: image2, icon_image: null, link: "" },
-  { id: "wechat",   name: "wechat",   qr_image: image3, icon_image: null, link: "" },
-  { id: "line",     name: "line",     qr_image: image4, icon_image: null, link: "" },
+  { id: "wechat", name: "wechat", qr_image: image3, icon_image: null, link: "" },
+  { id: "line", name: "line", qr_image: image4, icon_image: null, link: "" },
 ];
 
 /* ══════════════════════════════════════════════════════════════════════════
@@ -54,8 +54,8 @@ const FALLBACK_PLATFORMS = [
 const PlatformIcon: React.FC<{ name: string; iconUrl: string | null }> = ({ name, iconUrl }) => {
   const bgClass =
     name === "whatsapp" ? "bg-green-500 hover:bg-green-600" :
-    name === "wechat"   ? "bg-green-400 hover:bg-green-500" :
-                          "bg-green-600 hover:bg-green-700";
+      name === "wechat" ? "bg-green-400 hover:bg-green-500" :
+        "bg-green-600 hover:bg-green-700";
 
   return (
     <div className={`w-10 h-10 ${bgClass} rounded-full flex items-center justify-center mx-auto mb-3 transition-colors`}>
@@ -104,48 +104,48 @@ const ContactPage: React.FC = () => {
   const cms = cmsData;
 
   // hero
-  const pageTitle             = cms?.hero_section?.pageTitle             || "Let's Talk Water Solutions";
-  const subHeading            = cms?.hero_section?.subHeading            || "Connect with our team to discuss RO membrane solutions, OEM requirements, or technical support.";
-  const formIntro             = cms?.hero_section?.formIntro             || "Whether you are looking for reverse osmosis membrane solutions, OEM manufacturing support, or technical guidance, our team is here to help. Please share your requirements and we'll connect you with the right specialist.";
+  const pageTitle = cms?.hero_section?.pageTitle || "Let's Talk Water Solutions";
+  const subHeading = cms?.hero_section?.subHeading || "Connect with our team to discuss RO membrane solutions, OEM requirements, or technical support.";
+  const formIntro = cms?.hero_section?.formIntro || "Whether you are looking for reverse osmosis membrane solutions, OEM manufacturing support, or technical guidance, our team is here to help. Please share your requirements and we'll connect you with the right specialist.";
 
   // form labels
-  const nameLabel             = cms?.form_labels?.nameLabel              || "Name*";
-  const companyLabel          = cms?.form_labels?.companyLabel           || "Company";
-  const emailLabel            = cms?.form_labels?.emailLabel             || "Email*";
-  const phoneLabel            = cms?.form_labels?.phoneLabel             || "Phone";
-  const categoryLabel         = cms?.form_labels?.categoryLabel          || "Category";
-  const countryLabel          = cms?.form_labels?.countryLabel           || "Country*";
-  const subjectLabel          = cms?.form_labels?.subjectLabel           || "Subject";
-  const productTypeLabel      = cms?.form_labels?.productTypeLabel       || "Product Type*";
-  const messageLabel          = cms?.form_labels?.messageLabel           || "Message*";
-  const fileUploadLabel       = cms?.form_labels?.fileUploadLabel        || "File Upload";
+  const nameLabel = cms?.form_labels?.nameLabel || "Name*";
+  const companyLabel = cms?.form_labels?.companyLabel || "Company";
+  const emailLabel = cms?.form_labels?.emailLabel || "Email*";
+  const phoneLabel = cms?.form_labels?.phoneLabel || "Phone";
+  const categoryLabel = cms?.form_labels?.categoryLabel || "Category";
+  const countryLabel = cms?.form_labels?.countryLabel || "Country*";
+  const subjectLabel = cms?.form_labels?.subjectLabel || "Subject";
+  const productTypeLabel = cms?.form_labels?.productTypeLabel || "Product Type*";
+  const messageLabel = cms?.form_labels?.messageLabel || "Message*";
+  const fileUploadLabel = cms?.form_labels?.fileUploadLabel || "File Upload";
 
   // placeholders
-  const firstNamePlaceholder  = cms?.form_placeholders?.firstNamePlaceholder || "First Name";
-  const companyPlaceholder    = cms?.form_placeholders?.companyPlaceholder   || "Enter Company";
-  const emailPlaceholder      = cms?.form_placeholders?.emailPlaceholder     || "Enter Email";
-  const phonePlaceholder      = cms?.form_placeholders?.phonePlaceholder     || "Enter Phone number";
-  const subjectPlaceholder    = cms?.form_placeholders?.subjectPlaceholder   || "Enter Subject";
-  const messagePlaceholder    = cms?.form_placeholders?.messagePlaceholder   || "Enter Message";
+  const firstNamePlaceholder = cms?.form_placeholders?.firstNamePlaceholder || "First Name";
+  const companyPlaceholder = cms?.form_placeholders?.companyPlaceholder || "Enter Company";
+  const emailPlaceholder = cms?.form_placeholders?.emailPlaceholder || "Enter Email";
+  const phonePlaceholder = cms?.form_placeholders?.phonePlaceholder || "Enter Phone number";
+  const subjectPlaceholder = cms?.form_placeholders?.subjectPlaceholder || "Enter Subject";
+  const messagePlaceholder = cms?.form_placeholders?.messagePlaceholder || "Enter Message";
 
   // file upload
-  const fileUploadText        = cms?.file_upload_text?.fileUploadText    || "Choose a file or drag & drop it here";
-  const fileUploadSubtext     = cms?.file_upload_text?.fileUploadSubtext || "JPEG, PNG & PDF files up to 10MB";
-  const browseFileText        = cms?.file_upload_text?.browseFileText    || "Browse File";
+  const fileUploadText = cms?.file_upload_text?.fileUploadText || "Choose a file or drag & drop it here";
+  const fileUploadSubtext = cms?.file_upload_text?.fileUploadSubtext || "JPEG, PNG & PDF files up to 10MB";
+  const browseFileText = cms?.file_upload_text?.browseFileText || "Browse File";
 
   // buttons
-  const submitButtonText      = cms?.button_texts?.submitButtonText      || "Submit Enquiry";
-  const submittingText        = cms?.button_texts?.submittingText        || "Submitting...";
-  const uploadingText         = cms?.button_texts?.uploadingText         || "Uploading File...";
-  const saveButtonText        = cms?.button_texts?.saveButtonText        || "Save";
+  const submitButtonText = cms?.button_texts?.submitButtonText || "Submit Enquiry";
+  const submittingText = cms?.button_texts?.submittingText || "Submitting...";
+  const uploadingText = cms?.button_texts?.uploadingText || "Uploading File...";
+  const saveButtonText = cms?.button_texts?.saveButtonText || "Save";
 
   // dropdowns — CMS array if present, otherwise static fallbacks
   // Prepend a placeholder "Select …" item so the first option is always disabled
-  const countries    = cms?.dropdown_options?.countries    && cms.dropdown_options.countries.length    > 0
-    ? ["Select Country",  ...cms.dropdown_options.countries]    : ["Select Country",  ...FALLBACK_COUNTRIES];
-  const categories   = cms?.dropdown_options?.categories   && cms.dropdown_options.categories.length   > 0
-    ? ["Select Category", ...cms.dropdown_options.categories]   : ["Select Category", ...FALLBACK_CATEGORIES];
-  const productTypes = cms?.dropdown_options?.productTypes  && cms.dropdown_options.productTypes.length  > 0
+  const countries = cms?.dropdown_options?.countries && cms.dropdown_options.countries.length > 0
+    ? ["Select Country", ...cms.dropdown_options.countries] : ["Select Country", ...FALLBACK_COUNTRIES];
+  const categories = cms?.dropdown_options?.categories && cms.dropdown_options.categories.length > 0
+    ? ["Select Category", ...cms.dropdown_options.categories] : ["Select Category", ...FALLBACK_CATEGORIES];
+  const productTypes = cms?.dropdown_options?.productTypes && cms.dropdown_options.productTypes.length > 0
     ? ["Select the membrane type for use", ...cms.dropdown_options.productTypes]
     : ["Select the membrane type for use", ...FALLBACK_PRODUCT_TYPES];
 
@@ -162,81 +162,81 @@ const ContactPage: React.FC = () => {
     if (!cmsPlatform) return fb;
     return {
       ...fb,
-      qr_image:   resolveUrl(cmsPlatform.qr_image)   ?? fb.qr_image,
-      icon_image: resolveUrl(cmsPlatform.icon_image)  ?? fb.icon_image,
-      link:       cmsPlatform.link                    ?? fb.link,
+      qr_image: resolveUrl(cmsPlatform.qr_image) ?? fb.qr_image,
+      icon_image: resolveUrl(cmsPlatform.icon_image) ?? fb.icon_image,
+      link: cmsPlatform.link ?? fb.link,
     };
   });
 
   // company section
-  const companyName        = cms?.company_section?.companyName        || "Hi-Tech Membranes";
+  const companyName = cms?.company_section?.companyName || "Hi-Tech Membranes";
   const companyDescription = cms?.company_section?.companyDescription || "Global RO membrane manufacturer supporting customers across industrial, commercial, and municipal water treatment sectors.";
-  const companyEmail       = cms?.company_section?.email              || "sales@hitechmembranes.com";
-  const companyPhone       = cms?.company_section?.phone              || "+91-80-12345678";
-  const worldMapImage      = resolveUrl(cms?.company_section?.world_map_image) ?? image7;
+  const companyEmail = cms?.company_section?.email || "sales@hitechmembranes.com";
+  const companyPhone = cms?.company_section?.phone || "+91-80-12345678";
+  const worldMapImage = resolveUrl(cms?.company_section?.world_map_image) ?? image7;
 
   // links section
   const linksHeading = cms?.links_section?.linksHeading || "Links";
   const linkItems: { label: string; url: string }[] = cms?.links_section?.items?.length > 0
     ? cms.links_section.items
     : [
-        { label: "FAQs",             url: "#" },
-        { label: "Product Brochures",url: "#" },
-        { label: "Our Catalogue",    url: "#" },
-      ];
+      { label: "FAQs", url: "#" },
+      { label: "Product Brochures", url: "#" },
+      { label: "Our Catalogue", url: "#" },
+    ];
 
   // address section
-  const addressHeading  = cms?.address_section?.addressHeading  || "Factory & Office Address";
-  const addressText     = cms?.address_section?.addressText     || "Hi-Tech Membranes Co., Ltd. 700/273 Amata City Chonburi Industrial Estate Moo 1, Tambon Ban Kao, Amphur Phan Thong, Chonburi 20160 (THAILAND)";
-  const addressSubtext  = cms?.address_section?.addressSubtext  || "Manufacturing and quality control conducted under strict process and compliance standards.";
-  const locationImage   = resolveUrl(cms?.address_section?.location_image) ?? image5;
+  const addressHeading = cms?.address_section?.addressHeading || "Factory & Office Address";
+  const addressText = cms?.address_section?.addressText || "Hi-Tech Membranes Co., Ltd. 700/273 Amata City Chonburi Industrial Estate Moo 1, Tambon Ban Kao, Amphur Phan Thong, Chonburi 20160 (THAILAND)";
+  const addressSubtext = cms?.address_section?.addressSubtext || "Manufacturing and quality control conducted under strict process and compliance standards.";
+  const locationImage = resolveUrl(cms?.address_section?.location_image) ?? image5;
 
   // footer
   const footerText = cms?.footer?.footerText || "All Rights Reserved. Copyright ©2022 HiTechMembrane Co.Ltd.";
 
   /* ── translations ──────────────────────────────────────────────────────── */
-  const { translatedText: translatedPageTitle }             = useTranslateContent(pageTitle);
-  const { translatedText: translatedSubHeading }            = useTranslateContent(subHeading);
-  const { translatedText: translatedFormIntro }             = useTranslateContent(formIntro);
-  const { translatedText: translatedNameLabel }             = useTranslateContent(nameLabel);
-  const { translatedText: translatedCompanyLabel }          = useTranslateContent(companyLabel);
-  const { translatedText: translatedEmailLabel }            = useTranslateContent(emailLabel);
-  const { translatedText: translatedPhoneLabel }            = useTranslateContent(phoneLabel);
-  const { translatedText: translatedCategoryLabel }         = useTranslateContent(categoryLabel);
-  const { translatedText: translatedCountryLabel }          = useTranslateContent(countryLabel);
-  const { translatedText: translatedSubjectLabel }          = useTranslateContent(subjectLabel);
-  const { translatedText: translatedProductTypeLabel }      = useTranslateContent(productTypeLabel);
-  const { translatedText: translatedMessageLabel }          = useTranslateContent(messageLabel);
-  const { translatedText: translatedFileUploadLabel }       = useTranslateContent(fileUploadLabel);
-  const { translatedText: translatedFirstNamePlaceholder }  = useTranslateContent(firstNamePlaceholder);
-  const { translatedText: translatedCompanyPlaceholder }    = useTranslateContent(companyPlaceholder);
-  const { translatedText: translatedEmailPlaceholder }      = useTranslateContent(emailPlaceholder);
-  const { translatedText: translatedPhonePlaceholder }      = useTranslateContent(phonePlaceholder);
-  const { translatedText: translatedSubjectPlaceholder }    = useTranslateContent(subjectPlaceholder);
-  const { translatedText: translatedMessagePlaceholder }    = useTranslateContent(messagePlaceholder);
-  const { translatedText: translatedFileUploadText }        = useTranslateContent(fileUploadText);
-  const { translatedText: translatedFileUploadSubtext }     = useTranslateContent(fileUploadSubtext);
-  const { translatedText: translatedBrowseFileText }        = useTranslateContent(browseFileText);
-  const { translatedText: translatedSubmitButtonText }      = useTranslateContent(submitButtonText);
-  const { translatedText: translatedSubmittingText }        = useTranslateContent(submittingText);
-  const { translatedText: translatedUploadingText }         = useTranslateContent(uploadingText);
-  const { translatedText: translatedSaveButtonText }        = useTranslateContent(saveButtonText);
+  const { translatedText: translatedPageTitle } = useTranslateContent(pageTitle);
+  const { translatedText: translatedSubHeading } = useTranslateContent(subHeading);
+  const { translatedText: translatedFormIntro } = useTranslateContent(formIntro);
+  const { translatedText: translatedNameLabel } = useTranslateContent(nameLabel);
+  const { translatedText: translatedCompanyLabel } = useTranslateContent(companyLabel);
+  const { translatedText: translatedEmailLabel } = useTranslateContent(emailLabel);
+  const { translatedText: translatedPhoneLabel } = useTranslateContent(phoneLabel);
+  const { translatedText: translatedCategoryLabel } = useTranslateContent(categoryLabel);
+  const { translatedText: translatedCountryLabel } = useTranslateContent(countryLabel);
+  const { translatedText: translatedSubjectLabel } = useTranslateContent(subjectLabel);
+  const { translatedText: translatedProductTypeLabel } = useTranslateContent(productTypeLabel);
+  const { translatedText: translatedMessageLabel } = useTranslateContent(messageLabel);
+  const { translatedText: translatedFileUploadLabel } = useTranslateContent(fileUploadLabel);
+  const { translatedText: translatedFirstNamePlaceholder } = useTranslateContent(firstNamePlaceholder);
+  const { translatedText: translatedCompanyPlaceholder } = useTranslateContent(companyPlaceholder);
+  const { translatedText: translatedEmailPlaceholder } = useTranslateContent(emailPlaceholder);
+  const { translatedText: translatedPhonePlaceholder } = useTranslateContent(phonePlaceholder);
+  const { translatedText: translatedSubjectPlaceholder } = useTranslateContent(subjectPlaceholder);
+  const { translatedText: translatedMessagePlaceholder } = useTranslateContent(messagePlaceholder);
+  const { translatedText: translatedFileUploadText } = useTranslateContent(fileUploadText);
+  const { translatedText: translatedFileUploadSubtext } = useTranslateContent(fileUploadSubtext);
+  const { translatedText: translatedBrowseFileText } = useTranslateContent(browseFileText);
+  const { translatedText: translatedSubmitButtonText } = useTranslateContent(submitButtonText);
+  const { translatedText: translatedSubmittingText } = useTranslateContent(submittingText);
+  const { translatedText: translatedUploadingText } = useTranslateContent(uploadingText);
+  const { translatedText: translatedSaveButtonText } = useTranslateContent(saveButtonText);
   const { translatedText: translatedConnectInstantlyHeading } = useTranslateContent(connectInstantlyHeading);
   const { translatedText: translatedConnectInstantlySubtext } = useTranslateContent(connectInstantlySubtext);
-  const { translatedText: translatedCompanyName }           = useTranslateContent(companyName);
-  const { translatedText: translatedCompanyDescription }    = useTranslateContent(companyDescription);
-  const { translatedText: translatedLinksHeading }          = useTranslateContent(linksHeading);
-  const { translatedText: translatedAddressHeading }        = useTranslateContent(addressHeading);
-  const { translatedText: translatedAddressText }           = useTranslateContent(addressText);
-  const { translatedText: translatedAddressSubtext }        = useTranslateContent(addressSubtext);
-  const { translatedText: translatedFooterText }            = useTranslateContent(footerText);
+  const { translatedText: translatedCompanyName } = useTranslateContent(companyName);
+  const { translatedText: translatedCompanyDescription } = useTranslateContent(companyDescription);
+  const { translatedText: translatedLinksHeading } = useTranslateContent(linksHeading);
+  const { translatedText: translatedAddressHeading } = useTranslateContent(addressHeading);
+  const { translatedText: translatedAddressText } = useTranslateContent(addressText);
+  const { translatedText: translatedAddressSubtext } = useTranslateContent(addressSubtext);
+  const { translatedText: translatedFooterText } = useTranslateContent(footerText);
 
   /* ── form state ────────────────────────────────────────────────────────── */
   const [formData, setFormData] = useState<ContactFormData>({
     firstName: "", company: "", email: "", phone: "",
     category: "", country: "", subject: "", productType: "", message: "", file: null,
   });
-  const [isSubmitting,    setIsSubmitting]    = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isUploadingFile, setIsUploadingFile] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error' | null; message: string }>({ type: null, message: '' });
 
@@ -252,7 +252,7 @@ const ContactPage: React.FC = () => {
       if (file.size > 10 * 1024 * 1024) {
         setSubmitStatus({ type: 'error', message: 'File size exceeds 10MB limit.' }); return;
       }
-      if (!['image/jpeg','image/jpg','image/png','application/pdf'].includes(file.type)) {
+      if (!['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'].includes(file.type)) {
         setSubmitStatus({ type: 'error', message: 'Invalid file type. Only JPEG, PNG, and PDF files are allowed.' }); return;
       }
     }
@@ -301,7 +301,7 @@ const ContactPage: React.FC = () => {
           }
         }
         setSubmitStatus({ type: 'success', message: 'Thank you for contacting us! Your enquiry has been submitted successfully.' });
-        setFormData({ firstName:"",company:"",email:"",phone:"",category:"",country:"",subject:"",productType:"",message:"",file:null });
+        setFormData({ firstName: "", company: "", email: "", phone: "", category: "", country: "", subject: "", productType: "", message: "", file: null });
         const fileInput = document.getElementById('fileUpload') as HTMLInputElement;
         if (fileInput) fileInput.value = '';
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -346,7 +346,7 @@ const ContactPage: React.FC = () => {
   /* ── render ────────────────────────────────────────────────────────────── */
   return (
     <div className="bg-gray-100 min-h-screen">
-      <div className="max-w-8xl mx-[40px] lg:mx-[80px] 2xl:mx-[112px] py-8 sm:py-16 lg:py-24">
+      <div className="max-w-8xl mx-[40px] lg:mx-[80px] 2xl:mx-[112px] py-16 sm:py-16 lg:py-24">
 
         {/* Page Title */}
         <div className="mb-1 sm:mb-2">
@@ -634,23 +634,44 @@ const ContactPage: React.FC = () => {
             </div>
 
             {/* Address Section */}
-            <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">{translatedAddressHeading}</h3>
-              <div className="flex gap-4 mb-3">
-                <div className="w-30 h-24 flex-shrink-0 rounded overflow-hidden border-gray-200">
-                  <img src={locationImage} alt="Office Location Map"
-                    className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
-                    onClick={handleAddressClick} />
+            {/* Factory & Office Address */}
+            <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6 overflow-hidden">
+
+              {/* Heading */}
+              <h3 className="text-[#3E4095] font-semibold text-lg sm:text-xl mb-4">
+                {translatedAddressHeading}
+              </h3>
+
+              {/* Content */}
+              <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6">
+
+                {/* Location Image (clickable) */}
+                <div
+                  onClick={handleAddressClick}
+                  className="cursor-pointer flex justify-center w-full sm:w-auto"
+                >
+                  <img
+                    src={locationImage}
+                    alt="Factory Location"
+                    className="w-40 sm:w-48 md:w-56 lg:w-40 flex-shrink-0
+ object-contain transition-transform duration-300 hover:scale-105"
+                  />
                 </div>
-                <div className="flex-1">
-                  <p className="text-xs sm:text-sm text-gray-700 leading-relaxed underline hover:text-blue-900 cursor-pointer"
-                    onClick={handleAddressClick}>
+
+                {/* Address Text */}
+                <div className="text-center sm:text-left">
+                  <p className="text-gray-800 text-sm sm:text-base leading-relaxed">
                     {translatedAddressText}
                   </p>
+
+                  <p className="text-gray-500 text-xs sm:text-sm mt-2">
+                    {translatedAddressSubtext}
+                  </p>
                 </div>
+
               </div>
-              <p className="text-xs sm:text-sm text-gray-600">{translatedAddressSubtext}</p>
             </div>
+
 
           </div>
         </div>

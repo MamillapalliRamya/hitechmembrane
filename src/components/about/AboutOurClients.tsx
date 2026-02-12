@@ -179,11 +179,11 @@ const AboutOurClients: React.FC<AboutOurClientsProps> = ({ our_clients, client_l
 /* 📱 Mobile & Tablet - slower */
 @media (max-width: 768px) {
   .animate-scroll {
-    animation-duration: 35s;
+    animation-duration: 50s;
   }
 
   .animate-scroll-fast {
-    animation-duration: 25s;
+    animation-duration: 35s;
   }
 }
 

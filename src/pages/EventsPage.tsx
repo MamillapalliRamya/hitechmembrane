@@ -194,7 +194,9 @@ const EventsPage: React.FC = () => {
                 image: article.image || categoryImageMap[article.category] || Industry_News
             }))
         ];
+        
     }, [cmsData]);
+    
 
     const upcomingEvents: Event[] = useMemo(() => 
         cmsData?.events_page.upcoming_events_section.events.map(event => ({
@@ -203,6 +205,7 @@ const EventsPage: React.FC = () => {
         })) || [],
         [cmsData]
     );
+    
 
     const pastEvents: PastEvent[] = useMemo(() => 
         cmsData?.events_page.past_highlights_section.events.map(event => ({
