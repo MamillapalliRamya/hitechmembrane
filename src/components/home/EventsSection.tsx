@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Droplets, Factory, Recycle, Waves, Coffee, Building2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTranslateContent } from "../../hooks/useTranslateContent";
 
+
 interface EventsSectiondata {
   homepage?: {
     water_solutions_title?: string;

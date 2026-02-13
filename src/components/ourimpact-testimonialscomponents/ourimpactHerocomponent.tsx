@@ -19,7 +19,8 @@ const TestimonialsHero: React.FC = () => {
     const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
     const [heroContent, setHeroContent] = useState({
         heading: "",
-        sub_heading: ""
+        sub_heading: "",
+        youtube_video_url: ""
     });
 
     useEffect(() => {
@@ -65,6 +66,26 @@ const TestimonialsHero: React.FC = () => {
             />
         ));
     };
+    const getYouTubeThumbnail = (url: string) => {
+        if (!url) return "";
+
+        // supports youtube.com and youtu.be links
+        let videoId = "";
+
+        if (url.includes("v=")) {
+            videoId = url.split("v=")[1]?.split("&")[0];
+        } else if (url.includes("youtu.be/")) {
+            videoId = url.split("youtu.be/")[1]?.split("?")[0];
+        }
+
+        return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+    };
+
+    const FALLBACK_YOUTUBE_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+    const videoUrl = heroContent.youtube_video_url || FALLBACK_YOUTUBE_URL;
+
+    // 👆 replace with your real default company video
+
 
     return (
         <section className="py-16 md:py-24 lg:py-32 xl:py-40 bg-white relative overflow-hidden z-0">
@@ -133,11 +154,30 @@ const TestimonialsHero: React.FC = () => {
                     {/* RIGHT CONTENT - TESTIMONIAL CARD */}
                     <div className="relative flex justify-center">
                         <div className="relative z-10 bg-white rounded-2xl lg:rounded-3xl shadow-xl w-[600px] xl:w-[742px] 2xl:w-[800px]">
-                            <img
-                                src="/assets/images/ourimpact_img.png"
-                                alt="Testimonial"
-                                className="w-full h-auto rounded-xl object-cover"
-                            />
+                           
+                                <a
+                                    href={videoUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="block relative group"
+                                >
+                                    <img
+                                        src={getYouTubeThumbnail(videoUrl)}
+                                        alt="Watch Video"
+                                        className="w-full h-auto rounded-xl object-cover"
+                                    />
+
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                        <div className="bg-black/60 rounded-full p-4 group-hover:scale-110 transition">
+                                            <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M8 5v14l11-7z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </a>
+
+                         
+
                         </div>
                     </div>
                 </div>

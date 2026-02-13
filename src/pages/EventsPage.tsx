@@ -6,6 +6,8 @@ import Sustainability from "../assets/images/wetransfer_hitech/Sustainability.sv
 import Case_Study from "../assets/images/wetransfer_hitech/Case_Study.svg";
 import { useTranslateContent } from '../hooks/useTranslateContent';
 import apiService from '../services/api';
+const BASE_URL = "http://65.0.77.32:8000";
+
 
 interface Event {
     id: number;
@@ -194,7 +196,9 @@ const EventsPage: React.FC = () => {
                 image: article.image || categoryImageMap[article.category] || Industry_News
             }))
         ];
+        
     }, [cmsData]);
+    
 
     const upcomingEvents: Event[] = useMemo(() => 
         cmsData?.events_page.upcoming_events_section.events.map(event => ({
@@ -203,6 +207,7 @@ const EventsPage: React.FC = () => {
         })) || [],
         [cmsData]
     );
+    
 
     const pastEvents: PastEvent[] = useMemo(() => 
         cmsData?.events_page.past_highlights_section.events.map(event => ({
@@ -215,7 +220,10 @@ const EventsPage: React.FC = () => {
     const featuredArticle = useMemo(() => articles.find(article => article.featured), [articles]);
     const regularArticles = useMemo(() => articles.filter(article => !article.featured), [articles]);
 
-    const heroBackgroundImage = cmsData?.events_page.hero.background_image?.[0] || '/assets/images/events_bg.svg';
+    const heroBackgroundImage = cmsData?.events_page.hero.background_image?.[0]
+  ? `${BASE_URL}${cmsData.events_page.hero.background_image[0]}`
+  : '/assets/images/events_bg.svg';
+
 
     if (loading) {
         return (

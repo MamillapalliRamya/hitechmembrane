@@ -174,11 +174,13 @@ const AboutExploreProducts: React.FC<AboutExploreProductsProps> = ({
               </div>
             );
           })}
+{/* Explore Button */}
+<a href="/products" className="col-span-1 md:col-span-3 justify-self-center">
+  <button className="flex justify-center items-center bg-[#A8CF45] hover:bg-[#98C135] text-indigo-900 font-bold text-lg px-8 py-3 sm:px-10 sm:py-4 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+    {translatedButton}
+  </button>
+</a>
 
-          {/* Explore Button */}
-          <button className="col-span-1 md:col-span-3 justify-self-center bg-[#A8CF45] hover:bg-[#98C135] text-indigo-900 font-bold text-lg px-8 py-3 sm:px-10 sm:py-4 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
-            {translatedButton}
-          </button>
         </div>
       </div>
     </section>

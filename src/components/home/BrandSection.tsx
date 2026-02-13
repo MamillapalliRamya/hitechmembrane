@@ -197,7 +197,10 @@ const AboutUsSection: React.FC<Props> = ({ cmsData: propCmsData, about_us_images
             <h2 className="text-2xl sm:text-3xl lg:text-5xl 2xl:text-[58px] 3xl:text-[64px] text-[#10111A] leading-tight">{tTitle}</h2>
             <p className="text-gray-600 text-sm sm:text-base lg:text-lg 2xl:text-[20px] 3xl:text-[20px] leading-relaxed max-w-2xl lg:mx-0 whitespace-normal break-words">{tPara1}</p>
             <p className="text-gray-600 text-sm sm:text-base lg:text-lg 2xl:text-[20px] 3xl:text-[20px] leading-relaxed max-w-2xl lg:mx-0 whitespace-normal break-words">{tPara2}</p>
+            
+            <a href="/about">
             <button className="bg-[#A8CF45] text-[#3E4095] rounded-lg font-medium text-sm sm:text-base lg:text-lg 2xl:text-[20px] 3xl:text-[22px] shadow-lg cursor-pointer transform transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#98C135] h-[45px] sm:h-[53px] w-[225px] 2xl:w-[240px] 3xl:w-[255px] mx-auto lg:mx-0">{tButton}</button>
+            </a>
           </motion.div>
 
         </div>
