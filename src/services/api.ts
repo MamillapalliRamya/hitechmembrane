@@ -269,6 +269,7 @@ export interface OurImpactPageData {
   testimonials_hero: {
     heading: string;
     sub_heading: string;
+    youtube_video_url: string;
   };
 
   global_voices_of_trust: {

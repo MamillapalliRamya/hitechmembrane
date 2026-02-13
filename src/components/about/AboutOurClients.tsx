@@ -169,11 +169,11 @@ const AboutOurClients: React.FC<AboutOurClientsProps> = ({ our_clients, client_l
 
 /* Desktop default */
 .animate-scroll {
-  animation: scroll-left 20s linear infinite;
+  animation: scroll-left 25s linear infinite;
 }
 
 .animate-scroll-fast {
-  animation: scroll-left 10s linear infinite;
+  animation: scroll-left 20s linear infinite;
 }
 
 /* 📱 Mobile & Tablet - slower */

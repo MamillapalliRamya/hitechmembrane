@@ -15,6 +15,7 @@ import heroBg from "../assets/images/wetransfer_hitech/innovation_bg.jpg";
 import GlobalPresenceSection from "../components/home/GlobalPresence";
 import { apiService, InnovationPageData } from "../services/api";
 
+
 // Helper components to avoid hooks in loops
 const StatCard: React.FC<{ value: string; label: string }> = ({ value, label }) => {
   const { translatedText } = useTranslateContent(label);
@@ -33,6 +34,7 @@ const PillarCard: React.FC<{ pillar: any }> = ({ pillar }) => {
   const { translatedText: translatedTitle } = useTranslateContent(pillar.title);
   const { translatedText: translatedDescription } = useTranslateContent(pillar.description);
   const { translatedText: translatedMetricLabel } = useTranslateContent(pillar.metric_label);
+
 
   return (
     <div className="bg-white rounded-lg p-8 transition shadow-[0px_0px_6px_-1px_rgba(0,0,0,0.08),0px_0px_12px_-2px_rgba(0,0,0,0.12)] hover:shadow-xl">
@@ -225,13 +227,13 @@ const Innovation: React.FC = () => {
     fetchCMS();
   }, []);
 
-  
+
 
   const data = innovationData ?? fallbackInnovationData;
 
   // Process images
-  const heroBgImage = data.hero.background_image?.startsWith?.('http') 
-    ? data.hero.background_image 
+  const heroBgImage = data.hero.background_image?.startsWith?.('http')
+    ? data.hero.background_image
     : data.hero.background_image?.startsWith?.('/media')
       ? `http://65.0.77.32:8000${data.hero.background_image}`
       : heroBg;
@@ -258,50 +260,50 @@ const Innovation: React.FC = () => {
   }));
 
   const portfolioItems =
-  data.portfolio.items && data.portfolio.items.length > 0
-    ? data.portfolio.items
-    : fallbackInnovationData.portfolio.items;
+    data.portfolio.items && data.portfolio.items.length > 0
+      ? data.portfolio.items
+      : fallbackInnovationData.portfolio.items;
 
-const processedPortfolio = portfolioItems.map((item, index) => ({
-  ...item,
-  image: item.image?.startsWith?.('http')
-    ? item.image
-    : item.image?.startsWith?.('/media')
-      ? `http://65.0.77.32:8000${item.image}`
-      : [Portfolio1, Portfolio2, Portfolio3, Portfolio4][index]
-}));
+  const processedPortfolio = portfolioItems.map((item, index) => ({
+    ...item,
+    image: item.image?.startsWith?.('http')
+      ? item.image
+      : item.image?.startsWith?.('/media')
+        ? `http://65.0.77.32:8000${item.image}`
+        : [Portfolio1, Portfolio2, Portfolio3, Portfolio4][index]
+  }));
 
-const globalPresenceCards =
-  data.globalPresence && data.globalPresence.length > 0
-    ? data.globalPresence
-    : fallbackInnovationData.globalPresence;
+  const globalPresenceCards =
+    data.globalPresence && data.globalPresence.length > 0
+      ? data.globalPresence
+      : fallbackInnovationData.globalPresence;
 
 
 
   const Data = innovationData ?? fallbackInnovationData;
 
-const { translatedText: translatedHeroTitle } = useTranslateContent(Data.hero.title);
-const { translatedText: translatedHeroDescription } = useTranslateContent(Data.hero.description);
-const { translatedText: translatedHeroButtonText } = useTranslateContent(Data.hero.button_text);
-const { translatedText: translatedQuoteText } = useTranslateContent(Data.stats.quote_text);
-const { translatedText: translatedQuoteAuthor } = useTranslateContent(Data.stats.quote_author);
-const { translatedText: translatedPillarsHeading } = useTranslateContent(Data.pillars.heading);
-const { translatedText: translatedPillarsSubtext } = useTranslateContent(Data.pillars.subtext);
-const { translatedText: translatedTimelineHeading } = useTranslateContent(Data.timeline.heading);
-const { translatedText: translatedTimelineSubtext } = useTranslateContent(Data.timeline.subtext);
-const { translatedText: translatedTeamHeading } = useTranslateContent(Data.team.heading);
-const { translatedText: translatedTeamSubtext } = useTranslateContent(Data.team.subtext);
-const { translatedText: translatedPortfolioHeading } = useTranslateContent(Data.portfolio.heading);
-const { translatedText: translatedPortfolioSubtext } = useTranslateContent(Data.portfolio.subtext);
-const { translatedText: translatedGlobalHeading } = useTranslateContent("Innovation Hubs Worldwide");
+  const { translatedText: translatedHeroTitle } = useTranslateContent(Data.hero.title);
+  const { translatedText: translatedHeroDescription } = useTranslateContent(Data.hero.description);
+  const { translatedText: translatedHeroButtonText } = useTranslateContent(Data.hero.button_text);
+  const { translatedText: translatedQuoteText } = useTranslateContent(Data.stats.quote_text);
+  const { translatedText: translatedQuoteAuthor } = useTranslateContent(Data.stats.quote_author);
+  const { translatedText: translatedPillarsHeading } = useTranslateContent(Data.pillars.heading);
+  const { translatedText: translatedPillarsSubtext } = useTranslateContent(Data.pillars.subtext);
+  const { translatedText: translatedTimelineHeading } = useTranslateContent(Data.timeline.heading);
+  const { translatedText: translatedTimelineSubtext } = useTranslateContent(Data.timeline.subtext);
+  const { translatedText: translatedTeamHeading } = useTranslateContent(Data.team.heading);
+  const { translatedText: translatedTeamSubtext } = useTranslateContent(Data.team.subtext);
+  const { translatedText: translatedPortfolioHeading } = useTranslateContent(Data.portfolio.heading);
+  const { translatedText: translatedPortfolioSubtext } = useTranslateContent(Data.portfolio.subtext);
+  const { translatedText: translatedGlobalHeading } = useTranslateContent("Innovation Hubs Worldwide");
 
-if (loading) {
-  return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="text-xl text-gray-600">Loading...</div>
-    </div>
-  );
-}
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-xl text-gray-600">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -315,9 +317,16 @@ if (loading) {
           <p className="font-['Diodrum_Cyrillic'] font-medium text-[16px] leading-[26px] sm:text-[18px] sm:leading-[30px] md:text-[20px] md:leading-[34px] lg:text-[22px] lg:leading-[38px] xl:text-[22.02px] xl:leading-[40.66px] tracking-[0px] text-center opacity-90 max-w-3xl mx-auto mb-8">
             {translatedHeroDescription}
           </p>
-          <button className="font-['Clash Grotesk'] w-[200px] h-[52px] sm:w-[240px] md:w-[283px] md:h-[74px] bg-[#A8CF45] text-[#3D3E96] rounded-[12px] text-[24px] md:text-[28px] font-medium opacity-100 transition shadow-lg cursor-pointer transform transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#98C135]">
+          <button
+            onClick={() => {
+              const section = document.getElementById("innovation-pillars");
+              section?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="font-['Clash Grotesk'] w-[200px] h-[52px] sm:w-[240px] md:w-[283px] md:h-[74px] bg-[#A8CF45] text-[#3D3E96] rounded-[12px] text-[24px] md:text-[28px] font-medium opacity-100 transition shadow-lg cursor-pointer transform transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#98C135]"
+          >
             {translatedHeroButtonText}
           </button>
+
         </div>
       </section>
 
@@ -343,7 +352,7 @@ if (loading) {
       </section>
 
       {/* Innovation Pillars */}
-      <section className="py-16 px-4 bg-white">
+      <section id="innovation-pillars" className="py-16 px-4 bg-white scroll-mt-24">
         <div className="lg:mx-[40px] 2xl:mx-[90px] xl:mx-[60px]">
           <h2 className="font-['Diodrum_Cyrillic'] font-bold text-center text-[#3D3B8E] tracking-[0px] leading-[60.05px] text-[32px] sm:text-[40px] sm:leading-[44px] md:text-[48px] md:leading-[52px] lg:text-[50.05px] lg:leading-[60.05px] mb-4">
             {translatedPillarsHeading}
