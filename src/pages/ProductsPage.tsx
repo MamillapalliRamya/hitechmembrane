@@ -42,8 +42,7 @@ const ProductPage: React.FC = () => {
     link.href = dataSheet
       ? (dataSheet.startsWith('http') ? dataSheet : `${BACKEND_URL}${dataSheet}`)
       : '/assets/pdf/sample.pdf';
-    link.download = `${productModel}-DataSheet.pdf`;
-    link.click();
+     window.open(link.href, '_blank');
   };
 
   /* -------------------------- STATIC FALLBACK TABLE ROWS -------------------------- */

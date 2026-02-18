@@ -172,10 +172,8 @@ const EventsPage: React.FC = () => {
     );
 
     // Prepare filters and years
-    const filters = useMemo(() => 
-        cmsData?.events_page.news_articles_section.filters || ['All Articles', 'Innovation', 'Research', 'Sustainability'],
-        [cmsData]
-    );
+    const filters = useMemo(() => ['All Articles'], []);
+
     
     const years = useMemo(() => 
         cmsData?.events_page.past_highlights_section.months_filter || ['2025', '2024', '2023'],
@@ -400,7 +398,7 @@ const EventsPage: React.FC = () => {
                             </a>
                         </div>
                         <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 md:bottom-8 md:right-10 w-14 sm:w-16 md:w-20 opacity-90">
-                            <img src={cmsData?.events_page.cta_section.logo || "/logo-1 (1).png"} alt="Hi-Tech Membranes" className="w-full h-auto" />
+                            <img src={`${BASE_URL}${cmsData?.events_page.cta_section.logo || "/logo-1 (1).png"}`} alt="Hi-Tech Membranes" className="w-full h-auto" />
                         </div>
                     </div>
                 </div>

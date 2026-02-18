@@ -12,6 +12,7 @@ interface ContactFormData {
   company: string;
   email: string;
   phone: string;
+  phoneCountryCode: string;
   category: string;
   country: string;
   subject: string;
@@ -39,6 +40,20 @@ const FALLBACK_PRODUCT_TYPES = [
   "Microfiltration (MF) Membrane", "Seawater Desalination Membrane", "Industrial Water Treatment System",
   "Wastewater Treatment Solution", "Drinking Water Purification System", "Custom Engineered Solution",
 ];
+
+/* ── country → dial code map ───────────────────────────────────────────── */
+const COUNTRY_DIAL_CODES: Record<string, string> = {
+  "Thailand": "+66",
+  "USA": "+1",
+  "UAE": "+971",
+  "China": "+86",
+  "Myanmar": "+95",
+  "India": "+91",
+  "Germany": "+49",
+  "Brazil": "+55",
+  "Canada": "+1",
+  "Others": "",
+};
 
 /* ── static platform fallbacks (whatsapp / wechat / line) ──────────────── */
 const FALLBACK_PLATFORMS = [
@@ -124,7 +139,7 @@ const ContactPage: React.FC = () => {
   const firstNamePlaceholder = cms?.form_placeholders?.firstNamePlaceholder || "First Name";
   const companyPlaceholder = cms?.form_placeholders?.companyPlaceholder || "Enter Company";
   const emailPlaceholder = cms?.form_placeholders?.emailPlaceholder || "Enter Email";
-  const phonePlaceholder = cms?.form_placeholders?.phonePlaceholder || "Enter Phone number";
+  const phonePlaceholder = cms?.form_placeholders?.phonePlaceholder || "Phone number";
   const subjectPlaceholder = cms?.form_placeholders?.subjectPlaceholder || "Enter Subject";
   const messagePlaceholder = cms?.form_placeholders?.messagePlaceholder || "Enter Message";
 
@@ -139,8 +154,7 @@ const ContactPage: React.FC = () => {
   const uploadingText = cms?.button_texts?.uploadingText || "Uploading File...";
   const saveButtonText = cms?.button_texts?.saveButtonText || "Save";
 
-  // dropdowns — CMS array if present, otherwise static fallbacks
-  // Prepend a placeholder "Select …" item so the first option is always disabled
+  // dropdowns
   const countries = cms?.dropdown_options?.countries && cms.dropdown_options.countries.length > 0
     ? ["Select Country", ...cms.dropdown_options.countries] : ["Select Country", ...FALLBACK_COUNTRIES];
   const categories = cms?.dropdown_options?.categories && cms.dropdown_options.categories.length > 0
@@ -153,7 +167,7 @@ const ContactPage: React.FC = () => {
   const connectInstantlyHeading = cms?.support_section?.connectInstantlyHeading || "CONNECT INSTANTLY";
   const connectInstantlySubtext = cms?.support_section?.connectInstantlySubtext || "For urgent inquiries or regional assistance, reach us via WhatsApp, WeChat or Line.";
 
-  // platforms: CMS array merged with fallbacks by id/name
+  // platforms
   const cmsPlatforms: any[] = cms?.support_section?.platforms ?? [];
   const platforms = FALLBACK_PLATFORMS.map(fb => {
     const cmsPlatform = cmsPlatforms.find(
@@ -233,7 +247,7 @@ const ContactPage: React.FC = () => {
 
   /* ── form state ────────────────────────────────────────────────────────── */
   const [formData, setFormData] = useState<ContactFormData>({
-    firstName: "", company: "", email: "", phone: "",
+    firstName: "", company: "", email: "", phone: "", phoneCountryCode: "",
     category: "", country: "", subject: "", productType: "", message: "", file: null,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -246,14 +260,41 @@ const ContactPage: React.FC = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  /**
+   * When country changes:
+   *  1. Update the country field
+   *  2. Look up the dial code and populate phoneCountryCode
+   *  3. If the phone field currently starts with an old dial code, strip it
+   */
+  const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedCountry = e.target.value;
+    const dialCode = COUNTRY_DIAL_CODES[selectedCountry] ?? "";
+
+    setFormData(prev => {
+      // Strip any existing country code prefix from the phone number so we
+      // don't accumulate codes when the user switches countries.
+      let strippedPhone = prev.phone;
+      if (prev.phoneCountryCode && strippedPhone.startsWith(prev.phoneCountryCode)) {
+        strippedPhone = strippedPhone.slice(prev.phoneCountryCode.length).trimStart();
+      }
+
+      return {
+        ...prev,
+        country: selectedCountry,
+        phoneCountryCode: dialCode,
+        phone: strippedPhone,
+      };
+    });
+  };
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] ?? null;
     if (file) {
       if (file.size > 10 * 1024 * 1024) {
         setSubmitStatus({ type: 'error', message: 'File size exceeds 10MB limit.' }); return;
       }
-      if (!['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'].includes(file.type)) {
-        setSubmitStatus({ type: 'error', message: 'Invalid file type. Only JPEG, PNG, and PDF files are allowed.' }); return;
+      if (!['image/jpeg', 'image/jpg', 'image/png', 'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'].includes(file.type)) {
+        setSubmitStatus({ type: 'error', message: 'Invalid file type. Only JPEG, PNG, Word, Excel and PDF files are allowed.' }); return;
       }
     }
     setFormData(prev => ({ ...prev, file }));
@@ -278,11 +319,16 @@ const ContactPage: React.FC = () => {
     setIsSubmitting(true);
     setSubmitStatus({ type: null, message: '' });
     try {
+      // Combine country code + phone number for submission
+      const fullPhone = formData.phoneCountryCode
+        ? `${formData.phoneCountryCode} ${formData.phone}`.trim()
+        : formData.phone.trim();
+
       const payload: any = {
         name: formData.firstName.trim(), email: formData.email.trim(),
         country: formData.country, product_type: formData.productType,
         message: formData.message.trim(), category: formData.category || null,
-        company: formData.company.trim() || null, phone: formData.phone.trim() || null,
+        company: formData.company.trim() || null, phone: fullPhone || null,
         subject: formData.subject.trim() || null,
       };
       if (formData.file) payload.file_name = formData.file.name;
@@ -301,7 +347,7 @@ const ContactPage: React.FC = () => {
           }
         }
         setSubmitStatus({ type: 'success', message: 'Thank you for contacting us! Your enquiry has been submitted successfully.' });
-        setFormData({ firstName: "", company: "", email: "", phone: "", category: "", country: "", subject: "", productType: "", message: "", file: null });
+        setFormData({ firstName: "", company: "", email: "", phone: "", phoneCountryCode: "", category: "", country: "", subject: "", productType: "", message: "", file: null });
         const fileInput = document.getElementById('fileUpload') as HTMLInputElement;
         if (fileInput) fileInput.value = '';
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -414,7 +460,7 @@ const ContactPage: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Email & Phone */}
+                  {/* Email & Category */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-600 mb-1">{translatedEmailLabel}</label>
@@ -423,17 +469,6 @@ const ContactPage: React.FC = () => {
                         disabled={isSubmitting || isUploadingFile}
                         className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm" />
                     </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-600 mb-1">{translatedPhoneLabel}</label>
-                      <input type="tel" name="phone" placeholder={translatedPhonePlaceholder}
-                        value={formData.phone} onChange={handleInputChange}
-                        disabled={isSubmitting || isUploadingFile}
-                        className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm" />
-                    </div>
-                  </div>
-
-                  {/* Category & Country */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-600 mb-1">{translatedCategoryLabel}</label>
                       <select name="category" value={formData.category} onChange={handleInputChange}
@@ -444,15 +479,47 @@ const ContactPage: React.FC = () => {
                         ))}
                       </select>
                     </div>
+                  </div>
+
+                  {/* ── Country & Phone (Country first, then Phone with auto-code) ── */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* Country — moved before Phone */}
                     <div>
                       <label className="block text-sm font-medium text-gray-600 mb-1">{translatedCountryLabel}</label>
-                      <select name="country" value={formData.country} onChange={handleInputChange} required
+                      <select
+                        name="country"
+                        value={formData.country}
+                        onChange={handleCountryChange}
+                        required
                         disabled={isSubmitting || isUploadingFile}
-                        className="w-full px-3 py-2 bg-gray-100 border text-black border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm">
+                        className="w-full px-3 py-2 bg-gray-100 border text-black border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
+                      >
                         {countries.map((country, i) => (
                           <option key={i} value={i === 0 ? "" : country} disabled={i === 0}>{country}</option>
                         ))}
                       </select>
+                    </div>
+
+                    {/* Phone — with country-code prefix badge */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-600 mb-1">{translatedPhoneLabel}</label>
+                      <div className="flex">
+                        {/* Country code badge — only shown once a country is selected */}
+                        {formData.phoneCountryCode && (
+                          <span className="inline-flex items-center px-2.5 py-2 rounded-l border border-r-0 border-gray-300 bg-gray-200 text-gray-700 text-sm font-medium whitespace-nowrap select-none">
+                            {formData.phoneCountryCode}
+                          </span>
+                        )}
+                        <input
+                          type="tel"
+                          name="phone"
+                          placeholder={translatedPhonePlaceholder}
+                          value={formData.phone}
+                          onChange={handleInputChange}
+                          disabled={isSubmitting || isUploadingFile}
+                          className={`w-full px-3 py-2 bg-gray-100 border border-gray-300 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm ${formData.phoneCountryCode ? 'rounded-r' : 'rounded'}`}
+                        />
+                      </div>
                     </div>
                   </div>
 
@@ -525,7 +592,6 @@ const ContactPage: React.FC = () => {
                 {translatedConnectInstantlySubtext}
               </h6>
 
-              {/* Platform cards — driven entirely by the `platforms` array */}
               <div className="grid grid-cols-3 gap-4">
                 {platforms.map((platform) => (
                   <div key={platform.id} className="text-center flex flex-col items-center">
@@ -577,7 +643,7 @@ const ContactPage: React.FC = () => {
               <div className="w-full h-48 sm:h-64 lg:h-80 xl:h-96 flex items-center justify-center relative overflow-hidden rounded">
                 <img src={worldMapImage} alt="Global Presence Map" className="w-full h-full object-contain" />
 
-                {/* Country Markers — unchanged */}
+                {/* Country Markers */}
                 <div className="absolute" style={{ left: '19%', top: '24%' }}>
                   <div className="flex items-center gap-2 bg-white px-2 py-2 rounded-lg shadow-md">
                     <div className="w-6 h-6 rounded-full overflow-hidden flex items-center justify-center bg-blue-500">
@@ -634,44 +700,24 @@ const ContactPage: React.FC = () => {
             </div>
 
             {/* Address Section */}
-            {/* Factory & Office Address */}
             <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6 overflow-hidden">
-
-              {/* Heading */}
               <h3 className="text-[#3E4095] font-semibold text-lg sm:text-xl mb-4">
                 {translatedAddressHeading}
               </h3>
-
-              {/* Content */}
               <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6">
-
-                {/* Location Image (clickable) */}
-                <div
-                  onClick={handleAddressClick}
-                  className="cursor-pointer flex justify-center w-full sm:w-auto"
-                >
+                <div onClick={handleAddressClick} className="cursor-pointer flex justify-center w-full sm:w-auto">
                   <img
                     src={locationImage}
                     alt="Factory Location"
-                    className="w-40 sm:w-48 md:w-56 lg:w-40 flex-shrink-0
- object-contain transition-transform duration-300 hover:scale-105"
+                    className="w-40 sm:w-48 md:w-56 lg:w-40 flex-shrink-0 object-contain transition-transform duration-300 hover:scale-105"
                   />
                 </div>
-
-                {/* Address Text */}
                 <div className="text-center sm:text-left">
-                  <p className="text-gray-800 text-sm sm:text-base leading-relaxed">
-                    {translatedAddressText}
-                  </p>
-
-                  <p className="text-gray-500 text-xs sm:text-sm mt-2">
-                    {translatedAddressSubtext}
-                  </p>
+                  <p className="text-gray-800 text-sm sm:text-base leading-relaxed">{translatedAddressText}</p>
+                  <p className="text-gray-500 text-xs sm:text-sm mt-2">{translatedAddressSubtext}</p>
                 </div>
-
               </div>
             </div>
-
 
           </div>
         </div>
