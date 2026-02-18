@@ -534,7 +534,7 @@ const ContactPage: React.FC = () => {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-600 mb-1">{translatedProductTypeLabel}</label>
-                      <select name="productType" value={formData.productType} onChange={handleInputChange} required
+                      <select name="productType" value={formData.productType} onChange={handleInputChange} 
                         disabled={isSubmitting || isUploadingFile}
                         className="w-full px-3 py-2 text-black bg-gray-100 border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm">
                         {productTypes.map((type, i) => (
