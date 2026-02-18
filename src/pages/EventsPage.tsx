@@ -110,9 +110,9 @@ interface EventsPageData {
 
 const categoryImageMap: { [key: string]: string } = {
     product_innovation: ProductInnovation,
-    industry_news:      Industry_News,
-    sustainability:     Sustainability,
-    case_study:         Case_Study,
+    industry_news: Industry_News,
+    sustainability: Sustainability,
+    case_study: Case_Study,
 };
 
 /** Extract 4-digit year from ISO date "2025-12-10" → "2025" */
@@ -135,10 +135,10 @@ const resolveImg = (path: string | null, fallback: string): string => {
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 const EventsPage: React.FC = () => {
-    const [selectedYear,   setSelectedYear]   = useState<string>('');
+    const [selectedYear, setSelectedYear] = useState<string>('');
     const [selectedFilter, setSelectedFilter] = useState('All Articles');
-    const [cmsData,        setCmsData]        = useState<EventsPageData | null>(null);
-    const [loading,        setLoading]        = useState(true);
+    const [cmsData, setCmsData] = useState<EventsPageData | null>(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         (async () => {
@@ -162,15 +162,15 @@ const EventsPage: React.FC = () => {
         cmsData?.events_page.hero.text ||
         "At Hi-Tech Membranes, events are more than exhibitions – they are opportunities to connect with partners, showcase innovation, and contribute to shaping the global water industry."
     );
-    const { translatedText: tNewsHeader }    = useTranslateContent(cmsData?.events_page.news_articles_section.header || "News & Articles");
-    const { translatedText: tNewsDesc }      = useTranslateContent(cmsData?.events_page.news_articles_section.description || "Stay updated with the latest innovations, insights, and stories from Hi-Tech Membranes");
+    const { translatedText: tNewsHeader } = useTranslateContent(cmsData?.events_page.news_articles_section.header || "News & Articles");
+    const { translatedText: tNewsDesc } = useTranslateContent(cmsData?.events_page.news_articles_section.description || "Stay updated with the latest innovations, insights, and stories from Hi-Tech Membranes");
     const { translatedText: tFeaturedLabel } = useTranslateContent(cmsData?.events_page.news_articles_section.labels.featured || "Featured");
-    const { translatedText: tReadMore }      = useTranslateContent(cmsData?.events_page.news_articles_section.labels.read_more || "Read More");
-    const { translatedText: tUpcomingEvents }= useTranslateContent(cmsData?.events_page.upcoming_events_section.title || "Upcoming Events");
-    const { translatedText: tPastHighlights }= useTranslateContent(cmsData?.events_page.past_highlights_section.title || "Past Highlights");
-    const { translatedText: tCTAMain }       = useTranslateContent(cmsData?.events_page.cta_section.main_text || "Want to meet us at an upcoming event?");
-    const { translatedText: tCTADesc }       = useTranslateContent(cmsData?.events_page.cta_section.description || "Contact our team at sales@hitechmembranes.com to schedule a meeting.");
-    const { translatedText: tCTAButton }     = useTranslateContent(cmsData?.events_page.cta_section.button_text || "Let's Talk");
+    const { translatedText: tReadMore } = useTranslateContent(cmsData?.events_page.news_articles_section.labels.read_more || "Read More");
+    const { translatedText: tUpcomingEvents } = useTranslateContent(cmsData?.events_page.upcoming_events_section.title || "Upcoming Events");
+    const { translatedText: tPastHighlights } = useTranslateContent(cmsData?.events_page.past_highlights_section.title || "Past Highlights");
+    const { translatedText: tCTAMain } = useTranslateContent(cmsData?.events_page.cta_section.main_text || "Want to meet us at an upcoming event?");
+    const { translatedText: tCTADesc } = useTranslateContent(cmsData?.events_page.cta_section.description || "Contact our team at sales@hitechmembranes.com to schedule a meeting.");
+    const { translatedText: tCTAButton } = useTranslateContent(cmsData?.events_page.cta_section.button_text || "Let's Talk");
 
     // ── Derived: year list from past_highlights.years ─────────────────────────
     const years = useMemo(() =>
@@ -221,27 +221,27 @@ const EventsPage: React.FC = () => {
     const filteredArticles: Article[] = useMemo(() => {
         let result = allArticles;
 
-        // Year filter
+        // YEAR filter (strict)
         if (selectedYear) {
-            const byYear = result.filter(a => extractYear(a.date) === selectedYear);
-            if (byYear.length > 0) result = byYear;
+            result = result.filter(a => extractYear(a.date) === selectedYear);
         }
 
-        // Category tab filter
+        // CATEGORY filter (strict)
         if (selectedFilter && selectedFilter !== 'All Articles') {
             const norm = (s: string) => s.toLowerCase().replace(/[\s-]+/g, '_');
             const fNorm = norm(selectedFilter);
-            const byCat = result.filter(a => {
+
+            result = result.filter(a => {
                 const cNorm = norm(a.category);
                 return cNorm.includes(fNorm) || fNorm.includes(cNorm);
             });
-            if (byCat.length > 0) result = byCat;
         }
 
         return result;
     }, [allArticles, selectedYear, selectedFilter]);
 
-    const featuredArticle = useMemo(() => filteredArticles.find(a => a.featured),  [filteredArticles]);
+
+    const featuredArticle = useMemo(() => filteredArticles.find(a => a.featured), [filteredArticles]);
     const regularArticles = useMemo(() => filteredArticles.filter(a => !a.featured), [filteredArticles]);
 
     // ── Derived: upcoming events ──────────────────────────────────────────────
@@ -252,6 +252,15 @@ const EventsPage: React.FC = () => {
         })),
         [cmsData, featuredImgFallback]
     );
+
+    const articleYears = useMemo(() => {
+        const years = allArticles
+            .map(a => extractYear(a.date))   // get year from date
+            .filter(Boolean);                // remove null / undefined
+
+        return [...new Set(years)].sort((a, b) => Number(b) - Number(a)); // latest first
+    }, [allArticles]);
+
 
     /**
      * PAST EVENTS — new API shape: years:[{year, events:[]}]
@@ -339,33 +348,56 @@ const EventsPage: React.FC = () => {
                         </div>
                         {/* Year dropdown — filters both Articles and Past Highlights */}
                         <div className="relative">
-                            <select
-                                value={selectedYear}
-                                onChange={e => setSelectedYear(e.target.value)}
-                                className="appearance-none bg-white border border-gray-300 rounded-lg px-4 py-2 pr-10 font-medium text-gray-700 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"
-                            >
-                                {years.map(y => (
-                                    <option key={y} value={y}>{y}</option>
-                                ))}
-                            </select>
-                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-700">
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </div>
-                        </div>
+    <select
+        value={selectedYear}
+        onChange={e => setSelectedYear(e.target.value)}
+        className="appearance-none pr-10 px-4 py-2 border rounded-lg bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500"
+    >
+        <option value="">All Years</option>
+
+        {articleYears.map(y => (
+            <option key={y} value={y}>{y}</option>
+        ))}
+    </select>
+
+    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-700">
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+    </div>
+</div>
+
                     </div>
 
-                    {/* Regular Articles Grid */}
                     {regularArticles.length > 0 ? (
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {regularArticles.map(article => (
-                                <ArticleCard key={article.id} article={article} readMoreText={tReadMore} />
-                            ))}
+                        <div className={regularArticles.length > 3 ? "overflow-x-auto" : ""}>
+                            <div
+                                className={
+                                    regularArticles.length > 3
+                                        ? "flex gap-6"
+                                        : "grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+                                }
+                            >
+                                {regularArticles.map(article => (
+                                    <div
+                                        key={article.id}
+                                        className={
+                                            regularArticles.length > 3
+                                                ? "flex-shrink-0 basis-[calc((100%-3rem)/3)]"
+                                                : ""
+                                        }
+                                    >
+                                        <ArticleCard article={article} readMoreText={tReadMore} />
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     ) : (
-                        <p className="text-center text-gray-400 py-10">No articles found for {selectedYear}.</p>
+                        <p className="text-center text-gray-400 py-10">
+                            No articles found for {selectedYear}.
+                        </p>
                     )}
+
                 </div>
             </div>
 
@@ -374,11 +406,33 @@ const EventsPage: React.FC = () => {
                 <h2 className="text-center text-[#3E4095] text-xl sm:text-2xl md:text-3xl lg:text-[36px] xl:text-[48px] 2xl:text-[54px] font-semibold mb-6 sm:mb-8 lg:mb-12 px-4">
                     {tUpcomingEvents}
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8 mx-[20px] md:mx-[40px] xl:px-[70px] 2xl:px-[112px]">
-                    {upcomingEvents.map(event => (
-                        <UpcomingEventCard key={event.id} event={event} />
-                    ))}
+                <div className="mx-[20px] md:mx-[40px] xl:px-[70px] 2xl:px-[112px]">
+                    <div className={upcomingEvents.length > 3 ? "overflow-x-auto" : ""}>
+                        <div
+                            className={
+                                upcomingEvents.length > 3
+                                    ? "flex gap-8 min-w-full"
+                                    : "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8"
+                            }
+                        >
+                            {upcomingEvents.map(event => (
+                                <div
+                                    key={event.id}
+                                    className={
+                                        upcomingEvents.length > 3
+                                            ? "flex-shrink-0 basis-[calc((100%-4rem)/3)]"
+                                            : ""
+                                    }
+                                >
+                                    <UpcomingEventCard event={event} />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+
                 </div>
+
             </section>
 
             {/* ── Past Highlights ───────────────────────────────────────────── */}
@@ -472,9 +526,9 @@ const FeaturedArticleCard: React.FC<{
     featuredLabel: string;
     readMoreText: string;
 }> = ({ article, featuredLabel, readMoreText }) => {
-    const { translatedText: tTitle }       = useTranslateContent(article.title);
-    const { translatedText: tCategory }    = useTranslateContent(article.category.replace('_', ' '));
-    const { translatedText: tDate }        = useTranslateContent(article.date);
+    const { translatedText: tTitle } = useTranslateContent(article.title);
+    const { translatedText: tCategory } = useTranslateContent(article.category.replace('_', ' '));
+    const { translatedText: tDate } = useTranslateContent(article.date);
     const { translatedText: tDescription } = useTranslateContent(article.description);
 
     return (
@@ -513,9 +567,9 @@ const FeaturedArticleCard: React.FC<{
 };
 
 const ArticleCard: React.FC<{ article: Article; readMoreText: string }> = ({ article, readMoreText }) => {
-    const { translatedText: tTitle }       = useTranslateContent(article.title);
-    const { translatedText: tCategory }    = useTranslateContent(article.category.replace('_', ' '));
-    const { translatedText: tDate }        = useTranslateContent(article.date);
+    const { translatedText: tTitle } = useTranslateContent(article.title);
+    const { translatedText: tCategory } = useTranslateContent(article.category.replace('_', ' '));
+    const { translatedText: tDate } = useTranslateContent(article.date);
     const { translatedText: tDescription } = useTranslateContent(article.description);
 
     return (
@@ -550,11 +604,10 @@ const FilterButton: React.FC<{
     return (
         <button
             onClick={onClick}
-            className={`px-4 py-2 rounded-full font-medium transition-colors ${
-                isSelected
+            className={`px-4 py-2 rounded-full font-medium transition-colors ${isSelected
                     ? 'bg-[#3E4095] text-white'
                     : 'bg-white text-gray-700 text-[15.17px] hover:bg-gray-100 border'
-            }`}
+                }`}
         >
             {translatedText}
         </button>
@@ -562,10 +615,10 @@ const FilterButton: React.FC<{
 };
 
 const UpcomingEventCard: React.FC<{ event: Event }> = ({ event }) => {
-    const { translatedText: tLocation }    = useTranslateContent(event.location);
-    const { translatedText: tTitle }       = useTranslateContent(event.title);
+    const { translatedText: tLocation } = useTranslateContent(event.location);
+    const { translatedText: tTitle } = useTranslateContent(event.title);
     const { translatedText: tDescription } = useTranslateContent(event.description);
-    const { translatedText: tBooth }       = useTranslateContent(event.booth || '');
+    const { translatedText: tBooth } = useTranslateContent(event.booth || '');
 
     return (
         <div className="bg-white w-full">
@@ -600,8 +653,8 @@ const UpcomingEventCard: React.FC<{ event: Event }> = ({ event }) => {
 };
 
 const PastEventCard: React.FC<{ event: PastEvent }> = ({ event }) => {
-    const { translatedText: tLocation }    = useTranslateContent(event.location);
-    const { translatedText: tTitle }       = useTranslateContent(event.title);
+    const { translatedText: tLocation } = useTranslateContent(event.location);
+    const { translatedText: tTitle } = useTranslateContent(event.title);
     const { translatedText: tDescription } = useTranslateContent(event.description);
 
     return (
