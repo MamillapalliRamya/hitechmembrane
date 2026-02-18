@@ -24,26 +24,26 @@ const TranslatedReview: React.FC<{ review: Review; countryCode: string }> = ({ r
   return (
     <div className="bg-white rounded-xl border-2 border-gray-200 p-5 hover:shadow-lg transition-shadow">
       <div className="flex justify-between mb-4">
-        <div className="flex">
+        <div className="flex gap-1">
           {[...Array(5)].map((_, i) => (
-            <Star key={i} className="w-4 h-4" fill="#FF8800" stroke="#FF8800" />
+            <Star key={i} className="w-4 h-4 2xl:w-5 2xl:h-5" fill="#FF8800" stroke="#FF8800" />
           ))}
         </div>
         <img
           src={`https://flagcdn.com/w80/${countryCode}.png`}
-          className="w-8 h-6 object-cover rounded-sm"
+          className="w-8 h-6 lg:w-10 lg:h-7 object-cover rounded-sm"
         />
       </div>
 
-      <p className="text-gray-800 text-sm mb-4">{translatedReviewText}</p>
+      <p className="text-gray-800 text-sm lg:text-base 2xl:text-lg mb-4">{translatedReviewText}</p>
 
       <div className="flex items-center gap-3">
         <div className="w-9 h-9 rounded-full bg-lime-500 flex items-center justify-center text-white font-bold">
           {review.name.charAt(0)}
         </div>
         <div>
-          <p className="font-semibold text-sm">{translatedCompany}</p>
-          <p className="text-xs text-gray-500">{review.name}</p>
+          <p className="font-semibold text-sm lg:text-base">{translatedCompany}</p>
+          <p className="text-xs lg:text-sm text-gray-500">{review.name}</p>
         </div>
       </div>
     </div>
@@ -73,9 +73,9 @@ const GlobalVoicesOfTrust: React.FC = () => {
 
   return (
     <section className="bg-white py-12">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8 lg:px-14 xl:px-20 2xl:px-28 ">
 
-        <h2 className="text-3xl font-semibold text-[#3E4095] text-center mb-8">
+        <h2 className="text-3xl 2xl:text-5xl font-semibold text-[#3E4095] text-center mb-8 2xl:mb-12">
           {translatedHeading}
         </h2>
 
@@ -85,7 +85,7 @@ const GlobalVoicesOfTrust: React.FC = () => {
             <button
               key={country.name}
               onClick={() => setSelectedCountry(country.name)}
-              className={`px-1 py-1 text-xs font-semibold whitespace-nowrap ${
+              className={`px-1 py-1 text-xs font-bold whitespace-nowrap ${
                 selectedCountry === country.name
                   ? 'text-blue-900 border-b-2 border-lime-400'
                   : 'text-gray-600'
@@ -97,12 +97,12 @@ const GlobalVoicesOfTrust: React.FC = () => {
         </div>
 
         {/* DESKTOP ROW 1 */}
-        <div className="hidden md:flex flex-wrap justify-center gap-6 mb-4">
+        <div className="hidden md:flex flex-wrap justify-center gap-6 2xl:gap-8 mb-4">
           {countriesData.slice(0, 9).map(country => (
             <button
               key={country.name}
               onClick={() => setSelectedCountry(country.name)}
-              className={`text-xl font-semibold whitespace-nowrap ${
+              className={`text-xl 2xl:text-3xl font-bold whitespace-nowrap ${
                 selectedCountry === country.name
                   ? 'text-blue-900 border-b-4 border-lime-400'
                   : 'text-gray-600'
@@ -114,12 +114,12 @@ const GlobalVoicesOfTrust: React.FC = () => {
         </div>
 
         {/* DESKTOP ROW 2 */}
-        <div className="hidden md:flex flex-wrap justify-center gap-6 mb-10">
+        <div className="hidden md:flex flex-wrap justify-center gap-6 2xl:gap-8 mb-10">
           {countriesData.slice(9).map(country => (
             <button
               key={country.name}
               onClick={() => setSelectedCountry(country.name)}
-              className={`text-xl font-semibold whitespace-nowrap ${
+              className={`text-xl 2xl:text-3xl font-bold whitespace-nowrap ${
                 selectedCountry === country.name
                   ? 'text-blue-900 border-b-4 border-lime-400'
                   : 'text-gray-600'
@@ -146,7 +146,7 @@ const GlobalVoicesOfTrust: React.FC = () => {
         </div>
 
         {/* DESKTOP */}
-        <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-6 2xl:gap-8">
           {displayReviews.map(review => (
             <TranslatedReview
               key={review.id}

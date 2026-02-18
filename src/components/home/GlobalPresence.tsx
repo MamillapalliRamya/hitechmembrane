@@ -549,7 +549,7 @@ const subtitleText = homepage?.global_presence_texts || "";
 
   return (
     <section className="py-8 md:py-16  relative overflow-hidden">
-      <div className="mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-6 md:mb-12">
   <h2 className="text-xl sm:text-2xl md:text-5xl text-gray-700 mb-4">
     {translatedTitle}
@@ -593,7 +593,7 @@ const subtitleText = homepage?.global_presence_texts || "";
                 <div
                   className="absolute bg-[#B8D332] text-[#3E4095] px-2 py-1 md:px-4 md:py-2 rounded-md md:rounded-lg shadow-lg font-semibold text-[8px] sm:text-xs md:text-sm whitespace-nowrap"
                   style={{
-                    left: '-3%',
+                    left: '1%',
                     top: '24%',
                     transform: 'translateY(-50%)'
                   }}
@@ -606,7 +606,7 @@ const subtitleText = homepage?.global_presence_texts || "";
                 <div
                   className="absolute bg-[#B8D332] text-[#3E4095] px-2 py-1 md:px-4 md:py-2 rounded-md md:rounded-lg shadow-lg font-semibold text-[8px] sm:text-xs md:text-sm whitespace-nowrap"
                   style={{
-                    right: '-4%',
+                    right: '1%',
                     top: '17%',
                     transform: 'translateY(-50%)'
                   }}
@@ -619,8 +619,8 @@ const subtitleText = homepage?.global_presence_texts || "";
                 <div
                   className="absolute bg-[#B8D332] text-[#3E4095] px-2 py-1 md:px-4 md:py-2 rounded-md md:rounded-lg shadow-lg font-semibold text-[8px] sm:text-xs md:text-sm whitespace-nowrap"
                   style={{
-                    right: '-6%',
-                    top: '48%',
+                    right: '3%',
+                    top: '82%',
                     transform: 'translateY(-50%)'
                   }}
                 >
