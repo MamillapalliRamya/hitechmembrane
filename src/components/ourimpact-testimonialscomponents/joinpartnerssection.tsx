@@ -24,7 +24,7 @@ const JoinPartnersSection: React.FC = () => {
 
     return (
         <section className="py-10 sm:py-14 lg:py-16 bg-gray-50">
-            <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 2xl:px-34 relative z-10">
+            <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 2xl:px-28 relative z-10">
                 <div className="bg-[#3E4095] rounded-3xl shadow-2xl p-6 sm:p-10 md:p-16 lg:p-28 relative overflow-hidden">
 
                     <div className="relative z-10 text-center">

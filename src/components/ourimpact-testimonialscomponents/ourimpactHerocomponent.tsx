@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ArrowLeft, ArrowRight, Star } from 'lucide-react';
 import { useTranslateContent } from '../../hooks/useTranslateContent';
 import vector12 from "../../assets/card-curves/Vector 12.svg"
@@ -17,20 +17,28 @@ interface Testimonial {
 const TestimonialsHero: React.FC = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [videoSrc, setVideoSrc] = useState("");
+    const videoRef = useRef<HTMLVideoElement>(null);
     const [heroContent, setHeroContent] = useState({
         heading: "",
         sub_heading: "",
-        youtube_video_url: ""
     });
 
     useEffect(() => {
         fetch("http://65.0.77.32:8000/api/our-impact-page/")
             .then(res => res.json())
             .then(data => {
-                // Set hero text from CMS
                 setHeroContent(data.testimonials_hero);
 
-                // Convert countries + reviews into flat testimonials list
+                // Use the video file path from CMS
+                const rawVideoPath = data.youtube_video_file || "";
+                // If the path is relative, prepend the base URL
+                const fullVideoUrl = rawVideoPath.startsWith("http")
+                    ? rawVideoPath
+                    : `http://65.0.77.32:8000${rawVideoPath}`;
+                setVideoSrc(fullVideoUrl);
+
                 const allReviews = data.global_voices_of_trust.countries.flatMap((country: any) =>
                     country.reviews.map((review: any) => ({
                         ...review,
@@ -66,26 +74,14 @@ const TestimonialsHero: React.FC = () => {
             />
         ));
     };
-    const getYouTubeThumbnail = (url: string) => {
-        if (!url) return "";
 
-        // supports youtube.com and youtu.be links
-        let videoId = "";
-
-        if (url.includes("v=")) {
-            videoId = url.split("v=")[1]?.split("&")[0];
-        } else if (url.includes("youtu.be/")) {
-            videoId = url.split("youtu.be/")[1]?.split("?")[0];
-        }
-
-        return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+    const handlePlayClick = () => {
+        setIsPlaying(true);
+        // Small delay to let the video element render before playing
+        setTimeout(() => {
+            videoRef.current?.play();
+        }, 50);
     };
-
-    const FALLBACK_YOUTUBE_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-    const videoUrl = heroContent.youtube_video_url || FALLBACK_YOUTUBE_URL;
-
-    // 👆 replace with your real default company video
-
 
     return (
         <section className="py-16 md:py-24 lg:py-32 xl:py-40 bg-white relative overflow-hidden z-0">
@@ -131,7 +127,7 @@ const TestimonialsHero: React.FC = () => {
                             {translatedHeading}
                         </h1>
 
-                        <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl xl:ml-[30px] text-[#404040] mb-6 lg:mb-8 leading-relaxed">
+                        <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-3xl xl:ml-[30px] text-[#404040] mb-6 lg:mb-8 leading-relaxed">
                             {translatedSubHeading}
                         </p>
 
@@ -151,20 +147,34 @@ const TestimonialsHero: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* RIGHT CONTENT - TESTIMONIAL CARD */}
+                    {/* RIGHT CONTENT - VIDEO CARD */}
                     <div className="relative flex justify-center">
                         <div className="relative z-10 bg-white rounded-2xl lg:rounded-3xl shadow-xl w-[600px] xl:w-[742px] 2xl:w-[800px]">
-                           
-                                <a
-                                    href={videoUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="block relative group"
+
+                            {isPlaying ? (
+                                // Native video player — plays inline, no new tab
+                                <video
+                                    ref={videoRef}
+                                    src={videoSrc}
+                                    controls
+                                    autoPlay
+                                    className="w-full h-auto rounded-xl object-cover"
+                                />
+                            ) : (
+                                // Thumbnail + play button overlay
+                                <div
+                                    className="block relative group cursor-pointer"
+                                    onClick={handlePlayClick}
                                 >
-                                    <img
-                                        src={getYouTubeThumbnail(videoUrl)}
-                                        alt="Watch Video"
+                                    {/* Video element hidden, used only to generate a poster frame if needed */}
+                                    <video
+                                        src={videoSrc}
                                         className="w-full h-auto rounded-xl object-cover"
+                                        preload="metadata"
+                                        // Show first frame as thumbnail
+                                        onLoadedMetadata={(e) => {
+                                            (e.target as HTMLVideoElement).currentTime = 0.1;
+                                        }}
                                     />
 
                                     <div className="absolute inset-0 flex items-center justify-center">
@@ -174,9 +184,8 @@ const TestimonialsHero: React.FC = () => {
                                             </svg>
                                         </div>
                                     </div>
-                                </a>
-
-                         
+                                </div>
+                            )}
 
                         </div>
                     </div>
