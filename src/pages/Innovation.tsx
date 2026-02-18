@@ -16,6 +16,8 @@ import GlobalPresenceSection from "../components/home/GlobalPresence";
 import { apiService, InnovationPageData } from "../services/api";
 
 
+
+
 // Helper components to avoid hooks in loops
 const StatCard: React.FC<{ value: string; label: string }> = ({ value, label }) => {
   const { translatedText } = useTranslateContent(label);
@@ -101,6 +103,12 @@ const PortfolioCard: React.FC<{ product: any; learnMoreText: string }> = ({ prod
   const { translatedText: translatedDescription } = useTranslateContent(product.description);
   const { translatedText: translatedLearnMore } = useTranslateContent(learnMoreText);
 
+   const handleLearnMore = () => {
+    const fallbackMedia = Portfolio1; // ✅ use any existing imported image/file
+    const mediaUrl = product.learn_more_link || product.image || fallbackMedia;
+    window.open(mediaUrl, "_blank");
+  };
+
   return (
     <div className="bg-white text-gray-800 rounded-[17.52px] overflow-hidden shadow-lg">
       <div className="w-full overflow-hidden">
@@ -110,10 +118,13 @@ const PortfolioCard: React.FC<{ product: any; learnMoreText: string }> = ({ prod
         <h3 className="font-bold text-[20.02px] font-['Diodrum_Cyrillic'] text-[#3D3B8E] mb-2">{translatedTitle}</h3>
         <p className="text-gray-600 text-[17px]">{translatedDescription}</p>
       </div>
-      <button className="p-6 group inline-flex items-center gap-2 text-[#B8D332] font-semibold text-[20.02px]">
+      <button
+        onClick={handleLearnMore}
+        className="p-6 group inline-flex items-center gap-2 text-[#B8D332] font-semibold text-[20.02px]"
+      >
         {translatedLearnMore}
         <span className="transition-transform duration-300 group-hover:translate-x-1">
-          <ChevronRight className='mt-[4px] mr-3' />
+          <ChevronRight className="mt-[4px] mr-3" />
         </span>
       </button>
     </div>
