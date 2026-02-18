@@ -340,17 +340,12 @@ export interface EventsPageData {
       }>;
     };
     past_highlights_section: {
-      title: string;
-      months_filter: string[];
-      events: Array<{
-        id: number;
-        month: string;
-        location: string;
-        title: string;
-        description: string;
-        image: string | null;
-      }>;
-    };
+    title: string;
+    years: Array<{
+        year: string;
+        events: Array<{ id: number; month: string; location: string; title: string; description: string; image: string | null; }>;
+    }>;
+};
     cta_section: {
       main_text: string;
       description: string;
