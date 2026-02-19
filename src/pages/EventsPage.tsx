@@ -94,7 +94,7 @@ interface EventsPageData {
         };
         past_highlights_section: {
             title: string;
-            years: PastYearGroup[]; // [{year:"2025", events:[...]}, ...]
+            years: PastYearGroup[];
         };
         cta_section: {
             main_text: string;
@@ -115,17 +115,12 @@ const categoryImageMap: { [key: string]: string } = {
     case_study: Case_Study,
 };
 
-/** Extract 4-digit year from ISO date "2025-12-10" → "2025" */
 const extractYear = (dateStr: string | null | undefined): string => {
     if (!dateStr) return '';
     const m = dateStr.match(/\b(20\d{2})\b/);
     return m ? m[1] : '';
 };
 
-/**
- * Resolve image — avoids double BASE_URL prefixing.
- * api.ts may already prepend BASE_URL, so check first.
- */
 const resolveImg = (path: string | null, fallback: string): string => {
     if (!path) return fallback;
     if (path.startsWith('http')) return path;
@@ -146,7 +141,6 @@ const EventsPage: React.FC = () => {
                 const raw = await apiService.getEventsPageData();
                 const data = raw as unknown as EventsPageData;
                 setCmsData(data);
-                // Default = first year group from new API shape
                 const firstYear = data.events_page.past_highlights_section.years?.[0]?.year;
                 if (firstYear) setSelectedYear(firstYear);
             } catch (error) {
@@ -172,13 +166,12 @@ const EventsPage: React.FC = () => {
     const { translatedText: tCTADesc } = useTranslateContent(cmsData?.events_page.cta_section.description || "Contact our team at sales@hitechmembranes.com to schedule a meeting.");
     const { translatedText: tCTAButton } = useTranslateContent(cmsData?.events_page.cta_section.button_text || "Let's Talk");
 
-    // ── Derived: year list from past_highlights.years ─────────────────────────
+    // ── Derived ───────────────────────────────────────────────────────────────
     const years = useMemo(() =>
         (cmsData?.events_page.past_highlights_section.years || []).map(g => g.year),
         [cmsData]
     );
 
-    // ── Derived: filter tabs (strip nulls) ────────────────────────────────────
     const filters = useMemo(() => {
         const raw = (cmsData?.events_page.news_articles_section.filters || [])
             .filter((f): f is string => typeof f === 'string' && f.trim() !== '');
@@ -187,15 +180,12 @@ const EventsPage: React.FC = () => {
         return raw;
     }, [cmsData]);
 
-    // ── Derived: featured article fallback image ──────────────────────────────
-    // All cards with null image will fall back to the featured article's image.
     const featuredImgFallback = useMemo(() => {
         const fa = cmsData?.events_page.featured_article;
         if (fa?.image) return resolveImg(fa.image, categoryImageMap[fa.category] || ProductInnovation);
         return categoryImageMap[fa?.category ?? ''] || ProductInnovation;
     }, [cmsData]);
 
-    // ── Derived: ALL articles (featured + regular) with resolved images ────────
     const allArticles: Article[] = useMemo(() => {
         if (!cmsData) return [];
         const fa = cmsData.events_page.featured_article;
@@ -212,25 +202,16 @@ const EventsPage: React.FC = () => {
         ];
     }, [cmsData, featuredImgFallback]);
 
-    /**
-     * ARTICLE YEAR FILTER
-     * Extracts year from article.date (ISO "2025-12-10" → "2025")
-     * and compares with selectedYear.
-     * Graceful fallback: if no articles match the year, show all.
-     */
     const filteredArticles: Article[] = useMemo(() => {
         let result = allArticles;
 
-        // YEAR filter (strict)
         if (selectedYear) {
             result = result.filter(a => extractYear(a.date) === selectedYear);
         }
 
-        // CATEGORY filter (strict)
         if (selectedFilter && selectedFilter !== 'All Articles') {
             const norm = (s: string) => s.toLowerCase().replace(/[\s-]+/g, '_');
             const fNorm = norm(selectedFilter);
-
             result = result.filter(a => {
                 const cNorm = norm(a.category);
                 return cNorm.includes(fNorm) || fNorm.includes(cNorm);
@@ -240,11 +221,9 @@ const EventsPage: React.FC = () => {
         return result;
     }, [allArticles, selectedYear, selectedFilter]);
 
-
     const featuredArticle = useMemo(() => filteredArticles.find(a => a.featured), [filteredArticles]);
     const regularArticles = useMemo(() => filteredArticles.filter(a => !a.featured), [filteredArticles]);
 
-    // ── Derived: upcoming events ──────────────────────────────────────────────
     const upcomingEvents: Event[] = useMemo(() =>
         (cmsData?.events_page.upcoming_events_section.events || []).map(e => ({
             ...e,
@@ -255,17 +234,11 @@ const EventsPage: React.FC = () => {
 
     const articleYears = useMemo(() => {
         const years = allArticles
-            .map(a => extractYear(a.date))   // get year from date
-            .filter(Boolean);                // remove null / undefined
-
-        return [...new Set(years)].sort((a, b) => Number(b) - Number(a)); // latest first
+            .map(a => extractYear(a.date))
+            .filter(Boolean);
+        return [...new Set(years)].sort((a, b) => Number(b) - Number(a));
     }, [allArticles]);
 
-
-    /**
-     * PAST EVENTS — new API shape: years:[{year, events:[]}]
-     * Find the group matching selectedYear and show only its events.
-     */
     const pastEvents: PastEvent[] = useMemo(() => {
         const yearGroups = cmsData?.events_page.past_highlights_section.years || [];
         const flatAll = () => yearGroups.flatMap(g =>
@@ -277,7 +250,6 @@ const EventsPage: React.FC = () => {
         return group.events.map(e => ({ ...e, image: resolveImg(e.image, featuredImgFallback) }));
     }, [cmsData, selectedYear, featuredImgFallback]);
 
-    // ── Hero image ────────────────────────────────────────────────────────────
     const heroBackgroundImage = useMemo(() => {
         const path = cmsData?.events_page.hero.background_image?.[0];
         if (!path) return '/assets/images/events_bg.svg';
@@ -346,52 +318,68 @@ const EventsPage: React.FC = () => {
                                 />
                             ))}
                         </div>
-                        {/* Year dropdown — filters both Articles and Past Highlights */}
                         <div className="relative">
-    <select
-        value={selectedYear}
-        onChange={e => setSelectedYear(e.target.value)}
-        className="appearance-none pr-10 px-4 py-2 border rounded-lg bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500"
-    >
-        <option value="">All Years</option>
-
-        {articleYears.map(y => (
-            <option key={y} value={y}>{y}</option>
-        ))}
-    </select>
-
-    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-700">
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
-    </div>
-</div>
-
+                            <select
+                                value={selectedYear}
+                                onChange={e => setSelectedYear(e.target.value)}
+                                className="appearance-none pr-10 px-4 py-2 border rounded-lg bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            >
+                                <option value="">All Years</option>
+                                {articleYears.map(y => (
+                                    <option key={y} value={y}>{y}</option>
+                                ))}
+                            </select>
+                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-700">
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+                        </div>
                     </div>
 
                     {regularArticles.length > 0 ? (
-                        <div className={regularArticles.length > 3 ? "overflow-x-auto" : ""}>
-                            <div
-                                className={
-                                    regularArticles.length > 3
-                                        ? "flex gap-6"
-                                        : "grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-                                }
-                            >
-                                {regularArticles.map(article => (
-                                    <div
-                                        key={article.id}
-                                        className={
-                                            regularArticles.length > 3
-                                                ? "flex-shrink-0 basis-[calc((100%-3rem)/3)]"
-                                                : ""
-                                        }
-                                    >
-                                        <ArticleCard article={article} readMoreText={tReadMore} />
-                                    </div>
-                                ))}
+                        <>
+                            {/* ── Mobile: horizontal snap scroll, 1 card visible ── */}
+                            <div className="md:hidden -mx-4 px-4">
+                                <div
+                                    className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4"
+                                    style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                                >
+                                    {regularArticles.map(article => (
+                                        <div
+                                            key={article.id}
+                                            className="flex-shrink-0 w-[calc(100vw-2rem)] snap-center"
+                                        >
+                                            <ArticleCard article={article} readMoreText={tReadMore} />
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
+
+                            {/* ── md+: original layout (unchanged) ── */}
+                            <div className={`hidden md:block ${regularArticles.length > 3 ? "overflow-x-auto" : ""}`}>
+                                <div
+                                    className={
+                                        regularArticles.length > 3
+                                            ? "flex gap-6"
+                                            : "grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+                                    }
+                                >
+                                    {regularArticles.map(article => (
+                                        <div
+                                            key={article.id}
+                                            className={
+                                                regularArticles.length > 3
+                                                    ? "flex-shrink-0 basis-[calc((100%-3rem)/3)]"
+                                                    : ""
+                                            }
+                                        >
+                                            <ArticleCard article={article} readMoreText={tReadMore} />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </>
                     ) : (
                         <p className="text-center text-gray-400 py-10">
                             No articles found for {selectedYear}.
@@ -407,7 +395,26 @@ const EventsPage: React.FC = () => {
                     {tUpcomingEvents}
                 </h2>
                 <div className="mx-[20px] md:mx-[40px] xl:px-[70px] 2xl:px-[112px]">
-                    <div className={upcomingEvents.length > 3 ? "overflow-x-auto" : ""}>
+
+                    {/* ── Mobile: horizontal snap scroll, 1 card visible ── */}
+                    <div className="md:hidden -mx-[20px] px-[20px]">
+                        <div
+                            className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4"
+                            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                        >
+                            {upcomingEvents.map(event => (
+                                <div
+                                    key={event.id}
+                                    className="flex-shrink-0 w-[calc(100vw-2.5rem)] snap-center"
+                                >
+                                    <UpcomingEventCard event={event} />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* ── md+: original layout (unchanged) ── */}
+                    <div className={`hidden md:block ${upcomingEvents.length > 3 ? "overflow-x-auto" : ""}`}>
                         <div
                             className={
                                 upcomingEvents.length > 3
@@ -430,9 +437,7 @@ const EventsPage: React.FC = () => {
                         </div>
                     </div>
 
-
                 </div>
-
             </section>
 
             {/* ── Past Highlights ───────────────────────────────────────────── */}
@@ -442,7 +447,6 @@ const EventsPage: React.FC = () => {
                 </h2>
 
                 <div>
-                    {/* Year selector — same shared state as Articles dropdown */}
                     <div className="relative mb-6 sm:mb-8 lg:mb-10 ml-4 sm:ml-8 md:ml-12 lg:ml-[60px] w-full max-w-[150px] sm:max-w-[200px] md:max-w-[300px] lg:max-w-[300px]">
                         <select
                             value={selectedYear}
@@ -456,11 +460,6 @@ const EventsPage: React.FC = () => {
                         <ChevronDown className="absolute right-4 sm:right-5 md:right-6 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none text-lg sm:text-xl md:text-2xl" />
                     </div>
 
-                    {/*
-                     * TIMELINE
-                     * Line is in the OUTER div (never scrolls/clips).
-                     * Cards are in the INNER div.
-                     */}
                     <div className="relative px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24 2xl:px-[112px]">
                         <div className="absolute left-9 sm:left-10 md:left-[84px] lg:left-[100px] xl:left-[132px] 2xl:left-[150px] top-0 bottom-0 w-0.5 sm:w-1 bg-[#3E4095]" />
 
@@ -519,7 +518,7 @@ const EventsPage: React.FC = () => {
     );
 };
 
-// ─── Sub-components (original UI from doc8, unchanged) ────────────────────────
+// ─── Sub-components ────────────────────────────────────────────────────────────
 
 const FeaturedArticleCard: React.FC<{
     article: Article;
