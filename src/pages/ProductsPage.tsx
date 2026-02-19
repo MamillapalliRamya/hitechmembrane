@@ -42,8 +42,9 @@ const ProductPage: React.FC = () => {
     link.href = dataSheet
       ? (dataSheet.startsWith('http') ? dataSheet : `${BACKEND_URL}${dataSheet}`)
       : '/assets/pdf/sample.pdf';
-     window.open(link.href, '_blank');
+    window.open(link.href, '_blank');
   };
+ 
 
   /* -------------------------- STATIC FALLBACK TABLE ROWS -------------------------- */
   const residentialRERows = [
@@ -109,6 +110,8 @@ const ProductPage: React.FC = () => {
       layer: cms?.layer || "Layer",
       dataSheet: cms?.data_sheet || "Data Sheet",
       downloadBtn: cms?.download_btn || "Download",
+
+
     };
   };
 
@@ -203,7 +206,12 @@ const ProductPage: React.FC = () => {
         <MainTitle text={cmsData?.product_page?.product_main_title || "Reverse Osmosis Membrane Elements for Every Water Challenge"} />
 
         {/* Download Brochure */}
-        <DownloadBrochure text={cmsData?.product_page?.download_brochure_text || "Download Hi-Tech RO Brochure"} />
+        {/* <DownloadBrochure text={cmsData?.product_page?.download_brochure_text || "Download Hi-Tech RO Brochure"} /> */}
+        <DownloadBrochure
+          text={cmsData?.product_page?.download_brochure_text || "Download Hi-Tech RO Brochure"}
+          brochureUrl={cmsData?.product_page?.download_brochure}
+        />
+
 
         {/* Product Categories Grid */}
         {(() => {
@@ -348,12 +356,21 @@ const MainTitle = ({ text }: { text: string }) => {
   );
 };
 
-const DownloadBrochure = ({ text }: { text: string }) => {
+interface DownloadBrochureProps {
+  text: string;
+  brochureUrl?: string; // CMS file path (optional)
+}
+
+const DownloadBrochure = ({ text, brochureUrl }: DownloadBrochureProps) => {
   const { translatedText } = useTranslateContent(text);
+
+  // fallback if CMS brochure not available
+  const fileUrl = brochureUrl ? `${BACKEND_URL}${brochureUrl}` : "/assets/pdf/sample.pdf";
+
   return (
-    <div className="text-end mb-3 ">
+    <div className="text-end mb-3">
       <a
-        href="/assets/pdf/sample.pdf"
+        href={fileUrl}
         target="_blank"
         rel="noopener noreferrer"
         className="text-[#A8CF45] underline text-lg sm:text-xl lg:text-2xl inline-flex items-center gap-2 flex-wrap justify-center"
@@ -364,6 +381,7 @@ const DownloadBrochure = ({ text }: { text: string }) => {
     </div>
   );
 };
+
 
 const SectionContent = ({ title, desc1, desc2 }: { title: string; desc1: string; desc2: string }) => {
   const { translatedText: translatedTitle } = useTranslateContent(title);

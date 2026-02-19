@@ -103,7 +103,7 @@ const ContactPage: React.FC = () => {
   const [cmsData, setCmsData] = useState<CMSResponse | null>(null);
 
   useEffect(() => {
-    fetch(`${API_BASE_URL}/contact-page/`)
+    fetch(`${API_BASE_URL}/contact-page-cms`)
       .then(res => res.json())
       .then(data => {
         console.log("Contact CMS:", data);
@@ -251,7 +251,6 @@ const ContactPage: React.FC = () => {
     category: "", country: "", subject: "", productType: "", message: "", file: null,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isUploadingFile, setIsUploadingFile] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error' | null; message: string }>({ type: null, message: '' });
 
   /* ── form handlers ─────────────────────────────────────────────────────── */
@@ -260,30 +259,15 @@ const ContactPage: React.FC = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  /**
-   * When country changes:
-   *  1. Update the country field
-   *  2. Look up the dial code and populate phoneCountryCode
-   *  3. If the phone field currently starts with an old dial code, strip it
-   */
   const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedCountry = e.target.value;
     const dialCode = COUNTRY_DIAL_CODES[selectedCountry] ?? "";
-
     setFormData(prev => {
-      // Strip any existing country code prefix from the phone number so we
-      // don't accumulate codes when the user switches countries.
       let strippedPhone = prev.phone;
       if (prev.phoneCountryCode && strippedPhone.startsWith(prev.phoneCountryCode)) {
         strippedPhone = strippedPhone.slice(prev.phoneCountryCode.length).trimStart();
       }
-
-      return {
-        ...prev,
-        country: selectedCountry,
-        phoneCountryCode: dialCode,
-        phone: strippedPhone,
-      };
+      return { ...prev, country: selectedCountry, phoneCountryCode: dialCode, phone: strippedPhone };
     });
   };
 
@@ -293,7 +277,12 @@ const ContactPage: React.FC = () => {
       if (file.size > 10 * 1024 * 1024) {
         setSubmitStatus({ type: 'error', message: 'File size exceeds 10MB limit.' }); return;
       }
-      if (!['image/jpeg', 'image/jpg', 'image/png', 'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'].includes(file.type)) {
+      if (!['image/jpeg', 'image/jpg', 'image/png', 'application/pdf',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'application/vnd.ms-excel',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      ].includes(file.type)) {
         setSubmitStatus({ type: 'error', message: 'Invalid file type. Only JPEG, PNG, Word, Excel and PDF files are allowed.' }); return;
       }
     }
@@ -301,68 +290,98 @@ const ContactPage: React.FC = () => {
     if (submitStatus.type === 'error') setSubmitStatus({ type: null, message: '' });
   };
 
-  const uploadFileToS3 = async (presignedUrl: string, file: File): Promise<boolean> => {
-    try {
-      setIsUploadingFile(true);
-      const uploadResponse = await fetch(presignedUrl, { method: 'PUT', headers: { 'Content-Type': file.type }, body: file });
-      if (!uploadResponse.ok) throw new Error('Failed to upload file to S3');
-      return true;
-    } catch (error) {
-      throw new Error('Failed to upload file. Please try again.');
-    } finally {
-      setIsUploadingFile(false);
-    }
-  };
-
+  /* ── MAIN SUBMIT — sends multipart/form-data ───────────────────────────── */
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // ── Frontend validation ─────────────────────────────────────────────────
+    if (!formData.firstName.trim()) {
+      setSubmitStatus({ type: 'error', message: 'Name is required.' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    if (!formData.email.trim()) {
+      setSubmitStatus({ type: 'error', message: 'Email is required.' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    if (!formData.country) {
+      setSubmitStatus({ type: 'error', message: 'Please select a country.' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    if (!formData.message.trim()) {
+      setSubmitStatus({ type: 'error', message: 'Message is required.' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitStatus({ type: null, message: '' });
+
     try {
-      // Combine country code + phone number for submission
+      // Build full phone with country code
       const fullPhone = formData.phoneCountryCode
         ? `${formData.phoneCountryCode} ${formData.phone}`.trim()
         : formData.phone.trim();
 
-      const payload: any = {
-        name: formData.firstName.trim(), email: formData.email.trim(),
-        country: formData.country, product_type: formData.productType,
-        message: formData.message.trim(), category: formData.category || null,
-        company: formData.company.trim() || null, phone: fullPhone || null,
-        subject: formData.subject.trim() || null,
-      };
-      if (formData.file) payload.file_name = formData.file.name;
+      // ── Build FormData (multipart) ─────────────────────────────────────────
+      // Do NOT set Content-Type header manually — browser sets it with the
+      // correct boundary string automatically when body is a FormData object.
+      const payload = new FormData();
+      payload.append('name',    formData.firstName.trim());
+      payload.append('email',   formData.email.trim());
+      payload.append('country', formData.country);
+      payload.append('message', formData.message.trim());
+
+      if (formData.productType)    payload.append('product_type', formData.productType);
+      if (formData.category)       payload.append('category',     formData.category);
+      if (formData.company.trim()) payload.append('company',      formData.company.trim());
+      if (fullPhone)               payload.append('phone',        fullPhone);
+      if (formData.subject.trim()) payload.append('subject',      formData.subject.trim());
+      if (formData.file)           payload.append('file',         formData.file);
 
       const response = await fetch(`${API_BASE_URL}/contact-us`, {
-        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload),
+        method: 'POST',
+        body: payload,
+        // ⚠️ No 'Content-Type' header here — browser adds multipart/form-data + boundary automatically
       });
+
       const data = await response.json();
 
       if (response.ok) {
-        if (formData.file && data.upload_url) {
-          try { await uploadFileToS3(data.upload_url, formData.file); }
-          catch {
-            setSubmitStatus({ type: 'error', message: `Form submitted (ID: ${data.id}), but file upload failed.` });
-            setIsSubmitting(false); return;
-          }
-        }
         setSubmitStatus({ type: 'success', message: 'Thank you for contacting us! Your enquiry has been submitted successfully.' });
-        setFormData({ firstName: "", company: "", email: "", phone: "", phoneCountryCode: "", category: "", country: "", subject: "", productType: "", message: "", file: null });
+        setFormData({
+          firstName: "", company: "", email: "", phone: "", phoneCountryCode: "",
+          category: "", country: "", subject: "", productType: "", message: "", file: null,
+        });
         const fileInput = document.getElementById('fileUpload') as HTMLInputElement;
         if (fileInput) fileInput.value = '';
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setTimeout(() => setSubmitStatus({ type: null, message: '' }), 8000);
       } else {
-        const errorMessage = data.detail
-          ? (typeof data.detail === 'string' ? data.detail : JSON.stringify(data.detail))
-          : 'Failed to submit form. Please try again.';
+        // Parse backend error message
+        let errorMessage = 'Failed to submit form. Please try again.';
+        if (data?.error) {
+          errorMessage = data.error;
+        } else if (data?.detail) {
+          errorMessage = typeof data.detail === 'string' ? data.detail : JSON.stringify(data.detail);
+        } else if (typeof data === 'object') {
+          const firstKey = Object.keys(data)[0];
+          if (firstKey) {
+            const val = data[firstKey];
+            errorMessage = `${firstKey}: ${Array.isArray(val) ? val[0] : val}`;
+          }
+        }
         throw new Error(errorMessage);
       }
     } catch (error) {
       let errorMessage = 'An unexpected error occurred. Please try again.';
-      if (error instanceof TypeError && error.message.includes('Failed to fetch'))
+      if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
         errorMessage = 'Network error: Unable to connect to the server.';
-      else if (error instanceof Error) errorMessage = error.message;
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      }
       setSubmitStatus({ type: 'error', message: errorMessage });
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } finally {
@@ -448,14 +467,14 @@ const ContactPage: React.FC = () => {
                       <label className="block text-sm font-medium text-gray-600 mb-1">{translatedNameLabel}</label>
                       <input type="text" name="firstName" placeholder={translatedFirstNamePlaceholder}
                         value={formData.firstName} onChange={handleInputChange} required
-                        disabled={isSubmitting || isUploadingFile}
+                        disabled={isSubmitting}
                         className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm" />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-600 mb-1">{translatedCompanyLabel}</label>
                       <input type="text" name="company" placeholder={translatedCompanyPlaceholder}
                         value={formData.company} onChange={handleInputChange}
-                        disabled={isSubmitting || isUploadingFile}
+                        disabled={isSubmitting}
                         className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm" />
                     </div>
                   </div>
@@ -466,13 +485,13 @@ const ContactPage: React.FC = () => {
                       <label className="block text-sm font-medium text-gray-600 mb-1">{translatedEmailLabel}</label>
                       <input type="email" name="email" placeholder={translatedEmailPlaceholder}
                         value={formData.email} onChange={handleInputChange} required
-                        disabled={isSubmitting || isUploadingFile}
+                        disabled={isSubmitting}
                         className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm" />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-600 mb-1">{translatedCategoryLabel}</label>
                       <select name="category" value={formData.category} onChange={handleInputChange}
-                        disabled={isSubmitting || isUploadingFile}
+                        disabled={isSubmitting}
                         className="w-full px-3 py-2 bg-gray-100 text-black border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm">
                         {categories.map((cat, i) => (
                           <option key={i} value={i === 0 ? "" : cat} disabled={i === 0}>{cat}</option>
@@ -481,9 +500,8 @@ const ContactPage: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* ── Country & Phone (Country first, then Phone with auto-code) ── */}
+                  {/* Country & Phone */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {/* Country — moved before Phone */}
                     <div>
                       <label className="block text-sm font-medium text-gray-600 mb-1">{translatedCountryLabel}</label>
                       <select
@@ -491,7 +509,7 @@ const ContactPage: React.FC = () => {
                         value={formData.country}
                         onChange={handleCountryChange}
                         required
-                        disabled={isSubmitting || isUploadingFile}
+                        disabled={isSubmitting}
                         className="w-full px-3 py-2 bg-gray-100 border text-black border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
                       >
                         {countries.map((country, i) => (
@@ -500,11 +518,9 @@ const ContactPage: React.FC = () => {
                       </select>
                     </div>
 
-                    {/* Phone — with country-code prefix badge */}
                     <div>
                       <label className="block text-sm font-medium text-gray-600 mb-1">{translatedPhoneLabel}</label>
                       <div className="flex">
-                        {/* Country code badge — only shown once a country is selected */}
                         {formData.phoneCountryCode && (
                           <span className="inline-flex items-center px-2.5 py-2 rounded-l border border-r-0 border-gray-300 bg-gray-200 text-gray-700 text-sm font-medium whitespace-nowrap select-none">
                             {formData.phoneCountryCode}
@@ -516,7 +532,7 @@ const ContactPage: React.FC = () => {
                           placeholder={translatedPhonePlaceholder}
                           value={formData.phone}
                           onChange={handleInputChange}
-                          disabled={isSubmitting || isUploadingFile}
+                          disabled={isSubmitting}
                           className={`w-full px-3 py-2 bg-gray-100 border border-gray-300 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm ${formData.phoneCountryCode ? 'rounded-r' : 'rounded'}`}
                         />
                       </div>
@@ -529,13 +545,13 @@ const ContactPage: React.FC = () => {
                       <label className="block text-sm font-medium text-gray-600 mb-1">{translatedSubjectLabel}</label>
                       <input type="text" name="subject" placeholder={translatedSubjectPlaceholder}
                         value={formData.subject} onChange={handleInputChange}
-                        disabled={isSubmitting || isUploadingFile}
+                        disabled={isSubmitting}
                         className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm" />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-600 mb-1">{translatedProductTypeLabel}</label>
-                      <select name="productType" value={formData.productType} onChange={handleInputChange} 
-                        disabled={isSubmitting || isUploadingFile}
+                      <select name="productType" value={formData.productType} onChange={handleInputChange}
+                        disabled={isSubmitting}
                         className="w-full px-3 py-2 text-black bg-gray-100 border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm">
                         {productTypes.map((type, i) => (
                           <option key={i} value={i === 0 ? "" : type} disabled={i === 0}>{type}</option>
@@ -550,7 +566,7 @@ const ContactPage: React.FC = () => {
                       <label className="block text-sm font-medium text-gray-600 mb-1">{translatedMessageLabel}</label>
                       <textarea name="message" placeholder={translatedMessagePlaceholder}
                         value={formData.message} onChange={handleInputChange} rows={5} required
-                        disabled={isSubmitting || isUploadingFile}
+                        disabled={isSubmitting}
                         className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm resize-none" />
                     </div>
                     <div>
@@ -560,9 +576,9 @@ const ContactPage: React.FC = () => {
                         <p className="text-xs text-gray-600 mb-1">{translatedFileUploadText}</p>
                         <p className="text-xs text-gray-400 mb-2">{translatedFileUploadSubtext}</p>
                         <input type="file" accept=".jpeg,.jpg,.png,.pdf" className="hidden" id="fileUpload"
-                          onChange={handleFileChange} disabled={isSubmitting || isUploadingFile} />
+                          onChange={handleFileChange} disabled={isSubmitting} />
                         <label htmlFor="fileUpload"
-                          className={`text-gray-700 hover:bg-gray-50 cursor-pointer text-xs ${(isSubmitting || isUploadingFile) ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                          className={`text-gray-700 hover:bg-gray-50 cursor-pointer text-xs ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}>
                           {translatedBrowseFileText}
                         </label>
                         {formData.file && <p className="mt-2 text-xs text-green-600 truncate px-2">{formData.file.name}</p>}
@@ -572,10 +588,10 @@ const ContactPage: React.FC = () => {
 
                   {/* Submit */}
                   <div className="pt-4 flex justify-center">
-                    <button type="submit" disabled={isSubmitting || isUploadingFile}
-                      className={`w-full sm:w-auto bg-green-500 shadow-lg cursor-pointer transform transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#98C135] text-blue-900 font-medium py-3 px-8 rounded ${(isSubmitting || isUploadingFile) ? 'opacity-50 cursor-not-allowed' : ''}`}
-                      style={{ backgroundColor: (isSubmitting || isUploadingFile) ? '#94A3B8' : '#A8CF45' }}>
-                      {isUploadingFile ? translatedUploadingText : isSubmitting ? translatedSubmittingText : translatedSubmitButtonText}
+                    <button type="submit" disabled={isSubmitting}
+                      className={`w-full sm:w-auto shadow-lg cursor-pointer transform transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#98C135] text-blue-900 font-medium py-3 px-8 rounded ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      style={{ backgroundColor: isSubmitting ? '#94A3B8' : '#A8CF45' }}>
+                      {isSubmitting ? translatedSubmittingText : translatedSubmitButtonText}
                     </button>
                   </div>
 
