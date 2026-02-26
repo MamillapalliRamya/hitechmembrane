@@ -210,11 +210,15 @@ const fallbackInnovationData = {
       { title: "Sea Water Membrane Element", description: "Advanced desalination technology for coastal applications", image: Portfolio4 }
     ]
   },
-  globalPresence: [
-    { value: "3", label: "Innovation Centers", country: "USA, Europe, Asia" },
-    { value: "22", label: "Countries Served", country: "Global partnerships" },
-    { value: "5", label: "Continents", country: "Worldwide presence" }
-  ]
+  // ✅ Updated: now matches CMS shape with section_title + cards
+  global_presence: {
+    section_title: "Innovation Hubs Worldwide",
+    cards: [
+      { value: "3", title: "Innovation Centers", subtitle: "USA, Europe, Asia" },
+      { value: "22", title: "Countries Served", subtitle: "Global partnerships" },
+      { value: "5", title: "Continents", subtitle: "Worldwide presence" }
+    ]
+  }
 };
 
 const Innovation: React.FC = () => {
@@ -284,12 +288,21 @@ const Innovation: React.FC = () => {
         : [Portfolio1, Portfolio2, Portfolio3, Portfolio4][index]
   }));
 
-  const globalPresenceCards =
-    data.globalPresence && data.globalPresence.length > 0
-      ? data.globalPresence
-      : fallbackInnovationData.globalPresence;
+  // ✅ Read global_presence from CMS, fall back to fallback data
+  const globalPresenceSection =
+    (data as any).global_presence ?? fallbackInnovationData.global_presence;
 
-
+  // ✅ Normalize CMS card shape { value, title, subtitle }
+  //    → GlobalPresenceSection shape { value, label, country }
+  const globalPresenceCards = (
+    globalPresenceSection.cards?.length > 0
+      ? globalPresenceSection.cards
+      : fallbackInnovationData.global_presence.cards
+  ).map((card: any) => ({
+    value: card.value,
+    label: card.title,
+    country: card.subtitle,
+  }));
 
   const Data = innovationData ?? fallbackInnovationData;
 
@@ -306,7 +319,10 @@ const Innovation: React.FC = () => {
   const { translatedText: translatedTeamSubtext } = useTranslateContent(Data.team.subtext);
   const { translatedText: translatedPortfolioHeading } = useTranslateContent(Data.portfolio.heading);
   const { translatedText: translatedPortfolioSubtext } = useTranslateContent(Data.portfolio.subtext);
-  const { translatedText: translatedGlobalHeading } = useTranslateContent("Innovation Hubs Worldwide");
+  // ✅ Title now comes from CMS global_presence.section_title
+  const { translatedText: translatedGlobalHeading } = useTranslateContent(
+    globalPresenceSection.section_title ?? "Innovation Hubs Worldwide"
+  );
 
   if (loading) {
     return (
@@ -424,6 +440,7 @@ const Innovation: React.FC = () => {
       </section>
 
       {/* Global Presence Section */}
+      {/* ✅ title and cards now driven by CMS global_presence data */}
       <GlobalPresenceSection
         title={translatedGlobalHeading}
         showDescription={false}

@@ -12,7 +12,7 @@ const Header: React.FC = () => {
   const { t, i18n } = useTranslation();
 
   // Text content for translation
-  const aboutText = "About";
+  const aboutText = "Aboutc US";
   const productsText = "Products";
   const innovationText = "Innovation";
   const ourImpactText = "Our Impact";
